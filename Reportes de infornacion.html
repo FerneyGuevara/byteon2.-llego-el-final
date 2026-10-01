@@ -1,0 +1,4688 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Normas técnicas para informes — analiza, aplica y evalúa</title>
+  <style>
+    :root {
+      --navy: #14213D;
+      --navy-2: #1C2D52;
+      --parchment: #F6F1E7;
+      --paper: #FFFFFF;
+      --ink: #1D2430;
+      --ink-soft: #5B6472;
+      --teal: #1F7A6C;
+      --teal-dark: #155A50;
+      --coral: #D65B4A;
+      --coral-dark: #B14536;
+      --gold: #C68A2E;
+      --gold-dark: #9C6D20;
+      --border: #E2D9C4;
+      --border-cool: #D7DCE6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.55;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin: 0;
+      color: var(--navy);
+    }
+
+    .tag {
+      font-family: ui-monospace, "SF Mono", Consolas, monospace;
+      font-size: 0.72rem;
+      letter-spacing: .03em;
+      color: var(--ink-soft);
+    }
+
+    p {
+      margin: 0 0 12px;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    /* ---------- Hero + nav ---------- */
+    .hero {
+      background: linear-gradient(155deg, var(--navy) 0%, var(--navy-2) 65%, #223A63 100%);
+      color: #F2F0E8;
+      padding: 44px 24px 0;
+    }
+
+    .hero-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .hero-body {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      margin-bottom: 28px;
+    }
+
+    .hero-img-wrap {
+      flex: 0 0 240px;
+      max-width: 260px;
+    }
+
+    .hero-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    .hero-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .hero .tag {
+      color: #9FB3D6;
+    }
+
+    .hero h1,
+    .hero .hero-sub {
+      color: #FFFFFF;
+      font-size: clamp(1.6rem, 3.8vw, 2.5rem);
+      line-height: 1.15;
+      font-weight: 800;
+      margin: 8px 0 4px;
+      width: 100%;
+      max-width: none;
+      text-wrap: balance;
+    }
+
+    .hero .hero-sub {
+      margin: 0 0 14px;
+    }
+
+    .hero p.lead {
+      color: #C9D3E6;
+      width: 100%;
+      max-width: none;
+      font-size: clamp(0.95rem, 1.4vw, 1.08rem);
+      margin-bottom: 0;
+      text-wrap: pretty;
+    }
+
+    @media (max-width: 768px) {
+      .hero-body {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+      }
+
+      .hero-img-wrap {
+        max-width: 200px;
+        flex: 0 0 auto;
+      }
+    }
+
+    nav.tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding-bottom: 0;
+    }
+
+    nav.tabs button,
+    nav.tabs a.tab-btn {
+      flex: 0 0 auto;
+      background: rgba(255, 255, 255, 0.06);
+      color: #D7DEEC;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-bottom: none;
+      padding: 12px 18px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 8px 8px 0 0;
+      white-space: nowrap;
+      position: relative;
+      top: 1px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+
+    nav.tabs button.active,
+    nav.tabs a.tab-btn.active {
+      background: var(--parchment);
+      color: var(--navy);
+      border-color: var(--parchment);
+    }
+
+    nav.tabs button:hover:not(.active),
+    nav.tabs a.tab-btn:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.13);
+      color: #FFFFFF;
+    }
+
+    /* ---------- Material Principal (Visor PDF) ---------- */
+    .pdf-viewer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 20px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .pdf-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .pdf-btn-open {
+      background: var(--navy);
+      color: #FFFFFF;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 10px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s ease;
+    }
+
+    .pdf-btn-open:hover {
+      background: var(--navy-2);
+    }
+
+    .pdf-btn-dl {
+      background: var(--paper);
+      color: var(--ink);
+      border: 1px solid var(--border-cool);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.88rem;
+      padding: 10px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s ease;
+    }
+
+    .pdf-btn-dl:hover {
+      background: #FBFAF6;
+    }
+
+    .pdf-container {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(20, 33, 61, 0.08);
+      height: 82vh;
+      min-height: 600px;
+    }
+
+    .pdf-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* ---------- LucIA Presentación ---------- */
+    .lucia-presentation-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 14px;
+      padding: 36px 40px;
+      box-shadow: 0 8px 24px rgba(20, 33, 61, 0.08);
+      border-left: 6px solid var(--teal);
+    }
+
+    .lucia-presentation-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .lucia-avatar-img {
+      width: 85px;
+      height: 85px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 4px 14px rgba(20, 33, 61, 0.16);
+      flex: 0 0 auto;
+      display: block;
+    }
+
+    .lucia-presentation-header h2 {
+      font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+      margin: 4px 0 0;
+      color: var(--navy);
+    }
+
+    .lucia-presentation-sub {
+      font-size: 1.2rem;
+      color: var(--navy);
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+
+    .lucia-highlight {
+      font-size: 1.08rem;
+      color: var(--teal-dark);
+      margin-bottom: 14px;
+    }
+
+    .lucia-presentation-body p {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .lucia-presentation-card {
+        padding: 24px 20px;
+      }
+    }
+
+    /* ---------- Material de apoyo ---------- */
+    .material-banner-img {
+      max-width: 240px;
+      height: auto;
+      border-radius: 12px;
+      display: block;
+      margin: 14px 0 22px;
+      box-shadow: 0 6px 18px rgba(20, 33, 61, 0.1);
+    }
+
+    .material-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+      margin-top: 16px;
+    }
+
+    .material-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 12px;
+      padding: 22px 24px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      text-decoration: none;
+      color: inherit;
+      border-left: 6px solid var(--teal);
+      transition: all 0.2s ease;
+    }
+
+    .material-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(20, 33, 61, 0.12);
+      border-color: var(--teal);
+      background: #FBFAF7;
+    }
+
+    .material-icon {
+      font-size: 2.2rem;
+      flex: 0 0 auto;
+      line-height: 1;
+    }
+
+    .material-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .material-body h3 {
+      font-size: 1.15rem;
+      margin: 4px 0 6px;
+      color: var(--navy);
+    }
+
+    .material-body p {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      margin-bottom: 14px;
+      line-height: 1.45;
+    }
+
+    .material-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--teal);
+      background: rgba(31, 122, 108, 0.1);
+      padding: 7px 14px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .material-card:hover .material-btn {
+      background: var(--teal);
+      color: #FFFFFF;
+    }
+
+    main {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 36px 24px 80px;
+    }
+
+    section {
+      display: none;
+    }
+
+    section.active {
+      display: block;
+      animation: fadeIn .35s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 28px;
+      margin-bottom: 10px;
+    }
+
+    .card-basic {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 22px 24px;
+    }
+
+    .card-intro-img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      display: block;
+      margin-bottom: 16px;
+      object-fit: cover;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .quick-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .quick-links button {
+      text-align: left;
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-left: 4px solid var(--teal);
+      border-radius: 6px;
+      padding: 12px 16px;
+      cursor: pointer;
+      font-size: 0.92rem;
+      color: var(--ink);
+    }
+
+    .quick-links button:hover {
+      background: #FBFAF6;
+    }
+
+    /* ---------- Tipos de fuentes ---------- */
+    .type-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 24px 26px;
+      margin-bottom: 18px;
+      border-left-width: 6px;
+      border-left-style: solid;
+    }
+
+    .type-card-img {
+      max-width: 170px;
+      height: auto;
+      border-radius: 8px;
+      display: block;
+      margin-bottom: 14px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .type-card.primaria {
+      border-left-color: var(--teal);
+    }
+
+    .type-card.secundaria {
+      border-left-color: var(--gold);
+    }
+
+    .type-card.terciaria {
+      border-left-color: var(--coral);
+    }
+
+    .type-head {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .type-head h3 {
+      font-size: 1.25rem;
+    }
+
+    .examples {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .ex-chip {
+      background: var(--parchment);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 0.84rem;
+    }
+
+    details.deepen {
+      margin-top: 22px;
+    }
+
+    details.deepen summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--navy);
+      padding: 10px 0;
+    }
+
+    .subgrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .subgrid.cols-3 {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    @media (max-width:760px) {
+
+      .subgrid,
+      .subgrid.cols-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .intro-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ---------- Fuentes en informática ---------- */
+    .flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin: 16px 0 8px;
+    }
+
+    .flow-step {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .flow-arrow {
+      color: var(--ink-soft);
+      font-size: 1.15rem;
+    }
+
+    .it-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 18px 20px;
+      height: 100%;
+    }
+
+    .it-card h4 {
+      font-size: 0.98rem;
+      margin-bottom: 6px;
+    }
+
+    .it-card p {
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+      margin-bottom: 0;
+    }
+
+    .it-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    table.quality-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 0.87rem;
+    }
+
+    table.quality-table th,
+    table.quality-table td {
+      border: 1px solid var(--border-cool);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    table.quality-table th {
+      background: var(--parchment);
+      color: var(--navy);
+    }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin: 14px 0;
+    }
+
+    .checklist li {
+      padding: 6px 0 6px 26px;
+      position: relative;
+      font-size: 0.9rem;
+    }
+
+    .checklist li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--teal);
+      font-weight: 800;
+    }
+
+    /* ---------- Evaluador ---------- */
+    .subnav {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .subnav button {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 20px;
+      padding: 8px 18px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: var(--ink);
+    }
+
+    .subnav button.active {
+      background: var(--navy);
+      color: #fff;
+      border-color: var(--navy);
+    }
+
+    .eval-panel {
+      display: none;
+    }
+
+    .eval-panel.active {
+      display: block;
+    }
+
+    .criteria {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 22px 24px;
+      margin-bottom: 18px;
+    }
+
+    .criteria h4 {
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .criteria p {
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+    }
+
+    .scale {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .scale label {
+      border: 1px solid var(--border-cool);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .scale input {
+      margin: 0;
+    }
+
+    .eval-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin: 22px 0;
+    }
+
+    button.primary {
+      background: var(--teal);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 22px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    button.primary:hover {
+      background: var(--teal-dark);
+    }
+
+    button.ghost {
+      background: none;
+      border: 1px solid var(--border-cool);
+      border-radius: 6px;
+      padding: 11px 18px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: var(--ink);
+    }
+
+    .verdict {
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-top: 6px;
+      display: none;
+    }
+
+    .verdict.show {
+      display: block;
+    }
+
+    .verdict.low {
+      background: #FBEAE7;
+      border: 1px solid var(--coral);
+    }
+
+    .verdict.mid {
+      background: #FBF1E0;
+      border: 1px solid var(--gold);
+    }
+
+    .verdict.high {
+      background: #E9F3EE;
+      border: 1px solid var(--teal);
+    }
+
+    .verdict h4 {
+      margin-bottom: 6px;
+    }
+
+    /* ---------- Juego ---------- */
+    .game-wrap {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 28px;
+    }
+
+    .game-progress {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+    }
+
+    .game-bar {
+      height: 6px;
+      background: var(--border-cool);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .game-bar-fill {
+      height: 100%;
+      background: var(--teal);
+      width: 0%;
+      transition: width .3s ease;
+    }
+
+    .game-card {
+      background: var(--parchment);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      font-size: 1.08rem;
+      margin-bottom: 20px;
+      min-height: 70px;
+    }
+
+    .game-options {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .game-options button {
+      flex: 1;
+      min-width: 140px;
+      padding: 14px;
+      border-radius: 8px;
+      border: 2px solid var(--border-cool);
+      background: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .game-options button:hover:not(:disabled) {
+      border-color: var(--navy);
+    }
+
+    .game-options button.correct {
+      background: #E9F3EE;
+      border-color: var(--teal);
+      color: var(--teal-dark);
+    }
+
+    .game-options button.incorrect {
+      background: #FBEAE7;
+      border-color: var(--coral);
+      color: var(--coral-dark);
+    }
+
+    .game-options button:disabled {
+      cursor: default;
+      opacity: .85;
+    }
+
+    .game-feedback {
+      font-size: 0.92rem;
+      padding: 12px 14px;
+      border-radius: 6px;
+      background: #F1F5F3;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    .game-feedback.show {
+      display: block;
+    }
+
+    .game-end {
+      text-align: center;
+      padding: 30px 10px;
+    }
+
+    .game-end .score {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    /* ---------- Actividad física ---------- */
+    .steps {
+      counter-reset: step;
+      list-style: none;
+      padding: 0;
+      margin: 18px 0;
+    }
+
+    .steps li {
+      counter-increment: step;
+      position: relative;
+      padding: 10px 0 10px 42px;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .steps li:last-child {
+      border-bottom: none;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 8px;
+      background: var(--navy);
+      color: #fff;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .print-btn {
+      margin-top: 16px;
+    }
+
+    /* ---------- Dashboard ---------- */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+
+    .stat-card .stat-value {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    .stat-card .stat-label {
+      font-size: 0.8rem;
+      color: var(--ink-soft);
+    }
+
+    .dash-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width:800px) {
+      .dash-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .chart-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+
+    .chart-card h4 {
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+
+    .chart-card svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .empty-note {
+      color: var(--ink-soft);
+      font-style: italic;
+      font-size: 0.88rem;
+    }
+
+    .pie-wrap {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .pie-wrap svg {
+      width: 150px;
+      height: 150px;
+      flex: 0 0 auto;
+    }
+
+    .legend {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.84rem;
+    }
+
+    .legend .sw {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      margin-right: 6px;
+    }
+
+    .analysis-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-left: 5px solid var(--navy);
+      border-radius: 10px;
+      padding: 20px 22px;
+      margin-bottom: 18px;
+    }
+
+    .analysis-card h4 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .analysis-card p {
+      font-size: 0.92rem;
+    }
+
+    .dash-actions {
+      margin-top: 8px;
+    }
+
+    .reward-box {
+      margin: 26px 0 22px;
+      padding: 26px 28px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, #14213D 0%, #1C2D52 70%, #223A63 100%);
+      border: 2px solid var(--gold);
+      color: #F2F0E8;
+      box-shadow: 0 8px 24px rgba(20, 33, 61, .22);
+    }
+
+    .reward-box.complete {
+      border-color: #E9B949;
+      box-shadow: 0 0 0 4px rgba(233, 185, 73, .25), 0 8px 24px rgba(20, 33, 61, .28);
+    }
+
+    .reward-box .reward-tag {
+      font-family: ui-monospace, "SF Mono", Consolas, monospace;
+      font-size: .72rem;
+      letter-spacing: .06em;
+      color: #E9B949;
+    }
+
+    .reward-box h4 {
+      color: #fff;
+      font-size: 1.25rem;
+      margin: 6px 0 10px;
+    }
+
+    .reward-box p {
+      color: #DCE3F1;
+      font-size: 1rem;
+      margin-bottom: 14px;
+    }
+
+    .reward-box p strong {
+      color: #E9B949;
+      font-size: 1.15em;
+    }
+
+    .reward-amount {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .reward-amount .big {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 800;
+      color: #E9B949;
+      line-height: 1;
+    }
+
+    .reward-amount .of {
+      color: #9FB3D6;
+      font-size: .9rem;
+    }
+
+    .reward-track {
+      height: 12px;
+      background: rgba(255, 255, 255, .14);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .reward-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #C68A2E, #E9B949);
+      border-radius: 8px;
+      transition: width .6s ease;
+    }
+
+    .reward-break {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      font-size: .86rem;
+    }
+
+    .reward-break div {
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    .reward-break b {
+      color: #fff;
+    }
+
+    .reward-status {
+      margin-top: 14px;
+      font-weight: 700;
+      font-size: .95rem;
+      color: #E9B949;
+    }
+
+    /* Print report button in dashboard */
+    .btn-print-dashboard {
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 11px 22px;
+      border: 1px solid var(--teal-dark);
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(31, 122, 108, 0.28);
+      transition: all 0.2s ease;
+    }
+
+    .btn-print-dashboard:hover {
+      background: linear-gradient(135deg, var(--teal-dark) 0%, #0E473F 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(31, 122, 108, 0.38);
+    }
+
+    /* Print report container hidden on screen */
+    #printReport {
+      display: none;
+    }
+
+    /* ---------- Print cards (hidden on screen) ---------- */
+    #printCards {
+      display: none;
+    }
+
+    @media print {
+
+      body.printing-cards>.hero,
+      body.printing-cards>main>section {
+        display: none !important;
+      }
+
+      body.printing-report>.hero,
+      body.printing-report>main,
+      body.printing-report>header,
+      body.printing-report>footer,
+      body.printing-report>nav,
+      body.printing-report>#printCards,
+      body.printing-report>.tabs,
+      body.printing-report>.tabs-bar,
+      body.printing-report>.mapa-modal,
+      body.printing-report>#mapaModal {
+        display: none !important;
+      }
+
+      body.printing-report {
+        background: #ffffff !important;
+        color: #111827 !important;
+      }
+
+      body.printing-report #printReport {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #ffffff !important;
+        color: #111827 !important;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+        font-size: 10pt !important;
+        line-height: 1.35 !important;
+      }
+
+      .report-header {
+        border-bottom: 2px solid #14213D;
+        padding-bottom: 10px;
+        margin-bottom: 12px;
+      }
+
+      .report-header-top {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 8px;
+      }
+
+      .report-logo {
+        width: 65px;
+        height: auto;
+        object-fit: contain;
+      }
+
+      .report-org {
+        font-size: 8pt;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        color: #14213D;
+        text-transform: uppercase;
+      }
+
+      .report-center {
+        font-size: 13pt;
+        font-weight: 900;
+        color: #14213D;
+        margin: 2px 0;
+        line-height: 1.15;
+      }
+
+      .report-competencia {
+        font-size: 8pt;
+        color: #333;
+        line-height: 1.25;
+      }
+
+      .report-project-card {
+        background: #F6F1E7 !important;
+        border: 1.5px solid #C68A2E !important;
+        border-radius: 6px;
+        padding: 8px 12px;
+        margin-bottom: 10px;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .report-project-title {
+        font-size: 10.5pt;
+        font-weight: 900;
+        color: #14213D;
+        margin-bottom: 2px;
+      }
+
+      .report-project-sub {
+        font-size: 8pt;
+        color: #444;
+        margin-bottom: 4px;
+      }
+
+      .report-ra {
+        font-size: 7.5pt;
+        color: #222;
+        border-top: 1px dashed #C68A2E;
+        padding-top: 4px;
+        margin-top: 3px;
+      }
+
+      .report-ra ul {
+        margin: 2px 0 0 16px;
+        padding: 0;
+      }
+
+      .report-student-box {
+        border: 1px solid #D7DCE6;
+        border-radius: 6px;
+        padding: 8px 12px;
+        margin-bottom: 12px;
+        background: #FAFAF7 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .report-field-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: 5px;
+      }
+
+      .report-field {
+        font-size: 8.5pt;
+        display: flex;
+        align-items: center;
+        flex: 1;
+        gap: 6px;
+      }
+
+      .report-field span.label {
+        font-weight: 700;
+        color: #14213D;
+        white-space: nowrap;
+      }
+
+      .report-field span.line-fill {
+        flex: 1;
+        border-bottom: 1px solid #777;
+        min-height: 12px;
+        display: inline-block;
+      }
+
+      .report-field span.line-val {
+        font-weight: 600;
+        color: #1F7A6C;
+      }
+
+      .report-sec-title {
+        font-size: 11pt;
+        font-weight: 800;
+        color: #14213D;
+        border-bottom: 1.5px solid #1F7A6C;
+        padding-bottom: 3px;
+        margin: 12px 0 8px 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .report-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 6px;
+        margin-bottom: 10px;
+      }
+
+      .report-stat-card {
+        border: 1px solid #D7DCE6;
+        border-radius: 6px;
+        padding: 6px 4px;
+        text-align: center;
+        background: #F6F8FA !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .report-stat-value {
+        font-size: 12pt;
+        font-weight: 900;
+        color: #1F7A6C;
+      }
+
+      .report-stat-label {
+        font-size: 7pt;
+        font-weight: 700;
+        color: #555;
+        text-transform: uppercase;
+        margin-top: 2px;
+      }
+
+      .report-card {
+        border: 1px solid #D7DCE6;
+        border-radius: 6px;
+        padding: 8px 10px;
+        margin-bottom: 8px;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      .report-card-title {
+        font-size: 9pt;
+        font-weight: 800;
+        color: #14213D;
+        margin: 0 0 5px 0;
+        text-transform: uppercase;
+      }
+
+      .report-reward-box {
+        background: #14213D !important;
+        color: #fff !important;
+        border-radius: 6px;
+        padding: 8px 12px;
+        margin-bottom: 8px;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .report-reward-box h4 {
+        color: #E9B949 !important;
+        margin: 0 0 3px 0;
+        font-size: 10pt;
+      }
+
+      .report-reward-box p {
+        font-size: 8pt;
+        margin: 0 0 5px 0;
+        color: #E5E7EB;
+      }
+
+      .report-reward-pills {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        font-size: 7.5pt;
+      }
+
+      .report-reward-pill {
+        background: rgba(255, 255, 255, 0.12) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 4px 6px;
+        border-radius: 4px;
+      }
+
+      .report-analysis-item {
+        font-size: 8pt;
+        margin-bottom: 5px;
+        line-height: 1.35;
+      }
+
+      .report-analysis-item strong {
+        color: #1F7A6C;
+        display: block;
+        margin-bottom: 1px;
+      }
+
+      .report-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 7.5pt;
+        margin-top: 3px;
+      }
+
+      .report-table th {
+        background: #14213D !important;
+        color: #fff !important;
+        font-weight: 700;
+        padding: 4px 6px;
+        text-align: left;
+        border: 1px solid #14213D;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .report-table td {
+        padding: 3px 6px;
+        border: 1px solid #D7DCE6;
+      }
+
+      .report-table tr:nth-child(even) {
+        background: #F9FAFB !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .report-badge {
+        display: inline-block;
+        padding: 1px 5px;
+        border-radius: 3px;
+        font-weight: 700;
+        font-size: 7pt;
+        text-transform: uppercase;
+      }
+
+      .badge-high {
+        background: #D1FAE5 !important;
+        color: #065F46 !important;
+      }
+
+      .badge-mid {
+        background: #FEF3C7 !important;
+        color: #92400E !important;
+      }
+
+      .badge-low {
+        background: #FEE2E2 !important;
+        color: #991B1B !important;
+      }
+
+      .report-signatures {
+        margin-top: 14px;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      .report-obs {
+        font-size: 8pt;
+        margin-bottom: 12px;
+      }
+
+      .obs-lines {
+        border-bottom: 1px dashed #999;
+        height: 16px;
+        margin-top: 4px;
+      }
+
+      .sig-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-top: 16px;
+      }
+
+      .sig-box {
+        text-align: center;
+      }
+
+      .sig-line {
+        border-bottom: 1px solid #333;
+        margin-bottom: 4px;
+      }
+
+      .sig-label {
+        font-size: 8pt;
+        font-weight: 700;
+        color: #14213D;
+      }
+
+      /* Registro del aprendiz */
+      .report-box-title {
+        font-size: 9pt;
+        font-weight: 800;
+        color: #14213D;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        border-bottom: 1px solid #D7DCE6;
+        padding-bottom: 3px;
+        margin-bottom: 6px;
+      }
+
+      .report-reg-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px 18px;
+      }
+
+      .report-field-wide {
+        grid-column: 1 / -1;
+      }
+
+      .report-field span.reg-val {
+        flex: 1;
+        min-height: 13px;
+        border-bottom: 1px solid #777;
+        font-weight: 700;
+        color: #111827;
+      }
+
+      /* Gráficos dentro del reporte */
+      .report-charts-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
+      .report-chart {
+        border: 1px solid #E5E7EB;
+        border-radius: 6px;
+        padding: 6px 8px;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .report-chart h4 {
+        font-size: 8pt;
+        font-weight: 800;
+        color: #14213D;
+        margin: 0 0 4px 0;
+      }
+
+      .report-chart svg {
+        width: 100%;
+        height: auto;
+        max-height: 150px;
+        display: block;
+      }
+
+      .report-chart .pie-wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .report-chart .pie-wrap svg {
+        width: 90px;
+        flex: none;
+      }
+
+      .report-chart .legend {
+        font-size: 7.5pt;
+        line-height: 1.5;
+      }
+
+      .report-chart .legend .sw {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 2px;
+        margin-right: 4px;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .report-chart svg,
+      .report-chart svg * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .report-chart .empty-note {
+        font-size: 8pt;
+        color: #666;
+        font-style: italic;
+        margin: 4px 0;
+      }
+
+      body.printing-cards #printCards {
+        display: block !important;
+        font-family: Georgia, serif;
+      }
+
+      #printCards .card-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      #printCards .p-card {
+        border: 1.5px dashed #666;
+        border-radius: 6px;
+        padding: 14px;
+        font-size: 0.95rem;
+        break-inside: avoid;
+      }
+
+      #printCards .p-card .num {
+        font-family: monospace;
+        font-size: 0.75rem;
+        color: #666;
+      }
+
+      #printCards .answer-page {
+        page-break-before: always;
+      }
+
+      #printCards h2 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+      }
+
+      #printCards table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+      }
+
+      #printCards td,
+      #printCards th {
+        border: 1px solid #999;
+        padding: 4px 8px;
+        text-align: left;
+      }
+    }
+
+    /* ---------- Mapa Mental Styles ---------- */
+    .mapamental-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 20px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .mapamental-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .mapa-btn-open {
+      background: var(--navy);
+      color: #FFFFFF;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 10px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 4px 12px rgba(20, 33, 61, 0.12);
+    }
+
+    .mapa-btn-open:hover {
+      background: var(--navy-2);
+      transform: translateY(-1px);
+    }
+
+    .mapa-btn-dl {
+      background: var(--paper);
+      color: var(--ink);
+      border: 1px solid var(--border-cool);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.88rem;
+      padding: 10px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .mapa-btn-dl:hover {
+      background: #FBFAF6;
+      border-color: var(--teal);
+      color: var(--teal-dark);
+      transform: translateY(-1px);
+    }
+
+    .mapamental-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 14px;
+      box-shadow: 0 8px 24px rgba(20, 33, 61, 0.08);
+      border-left: 6px solid var(--teal);
+      padding: 24px;
+      overflow: hidden;
+    }
+
+    .mapamental-viewer {
+      position: relative;
+      background: #FAFAFA;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      overflow: hidden;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .mapamental-viewer:hover {
+      border-color: var(--teal);
+      background: #F3F7F6;
+    }
+
+    .mapamental-img {
+      max-width: 100%;
+      height: auto;
+      max-height: 75vh;
+      display: block;
+      border-radius: 6px;
+      object-fit: contain;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+      transition: transform 0.3s ease;
+    }
+
+    .mapamental-viewer:hover .mapamental-img {
+      transform: scale(1.015);
+    }
+
+    .mapa-zoom-overlay {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      background: rgba(20, 33, 61, 0.88);
+      color: #FFFFFF;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      opacity: 0.9;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      pointer-events: none;
+    }
+
+    .mapamental-viewer:hover .mapa-zoom-overlay {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    .mapamental-footer {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .mapa-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mapa-badge {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      padding: 4px 12px;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mapa-badge.b-primary {
+      background: #E6F4F1;
+      color: var(--teal-dark);
+      border: 1px solid rgba(31, 122, 108, 0.25);
+    }
+
+    .mapa-badge.b-secondary {
+      background: #FDF4E7;
+      color: var(--gold-dark);
+      border: 1px solid rgba(198, 138, 46, 0.25);
+    }
+
+    .mapa-badge.b-tertiary {
+      background: #FDEEEB;
+      color: var(--coral-dark);
+      border: 1px solid rgba(214, 91, 74, 0.25);
+    }
+
+    .mapa-note {
+      font-size: 0.8rem;
+      color: var(--ink-soft);
+      font-family: ui-monospace, "SF Mono", Consolas, monospace;
+    }
+
+    /* Modal Lightbox */
+    .mapa-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .mapa-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mapa-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(6px);
+    }
+
+    .mapa-modal-content {
+      position: relative;
+      z-index: 1;
+      background: var(--paper);
+      border-radius: 14px;
+      max-width: 94vw;
+      max-height: 92vh;
+      width: 1200px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+      animation: mapaZoomIn 0.25s ease;
+    }
+
+    @keyframes mapaZoomIn {
+      from {
+        transform: scale(0.94);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .mapa-modal-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      background: var(--navy);
+      color: #FFFFFF;
+    }
+
+    .mapa-modal-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+    }
+
+    .mapa-modal-btns {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mapa-modal-action-btn {
+      color: #FFFFFF;
+      opacity: 0.85;
+      padding: 6px 10px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      transition: background 0.2s, opacity 0.2s;
+      text-decoration: none;
+    }
+
+    .mapa-modal-action-btn:hover {
+      opacity: 1;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .mapa-modal-close {
+      background: rgba(255, 255, 255, 0.12);
+      border: none;
+      color: #FFFFFF;
+      font-size: 1.5rem;
+      line-height: 1;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+    }
+
+    .mapa-modal-close:hover {
+      background: rgba(214, 91, 74, 0.8);
+    }
+
+    .mapa-modal-body {
+      padding: 16px;
+      overflow: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #F8F9FA;
+      max-height: calc(92vh - 60px);
+    }
+
+    .mapa-modal-img {
+      max-width: 100%;
+      height: auto;
+      max-height: calc(90vh - 80px);
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    /* =====================================================
+       Ampliaciones para la app de Normas técnicas
+       (tipos de pregunta del Evaluador, hero SVG, actividad)
+       ===================================================== */
+    .hero-art {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    .card-art {
+      width: 100%;
+      max-width: 240px;
+      height: auto;
+      display: block;
+      border-radius: 10px;
+      margin-bottom: 14px;
+    }
+
+    .lucia-fallback {
+      width: 85px;
+      height: 85px;
+      border-radius: 12px;
+      background: var(--navy);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.6rem;
+      flex: 0 0 auto;
+    }
+
+    .note-box {
+      background: #FBF1E0;
+      border: 1px solid var(--gold);
+      border-left-width: 6px;
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin: 18px 0;
+      font-size: 0.92rem;
+    }
+
+    .note-box strong {
+      color: var(--gold-dark);
+    }
+
+    .code-line {
+      font-family: ui-monospace, "SF Mono", Consolas, monospace;
+      font-size: 0.82rem;
+      background: var(--parchment);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin: 6px 0 10px;
+      overflow-wrap: anywhere;
+    }
+
+    /* ---------- Evaluador: progreso ---------- */
+    .eval-progress {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+    }
+
+    .eval-progress-bar {
+      height: 8px;
+      background: #EDE7D8;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+
+    .eval-progress-fill {
+      height: 100%;
+      width: 0;
+      background: var(--teal);
+      transition: width 0.25s ease;
+    }
+
+    .eval-msg {
+      display: none;
+      background: #FBEAE7;
+      border: 1px solid var(--coral);
+      color: var(--coral-dark);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.9rem;
+      margin-bottom: 14px;
+    }
+
+    .eval-msg.show {
+      display: block;
+    }
+
+    .eval-msg.info {
+      background: #E9F3EE;
+      border-color: var(--teal);
+      color: var(--teal-dark);
+    }
+
+    /* ---------- Tarjeta de pregunta ---------- */
+    .q-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-left-width: 6px;
+      border-radius: 10px;
+      padding: 22px 24px;
+      margin-bottom: 18px;
+    }
+
+    .q-card.done {
+      border-left-color: var(--teal);
+    }
+
+    .q-card.ok {
+      border-color: var(--teal);
+      background: #FAFDFB;
+    }
+
+    .q-card.part {
+      border-color: var(--gold);
+      background: #FFFCF6;
+    }
+
+    .q-card.bad {
+      border-color: var(--coral);
+      background: #FFFAF9;
+    }
+
+    .q-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
+    .q-num {
+      font-family: ui-monospace, "SF Mono", Consolas, monospace;
+      font-size: 0.72rem;
+      color: var(--ink-soft);
+    }
+
+    .q-type {
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: var(--parchment);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3px 11px;
+      color: var(--navy);
+    }
+
+    .q-card h4 {
+      font-size: 1.02rem;
+      margin: 2px 0 6px;
+    }
+
+    .q-help {
+      color: var(--ink-soft);
+      font-size: 0.88rem;
+      margin-bottom: 12px;
+    }
+
+    .q-body {
+      margin-top: 8px;
+    }
+
+    .q-feedback {
+      display: none;
+      margin-top: 14px;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      background: var(--parchment);
+      border: 1px solid var(--border);
+    }
+
+    .q-feedback.show {
+      display: block;
+    }
+
+    .q-feedback ul {
+      margin: 6px 0 0;
+      padding-left: 18px;
+    }
+
+    .q-feedback li {
+      margin-bottom: 4px;
+    }
+
+    .q-feedback .pts {
+      font-weight: 800;
+    }
+
+    /* Única respuesta */
+    .opts {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .opt {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-size: 0.92rem;
+      background: #fff;
+    }
+
+    .opt:hover {
+      border-color: var(--teal);
+    }
+
+    .opt.sel {
+      border-color: var(--teal);
+      background: #E9F3EE;
+    }
+
+    .opt input {
+      margin-top: 4px;
+    }
+
+    /* Verdadero / Falso */
+    .tf-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 0;
+      border-bottom: 1px dashed var(--border);
+      flex-wrap: wrap;
+    }
+
+    .tf-row:last-child {
+      border-bottom: none;
+    }
+
+    .tf-text {
+      flex: 1 1 320px;
+      font-size: 0.92rem;
+    }
+
+    .tf-btns {
+      display: flex;
+      gap: 8px;
+    }
+
+    .tf-btns button {
+      border: 1px solid var(--border-cool);
+      background: #fff;
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--ink);
+    }
+
+    .tf-btns button.sel {
+      background: var(--navy);
+      color: #fff;
+      border-color: var(--navy);
+    }
+
+    /* Listas desplegables */
+    .cloze {
+      font-size: 0.98rem;
+      line-height: 2.3;
+    }
+
+    .cloze select {
+      font-family: inherit;
+      font-size: 0.9rem;
+      padding: 5px 8px;
+      border: 1.5px solid var(--teal);
+      border-radius: 8px;
+      background: #F4FAF8;
+      color: var(--navy);
+      font-weight: 600;
+      max-width: 100%;
+    }
+
+    .cloze select.empty {
+      border-style: dashed;
+      color: var(--ink-soft);
+      background: #fff;
+    }
+
+    /* Arrastrar tarjetas */
+    .dnd-bank {
+      min-height: 54px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 10px;
+      border: 1.5px dashed var(--border-cool);
+      border-radius: 10px;
+      background: #FBFAF6;
+      margin-bottom: 12px;
+    }
+
+    .dnd-buckets {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+    }
+
+    .dnd-bucket {
+      border: 2px dashed var(--teal);
+      border-radius: 10px;
+      padding: 10px;
+      min-height: 96px;
+      background: #F4FAF8;
+      cursor: pointer;
+    }
+
+    .dnd-bucket.over {
+      background: #DDEFE9;
+    }
+
+    .dnd-bucket h5 {
+      margin: 0 0 8px;
+      font-size: 0.86rem;
+      color: var(--teal-dark);
+      font-weight: 800;
+    }
+
+    .dnd-zone {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .dnd-card {
+      background: #fff;
+      border: 1px solid var(--border-cool);
+      border-left: 4px solid var(--gold);
+      border-radius: 8px;
+      padding: 7px 10px;
+      font-size: 0.86rem;
+      cursor: grab;
+      user-select: none;
+      box-shadow: 0 1px 3px rgba(20, 33, 61, 0.08);
+    }
+
+    .dnd-card.sel {
+      outline: 3px solid var(--teal);
+      background: #E9F3EE;
+    }
+
+    .dnd-card.wrong {
+      border-left-color: var(--coral);
+    }
+
+    .dnd-card.right {
+      border-left-color: var(--teal);
+    }
+
+    /* Ordenar */
+    .ord-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ord-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border: 1px solid var(--border-cool);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.9rem;
+    }
+
+    .ord-n {
+      flex: 0 0 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ord-t {
+      flex: 1;
+    }
+
+    .ord-item button {
+      border: 1px solid var(--border-cool);
+      background: var(--parchment);
+      border-radius: 6px;
+      width: 32px;
+      height: 30px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      color: var(--navy);
+    }
+
+    .ord-item button:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+
+    .ord-confirm {
+      margin-top: 10px;
+    }
+
+    .ord-confirm.on {
+      background: var(--navy);
+      color: #fff;
+      border-color: var(--navy);
+    }
+
+    /* Concéntrese */
+    .mem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 10px;
+    }
+
+    .mem-card {
+      position: relative;
+      min-height: 84px;
+      border: 2px solid var(--navy);
+      border-radius: 10px;
+      background: var(--navy);
+      color: #fff;
+      font-size: 1.6rem;
+      cursor: pointer;
+      padding: 6px;
+      font-family: inherit;
+      line-height: 1.2;
+    }
+
+    .mem-card .face {
+      display: none;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .mem-card.open,
+    .mem-card.matched {
+      background: #fff;
+      color: var(--ink);
+      border-color: var(--teal);
+    }
+
+    .mem-card.open .face,
+    .mem-card.matched .face {
+      display: block;
+    }
+
+    .mem-card.open .back,
+    .mem-card.matched .back {
+      display: none;
+    }
+
+    .mem-card.matched {
+      background: #E9F3EE;
+    }
+
+    .mem-card.term .face {
+      font-weight: 800;
+      color: var(--navy);
+      font-size: 0.86rem;
+    }
+
+    .mem-status {
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+      margin-top: 10px;
+    }
+
+    /* ---------- Actividad presencial: impresión ---------- */
+    .p-sample {
+      border: 1.5px solid #444;
+      padding: 22px 26px;
+      font-family: "Times New Roman", Georgia, serif;
+      font-size: 11pt;
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .p-sample p {
+      margin: 0 0 8px;
+    }
+
+    .p-sample .caption-below {
+      font-style: italic;
+      font-size: 10pt;
+    }
+
+    .p-sample table {
+      border-collapse: collapse;
+      margin: 8px 0;
+      font-size: 10pt;
+    }
+
+    .p-sample td,
+    .p-sample th {
+      border: 1px solid #777;
+      padding: 3px 8px;
+    }
+
+    .p-blank td {
+      height: 34px;
+    }
+
+    button.mapa-btn-open,
+    button.mapa-btn-dl {
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.88rem;
+    }
+
+    button.mapa-modal-action-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    #mapaInline svg,
+    #mapaModalSvg svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    button.mapa-btn-open {
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-body">
+        <div class="hero-img-wrap">
+          <img src="norma.png" alt="Normas t&eacute;cnicas para informes" class="hero-img"
+            onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='../norma.png';}">
+        </div>
+        <div class="hero-text">
+          <span class="tag">MISIÓN BÁSICA No 1 · RETO 1 · RETOS DEL PLANETA BYTEON 2</span>
+          <h1>NORMAS TÉCNICAS PARA INFORMES</h1>
+          <h2 class="hero-sub">Estandariza, cita y presenta la información de talento humano con rigor</h2>
+          <p class="lead">Una guía interactiva para reconocer, aplicar y evaluar las normas técnicas de elaboración y
+            presentación de informes: NTC 3588, GTC 185 y estilo APA, con lenguaje claro, visualización de datos y su
+            uso en la gestión del talento humano.</p>
+        </div>
+      </div>
+      <nav class="tabs" id="tabs">
+        <a href="index.html" class="tab-btn" title="Ir a la página principal">Inicio</a>
+        <button data-section="introduccion" class="active">Introducción</button>
+        <button data-section="lucia">LucIA</button>
+        <button data-section="principal">Material Principal</button>
+        <button data-section="material">Material de apoyo</button>
+        <button data-section="informes">Informes (NTC 3588)</button>
+        <button data-section="gtcapa">GTC 185 y APA</button>
+        <button data-section="evaluador">Evaluador</button>
+        <button data-section="juego">Juego: ¿qué norma es?</button>
+        <button data-section="dashboard">Dashboard</button>
+        <button data-section="fisica">Actividad presencial</button>
+        <button data-section="mapamental">Mapa Mental</button>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- INTRODUCCIÓN -->
+    <section data-section="introduccion" class="active">
+      <div class="intro-grid">
+        <div class="card-basic">
+          <img src="norma1.png" alt="&iquest;Por qu&eacute; importan las normas t&eacute;cnicas de los informes?"
+            class="card-intro-img" onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='../norma1.png';}">
+          <h2 style="font-size:1.4rem;margin-bottom:10px;">¿Por qué importan las normas técnicas de los informes?</h2>
+          <p>En cualquier área de talento humano —selección, nómina, clima organizacional, seguridad y salud en el
+            trabajo— la información pierde su valor si no se puede transmitir con claridad. La normalización no busca
+            limitar la creatividad: garantiza que el mensaje llegue sin distorsiones a la gerencia o a las entidades de
+            control.</p>
+          <p>Un informe disciplinario o un acta de descargos que no cumpla los estándares de redacción, objetividad y
+            estructura puede ser desestimado en una auditoría o un proceso legal. Por eso conviene dominar tres
+            referentes: la <strong>NTC 3588</strong> (estructura del informe), la <strong>GTC 185</strong>
+            (documentación organizacional) y el <strong>estilo APA</strong> (citación y referencias).</p>
+          <p>Esta aplicación organiza el trabajo en pasos: <strong>entender</strong> los tipos de informe,
+            <strong>reconocer</strong> lo que exige cada norma, <strong>evaluar</strong> tu dominio con preguntas de
+            distintos tipos, <strong>practicar</strong> con un juego de clasificación y revisar tu progreso en un
+            <strong>dashboard</strong> con gráficos y análisis.
+          </p>
+        </div>
+        <div>
+          <h3 style="font-size:1rem;margin-bottom:4px;">Ir directo a:</h3>
+          <div class="quick-links">
+            <button data-goto="lucia">🤖 LucIA — Tutora de Inteligencia Artificial para consultas</button>
+            <button data-goto="principal">&#128214; Material Principal - Normas T&eacute;cnicas (PDF)</button>
+            <button data-goto="material">📂 Material de apoyo — 4 documentos de referencia en PDF</button>
+            <button data-goto="informes">📑 Informes (NTC 3588) — resumen ejecutivo, corto y extenso</button>
+            <button data-goto="gtcapa">🗂️ GTC 185 y APA — documentos, citas, referencias y buenas prácticas</button>
+            <button data-goto="evaluador">🧭 Evaluador — preguntas para medir tu dominio de las normas</button>
+            <button data-goto="juego">🎮 Juego — ¿NTC 3588, GTC 185 o APA? Clasifica 12 situaciones</button>
+            <button data-goto="dashboard">📊 Dashboard — resultados, gráficos y análisis</button>
+            <button data-goto="fisica">✋ Actividad presencial — la comisión auditora de informes</button>
+            <button data-goto="mapamental">🗺️ Mapa Mental — esquema conceptual de las normas</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LUCIA -->
+    <section data-section="lucia">
+      <div class="lucia-presentation-card">
+        <div class="lucia-presentation-header">
+          <img src="lucIA.png" alt="LucIA la Inteligencia Artificial gu&iacute;a" class="lucia-avatar-img"
+            onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='../lucIA.png';}">
+          <div>
+            <span class="tag">INTELIGENCIA ARTIFICIAL GUÍA</span>
+            <h2>LucIA la Inteligencia Artificial guía</h2>
+          </div>
+        </div>
+        <div class="lucia-presentation-body">
+          <h3 class="lucia-presentation-sub">Presentación:</h3>
+          <p class="lucia-highlight">
+            <strong>LucIA la Inteligencia Artificial guía</strong>
+          </p>
+          <p>
+            Hola Aprendiz, soy LucIA, tu inteligencia artificial aliada en este emocionante viaje por el universo del
+            talento humano. Nos encontramos en nuestra guía por Byteon, un mundo tecnológicamente muy avanzado, y en
+            esta oportunidad vamos a trabajar sobre el <em>Manual de Normas Técnicas para Informes de Talento
+              Humano</em>. Asegurar que la información sea transmisible con claridad, rigor y bajo estrictos estándares
+            es vital para la toma de decisiones en nuestra civilización Neógena.
+          </p>
+
+          <div class="pdf-viewer-header"
+            style="margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--border);">
+            <div>
+              <span class="tag">DOCUMENTO OFICIAL DE BYTEON</span>
+              <h3 style="font-size:1.35rem;margin:4px 0 6px;">Normas técnicas para informes — Byteon</h3>
+              <p style="color:var(--ink-soft);margin-bottom:0;">Matriz de conocimiento de LucIA sobre estandarización y
+                comunicación en Byteon. Puedes leerla aquí o descargarla.</p>
+            </div>
+            <div class="pdf-actions">
+              <a href="Normas_T%C3%A9cnicas_-_Byteon.pdf" target="_blank" class="pdf-btn-open">Abrir en ventana nueva
+                ↗</a>
+              <a href="Normas_T%C3%A9cnicas_-_Byteon.pdf" download class="pdf-btn-dl">Descargar PDF ⬇</a>
+            </div>
+          </div>
+
+          <div class="pdf-container">
+            <iframe src="Normas_T%C3%A9cnicas_-_Byteon.pdf#toolbar=1&navpanes=0" class="pdf-frame"
+              title="Normas técnicas — Byteon PDF">
+              <p>Tu navegador no permite previsualizar el PDF embebido. <a href="Normas_T%C3%A9cnicas_-_Byteon.pdf"
+                  target="_blank">Haz
+                  clic aquí para abrirlo</a>.</p>
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MATERIAL PRINCIPAL -->
+    <section data-section="principal">
+      <div class="pdf-viewer-header">
+        <div>
+          <span class="tag">DOCUMENTO BASE DE LA MISIÓN</span>
+          <h2 style="font-size:1.5rem;margin:4px 0 6px;">Normas T&eacute;cnicas &mdash; Material Principal</h2>
+          <p style="color:var(--ink-soft);margin-bottom:0;">Misión 1: Estandarización de Informes. Lectura central para
+            el desarrollo del reto. Puedes consultarla aquí o abrirla en pantalla completa.</p>
+        </div>
+        <div class="pdf-actions">
+          <a href="Normas_t%C3%A9cnicas.pdf" target="_blank" class="pdf-btn-open">Abrir en ventana nueva ↗</a>
+          <a href="Normas_t%C3%A9cnicas.pdf" download class="pdf-btn-dl">Descargar PDF ⬇</a>
+        </div>
+      </div>
+
+      <div class="pdf-container">
+        <iframe src="Normas_t%C3%A9cnicas.pdf#toolbar=1&navpanes=0" class="pdf-frame"
+          title="Normas t&eacute;cnicas PDF">
+          <p>Tu navegador no permite previsualizar el PDF embebido. <a href="Normas_t%C3%A9cnicas.pdf"
+              target="_blank">Haz clic
+              aquí para abrirlo</a>.</p>
+        </iframe>
+      </div>
+    </section>
+
+    <!-- MATERIAL DE APOYO -->
+    <section data-section="material">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Material de apoyo y lecturas complementarias</h2>
+      <p style="color:var(--ink-soft);margin-bottom:14px;">Accede a los documentos PDF de referencia sobre normas
+        técnicas, documentación organizacional y estilo APA. Las preguntas del Evaluador y del juego se basan en estos
+        textos.</p>
+      <img src="norma2.png" alt="Material de apoyo y lecturas complementarias" class="material-banner-img"
+        onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='../norma2.png';}">
+
+      <div class="material-grid">
+        <a href="Manual_de_Normas_T%C3%A9cnicas_para_Informes_de_Talento_Humano.pdf" target="_blank"
+          class="material-card">
+          <div class="material-icon">&#128214;</div>
+          <div class="material-body">
+            <span class="tag">DOCUMENTO 01</span>
+            <h3>Estandarizaci&oacute;n de Informes</h3>
+            <p>Gu&iacute;a de Normas T&eacute;cnicas para la Gesti&oacute;n de Talento Humano.</p>
+            <span class="material-btn">Abrir documento PDF &nearr;</span>
+          </div>
+        </a>
+
+        <a href="483749265-NORMA-TECNICA-INCONTEC-3588-docx.pdf" target="_blank" class="material-card">
+          <div class="material-icon">📄</div>
+          <div class="material-body">
+            <span class="tag">DOCUMENTO 02</span>
+            <h3>Material de Apoyo No 2</h3>
+            <p>NTC 3588 — Normas técnicas para la elaboración y presentación de informes (informe corto y extenso).</p>
+            <span class="material-btn">Abrir documento PDF ↗</span>
+          </div>
+        </a>
+
+        <a href="DD-EX-10-GTC_185.pdf" target="_blank" class="material-card">
+          <div class="material-icon">📄</div>
+          <div class="material-body">
+            <span class="tag">DOCUMENTO 03</span>
+            <h3>Material de Apoyo No 3</h3>
+            <p>GTC 185 — Documentación organizacional: cartas, memorandos, circulares, actas e informes (ICONTEC).</p>
+            <span class="material-btn">Abrir documento PDF ↗</span>
+          </div>
+        </a>
+
+        <a href="InstructivoAPA.pdf" target="_blank" class="material-card">
+          <div class="material-icon">📄</div>
+          <div class="material-body">
+            <span class="tag">DOCUMENTO 04</span>
+            <h3>Material de Apoyo No 4</h3>
+            <p>Instructivo de uso del estilo APA 7.ª edición (SENA): estilo, citas y referencias bibliográficas.</p>
+            <span class="material-btn">Abrir documento PDF ↗</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- INFORMES (NTC 3588) -->
+    <section data-section="informes">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Informes administrativos: estructura según la NTC 3588</h2>
+      <p style="color:var(--ink-soft);margin-bottom:22px;">El informe administrativo describe o da a conocer el estado
+        de cualquier actividad, estudio o proyecto de carácter administrativo. Sus modelos se clasifican según el
+        número de hojas.</p>
+
+      <div class="type-card primaria">
+        <img src="norma3.png" alt="Resumen ejecutivo" class="type-card-img"
+          onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='../norma3.png';}">
+        <div class="type-head"><span class="tag">I-01</span>
+          <h3>Resumen ejecutivo</h3>
+        </div>
+        <p>Informe breve, de una a tres páginas, que precisa el desarrollo de acciones ejecutivas. Puede tener o no
+          portada; si no la tiene, se reemplaza por un encabezamiento. Un gerente debe poder leerlo y entender el
+          problema, los hallazgos y la recomendación.</p>
+        <div class="examples">
+          <div class="ex-chip">Encabezamiento: razón social, dependencia, código, título, lugar y fecha</div>
+          <div class="ex-chip">Autoría (elaborado por, responsable)</div>
+          <div class="ex-chip">Objetivos</div>
+          <div class="ex-chip">Numerales o temas</div>
+          <div class="ex-chip">Conclusiones y recomendaciones, y firma</div>
+        </div>
+      </div>
+
+      <div class="type-card secundaria">
+        <img src="norma4.png" alt="Informe corto" class="type-card-img"
+          onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='../norma4.png';}">
+        <div class="type-head"><span class="tag">I-02</span>
+          <h3>Informe corto</h3>
+        </div>
+        <p>Consta de una a diez páginas. Su texto se desarrolla en un solo capítulo y lleva un objetivo que describe
+          brevemente su propósito.</p>
+        <div class="examples">
+          <div class="ex-chip">Razón social en mayúscula sostenida, a 3–4 cm del borde superior</div>
+          <div class="ex-chip">Dependencia y código en el mismo renglón</div>
+          <div class="ex-chip">Título centrado y en mayúscula sostenida</div>
+          <div class="ex-chip">FECHA: ciudad y fecha completa</div>
+          <div class="ex-chip">ELABORADO POR / RESPONSABLE y OBJETIVO</div>
+          <div class="ex-chip">Conclusiones (opcional), firma, rúbrica y transcriptor</div>
+        </div>
+      </div>
+
+      <div class="type-card terciaria">
+        <img src="norma5.png" alt="Informe extenso" class="type-card-img"
+          onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='../norma5.png';}">
+        <div class="type-head"><span class="tag">I-03</span>
+          <h3>Informe extenso</h3>
+        </div>
+        <p>Se cuenta desde la página 11 en adelante. Su estructura se organiza en tres bloques: preliminares, cuerpo
+          del informe y material complementario.</p>
+        <div class="examples">
+          <div class="ex-chip">Preliminares: cubierta (opcional), portada, tabla de contenido y glosario</div>
+          <div class="ex-chip">Cuerpo: introducción y núcleo del informe (capítulos)</div>
+          <div class="ex-chip">Conclusiones y recomendaciones (las conclusiones siempre se incluyen)</div>
+          <div class="ex-chip">Firma, rúbrica y transcriptor</div>
+          <div class="ex-chip">Material complementario (opcional): anexos, bibliografía e índice</div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.02rem;margin:26px 0 4px;">Recorrido de un informe extenso</h3>
+      <div class="flow">
+        <span class="flow-step">Portada</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Tabla de contenido</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Glosario</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Introducción</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Núcleo del informe</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Conclusiones y recomendaciones</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Firma</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Anexos y bibliografía</span>
+      </div>
+
+      <details class="deepen" open>
+        <summary>Formato de la página: NTC 3588 / GTC 185 frente a APA</summary>
+        <p style="color:var(--ink-soft);margin:10px 0 0;">Cada organización adopta un manual de estilo. Conoce ambos
+          referentes y aplica el que exija tu entidad.</p>
+        <table class="quality-table">
+          <thead>
+            <tr>
+              <th>Elemento</th>
+              <th>NTC 3588 / GTC 185</th>
+              <th>APA (instructivo SENA)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Margen superior / inferior</td>
+              <td>3 a 4 cm / 2 a 3 cm</td>
+              <td>2,54 cm en todos los lados</td>
+            </tr>
+            <tr>
+              <td>Margen izquierdo / derecho</td>
+              <td>3 a 4 cm / 2 a 3 cm</td>
+              <td>2,54 cm (4 cm a la izquierda si se empasta)</td>
+            </tr>
+            <tr>
+              <td>Fuente</td>
+              <td>Clara y homogénea, tamaño 10 a 12; se sugiere no usar negrilla (GTC 185)</td>
+              <td>Calibri 11, Arial 11, Lucida Sans Unicode 10, Times New Roman 12 o Georgia 11</td>
+            </tr>
+            <tr>
+              <td>Interlineado</td>
+              <td>Libre elección; entre párrafos, el doble del elegido</td>
+              <td>Doble espacio, alineado a la izquierda</td>
+            </tr>
+            <tr>
+              <td>Numeración de páginas</td>
+              <td>Arábiga consecutiva; la página 1 es la portada</td>
+              <td>Esquina superior derecha, desde la portada</td>
+            </tr>
+            <tr>
+              <td>Títulos</td>
+              <td>Primer y segundo nivel en mayúscula sostenida; hasta 4 niveles de numeración</td>
+              <td>Los títulos NO se escriben en mayúscula sostenida; niveles 1 a 5 con negrita y cursiva</td>
+            </tr>
+          </tbody>
+        </table>
+      </details>
+
+      <details class="deepen">
+        <summary>El núcleo del informe: redacción, figuras, tablas y citas</summary>
+        <div class="subgrid">
+          <div class="card-basic">
+            <h4 style="margin-bottom:6px;">Redacción y numeración</h4>
+            <ul class="checklist">
+              <li>Redacción impersonal («se estudió», «se observó»).</li>
+              <li>Cada capítulo lleva un título que lo identifica.</li>
+              <li>Capítulos y subdivisiones con números arábigos, sin pasar de 4 niveles.</li>
+              <li>Literales, guiones o viñetas, pero de forma moderada.</li>
+            </ul>
+          </div>
+          <div class="card-basic">
+            <h4 style="margin-bottom:6px;">Figuras, tablas y citas</h4>
+            <ul class="checklist">
+              <li>Figuras y tablas en la misma hoja en que se mencionan o en la siguiente.</li>
+              <li>La leyenda de la figura va abajo; la de la tabla, arriba.</li>
+              <li>Cita breve (menos de cinco renglones): entre comillas, en el mismo renglón.</li>
+              <li>Cita larga: como inserción con sangría a ambos lados, sin comillas.</li>
+              <li>La referencia de la cita va al pie de página, bajo una línea horizontal.</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <details class="deepen">
+        <summary>Tipología de informes técnicos (Retos Byteon)</summary>
+        <div class="subgrid cols-3">
+          <div class="card-basic">
+            <h4 style="margin-bottom:6px;">Según su propósito</h4>
+            <p>Informes de investigación, de progreso, de resultados, de diagnóstico, de recomendaciones y de
+              viabilidad. Ejemplo en talento humano: el <strong>informe de clima organizacional</strong> es un informe
+              diagnóstico que recopila datos de encuestas.</p>
+          </div>
+          <div class="card-basic">
+            <h4 style="margin-bottom:6px;">Según su alcance</h4>
+            <p>Internos, externos, públicos y confidenciales.</p>
+            <p>Según su contenido: técnicos, científicos, de divulgación y mixtos.</p>
+          </div>
+          <div class="card-basic">
+            <h4 style="margin-bottom:6px;">Según su periodicidad</h4>
+            <p><strong>Periódicos</strong> (por ejemplo, el reporte mensual de ausentismo) y <strong>puntuales</strong>
+              (un informe sobre un evento específico).</p>
+          </div>
+        </div>
+      </details>
+
+      <div class="note-box">
+        <strong>Dato para investigar:</strong> la introducción de la GTC 185 (ICONTEC, 2009) indica que la guía se basa
+        en varias normas técnicas —entre ellas la NTC 3588— y que estas pierden vigencia con su publicación. Los
+        materiales de la misión siguen presentando la NTC 3588 como referente de la estructura de los informes (con la
+        salvedad «sujeto a actualizaciones»). Consulta siempre la versión vigente y el manual de estilo de tu
+        organización.
+      </div>
+    </section>
+
+    <!-- GTC 185 Y APA -->
+    <section data-section="gtcapa">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">GTC 185 y APA: documentos, citas y buenas prácticas</h2>
+      <p style="color:var(--ink-soft);margin-bottom:10px;">La GTC 185 «Documentación organizacional» ofrece
+        recomendaciones para elaborar los distintos documentos que genera una organización y proyectar una adecuada
+        imagen corporativa. El estilo APA, por su parte, regula cómo reconocer a los autores que consultas.</p>
+
+      <h3 style="font-size:1.02rem;margin:22px 0 4px;">Documentos organizacionales que regula la GTC 185</h3>
+      <div class="it-grid">
+        <div class="it-card">
+          <h4>Carta u oficio</h4>
+          <p>Comunicación escrita entre organizaciones y personas, o entre la organización y sus empleados. Informa y
+            persuade; trata un solo tema.</p>
+        </div>
+        <div class="it-card">
+          <h4>Memorando</h4>
+          <p>Comunicación escrita para tratar asuntos internos y transmitir información, orientaciones y pautas entre
+            dependencias.</p>
+        </div>
+        <div class="it-card">
+          <h4>Circular</h4>
+          <p>Comunicación de interés común, con el mismo contenido, dirigida a un grupo específico de personas, interna
+            o externamente.</p>
+        </div>
+        <div class="it-card">
+          <h4>Acta</h4>
+          <p>Documento que recoge lo sucedido, tratado y acordado en una reunión. Se redacta en pasado, excepto las de
+            descargo, que van en presente.</p>
+        </div>
+        <div class="it-card">
+          <h4>Informe</h4>
+          <p>Describe datos precisos sobre el estado de una actividad, estudio o proyecto. Se redacta en forma
+            impersonal, con un solo tema por informe.</p>
+        </div>
+        <div class="it-card">
+          <h4>Certificado y constancia</h4>
+          <p>Documentos de carácter probatorio: el certificado asegura la veracidad y legalidad de un hecho; la
+            constancia no requiere solemnidad.</p>
+        </div>
+      </div>
+
+      <details class="deepen" open>
+        <summary>Aspectos generales de la GTC 185: zonas, márgenes, estilos y fuente</summary>
+        <div class="subgrid">
+          <div class="card-basic">
+            <h4 style="margin-bottom:6px;">Zonas de la hoja</h4>
+            <p><strong>Zona 1:</strong> membrete (razón social, sigla, logotipo y NIT), entre 3 y 4 cm del borde
+              superior.</p>
+            <p><strong>Zona 2:</strong> dirección, correo, sitio web, teléfono y lugar de origen, al pie y centrada.</p>
+            <p><strong>Zona 3:</strong> registro y radicación del documento, en el espacio superior derecho.</p>
+          </div>
+          <div class="card-basic">
+            <h4 style="margin-bottom:6px;">Estilos, fuente y detalles</h4>
+            <ul class="checklist">
+              <li>Estilos: bloque extremo, bloque y semibloque (sangría de 5 a 10 espacios).</li>
+              <li>Fuente clara y homogénea, de 10 a 12 puntos; se sugiere no usar negrilla.</li>
+              <li>Fecha: lugar de origen, día, mes en minúscula y año sin punto.</li>
+              <li>Nombre del remitente en mayúscula fija.</li>
+              <li>Sin errores técnicos, ortográficos, gramaticales ni de puntuación.</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <div class="note-box">
+        <strong>Riesgo de la no conformidad:</strong> un informe disciplinario o un acta de descargos que no cumpla con
+        los estándares técnicos y de estructura puede ser desestimado en un proceso auditor o legal. Al redactar actas
+        recuerda: nunca inicies un párrafo con gerundio y usa tiempo pasado (presente en las actas de descargo).
+      </div>
+
+      <h3 style="font-size:1.02rem;margin:30px 0 4px;">Estilo APA 7.ª edición (instructivo SENA)</h3>
+      <p style="color:var(--ink-soft);">Con el estilo APA se evita el plagio, se reconoce el mérito de los autores que
+        se
+        consultan y se genera una cultura de respeto por los contenidos elaborados.</p>
+
+      <div class="subgrid">
+        <div class="card-basic">
+          <h4 style="margin-bottom:6px;">¿Cuándo hay que citar?</h4>
+          <ul class="checklist">
+            <li>Cuando tu trabajo está influenciado por otra persona.</li>
+            <li>Cuando obtienes datos, definiciones o información que soporta tu trabajo.</li>
+            <li>Cuando la información no es de conocimiento general.</li>
+            <li>Cuando parafraseas o traduces un texto.</li>
+          </ul>
+          <p style="font-size:0.88rem;color:var(--ink-soft);">Excepciones: la Biblia y las comunicaciones personales se
+            citan en el texto, pero no llevan referencia bibliográfica.</p>
+        </div>
+        <div class="card-basic">
+          <h4 style="margin-bottom:6px;">Tipos de cita</h4>
+          <p><strong>Textual de menos de 40 palabras:</strong> entre comillas, con autor, año y página.</p>
+          <p><strong>Textual de más de 40 palabras:</strong> en bloque aparte con sangría de 1,27 cm (0,5 pulgadas),
+            sin comillas.</p>
+          <p><strong>Parafraseo:</strong> tus propias palabras, con autor y año.</p>
+        </div>
+      </div>
+
+      <table class="quality-table">
+        <thead>
+          <tr>
+            <th>Tipo de cita</th>
+            <th>Cita narrativa</th>
+            <th>Cita entre paréntesis</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Un autor</td>
+            <td>Restrepo (2007)</td>
+            <td>(Restrepo, 2007)</td>
+          </tr>
+          <tr>
+            <td>Dos autores</td>
+            <td>Álvarez y Trujillo (1983)</td>
+            <td>(Álvarez &amp; Trujillo, 1983)</td>
+          </tr>
+          <tr>
+            <td>Seis o más autores</td>
+            <td>Londoño et al. (2000)</td>
+            <td>(Londoño et al., 2000)</td>
+          </tr>
+          <tr>
+            <td>Institución con sigla</td>
+            <td>Servicio Nacional de Aprendizaje (SENA, 2000); luego, SENA (2000)</td>
+            <td>(Servicio Nacional de Aprendizaje [SENA], 2000); luego, (SENA, 2000)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <details class="deepen">
+        <summary>Tablas, figuras y lista de referencias</summary>
+        <div class="subgrid">
+          <div class="card-basic">
+            <h4 style="margin-bottom:6px;">Tablas y figuras en APA</h4>
+            <ul class="checklist">
+              <li>Tabla: número («Tabla 1») en negrita arriba; debajo, un título breve en cursiva.</li>
+              <li>La tabla lleva solo tres líneas horizontales; la nota va después de la línea inferior.</li>
+              <li>Figura: número en negrita encima del título en cursiva; la nota incluye la descripción y la fuente.
+              </li>
+              <li>Las tablas y figuras no deben superar los márgenes del documento.</li>
+            </ul>
+          </div>
+          <div class="card-basic">
+            <h4 style="margin-bottom:6px;">Lista de referencias</h4>
+            <p style="font-size:0.9rem;">Se ubica al final del documento y se ordena alfabéticamente por el apellido
+              del primer autor. Formatos base:</p>
+            <div class="code-line">Libro: Apellido, A. A. (Año). Título. Editorial.</div>
+            <div class="code-line">Artículo: Apellido, A. A. y Apellido, B. B. (Año). Título del artículo. Título de la
+              publicación, volumen(Número), pp-pp.</div>
+            <div class="code-line">Página web: Apellido, A. A. (Año). Título de la página web. Título del sitio web. URL
+            </div>
+            <p style="font-size:0.88rem;color:var(--ink-soft);">DOI: enlace permanente de algunos artículos; cuando
+              existe, se puede omitir la URL.</p>
+          </div>
+        </div>
+      </details>
+
+      <h3 style="font-size:1.02rem;margin:30px 0 4px;">Lenguaje, visualización y herramientas digitales</h3>
+      <div class="it-grid">
+        <div class="it-card">
+          <h4>Claridad y precisión</h4>
+          <p>Evita la jerga innecesaria. En lugar de «El colaborador presentó una disonancia con el entorno sistémico»,
+            escribe «El empleado manifestó dificultades para adaptarse al software contable».</p>
+        </div>
+        <div class="it-card">
+          <h4>Concisión y coherencia</h4>
+          <p>Elimina palabras redundantes y mantén un orden lógico que facilite la lectura y el seguimiento de las
+            ideas.</p>
+        </div>
+        <div class="it-card">
+          <h4>Visualización de datos</h4>
+          <p>Un diagrama de Pareto o un gráfico de barras muestra qué días de la semana concentran más ausentismo;
+            una tabla densa de fechas y nombres es ineficiente.</p>
+        </div>
+        <div class="it-card">
+          <h4>Adaptación a la audiencia</h4>
+          <p>Un informe de accidentes laborales (SST) es muy técnico para el comité paritario; para la junta directiva
+            se adapta con un resumen ejecutivo que resalte los impactos legales y financieros.</p>
+        </div>
+        <div class="it-card">
+          <h4>Consistencia y rigor</h4>
+          <p>Usa de forma uniforme términos, formatos y estilos en todo el documento; los datos y análisis deben ser
+            precisos y verificables.</p>
+        </div>
+        <div class="it-card">
+          <h4>Reportes dinámicos</h4>
+          <p>Power BI, Tableau y los módulos ATS y ERP generan tableros interactivos. Los principios de claridad y
+            coherencia visual también aplican a estos dashboards.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EVALUADOR -->
+    <section data-section="evaluador">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Evaluador de normas técnicas</h2>
+      <p style="color:var(--ink-soft);margin-bottom:16px;">Elige el enfoque: el evaluador general trabaja la estructura
+        de
+        los informes y los documentos organizacionales (NTC 3588 y GTC 185); el técnico trabaja citación, formato,
+        lenguaje y visualización (APA y buenas prácticas). Cada pregunta explica su respuesta al ver el veredicto, y
+        cada evaluación queda registrada en el <strong>Dashboard</strong>. Puedes responder en cualquier orden y
+        cambiar tus respuestas cuantas veces quieras.</p>
+
+      <div class="subnav" id="evalSubnav">
+        <button data-eval="general" class="active">Evaluador general · NTC 3588 y GTC 185</button>
+        <button data-eval="tecnico">Evaluador técnico · APA y buenas prácticas</button>
+      </div>
+
+      <!-- Evaluador general -->
+      <div class="eval-panel active" id="evalGeneralPanel">
+        <div class="eval-progress"><span id="evalProgText-general">Respondidas: 0 de 6</span><span>Cada pregunta vale
+            hasta 2
+            puntos · máximo 12</span></div>
+        <div class="eval-progress-bar">
+          <div class="eval-progress-fill" id="evalProgFill-general"></div>
+        </div>
+        <div class="eval-msg" id="evalMsg-general" role="status"></div>
+        <form id="evalFormGeneral" data-kind="general" novalidate>
+          <div id="qList-general"></div>
+          <div class="eval-actions">
+            <button type="submit" class="primary">Ver veredicto</button>
+          </div>
+        </form>
+        <div class="verdict" id="verdict-general">
+          <h4 class="v-title"></h4>
+          <p class="v-text"></p>
+          <p class="v-weak" style="font-size:0.88rem;color:var(--ink-soft);"></p>
+        </div>
+      </div>
+
+      <!-- Evaluador técnico -->
+      <div class="eval-panel" id="evalTecnicoPanel">
+        <div class="eval-progress"><span id="evalProgText-tecnico">Respondidas: 0 de 7</span><span>Cada pregunta vale
+            hasta 2
+            puntos · máximo 14</span></div>
+        <div class="eval-progress-bar">
+          <div class="eval-progress-fill" id="evalProgFill-tecnico"></div>
+        </div>
+        <div class="eval-msg" id="evalMsg-tecnico" role="status"></div>
+        <form id="evalFormTecnico" data-kind="tecnico" novalidate>
+          <div id="qList-tecnico"></div>
+          <div class="eval-actions">
+            <button type="submit" class="primary">Ver veredicto</button>
+          </div>
+        </form>
+        <div class="verdict" id="verdict-tecnico">
+          <h4 class="v-title"></h4>
+          <p class="v-text"></p>
+          <p class="v-weak" style="font-size:0.88rem;color:var(--ink-soft);"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- JUEGO -->
+    <section data-section="juego">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">¿Qué norma es?</h2>
+      <p style="color:var(--ink-soft);margin-bottom:22px;">Se te presentará una situación real de elaboración de
+        documentos. Decide qué norma debes consultar: <strong>NTC 3588</strong> (estructura del informe),
+        <strong>GTC 185</strong> (documentación organizacional) o <strong>APA</strong> (citación y referencias). Cada
+        partida se registra en el <strong>Dashboard</strong>.
+      </p>
+
+      <div class="game-wrap">
+        <div class="game-progress">
+          <span id="gameProgressText">Pregunta 1 de 12</span>
+          <span id="gameScoreText">Aciertos: 0</span>
+        </div>
+        <div class="game-bar">
+          <div class="game-bar-fill" id="gameBar"></div>
+        </div>
+
+        <div id="gamePlay">
+          <div class="game-card" id="gameQuestion"></div>
+          <div class="game-options" id="gameOptions">
+            <button type="button" data-choice="ntc">NTC 3588</button>
+            <button type="button" data-choice="gtc">GTC 185</button>
+            <button type="button" data-choice="apa">APA</button>
+          </div>
+          <div class="game-feedback" id="gameFeedback"></div>
+          <button type="button" class="primary" id="gameNextBtn" style="display:none;">Siguiente</button>
+        </div>
+
+        <div id="gameEnd" class="game-end" style="display:none;">
+          <p class="score"><span id="gameFinalScore"></span>/12</p>
+          <p id="gameFinalMsg" style="margin:10px 0 20px;"></p>
+          <button type="button" class="primary" id="gameReplayBtn">Jugar de nuevo</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section data-section="dashboard">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Dashboard de resultados</h2>
+      <p style="color:var(--ink-soft);margin-bottom:20px;">Resumen de tus evaluaciones y partidas. Los datos se guardan
+        solo en este navegador; no salen de tu computador.</p>
+
+      <div class="stat-row" id="dashStats"></div>
+
+      <div class="dash-grid">
+        <div class="chart-card">
+          <h4>Puntaje del juego por partida</h4>
+          <div id="chartGameBar"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Veredictos del evaluador (General vs. Técnico)</h4>
+          <div id="chartEvalBar"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Aciertos vs. errores en el juego</h4>
+          <div id="chartGamePie"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Errores por norma</h4>
+          <div id="chartTypePie"></div>
+        </div>
+      </div>
+
+      <div class="analysis-card">
+        <h4>📊 Análisis — Evaluador</h4>
+        <p id="analysisEval"></p>
+      </div>
+      <div class="analysis-card">
+        <h4>🎮 Análisis — Juego de clasificación</h4>
+        <p id="analysisGame"></p>
+      </div>
+
+      <div class="reward-box" id="rewardBox">
+        <span class="reward-tag">RETO FINAL · RECOMPENSA</span>
+        <h4>🚀 Jefe de investigación grado 5</h4>
+        <p>Al alcanzar el desarrollo de este reto serás considerado Jefe de investigación grado 5 y te recompensará con
+          <strong id="nexAmount">0</strong> NEXs.
+        </p>
+        <div class="reward-amount"><span class="big" id="nexBig">0</span><span class="of">NEXs de 150.000
+            posibles</span>
+        </div>
+        <div class="reward-track">
+          <div class="reward-fill" id="nexFill"></div>
+        </div>
+        <div class="reward-break" id="nexBreak"></div>
+        <div class="reward-status" id="nexStatus"></div>
+      </div>
+
+      <div class="dash-actions"
+        style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between; margin-top: 24px;">
+        <button type="button" class="ghost" id="resetDashBtn"
+          style="color: var(--coral); border-color: rgba(214, 91, 74, 0.35);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            style="vertical-align: middle; margin-right: 4px;">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          </svg>
+          <span id="resetDashLabel">Borrar historial del dashboard</span>
+        </button>
+        <button class="btn-print-dashboard" id="printReportBtn" type="button">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <rect x="6" y="14" width="12" height="8"></rect>
+          </svg>
+          Imprimir Registro Institucional y Dashboard
+        </button>
+      </div>
+    </section>
+
+    <!-- ACTIVIDAD PRESENCIAL -->
+    <section data-section="fisica">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Actividad presencial: la comisión auditora de informes</h2>
+      <p style="color:var(--ink-soft);margin-bottom:18px;">Cada equipo actúa como una comisión auditora de la entidad de
+        control: recibe un informe corto con errores ocultos, los encuentra, identifica la norma que se incumple y
+        propone la corrección. Después, revisan los hallazgos de otra comisión y reescriben el informe en un procesador
+        de texto.</p>
+
+      <div class="card-basic">
+        <h3 style="font-size:1.05rem;margin-bottom:10px;">Cómo organizarla</h3>
+        <ol class="steps">
+          <li>Forma comisiones de 3 a 4 personas y asigna los roles: <strong>coordinación</strong>, <strong>lectura de
+              normas</strong>, <strong>redacción de hallazgos</strong> y <strong>vocería</strong>. El botón de abajo
+            imprime las tarjetas de rol.</li>
+          <li>Entrega a cada comisión el <strong>informe de muestra</strong> y la <strong>hoja de hallazgos</strong>
+            (se imprimen con el botón). Las normas de consulta están en el Material de apoyo (NTC 3588, GTC 185 y
+            APA) y en las pestañas de estudio.</li>
+          <li>Da 15 minutos para leer el informe, localizar los errores y registrar en la hoja: la parte del informe
+            donde está, la norma que se incumple y cómo se corrige.</li>
+          <li>Rotación: cada comisión entrega su hoja a otra, que en 5 minutos confirma o corrige los hallazgos
+            (revisión cruzada).</li>
+          <li>Socialización: cada vocería sustenta en voz alta tres hallazgos. Contrasta con la hoja de respuestas
+            (última
+            página de la impresión) y discutan los casos donde hubo desacuerdo entre normas.</li>
+          <li>Producto final: en Word o Google Docs, cada comisión reescribe el informe corregido con el encabezamiento
+            completo, una cita APA con su referencia y la tabla bien rotulada, y lo guarda con el nombre de la
+            comisión.</li>
+        </ol>
+        <button type="button" class="ghost print-btn" id="printBtn">🖨️ Imprimir roles, informe de muestra, hoja de
+          hallazgos y respuestas</button>
+      </div>
+    </section>
+
+    <!-- MAPA MENTAL -->
+    <section data-section="mapamental">
+      <div class="mapamental-header">
+        <div>
+          <span class="tag">ESQUEMA CONCEPTUAL</span>
+          <h2 style="font-size:1.5rem;margin:4px 0 6px;">Mapa Mental: Normas técnicas para informes</h2>
+          <p style="color:var(--ink-soft);margin-bottom:0;">
+            Estructura visual de las tres normas (NTC 3588, GTC 185 y APA) y de las buenas prácticas de lenguaje,
+            visualización y audiencia.
+          </p>
+        </div>
+        <div class="mapamental-actions">
+          <button type="button" class="mapa-btn-open" id="mapaOpenBtn" title="Abrir en pestaña nueva">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+            Abrir original
+          </button>
+          <button type="button" class="mapa-btn-dl" id="mapaDlBtn" title="Descargar imagen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Descargar
+          </button>
+        </div>
+      </div>
+
+      <div class="mapamental-card">
+        <div class="mapamental-viewer" id="mapaViewer" title="Haz clic para ampliar el mapa en pantalla completa">
+          <div id="mapaInline" style="width:100%;"></div>
+          <div class="mapa-zoom-overlay">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              <line x1="11" y1="8" x2="11" y2="14"></line>
+              <line x1="8" y1="11" x2="14" y2="11"></line>
+            </svg>
+            <span>Clic para ampliar</span>
+          </div>
+        </div>
+        <div class="mapamental-footer">
+          <div class="mapa-badges">
+            <span class="mapa-badge b-primary">NTC 3588</span>
+            <span class="mapa-badge b-secondary">GTC 185</span>
+            <span class="mapa-badge b-tertiary">APA</span>
+          </div>
+          <span class="mapa-note">Mapa generado con los contenidos de la misión</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Contenido imprimible de la actividad presencial (solo visible con window.print()) -->
+  <div id="printCards">
+    <h2>Tarjetas de rol — recorta cada una y entrégala a la comisión</h2>
+    <div class="card-grid" id="printGrid"></div>
+
+    <div class="answer-page">
+      <h2>Informe de muestra para auditar (entregar a cada comisión)</h2>
+      <div class="p-sample">
+        <p>talento y futuro s.a.s.</p>
+        <p style="display:flex; justify-content:space-between; margin-bottom:22px;"><span>Departamento de Talento
+            Humano</span><span style="border:1px solid #444; padding:0 8px;">TH-014</span></p>
+        <p style="margin-bottom:22px;">informe de ausentismo primer trimestre</p>
+        <p style="margin-bottom:22px;">FECHA: 3/10/2026</p>
+        <p>Nosotros revisamos los registros de asistencia de enero a marzo y contamos las inasistencias de cada día de
+          la semana. Los resultados se resumen a continuación.</p>
+        <p>Durante el periodo, el colaborador presentó una disonancia con el entorno sistémico de la nómina, lo que
+          incidió en varias ausencias del área contable.</p>
+        <p>Como lo afirma Gómez (2019): "el ausentismo laboral no es solo un problema de asistencia; es un indicador
+          temprano del clima de una organización, pues refleja la carga de trabajo, la calidad del liderazgo, las
+          condiciones de seguridad y la motivación de los equipos, y por ello debe medirse con periodicidad".</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Día</th>
+              <th>Inasistencias</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Lunes</td>
+              <td>18</td>
+            </tr>
+            <tr>
+              <td>Martes</td>
+              <td>9</td>
+            </tr>
+            <tr>
+              <td>Miércoles</td>
+              <td>7</td>
+            </tr>
+            <tr>
+              <td>Jueves</td>
+              <td>8</td>
+            </tr>
+            <tr>
+              <td>Viernes</td>
+              <td>14</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="caption-below">Tabla 1. Inasistencias por día de la semana</p>
+        <p>Se recomienda reforzar el seguimiento de los lunes y los viernes.</p>
+      </div>
+    </div>
+
+    <div class="answer-page">
+      <h2>Hoja de hallazgos de la comisión auditora</h2>
+      <p style="font-size:0.95rem;">Comisión: ______________________________ &nbsp; Integrantes:
+        ________________________________________________</p>
+      <table class="p-blank">
+        <thead>
+          <tr>
+            <th style="width:28px;">#</th>
+            <th style="width:22%;">Parte del informe donde está el error</th>
+            <th style="width:18%;">Norma que se incumple (NTC 3588, GTC 185 o APA)</th>
+            <th>Corrección propuesta</th>
+          </tr>
+        </thead>
+        <tbody id="blankRows"></tbody>
+      </table>
+    </div>
+
+    <div class="answer-page">
+      <h2>Hoja de respuestas (para el docente)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Parte del informe</th>
+            <th>Norma</th>
+            <th>Hallazgo y corrección</th>
+          </tr>
+        </thead>
+        <tbody id="answerBody"></tbody>
+      </table>
+      <p style="font-size:0.85rem; margin-top:10px;">Nota: cuando dos normas coinciden (por ejemplo, NTC 3588 y GTC
+        185),
+        acepta cualquiera de las dos si la comisión justifica su elección. El manual de estilo de la organización tiene
+        la última palabra.</p>
+    </div>
+  </div><!-- /#printCards -->
+
+  <!-- Reporte: Registro del aprendiz + Resultados del Dashboard (Impresión) -->
+  <div id="printReport">
+    <!-- ENCABEZADO INSTITUCIONAL SENA -->
+    <header class="report-header">
+      <div class="report-header-top">
+        <img src="sena.png" alt="Logo SENA" class="report-logo" onerror="this.style.display='none'" />
+        <div class="report-header-text">
+          <div class="report-org">SERVICIO NACIONAL DE APRENDIZAJE SENA &bull; REGIONAL DISTRITO CAPITAL</div>
+          <h1 class="report-center">CENTRO DE GESTI&Oacute;N ADMINISTRATIVA</h1>
+          <div class="report-competencia">
+            <strong>COMPETENCIA:</strong> 210601026 - OPERAR HERRAMIENTAS INFORM&Aacute;TICAS Y DIGITALES DE ACUERDO CON
+            PROTOCOLOS Y MANUALES T&Eacute;CNICOS
+          </div>
+        </div>
+      </div>
+
+      <div class="report-project-card">
+        <div class="report-project-title">RETOS DEL PLANETA BYTEON &mdash; REPORTE DE EVALUACI&Oacute;N Y
+          DESEMPE&Ntilde;O</div>
+        <div class="report-project-sub">
+          <strong>FASES DEL PROYECTO:</strong> AN&Aacute;LISIS Y PLANEACI&Oacute;N &bull;
+          <strong>PROGRAMA:</strong> T&Eacute;CNICO EN TALENTO HUMANO &bull;
+          <strong>RETO:</strong> 1. NORMAS T&Eacute;CNICAS PARA LA ELABORACI&Oacute;N Y PRESENTACI&Oacute;N DE INFORMES
+        </div>
+        <div class="report-ra">
+          <strong>RESULTADOS DE APRENDIZAJE:</strong>
+          <ul>
+            <li>Elaborar reportes de informaci&oacute;n recolectada, procesada y almacenada utilizando tecnolog&iacute;a
+              disponible.</li>
+            <li>Reportar novedades en la informaci&oacute;n de talento humano seg&uacute;n pol&iacute;ticas de la
+              organizaci&oacute;n.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- REGISTRO DEL APRENDIZ (datos capturados en index.html) -->
+      <div class="report-student-box">
+        <div class="report-box-title">Registro del aprendiz</div>
+        <div class="report-reg-grid">
+          <div class="report-field report-field-wide"><span class="label">Nombre completo:</span> <span class="reg-val"
+              id="regNombre"></span></div>
+          <div class="report-field"><span class="label">N&uacute;mero de documento:</span> <span class="reg-val"
+              id="regDocumento"></span></div>
+          <div class="report-field"><span class="label">Ficha:</span> <span class="reg-val" id="regFicha"></span></div>
+          <div class="report-field report-field-wide"><span class="label">Programa:</span> <span class="reg-val"
+              id="regPrograma"></span></div>
+          <div class="report-field"><span class="label">Centro de formaci&oacute;n:</span> <span class="reg-val"
+              id="regCentro"></span></div>
+          <div class="report-field"><span class="label">Regional:</span> <span class="reg-val" id="regRegional"></span>
+          </div>
+          <div class="report-field"><span class="label">Fecha y hora de emisi&oacute;n:</span> <span class="reg-val"
+              id="reportDate"></span></div>
+          <div class="report-field"><span class="label">Instructor / Evaluador:</span> <span class="reg-val"></span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- RESULTADOS DEL DASHBOARD -->
+    <div class="report-body">
+      <h2 class="report-sec-title">Resultados Consolidados del Dashboard</h2>
+
+      <div class="report-stats-grid" id="reportStatsGrid"></div>
+
+      <div id="reportRewardCard"></div>
+
+      <div class="report-card">
+        <h3 class="report-card-title">Gr&aacute;ficos del Dashboard</h3>
+        <div class="report-charts-grid" id="reportCharts"></div>
+      </div>
+
+      <div class="report-card">
+        <h3 class="report-card-title">Diagn&oacute;stico y An&aacute;lisis Cualitativo</h3>
+        <div class="report-analysis-item">
+          <strong>Evaluador de Normas T&eacute;cnicas:</strong>
+          <p id="reportAnalysisEval"></p>
+        </div>
+        <div class="report-analysis-item">
+          <strong>Juego de Clasificaci&oacute;n (NTC 3588 / GTC 185 / APA):</strong>
+          <p id="reportAnalysisGame"></p>
+        </div>
+      </div>
+
+      <div class="report-card">
+        <h3 class="report-card-title">Desempe&ntilde;o por Norma</h3>
+        <div id="reportCategoryTable"></div>
+      </div>
+
+      <div class="report-card">
+        <h3 class="report-card-title">Historial Detallado de Evaluaciones Realizadas</h3>
+        <div id="reportEvalTable"></div>
+      </div>
+
+      <div class="report-card">
+        <h3 class="report-card-title">Historial de Partidas en el Simulador</h3>
+        <div id="reportGameTable"></div>
+      </div>
+
+      <div class="report-signatures">
+        <div class="report-obs">
+          <strong>Observaciones y Recomendaciones del Instructor / Evaluador:</strong>
+          <div class="obs-lines"></div>
+          <div class="obs-lines" style="margin-top: 6px;"></div>
+        </div>
+        <div class="sig-grid">
+          <div class="sig-box">
+            <div class="sig-line"></div>
+            <div class="sig-label">Firma del Aprendiz</div>
+          </div>
+          <div class="sig-box">
+            <div class="sig-line"></div>
+            <div class="sig-label">Firma del Instructor / Evaluador</div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /.report-body -->
+  </div><!-- /#printReport -->
+
+
+  <!-- Modal Lightbox para el Mapa Mental -->
+  <div class="mapa-modal" id="mapaModal" aria-hidden="true">
+    <div class="mapa-modal-backdrop" id="mapaModalBackdrop"></div>
+    <div class="mapa-modal-content">
+      <div class="mapa-modal-bar">
+        <span class="mapa-modal-title">Mapa Mental - Normas técnicas para informes</span>
+        <div class="mapa-modal-btns">
+          <button type="button" class="mapa-modal-action-btn" id="mapaModalOpen" title="Abrir en pestaña nueva">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </button>
+          <button type="button" class="mapa-modal-close" id="mapaModalClose" title="Cerrar (Esc)">&times;</button>
+        </div>
+      </div>
+      <div class="mapa-modal-body">
+        <div id="mapaModalSvg" style="width:100%;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =====================================================================
+    //  DATOS: juego de clasificación (NTC 3588 / GTC 185 / APA)
+    // =====================================================================
+    const NORMAS = {
+      ntc: { label: 'NTC 3588', color: '#1F7A6C', repaso: 'la pestaña «Informes (NTC 3588)»' },
+      gtc: { label: 'GTC 185', color: '#C68A2E', repaso: 'la pestaña «GTC 185 y APA»' },
+      apa: { label: 'APA', color: '#D65B4A', repaso: 'la pestaña «GTC 185 y APA»' }
+    };
+
+    const ITEMS = [
+      { text: "Necesitas saber en qué orden van los preliminares (portada, resumen), el texto principal (introducción, metodología, resultados) y los complementos (anexos) de un informe técnico.", type: "ntc", explain: "La NTC 3588 define la arquitectura del informe: preliminares, desarrollo y material complementario." },
+      { text: "Vas a armar un informe extenso y debes incluir portada, tabla de contenido y glosario antes de la introducción.", type: "ntc", explain: "Los preliminares del informe extenso hacen parte de la estructura que define la NTC 3588." },
+      { text: "Debes ubicar dónde van las conclusiones, la firma y el material complementario (anexos, bibliografía e índice) de un informe administrativo.", type: "ntc", explain: "La NTC 3588 organiza el cuerpo del informe y su material complementario." },
+      { text: "Quieres numerar los capítulos y subdivisiones de un informe con números arábigos, sin pasar de cuatro niveles.", type: "ntc", explain: "La numeración de capítulos y subdivisiones (hasta 4 niveles) se establece en la estructura del informe de la NTC 3588." },
+      { text: "Vas a redactar un memorando para tratar un asunto interno con otra dependencia de la organización.", type: "gtc", explain: "El memorando es uno de los documentos organizacionales que regula la GTC 185: sirve para asuntos internos." },
+      { text: "Debes definir los márgenes y las zonas de la hoja: membrete, dirección al pie y radicación del documento.", type: "gtc", explain: "La GTC 185 regula los márgenes y las zonas de la hoja (zona 1, 2 y 3)." },
+      { text: "Vas a elaborar un acta de descargos y debes cuidar el tiempo verbal en que se redacta.", type: "gtc", explain: "La GTC 185 indica que las actas se redactan en pasado, excepto las de descargo, que van en presente." },
+      { text: "Necesitas enviar el mismo texto a un grupo específico de personas, dentro y fuera de la empresa.", type: "gtc", explain: "Es una circular: la GTC 185 define su estructura y sus clases." },
+      { text: "Copiaste una frase de un autor y debes citarla entre comillas indicando autor, año y página.", type: "apa", explain: "La cita textual de menos de 40 palabras va entre comillas, con autor, año y página (estilo APA)." },
+      { text: "Debes armar la lista de referencias en orden alfabético por el apellido del primer autor.", type: "apa", explain: "La lista de referencias al final del documento es una exigencia del estilo APA." },
+      { text: "Parafraseaste a un autor con tus propias palabras y necesitas darle crédito para evitar el plagio.", type: "apa", explain: "En APA también se cita cuando se parafrasea o traduce un texto." },
+      { text: "Citas a una institución con sigla: la primera vez con el nombre completo y la sigla entre corchetes, y luego solo la sigla.", type: "apa", explain: "Ejemplo APA: (Servicio Nacional de Aprendizaje [SENA], 2000) y después (SENA, 2000)." }
+    ];
+
+    // Recompensa (150.000 NEXs): 37.500 por evaluador (x2) + 75.000 por el juego
+    const NEX_MAX = 150000, NEX_EVAL_EACH = 37500, NEX_GAME = 75000;
+    const RANGO = 'Jefe de investigación grado 5';
+
+    // =====================================================================
+    //  DATOS: banco de preguntas del Evaluador (varios tipos)
+    // =====================================================================
+    const MARG = ['2 cm a 3 cm', '3 cm a 4 cm', '2,54 cm', '5 cm'];
+    const EVALS = {
+      general: {
+        max: 12,
+        questions: [
+          {
+            id: 'g1', type: 'single', topic: 'Qué regula cada norma',
+            title: 'Cada norma tiene su terreno',
+            prompt: 'Según el manual de la misión, ¿qué regula principalmente la GTC 185?',
+            options: [
+              'La arquitectura de los informes investigativos y técnicos: preliminares, desarrollo y complementos.',
+              'Los márgenes, las zonas de la hoja y la estructura de cartas, memorandos, circulares y actas.',
+              'La forma de citar fuentes para evitar el plagio.',
+              'El diseño de tableros interactivos en Power BI.'
+            ],
+            correct: 1,
+            explain: 'La GTC 185 es la guía de documentación organizacional: regula márgenes, zonas de la hoja y la estructura de cartas, memorandos, circulares y actas. La estructura del informe corresponde a la NTC 3588 y la citación, al estilo APA.'
+          },
+          {
+            id: 'g2', type: 'drag', topic: 'Tipos de informe (resumen, corto y extenso)',
+            title: 'Resumen ejecutivo, informe corto o informe extenso',
+            prompt: 'Ubica cada característica en el tipo de informe al que corresponde.',
+            buckets: ['Resumen ejecutivo', 'Informe corto', 'Informe extenso'],
+            cards: [
+              { t: 'Informe breve de una a tres páginas', b: 0 },
+              { t: 'Consta de una a diez páginas', b: 1 },
+              { t: 'Se cuenta desde la página 11 en adelante', b: 2 },
+              { t: 'Lleva portada, tabla de contenido y glosario como preliminares', b: 2 },
+              { t: 'Su texto se desarrolla en un solo capítulo y lleva un objetivo', b: 1 },
+              { t: 'Puede tener o no portada; si no la tiene, se reemplaza por un encabezamiento', b: 0 }
+            ],
+            explain: 'Resumen ejecutivo: de una a tres páginas. Informe corto: de una a diez, con un solo capítulo y un objetivo. Informe extenso: desde la página 11, con preliminares (portada, tabla de contenido y glosario).'
+          },
+          {
+            id: 'g3', type: 'order', topic: 'Estructura del informe extenso',
+            title: 'El recorrido de un informe extenso',
+            prompt: 'Ordena las partes de un informe extenso, desde la primera hasta la última.',
+            items: ['Portada', 'Tabla de contenido', 'Glosario', 'Introducción', 'Núcleo del informe (capítulos)', 'Conclusiones y recomendaciones', 'Firma', 'Anexos', 'Bibliografía'],
+            explain: 'Primero los preliminares (portada, tabla de contenido y glosario); luego el cuerpo (introducción, núcleo, conclusiones y recomendaciones, firma); al final el material complementario (anexos, bibliografía e índice).'
+          },
+          {
+            id: 'g4', type: 'cloze', topic: 'Márgenes y zonas de la hoja',
+            title: 'Márgenes recomendados',
+            prompt: 'Completa la frase con los márgenes que recomiendan la NTC 3588 y la GTC 185.',
+            parts: [
+              'El margen superior recomendado es de ', { o: MARG, a: 1 },
+              ', el inferior de ', { o: MARG, a: 0 },
+              ', el izquierdo de ', { o: MARG, a: 1 },
+              ' y el derecho de ', { o: MARG, a: 0 }, '.'
+            ],
+            explain: 'Superior 3 a 4 cm, inferior 2 a 3 cm, izquierdo 3 a 4 cm y derecho 2 a 3 cm. La medida uniforme de 2,54 cm corresponde al estilo APA del instructivo SENA.'
+          },
+          {
+            id: 'g5', type: 'tf', topic: 'Documentos organizacionales (GTC 185)',
+            title: 'Memorandos, actas y circulares',
+            prompt: 'Marca cada afirmación sobre los documentos de la GTC 185.',
+            items: [
+              { t: 'El memorando se emplea para tratar asuntos internos de la organización.', v: true, why: 'La GTC 185 lo define como comunicación escrita para asuntos internos.' },
+              { t: 'Las actas de descargo se redactan en tiempo pasado, igual que las demás actas.', v: false, why: 'Las actas se redactan en pasado, excepto las de descargo, que van en presente.' },
+              { t: 'La circular lleva el mismo contenido y se dirige a un grupo específico de personas.', v: true, why: 'Es una comunicación de interés común dirigida a un grupo específico, interna o externamente.' },
+              { t: 'La GTC 185 recomienda resaltar el texto en negrilla en todos los documentos.', v: false, why: 'Recomienda una fuente clara y homogénea de 10 a 12 puntos y sugiere no usar negrilla.' }
+            ],
+            explain: 'Conocer el uso de cada documento evita errores que pueden restarle validez ante una auditoría.'
+          },
+          {
+            id: 'g6', type: 'match', topic: 'Vocabulario técnico de la GTC 185',
+            title: 'Concéntrese: términos y definiciones',
+            prompt: 'Encuentra las parejas de cada término con su definición.',
+            pairs: [
+              ['Razón social', 'Nombre que identifica a una organización'],
+              ['Anexo', 'Documento o elemento que se adjunta para complementar y aclarar'],
+              ['Glosario', 'Lista alfabética de términos con sus definiciones'],
+              ['Rúbrica', 'Rasgo o rasgos que cada persona escribe como parte de su firma'],
+              ['Transcriptor', 'Persona responsable de elaborar, digitar o transcribir la comunicación']
+            ],
+            explain: 'Dominar el vocabulario de la GTC 185 te permite leer y aplicar la norma sin ambigüedades. Tu puntaje depende del número de intentos.'
+          }
+        ]
+      },
+      tecnico: {
+        max: 14,
+        questions: [
+          {
+            id: 't1', type: 'single', topic: 'Cuándo citar (APA)',
+            title: 'El momento de dar crédito',
+            prompt: 'Según el instructivo APA del SENA, ¿en cuál de estos casos es necesario dar crédito al autor?',
+            options: [
+              'Cuando afirmas que Gabriel García Márquez escribió «Cien años de soledad», por ser un hecho conocido.',
+              'Cuando parafraseas con tus propias palabras lo que dijo un autor.',
+              'Solo cuando copias el texto de forma literal.',
+              'Nunca, si el documento es de uso interno.'
+            ],
+            correct: 1,
+            explain: 'Se cita cuando tu trabajo está influenciado por otra persona, cuando usas datos o definiciones, cuando la información no es de conocimiento general y cuando parafraseas o traduces. El ejemplo de García Márquez es de conocimiento general y no requiere cita.'
+          },
+          {
+            id: 't2', type: 'cloze', topic: 'Citas textuales (APA)',
+            title: 'Citas textuales cortas y largas',
+            prompt: 'Completa la frase sobre las citas textuales en APA.',
+            parts: [
+              'Una cita textual de ', { o: ['menos de 40 palabras', 'más de 40 palabras'], a: 0 },
+              ' va entre comillas dentro del párrafo; una cita de ', { o: ['menos de 40 palabras', 'más de 40 palabras'], a: 1 },
+              ' se separa del texto con una sangría de ', { o: ['0,5 cm', '1,27 cm', '2,54 cm', '4 cm'], a: 1 },
+              ' y se escribe ', { o: ['con comillas', 'sin comillas'], a: 1 }, '.'
+            ],
+            explain: 'Menos de 40 palabras: entre comillas y con punto al final. Más de 40 palabras: bloque aparte con sangría de 0,5 pulgadas (1,27 cm), sin comillas y con el mismo tipo y tamaño de fuente.'
+          },
+          {
+            id: 't3', type: 'drag', topic: 'Citas según el número de autores',
+            title: 'Cita cada obra según sus autores',
+            prompt: 'Arrastra cada forma de citar a la categoría que le corresponde.',
+            buckets: ['Un autor', 'Dos autores', 'Seis o más autores', 'Institución con sigla'],
+            cards: [
+              { t: '(Restrepo, 2007)', b: 0 },
+              { t: 'Álvarez y Trujillo (1983)', b: 1 },
+              { t: '(Londoño et al., 2000)', b: 2 },
+              { t: '(Servicio Nacional de Aprendizaje [SENA], 2000)', b: 3 },
+              { t: '(Álvarez & Trujillo, 1983)', b: 1 },
+              { t: '(SENA, 2000)', b: 3 }
+            ],
+            explain: 'Un autor: Restrepo (2007). Dos autores: Álvarez y Trujillo (1983), o (Álvarez & Trujillo, 1983) entre paréntesis. Seis o más: se usa «et al.». Institución con sigla: primero el nombre completo con la sigla entre corchetes y luego solo la sigla.'
+          },
+          {
+            id: 't4', type: 'order', topic: 'Tablas y figuras (APA)',
+            title: 'Anatomía de una tabla APA',
+            prompt: 'Ordena los elementos de una tabla en APA, de arriba hacia abajo.',
+            items: ['Número de la tabla («Tabla 1») en negrita', 'Título breve y descriptivo en cursiva', 'Cuerpo de la tabla con tres líneas horizontales', 'Nota de la tabla, después de la línea inferior'],
+            explain: 'En APA el número de la tabla va en negrita arriba, luego el título en cursiva, después el cuerpo con solo tres líneas horizontales (superior, inferior y la que separa la cabecera) y, al final, la nota.'
+          },
+          {
+            id: 't5', type: 'cloze', topic: 'Formato del documento (APA)',
+            title: 'Formato general APA',
+            prompt: 'Completa las reglas de formato del instructivo APA del SENA.',
+            parts: [
+              'En APA los márgenes son de ', { o: ['2,54 cm', '3 cm a 4 cm', '5 cm'], a: 0 },
+              ', el texto se escribe a ', { o: ['espacio sencillo', 'doble espacio'], a: 1 },
+              ', la sangría de párrafo es de ', { o: ['1,27 cm', '2,54 cm', '4 cm'], a: 0 },
+              ' y los títulos ', { o: ['sí', 'no'], a: 1 }, ' se escriben en mayúscula sostenida.'
+            ],
+            explain: 'Márgenes uniformes de 2,54 cm, doble espacio, sangría de 1,27 cm (cinco espacios) en la primera línea de cada párrafo y títulos sin mayúscula sostenida.'
+          },
+          {
+            id: 't6', type: 'tf', topic: 'Lenguaje, visualización y audiencias',
+            title: 'Lenguaje claro y datos visibles',
+            prompt: 'Marca cada afirmación sobre lenguaje, visualización de datos y audiencias.',
+            items: [
+              { t: 'Es mejor escribir «El empleado manifestó dificultades para adaptarse al software contable» que «El colaborador presentó una disonancia con el entorno sistémico».', v: true, why: 'La claridad y la precisión piden evitar la jerga innecesaria.' },
+              { t: 'Para mostrar qué días concentran más ausentismo, una tabla densa de fechas y nombres es más eficiente que un diagrama de Pareto o de barras.', v: false, why: 'Los gráficos aceleran el procesamiento visual y facilitan la toma de decisiones.' },
+              { t: 'Un informe de accidentes laborales dirigido a la junta directiva se adapta con un resumen ejecutivo que resalte los impactos legales y financieros.', v: true, why: 'Se mantiene la estructura normativa, pero se ajusta el nivel de detalle a la audiencia.' },
+              { t: 'Los dashboards de Power BI o Tableau quedan exentos de los principios de claridad y coherencia visual.', v: false, why: 'Esos principios también deben aplicarse a los tableros interactivos.' }
+            ],
+            explain: 'Un buen informe combina lenguaje directo, visualización estratégica y un nivel de detalle ajustado a quien lo lee.'
+          },
+          {
+            id: 't7', type: 'match', topic: 'Plagio, referencias y vocabulario APA',
+            title: 'Concéntrese: conceptos del estilo APA',
+            prompt: 'Encuentra las parejas de cada concepto con su significado.',
+            pairs: [
+              ['Plagio', 'Usar palabras o ideas de otra persona sin reconocerlo abiertamente'],
+              ['Parafraseo', 'Decir con tus propias palabras lo que dijo un autor, citándolo'],
+              ['Autoplagio', 'No reconocer las ideas propias que ya usaste en otros trabajos'],
+              ['Lista de referencias', 'Va al final del documento, en orden alfabético por el apellido del primer autor'],
+              ['DOI', 'Enlace permanente de un artículo; si existe, se puede omitir la URL']
+            ],
+            explain: 'Conocer estos conceptos ayuda a evitar el plagio y a reconocer a los autores consultados. Tu puntaje depende del número de intentos.'
+          }
+        ]
+      }
+    };
+
+    // Hallazgos del informe de muestra (actividad presencial)
+    const HALLAZGOS = [
+      ['Razón social', 'NTC 3588 / GTC 185', 'Debe escribirse en mayúscula sostenida, alineada a la izquierda y a 3–4 cm del borde superior: «TALENTO Y FUTURO S.A.S.».'],
+      ['Título', 'NTC 3588', 'Debe ir centrado y en mayúscula sostenida, a cuatro renglones de la dependencia: «INFORME DE AUSENTISMO PRIMER TRIMESTRE».'],
+      ['Fecha', 'NTC 3588 / GTC 185', 'Debe indicar ciudad y fecha completa (lugar, día, mes en minúscula y año): «FECHA: Bogotá D.C., 3 de octubre de 2026».'],
+      ['Autoría', 'NTC 3588', 'Falta «ELABORADO POR» o «RESPONSABLE» con los nombres, bajo la fecha y en orden alfabético.'],
+      ['Objetivo', 'NTC 3588', 'Falta «OBJETIVO:» con el propósito breve del informe corto.'],
+      ['Primer párrafo (redacción)', 'NTC 3588 / GTC 185', 'Está en primera persona («Nosotros revisamos»). El informe se redacta en forma impersonal: «Se revisaron los registros…».'],
+      ['Segundo párrafo (lenguaje)', 'Claridad y precisión (manual Byteon)', 'Jerga innecesaria. Reescribir: «El empleado manifestó dificultades para adaptarse al sistema de nómina».'],
+      ['Cita de Gómez (2019)', 'APA', 'Tiene más de 40 palabras: debe ir en bloque aparte, con sangría de 1,27 cm, sin comillas y con la página: (Gómez, 2019, p. #).'],
+      ['Leyenda de la tabla', 'NTC 3588 / APA', 'La leyenda de la tabla va arriba: «Tabla 1» (negrita) y, debajo, el título en cursiva; no al pie de la tabla.'],
+      ['Final del documento (referencias)', 'APA', 'Se cita a Gómez (2019) pero falta la lista de referencias, en orden alfabético, al final.'],
+      ['Final del documento (firma)', 'NTC 3588', 'El informe debe ser firmado por los autores en la página final, con el nombre en mayúscula sostenida.']
+    ];
+    const ROLES = [
+      ['Coordinación', 'Organiza el tiempo, reparte las partes del informe entre el equipo y verifica que la hoja de hallazgos quede completa.'],
+      ['Lectura de normas', 'Consulta la NTC 3588, la GTC 185 y el instructivo APA, y confirma qué norma se incumple en cada caso.'],
+      ['Redacción de hallazgos', 'Escribe en la hoja la parte del informe, la norma infringida y la corrección propuesta.'],
+      ['Vocería', 'Sustenta en voz alta tres hallazgos y defiende la corrección ante el grupo y el docente.']
+    ];
+
+    // =====================================================================
+    //  Utilidades y almacenamiento (con respaldo en memoria)
+    // =====================================================================
+    const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    function el(tag, cls, html) { const e = document.createElement(tag); if (cls) e.className = cls; if (html !== undefined) e.innerHTML = html; return e; }
+    const memStore = {};
+    function sGet(k) { try { const v = localStorage.getItem(k); if (v !== null) return v; } catch (e) { } return memStore[k] || null; }
+    function sSet(k, v) { memStore[k] = v; try { localStorage.setItem(k, v); } catch (e) { } }
+    function shuffledIndices(n) {
+      const arr = Array.from({ length: n }, (_, i) => i);
+      for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[arr[i], arr[j]] = [arr[j], arr[i]]; }
+      return arr;
+    }
+    function shuffledNotIdentity(n) {
+      let a, tries = 0;
+      do { a = shuffledIndices(n); tries++; } while (a.every((v, i) => v === i) && tries < 20);
+      return a;
+    }
+
+    // ---------- Registro del aprendiz (capturado en index.html) ----------
+    const REG_KEY = 'sena_registro_aprendiz';
+    const REG_DEFAULTS = {
+      programa: 'Programa Técnico en Talento Humano',
+      centro: 'Centro de Gestión Administrativa',
+      regional: 'Regional Distrito Capital'
+    };
+    function loadRegistro() {
+      try {
+        const m = location.hash.match(/^#registro=(.+)$/);
+        if (m) {
+          const d = JSON.parse(decodeURIComponent(m[1]));
+          if (d && d.nombre) {
+            sSet(REG_KEY, JSON.stringify(d));
+            try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { }
+            return d;
+          }
+        }
+      } catch (e) { }
+      try { const raw = sGet(REG_KEY); if (raw) return JSON.parse(raw); } catch (e) { }
+      return null;
+    }
+    let REGISTRO = loadRegistro();
+
+    // ---------- Datos persistidos del dashboard ----------
+    const DASH_KEY = 'nti_dashboard_v1';
+    function emptyDash() {
+      return { evalHistory: [], gameHistory: [], typeStats: { ntc: { correct: 0, wrong: 0 }, gtc: { correct: 0, wrong: 0 }, apa: { correct: 0, wrong: 0 } } };
+    }
+    function loadDash() {
+      try {
+        const raw = sGet(DASH_KEY);
+        if (raw) {
+          const d = JSON.parse(raw);
+          const base = emptyDash();
+          d.evalHistory = Array.isArray(d.evalHistory) ? d.evalHistory : [];
+          d.gameHistory = Array.isArray(d.gameHistory) ? d.gameHistory : [];
+          d.typeStats = Object.assign(base.typeStats, d.typeStats || {});
+          return d;
+        }
+      } catch (e) { }
+      return emptyDash();
+    }
+    let DASH = loadDash();
+    function saveDash() { sSet(DASH_KEY, JSON.stringify(DASH)); }
+
+    // ---------- Navegación ----------
+    const tabButtons = document.querySelectorAll('#tabs button[data-section]');
+    const sections = document.querySelectorAll('main > section');
+    function goTo(name) {
+      tabButtons.forEach(b => b.classList.toggle('active', b.dataset.section === name));
+      sections.forEach(s => s.classList.toggle('active', s.dataset.section === name));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (name === 'dashboard') renderDashboard();
+    }
+    tabButtons.forEach(b => b.addEventListener('click', () => goTo(b.dataset.section)));
+    document.querySelectorAll('[data-goto]').forEach(b => b.addEventListener('click', () => goTo(b.dataset.goto)));
+
+    // ---------- Sub-navegación del Evaluador ----------
+    const evalSubButtons = document.querySelectorAll('#evalSubnav button');
+    const evalPanels = { general: document.getElementById('evalGeneralPanel'), tecnico: document.getElementById('evalTecnicoPanel') };
+    evalSubButtons.forEach(b => b.addEventListener('click', () => {
+      evalSubButtons.forEach(x => x.classList.toggle('active', x === b));
+      Object.entries(evalPanels).forEach(([key, panel]) => panel.classList.toggle('active', key === b.dataset.eval));
+    }));
+
+    // =====================================================================
+    //  EVALUADOR: constructores por tipo de pregunta
+    //  Regla de diseño: nada se bloquea. Las respuestas siempre se pueden
+    //  cambiar y el veredicto se puede pedir en cualquier momento.
+    // =====================================================================
+    const TYPE_LABEL = { single: 'Única respuesta', tf: 'Verdadero o falso', drag: 'Arrastrar tarjetas', cloze: 'Listas desplegables', order: 'Ordenar', match: 'Concéntrese' };
+    const toScore = f => f >= 0.999 ? 2 : (f >= 0.5 ? 1 : 0);
+
+    function bSingle(q, body, onChange, uid) {
+      let sel = -1;
+      const wrap = el('div', 'opts');
+      shuffledIndices(q.options.length).forEach(oi => {
+        const lab = el('label', 'opt');
+        const inp = document.createElement('input');
+        inp.type = 'radio'; inp.name = uid; inp.value = oi;
+        inp.addEventListener('change', () => {
+          sel = oi;
+          wrap.querySelectorAll('.opt').forEach(o => o.classList.remove('sel'));
+          lab.classList.add('sel');
+          onChange();
+        });
+        lab.appendChild(inp);
+        lab.appendChild(el('span', '', esc(q.options[oi])));
+        wrap.appendChild(lab);
+      });
+      body.appendChild(wrap);
+      return {
+        answered: () => sel >= 0,
+        score: () => sel === q.correct ? 2 : 0,
+        detail: () => sel === q.correct ? ['✅ Correcto.'] : ['❌ La respuesta correcta era: «' + q.options[q.correct] + '».']
+      };
+    }
+
+    function bTF(q, body, onChange) {
+      const vals = q.items.map(() => null);
+      q.items.forEach((it, i) => {
+        const row = el('div', 'tf-row');
+        row.appendChild(el('div', 'tf-text', esc(it.t)));
+        const btns = el('div', 'tf-btns');
+        [['Verdadero', true], ['Falso', false]].forEach(([lbl, v]) => {
+          const b = el('button', '', lbl); b.type = 'button';
+          b.addEventListener('click', () => {
+            vals[i] = v;
+            btns.querySelectorAll('button').forEach(x => x.classList.remove('sel'));
+            b.classList.add('sel');
+            onChange();
+          });
+          btns.appendChild(b);
+        });
+        row.appendChild(btns);
+        body.appendChild(row);
+      });
+      return {
+        answered: () => vals.some(v => v !== null),
+        score: () => toScore(q.items.filter((it, i) => vals[i] === it.v).length / q.items.length),
+        detail: () => q.items.map((it, i) => (vals[i] === it.v ? '✅ ' : (vals[i] === null ? '⚪ Sin responder: ' : '❌ ')) + it.t.replace(/\.$/, '') + ' — es ' + (it.v ? 'verdadero' : 'falso') + '. ' + it.why)
+      };
+    }
+
+    function bCloze(q, body, onChange) {
+      const blanks = q.parts.filter(p => typeof p !== 'string');
+      const vals = blanks.map(() => -1);
+      const wrap = el('div', 'cloze');
+      let bi = 0;
+      q.parts.forEach(p => {
+        if (typeof p === 'string') { wrap.appendChild(document.createTextNode(p)); return; }
+        const my = bi++;
+        const sel = document.createElement('select');
+        sel.className = 'empty';
+        sel.appendChild(new Option('— elige —', '-1'));
+        p.o.forEach((t, i) => sel.appendChild(new Option(t, String(i))));
+        sel.addEventListener('change', () => {
+          vals[my] = parseInt(sel.value, 10);
+          sel.classList.toggle('empty', vals[my] < 0);
+          onChange();
+        });
+        wrap.appendChild(sel);
+      });
+      body.appendChild(wrap);
+      return {
+        answered: () => vals.some(v => v >= 0),
+        score: () => toScore(blanks.filter((b, i) => vals[i] === b.a).length / blanks.length),
+        detail: () => {
+          const wrong = [];
+          blanks.forEach((b, i) => { if (vals[i] !== b.a) wrong.push('espacio ' + (i + 1) + ': «' + b.o[b.a] + '»'); });
+          return wrong.length ? ['❌ Respuestas correctas que faltaron o fallaron → ' + wrong.join('; ') + '.'] : ['✅ Completaste todos los espacios correctamente.'];
+        }
+      };
+    }
+
+    function bDrag(q, body, onChange) {
+      const place = q.cards.map(() => -1);
+      let selected = -1;
+      const bank = el('div', 'dnd-bank');
+      bank.dataset.b = '-1';
+      const bucketsWrap = el('div', 'dnd-buckets');
+      const zones = [];
+      q.buckets.forEach((name, bi) => {
+        const bk = el('div', 'dnd-bucket');
+        bk.dataset.b = String(bi);
+        bk.appendChild(el('h5', '', esc(name)));
+        const z = el('div', 'dnd-zone'); bk.appendChild(z);
+        zones.push(z);
+        bucketsWrap.appendChild(bk);
+      });
+      const cardEls = [];
+      function move(ci, bi) {
+        place[ci] = bi;
+        (bi < 0 ? bank : zones[bi]).appendChild(cardEls[ci]);
+        cardEls[ci].classList.remove('sel');
+        selected = -1;
+        onChange();
+      }
+      shuffledIndices(q.cards.length).forEach(ci => {
+        const c = el('div', 'dnd-card', esc(q.cards[ci].t));
+        c.draggable = true;
+        c.addEventListener('dragstart', e => { try { e.dataTransfer.setData('text/plain', String(ci)); } catch (x) { } });
+        c.addEventListener('click', e => {
+          e.stopPropagation();
+          if (selected === ci) { c.classList.remove('sel'); selected = -1; return; }
+          cardEls.forEach(x => x.classList.remove('sel'));
+          selected = ci; c.classList.add('sel');
+        });
+        cardEls[ci] = c;
+        bank.appendChild(c);
+      });
+      const targets = [bank].concat(Array.from(bucketsWrap.children));
+      targets.forEach(t => {
+        const bi = parseInt(t.dataset.b, 10);
+        t.addEventListener('click', () => { if (selected >= 0) move(selected, bi); });
+        t.addEventListener('dragover', e => { e.preventDefault(); t.classList.add('over'); });
+        t.addEventListener('dragleave', () => t.classList.remove('over'));
+        t.addEventListener('drop', e => {
+          e.preventDefault(); t.classList.remove('over');
+          let ci = -1;
+          try { ci = parseInt(e.dataTransfer.getData('text/plain'), 10); } catch (x) { }
+          if (isNaN(ci) || ci < 0 || !q.cards[ci]) return;
+          move(ci, bi);
+        });
+      });
+      body.appendChild(el('p', 'q-help', 'Arrastra cada tarjeta a su casilla. En el celular: toca la tarjeta y luego toca la casilla. Para devolverla, tócala y toca la zona superior.'));
+      body.appendChild(bank);
+      body.appendChild(bucketsWrap);
+      return {
+        answered: () => place.some(p => p >= 0),
+        score: () => toScore(q.cards.filter((c, i) => place[i] === c.b).length / q.cards.length),
+        detail: () => {
+          const wrong = q.cards.map((c, i) => [c, i]).filter(([c, i]) => place[i] !== c.b).map(([c]) => '«' + c.t + '» → ' + q.buckets[c.b]);
+          return wrong.length ? ['❌ Debían ir así: ' + wrong.join('; ') + '.'] : ['✅ Todas las tarjetas quedaron en su casilla.'];
+        }
+      };
+    }
+
+    function bOrder(q, body, onChange) {
+      let arr = shuffledNotIdentity(q.items.length);
+      let touched = false;
+      const list = el('ol', 'ord-list');
+      const confirmBtn = el('button', 'ghost ord-confirm', 'Confirmar este orden'); confirmBtn.type = 'button';
+      function paint() {
+        list.innerHTML = '';
+        arr.forEach((idx, pos) => {
+          const li = el('li', 'ord-item');
+          li.appendChild(el('span', 'ord-n', String(pos + 1)));
+          li.appendChild(el('span', 'ord-t', esc(q.items[idx])));
+          const up = el('button', '', '▲'); up.type = 'button'; up.title = 'Subir'; up.disabled = pos === 0;
+          const dn = el('button', '', '▼'); dn.type = 'button'; dn.title = 'Bajar'; dn.disabled = pos === arr.length - 1;
+          up.addEventListener('click', () => swap(pos, pos - 1));
+          dn.addEventListener('click', () => swap(pos, pos + 1));
+          li.appendChild(up); li.appendChild(dn);
+          list.appendChild(li);
+        });
+      }
+      function swap(a, b) {
+        if (b < 0 || b >= arr.length) return;
+        [arr[a], arr[b]] = [arr[b], arr[a]];
+        touched = true; confirmBtn.classList.add('on'); confirmBtn.textContent = 'Orden confirmado ✓';
+        paint(); onChange();
+      }
+      confirmBtn.addEventListener('click', () => {
+        touched = true; confirmBtn.classList.add('on'); confirmBtn.textContent = 'Orden confirmado ✓'; onChange();
+      });
+      paint();
+      body.appendChild(list);
+      body.appendChild(confirmBtn);
+      return {
+        answered: () => touched,
+        score: () => toScore(arr.filter((v, i) => v === i).length / arr.length),
+        detail: () => {
+          const ok = arr.every((v, i) => v === i);
+          return ok ? ['✅ El orden es correcto.'] : ['❌ El orden correcto es: ' + q.items.map((t, i) => (i + 1) + '. ' + t).join(' · ')];
+        }
+      };
+    }
+
+    function bMatch(q, body, onChange) {
+      const n = q.pairs.length;
+      const cards = [];
+      q.pairs.forEach((p, i) => { cards.push({ pair: i, kind: 'term', text: p[0] }); cards.push({ pair: i, kind: 'def', text: p[1] }); });
+      let open = [], matched = 0, attempts = 0, timer = null;
+      const grid = el('div', 'mem-grid');
+      const status = el('div', 'mem-status');
+      function paintStatus() { status.textContent = 'Parejas encontradas: ' + matched + ' de ' + n + ' · Intentos: ' + attempts + (matched === n ? ' · ¡Completado!' : ''); }
+      function flush() {
+        if (timer) { clearTimeout(timer); timer = null; }
+        open.forEach(c => { if (!c.done) c.el.classList.remove('open'); });
+        open = [];
+      }
+      shuffledIndices(cards.length).forEach(ci => {
+        const c = cards[ci];
+        const b = el('button', 'mem-card ' + c.kind, '<span class="back">🛰️</span><span class="face">' + esc(c.text) + '</span>');
+        b.type = 'button';
+        c.el = b;
+        b.addEventListener('click', () => {
+          if (c.done || open.indexOf(c) >= 0) return;
+          if (open.length >= 2) flush();
+          b.classList.add('open');
+          open.push(c);
+          if (open.length === 2) {
+            attempts++;
+            const [x, y] = open;
+            if (x.pair === y.pair && x.kind !== y.kind) {
+              x.done = y.done = true;
+              x.el.classList.add('matched'); y.el.classList.add('matched');
+              matched++; open = [];
+            } else {
+              timer = setTimeout(flush, 1000);
+            }
+          }
+          paintStatus(); onChange();
+        });
+        grid.appendChild(b);
+      });
+      paintStatus();
+      body.appendChild(el('p', 'q-help', 'Voltea dos tarjetas: si un término coincide con su definición, quedan descubiertas. Encuentra todas las parejas con el menor número de intentos.'));
+      body.appendChild(grid);
+      body.appendChild(status);
+      return {
+        answered: () => attempts > 0,
+        score: () => {
+          if (matched >= n) { const err = attempts - n; return err <= 2 ? 2 : (err <= 5 ? 1 : 0); }
+          return matched / n >= 0.5 ? 1 : 0;
+        },
+        detail: () => {
+          const head = matched >= n ? ['Completaste las ' + n + ' parejas en ' + attempts + ' intentos (' + (attempts - n) + ' fallidos).'] : ['Encontraste ' + matched + ' de ' + n + ' parejas en ' + attempts + ' intentos.'];
+          return head.concat(q.pairs.map(p => '🔗 ' + p[0] + ' → ' + p[1]));
+        }
+      };
+    }
+    const BUILDERS = { single: bSingle, tf: bTF, cloze: bCloze, drag: bDrag, order: bOrder, match: bMatch };
+
+    // =====================================================================
+    //  EVALUADOR: montaje, progreso y veredicto
+    // =====================================================================
+    const QS = { general: [], tecnico: [] };
+
+    function mountEvaluator(kind) {
+      const cfg = EVALS[kind];
+      const host = document.getElementById('qList-' + kind);
+      host.innerHTML = '';
+      QS[kind] = [];
+      cfg.questions.forEach((q, idx) => {
+        const card = el('div', 'q-card');
+        card.innerHTML = '<div class="q-head"><span class="q-num">PREGUNTA ' + (idx + 1) + ' DE ' + cfg.questions.length + '</span><span class="q-type">' + TYPE_LABEL[q.type] + '</span></div><h4>' + esc(q.title) + '</h4><p class="q-help">' + esc(q.prompt) + '</p>';
+        const body = el('div', 'q-body');
+        const fb = el('div', 'q-feedback');
+        card.appendChild(body); card.appendChild(fb);
+        const api = BUILDERS[q.type](q, body, () => {
+          card.classList.remove('ok', 'part', 'bad');
+          fb.classList.remove('show');
+          updateProgress(kind);
+        }, kind + '_' + q.id);
+        QS[kind].push({ q: q, card: card, fb: fb, api: api });
+        host.appendChild(card);
+      });
+      updateProgress(kind);
+    }
+
+    function updateProgress(kind) {
+      const total = QS[kind].length;
+      const done = QS[kind].filter(o => o.api.answered()).length;
+      document.getElementById('evalProgText-' + kind).textContent = 'Respondidas: ' + done + ' de ' + total;
+      document.getElementById('evalProgFill-' + kind).style.width = Math.round(done / total * 100) + '%';
+      QS[kind].forEach(o => o.card.classList.toggle('done', o.api.answered()));
+    }
+
+    function submitEvaluator(kind, e) {
+      if (e) e.preventDefault();
+      const cfg = EVALS[kind];
+      const msg = document.getElementById('evalMsg-' + kind);
+      const verdictBox = document.getElementById('verdict-' + kind);
+      const answered = QS[kind].filter(o => o.api.answered()).length;
+      if (answered === 0) {
+        msg.className = 'eval-msg show';
+        msg.textContent = 'Responde al menos una pregunta para obtener un veredicto.';
+        return;
+      }
+      let total = 0;
+      const weak = [];
+      QS[kind].forEach(o => {
+        const isAns = o.api.answered();
+        const s = isAns ? o.api.score() : 0;
+        total += s;
+        if (s < 2) weak.push(o.q.topic);
+        o.card.classList.remove('ok', 'part', 'bad');
+        o.card.classList.add(s === 2 ? 'ok' : (s === 1 ? 'part' : 'bad'));
+        const lines = isAns ? o.api.detail() : ['⚪ Esta pregunta quedó sin responder.'];
+        o.fb.innerHTML = '<span class="pts">' + s + ' / 2 puntos</span><ul>' + lines.map(l => '<li>' + esc(l) + '</li>').join('') + '</ul><p style="margin:8px 0 0;"><strong>Por qué:</strong> ' + esc(o.q.explain) + '</p>';
+        o.fb.classList.add('show');
+      });
+      const max = cfg.max;
+      const lowCut = Math.round(max * 0.42), midCut = Math.round(max * 0.78);
+      const title = verdictBox.querySelector('.v-title'), text = verdictBox.querySelector('.v-text'), weakEl = verdictBox.querySelector('.v-weak');
+      verdictBox.classList.remove('low', 'mid', 'high');
+      let key;
+      if (total <= lowCut) {
+        key = 'low'; verdictBox.classList.add('low');
+        title.textContent = '🔴 Dominio bajo (' + total + '/' + max + ')';
+        text.textContent = 'Todavía hay vacíos importantes. Repasa las pestañas «Informes (NTC 3588)» y «GTC 185 y APA» y los documentos de apoyo antes de elaborar o revisar un informe.';
+      } else if (total <= midCut) {
+        key = 'mid'; verdictBox.classList.add('mid');
+        title.textContent = '🟡 Dominio aceptable, con reservas (' + total + '/' + max + ')';
+        text.textContent = 'Manejas lo esencial, pero conviene reforzar los puntos débiles antes de entregar un informe o un acta.';
+      } else {
+        key = 'high'; verdictBox.classList.add('high');
+        title.textContent = '🟢 Dominio sólido (' + total + '/' + max + ')';
+        text.textContent = 'Aplicas correctamente las normas. Estás listo para estructurar, redactar y citar informes de talento humano con rigor.';
+      }
+      weakEl.textContent = weak.length ? ('Puntos a reforzar: ' + weak.join(', ') + '.') : 'No se detectaron puntos débiles.';
+      verdictBox.classList.add('show');
+      msg.className = 'eval-msg info show';
+      msg.textContent = (answered < QS[kind].length ? 'Quedaron ' + (QS[kind].length - answered) + ' pregunta(s) sin responder (cuentan 0). ' : '') + 'Puedes cambiar tus respuestas y volver a pedir el veredicto cuando quieras: cada evaluación se registra en el Dashboard.';
+
+      DASH.evalHistory.push({ ts: Date.now(), kind: kind, total: total, max: max, verdict: key, weak: weak });
+      saveDash();
+      try { verdictBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch (x) { }
+    }
+    ['general', 'tecnico'].forEach(kind => {
+      mountEvaluator(kind);
+      document.getElementById(kind === 'general' ? 'evalFormGeneral' : 'evalFormTecnico').addEventListener('submit', e => submitEvaluator(kind, e));
+    });
+
+    // =====================================================================
+    //  JUEGO
+    // =====================================================================
+    let gameOrder = [], gameIndex = 0, gameScore = 0, gameLocked = false;
+
+    function startGame() {
+      gameOrder = shuffledIndices(ITEMS.length);
+      gameIndex = 0; gameScore = 0; gameLocked = false;
+      document.getElementById('gamePlay').style.display = 'block';
+      document.getElementById('gameEnd').style.display = 'none';
+      renderQuestion();
+    }
+    function renderQuestion() {
+      const item = ITEMS[gameOrder[gameIndex]];
+      gameLocked = false;
+      document.getElementById('gameQuestion').textContent = item.text;
+      document.getElementById('gameProgressText').textContent = 'Pregunta ' + (gameIndex + 1) + ' de ' + ITEMS.length;
+      document.getElementById('gameScoreText').textContent = 'Aciertos: ' + gameScore;
+      document.getElementById('gameBar').style.width = Math.round((gameIndex / ITEMS.length) * 100) + '%';
+      const feedback = document.getElementById('gameFeedback');
+      feedback.classList.remove('show'); feedback.textContent = '';
+      document.getElementById('gameNextBtn').style.display = 'none';
+      document.querySelectorAll('#gameOptions button').forEach(btn => { btn.disabled = false; btn.classList.remove('correct', 'incorrect'); });
+    }
+    document.getElementById('gameOptions').addEventListener('click', e => {
+      const btn = e.target.closest('button[data-choice]');
+      if (!btn || gameLocked) return;
+      gameLocked = true;
+      const item = ITEMS[gameOrder[gameIndex]];
+      const choice = btn.dataset.choice;
+      document.querySelectorAll('#gameOptions button').forEach(b => b.disabled = true);
+      const feedback = document.getElementById('gameFeedback');
+      feedback.classList.add('show');
+      if (choice === item.type) {
+        btn.classList.add('correct'); gameScore++;
+        feedback.textContent = '✅ Correcto. ' + item.explain;
+        DASH.typeStats[item.type].correct++;
+      } else {
+        btn.classList.add('incorrect');
+        document.querySelector('#gameOptions button[data-choice="' + item.type + '"]').classList.add('correct');
+        feedback.textContent = '❌ Era ' + NORMAS[item.type].label + '. ' + item.explain;
+        DASH.typeStats[item.type].wrong++;
+      }
+      saveDash();
+      document.getElementById('gameScoreText').textContent = 'Aciertos: ' + gameScore;
+      document.getElementById('gameNextBtn').style.display = 'inline-block';
+    });
+    document.getElementById('gameNextBtn').addEventListener('click', () => {
+      gameIndex++;
+      if (gameIndex >= ITEMS.length) {
+        document.getElementById('gamePlay').style.display = 'none';
+        document.getElementById('gameEnd').style.display = 'block';
+        document.getElementById('gameBar').style.width = '100%';
+        document.getElementById('gameFinalScore').textContent = gameScore;
+        const msgEl = document.getElementById('gameFinalMsg');
+        if (gameScore === ITEMS.length) msgEl.textContent = 'Puntaje perfecto. Sabes qué norma consultar en cada situación.';
+        else if (gameScore >= ITEMS.length * 0.7) msgEl.textContent = 'Muy buen resultado. Repasa los casos donde fallaste en las pestañas de estudio.';
+        else msgEl.textContent = 'Vale la pena repasar qué regula cada norma antes de intentarlo de nuevo.';
+        DASH.gameHistory.push({ ts: Date.now(), score: gameScore, total: ITEMS.length });
+        saveDash();
+      } else renderQuestion();
+    });
+    document.getElementById('gameReplayBtn').addEventListener('click', startGame);
+    startGame();
+
+    // =====================================================================
+    //  ACTIVIDAD PRESENCIAL (impresión)
+    // =====================================================================
+    const printGrid = document.getElementById('printGrid');
+    ROLES.forEach((r, i) => {
+      const d = el('div', 'p-card', '<div class="num">Rol ' + (i + 1) + '</div><strong>' + esc(r[0]) + '</strong><br>' + esc(r[1]));
+      printGrid.appendChild(d);
+    });
+    const blankRows = document.getElementById('blankRows');
+    for (let i = 1; i <= HALLAZGOS.length; i++) blankRows.appendChild(el('tr', '', '<td>' + i + '</td><td></td><td></td><td></td>'));
+    const answerBody = document.getElementById('answerBody');
+    HALLAZGOS.forEach((h, i) => answerBody.appendChild(el('tr', '', '<td>' + (i + 1) + '</td><td>' + esc(h[0]) + '</td><td><strong>' + esc(h[1]) + '</strong></td><td>' + esc(h[2]) + '</td>')));
+    document.getElementById('printBtn').addEventListener('click', () => {
+      document.body.classList.add('printing-cards');
+      window.print();
+    });
+
+    // =====================================================================
+    //  DASHBOARD
+    // =====================================================================
+    const fmtN = n => (n || 0).toLocaleString('es-CO');
+    const TYPE_KEYS = ['ntc', 'gtc', 'apa'];
+
+    function renderPieChart(containerId, slices) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = '';
+      const total = slices.reduce((s, x) => s + x.value, 0);
+      if (total <= 0) { container.innerHTML = '<p class="empty-note">Aún no hay datos suficientes.</p>'; return; }
+      const size = 150, r = 55, cx = size / 2, cy = size / 2, thickness = 26;
+      const circumference = 2 * Math.PI * r;
+      const svgNS = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(svgNS, 'svg');
+      svg.setAttribute('viewBox', '0 0 ' + size + ' ' + size);
+      const bg = document.createElementNS(svgNS, 'circle');
+      bg.setAttribute('cx', cx); bg.setAttribute('cy', cy); bg.setAttribute('r', r);
+      bg.setAttribute('fill', 'none'); bg.setAttribute('stroke', '#EDE7D8'); bg.setAttribute('stroke-width', thickness);
+      svg.appendChild(bg);
+      let offset = 0;
+      slices.forEach(sl => {
+        if (sl.value <= 0) return;
+        const len = (sl.value / total) * circumference;
+        const c = document.createElementNS(svgNS, 'circle');
+        c.setAttribute('cx', cx); c.setAttribute('cy', cy); c.setAttribute('r', r);
+        c.setAttribute('fill', 'none'); c.setAttribute('stroke', sl.color); c.setAttribute('stroke-width', thickness);
+        c.setAttribute('stroke-dasharray', len + ' ' + (circumference - len));
+        c.setAttribute('stroke-dashoffset', -offset);
+        c.setAttribute('transform', 'rotate(-90 ' + cx + ' ' + cy + ')');
+        svg.appendChild(c);
+        offset += len;
+      });
+      const label = document.createElementNS(svgNS, 'text');
+      label.setAttribute('x', cx); label.setAttribute('y', cy + 5); label.setAttribute('text-anchor', 'middle');
+      label.setAttribute('font-size', '15'); label.setAttribute('font-weight', '800'); label.setAttribute('fill', '#14213D');
+      label.textContent = total;
+      svg.appendChild(label);
+      const wrap = el('div', 'pie-wrap'); wrap.appendChild(svg);
+      const legend = el('div', 'legend');
+      slices.forEach(sl => {
+        const pct = Math.round((sl.value / total) * 100);
+        legend.appendChild(el('div', '', '<span class="sw" style="background:' + sl.color + '"></span>' + esc(sl.label) + ': <strong>' + sl.value + '</strong> (' + pct + '%)'));
+      });
+      wrap.appendChild(legend);
+      container.appendChild(wrap);
+    }
+
+    function renderBarChart(containerId, categories, series, maxOverride) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = '';
+      const allValues = series.flatMap(s => s.data);
+      if (!allValues.some(v => v > 0)) { container.innerHTML = '<p class="empty-note">Aún no hay datos suficientes.</p>'; return; }
+      const maxVal = maxOverride || Math.max(1, ...allValues);
+      const width = 380, height = 210, padLeft = 28, padBottom = 34, padTop = series.length > 1 ? 26 : 12;
+      const chartW = width - padLeft - 10, chartH = height - padBottom - padTop;
+      const groupW = chartW / categories.length;
+      const barW = Math.min(30, (groupW - 14) / series.length);
+      const svgNS = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(svgNS, 'svg');
+      svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
+      const mk = (tag, attrs, txt) => { const n = document.createElementNS(svgNS, tag); Object.keys(attrs).forEach(k => n.setAttribute(k, attrs[k])); if (txt !== undefined) n.textContent = txt; svg.appendChild(n); return n; };
+      [0, 0.25, 0.5, 0.75, 1].forEach(f => {
+        const y = padTop + chartH - f * chartH;
+        mk('line', { x1: padLeft, x2: width - 6, y1: y, y2: y, stroke: '#EDE7D8', 'stroke-width': 1 });
+        mk('text', { x: 2, y: y + 3, 'font-size': 9, fill: '#5B6472' }, Math.round(f * maxVal));
+      });
+      if (series.length > 1) {
+        series.forEach((s, si) => {
+          const lx = padLeft + si * 110;
+          mk('rect', { x: lx, y: 4, width: 10, height: 10, fill: s.color });
+          mk('text', { x: lx + 14, y: 13, 'font-size': 10, fill: '#1D2430' }, s.name);
+        });
+      }
+      categories.forEach((cat, ci) => {
+        const groupX = padLeft + ci * groupW;
+        series.forEach((s, si) => {
+          const val = s.data[ci] || 0;
+          const barH = (val / maxVal) * chartH;
+          const x = groupX + (groupW - series.length * barW) / 2 + si * barW;
+          const y = padTop + chartH - barH;
+          mk('rect', { x: x, y: y, width: Math.max(2, barW - 3), height: Math.max(0, barH), fill: s.color, rx: 2 });
+          if (val > 0) mk('text', { x: x + (barW - 3) / 2, y: y - 4, 'font-size': 9, fill: '#1D2430', 'text-anchor': 'middle' }, val);
+        });
+        mk('text', { x: groupX + groupW / 2, y: height - 10, 'font-size': 10, fill: '#5B6472', 'text-anchor': 'middle' }, cat);
+      });
+      container.appendChild(svg);
+    }
+
+    // Cálculo único de métricas y recompensa (lo usan pantalla e impresión)
+    function computeMetrics() {
+      const eh = DASH.evalHistory, gh = DASH.gameHistory, ts = DASH.typeStats;
+      const m = { eh: eh, gh: gh, ts: ts };
+      m.avgConf = eh.length ? Math.round(eh.reduce((s, e) => s + (e.total / e.max * 100), 0) / eh.length) : null;
+      m.avgGame = gh.length ? gh.reduce((s, g) => s + g.score, 0) / gh.length : null;
+      m.best = gh.length ? Math.max.apply(null, gh.map(g => g.score)) : null;
+      m.totCorrect = TYPE_KEYS.reduce((s, k) => s + ((ts[k] && ts[k].correct) || 0), 0);
+      m.totWrong = TYPE_KEYS.reduce((s, k) => s + ((ts[k] && ts[k].wrong) || 0), 0);
+      m.accuracy = (m.totCorrect + m.totWrong) > 0 ? Math.round(m.totCorrect / (m.totCorrect + m.totWrong) * 100) : null;
+      m.doneG = eh.some(e => e.kind === 'general');
+      m.doneT = eh.some(e => e.kind === 'tecnico');
+      m.bestVal = m.best !== null ? m.best : 0;
+      m.nexG = m.doneG ? NEX_EVAL_EACH : 0;
+      m.nexT = m.doneT ? NEX_EVAL_EACH : 0;
+      m.nexGame = Math.round((m.bestVal / ITEMS.length) * NEX_GAME);
+      m.nexTotal = m.nexG + m.nexT + m.nexGame;
+      return m;
+    }
+
+    function buildAnalysisTexts(m) {
+      let evalTxt, gameTxt;
+      if (m.eh.length === 0) {
+        evalTxt = 'Aún no has usado el Evaluador. Completa al menos una evaluación para ver aquí tu dominio promedio y tus puntos débiles más frecuentes.';
+      } else {
+        const nG = m.eh.filter(e => e.kind === 'general').length, nT = m.eh.filter(e => e.kind === 'tecnico').length;
+        const wc = {};
+        m.eh.forEach(e => (e.weak || []).forEach(w => { wc[w] = (wc[w] || 0) + 1; }));
+        const sw = Object.entries(wc).sort((a, b) => b[1] - a[1]);
+        evalTxt = 'Has completado ' + m.eh.length + ' evaluaciones (' + nG + ' generales y ' + nT + ' técnicas), con un dominio promedio de ' + m.avgConf + '%. ';
+        evalTxt += sw.length
+          ? 'El tema que más se repite como débil es "' + sw[0][0] + '" (' + sw[0][1] + ' veces). Conviene reforzarlo antes de elaborar o revisar un informe.'
+          : 'No se han registrado temas débiles recurrentes: buen dominio de las normas.';
+      }
+      if (m.gh.length === 0) {
+        gameTxt = 'Aún no has jugado "¿Qué norma es?". Juega al menos una partida para ver aquí tu promedio de aciertos y la norma que más confundes.';
+      } else {
+        const pct = Math.round((m.avgGame / ITEMS.length) * 100);
+        gameTxt = 'Has jugado ' + m.gh.length + ' partida' + (m.gh.length === 1 ? '' : 's') + ', con un promedio de ' + m.avgGame.toFixed(1) + '/12 aciertos (' + pct + '%). ';
+        const we = TYPE_KEYS.map(k => [k, (m.ts[k] && m.ts[k].wrong) || 0]).filter(x => x[1] > 0).sort((a, b) => b[1] - a[1]);
+        gameTxt += we.length
+          ? 'La norma que más se confunde es "' + NORMAS[we[0][0]].label + '", con ' + we[0][1] + ' error' + (we[0][1] === 1 ? '' : 'es') + ' registrado' + (we[0][1] === 1 ? '' : 's') + '. Repasa ' + NORMAS[we[0][0]].repaso + '.'
+          : 'No se han registrado errores por norma: buen dominio de la clasificación.';
+      }
+      return { evalTxt: evalTxt, gameTxt: gameTxt };
+    }
+
+    function renderDashboard() {
+      const m = computeMetrics();
+      const stats = [
+        { label: 'Evaluaciones realizadas', value: m.eh.length },
+        { label: 'Dominio promedio', value: m.avgConf !== null ? m.avgConf + '%' : '—' },
+        { label: 'Partidas jugadas', value: m.gh.length },
+        { label: 'Aciertos promedio', value: m.avgGame !== null ? m.avgGame.toFixed(1) + '/12' : '—' },
+        { label: 'Mejor partida', value: m.best !== null ? m.best + '/12' : '—' }
+      ];
+      document.getElementById('dashStats').innerHTML = stats.map(s => '<div class="stat-card"><div class="stat-value">' + s.value + '</div><div class="stat-label">' + s.label + '</div></div>').join('');
+
+      renderBarChart('chartGameBar', m.gh.map((g, i) => 'P' + (i + 1)), [{ name: 'Aciertos', color: '#1F7A6C', data: m.gh.map(g => g.score) }], 12);
+      const cv = kind => { const sub = m.eh.filter(e => e.kind === kind); return ['low', 'mid', 'high'].map(v => sub.filter(e => e.verdict === v).length); };
+      renderBarChart('chartEvalBar', ['Bajo', 'Medio', 'Alto'], [
+        { name: 'General', color: '#1F7A6C', data: cv('general') },
+        { name: 'Técnico', color: '#C68A2E', data: cv('tecnico') }
+      ]);
+      renderPieChart('chartGamePie', [
+        { label: 'Aciertos', value: m.totCorrect, color: '#1F7A6C' },
+        { label: 'Errores', value: m.totWrong, color: '#D65B4A' }
+      ]);
+      renderPieChart('chartTypePie', [
+        { label: 'NTC 3588', value: (m.ts.ntc || {}).wrong || 0, color: '#1F7A6C' },
+        { label: 'GTC 185', value: (m.ts.gtc || {}).wrong || 0, color: '#C68A2E' },
+        { label: 'APA', value: (m.ts.apa || {}).wrong || 0, color: '#D65B4A' }
+      ]);
+
+      document.getElementById('nexAmount').textContent = fmtN(m.nexTotal);
+      document.getElementById('nexBig').textContent = fmtN(m.nexTotal);
+      document.getElementById('nexFill').style.width = Math.round(m.nexTotal / NEX_MAX * 100) + '%';
+      document.getElementById('nexBreak').innerHTML =
+        '<div><b>Evaluador general:</b> ' + (m.doneG ? '✓ completado' : 'pendiente') + ' · ' + fmtN(m.nexG) + ' / ' + fmtN(NEX_EVAL_EACH) + ' NEXs</div>' +
+        '<div><b>Evaluador técnico:</b> ' + (m.doneT ? '✓ completado' : 'pendiente') + ' · ' + fmtN(m.nexT) + ' / ' + fmtN(NEX_EVAL_EACH) + ' NEXs</div>' +
+        '<div><b>Juego (mejor partida):</b> ' + m.bestVal + '/' + ITEMS.length + ' · ' + fmtN(m.nexGame) + ' / ' + fmtN(NEX_GAME) + ' NEXs</div>';
+      const complete = m.nexTotal >= NEX_MAX;
+      document.getElementById('rewardBox').classList.toggle('complete', complete);
+      document.getElementById('nexStatus').textContent = complete
+        ? '🏆 ¡Reto completado! Eres ' + RANGO + '.'
+        : (m.nexTotal === 0 ? 'Aún no has iniciado el reto: completa evaluaciones y juega para ganar NEXs.'
+          : 'Reto en progreso: te faltan ' + fmtN(NEX_MAX - m.nexTotal) + ' NEXs para ser ' + RANGO + '.');
+
+      const t = buildAnalysisTexts(m);
+      document.getElementById('analysisEval').textContent = t.evalTxt;
+      document.getElementById('analysisGame').textContent = t.gameTxt;
+    }
+
+    // Borrado del historial en dos pasos (sin confirm(), que algunos entornos bloquean)
+    (function () {
+      const btn = document.getElementById('resetDashBtn'), lbl = document.getElementById('resetDashLabel');
+      let armed = false, tm = null;
+      function disarm() { armed = false; lbl.textContent = 'Borrar historial del dashboard'; if (tm) { clearTimeout(tm); tm = null; } }
+      btn.addEventListener('click', () => {
+        if (!armed) {
+          armed = true; lbl.textContent = 'Pulsa de nuevo para confirmar el borrado';
+          tm = setTimeout(disarm, 5000);
+          return;
+        }
+        disarm();
+        DASH = emptyDash(); saveDash(); renderDashboard();
+      });
+    })();
+
+    // =====================================================================
+    //  REPORTE IMPRESO (mismo formato del reporte institucional original)
+    // =====================================================================
+    function populatePrintReport() {
+      renderDashboard();
+      REGISTRO = loadRegistro() || REGISTRO;
+      const reg = REGISTRO || {};
+      const setTxt = (id, v) => { const n = document.getElementById(id); if (n) n.textContent = v || ''; };
+      setTxt('regNombre', reg.nombre); setTxt('regDocumento', reg.documento); setTxt('regFicha', reg.ficha);
+      setTxt('regPrograma', reg.programa || REG_DEFAULTS.programa);
+      setTxt('regCentro', reg.centro || REG_DEFAULTS.centro);
+      setTxt('regRegional', reg.regional || REG_DEFAULTS.regional);
+      setTxt('reportDate', new Date().toLocaleDateString('es-CO', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }));
+
+      document.getElementById('reportCharts').innerHTML = ['chartGameBar', 'chartEvalBar', 'chartGamePie', 'chartTypePie'].map(id => {
+        const src = document.getElementById(id);
+        const title = src && src.previousElementSibling ? src.previousElementSibling.textContent : '';
+        return '<div class="report-chart"><h4>' + title + '</h4>' + (src ? src.innerHTML : '') + '</div>';
+      }).join('');
+
+      const m = computeMetrics();
+      document.getElementById('reportStatsGrid').innerHTML = [
+        [m.eh.length, 'Evaluaciones'],
+        [m.avgConf !== null ? m.avgConf + '%' : '-', 'Dominio Promedio'],
+        [m.gh.length, 'Partidas Jugadas'],
+        [m.avgGame !== null ? m.avgGame.toFixed(1) + '/12' : '-', 'Aciertos Promedio'],
+        [m.accuracy !== null ? m.accuracy + '%' : (m.best !== null ? m.best + '/12' : '-'), 'Precisión Global']
+      ].map(x => '<div class="report-stat-card"><div class="report-stat-value">' + x[0] + '</div><div class="report-stat-label">' + x[1] + '</div></div>').join('');
+
+      const isComplete = m.nexTotal >= NEX_MAX;
+      document.getElementById('reportRewardCard').innerHTML =
+        '<div class="report-reward-box"><h4>🌟 ' + RANGO + ' &mdash; Sistema de Recompensas</h4>' +
+        '<p><strong>NEXs Acumulados:</strong> ' + fmtN(m.nexTotal) + ' / ' + fmtN(NEX_MAX) + ' NEXs (' + Math.round(m.nexTotal / NEX_MAX * 100) + '%) &bull; <em>' + (isComplete ? '¡Reto Completado con Éxito!' : 'Reto en progreso') + '</em></p>' +
+        '<div class="report-reward-pills">' +
+        '<div class="report-reward-pill"><b>Evaluador general:</b> ' + (m.doneG ? '✓ Completado' : 'Pendiente') + ' (' + fmtN(m.nexG) + ' NEXs)</div>' +
+        '<div class="report-reward-pill"><b>Evaluador técnico:</b> ' + (m.doneT ? '✓ Completado' : 'Pendiente') + ' (' + fmtN(m.nexT) + ' NEXs)</div>' +
+        '<div class="report-reward-pill"><b>Juego (Mejor Partida):</b> ' + m.bestVal + '/12 (' + fmtN(m.nexGame) + ' NEXs)</div>' +
+        '</div></div>';
+
+      const t = buildAnalysisTexts(m);
+      setTxt('reportAnalysisEval', t.evalTxt); setTxt('reportAnalysisGame', t.gameTxt);
+
+      document.getElementById('reportCategoryTable').innerHTML =
+        '<table class="report-table"><thead><tr><th>Norma</th><th>Aciertos</th><th>Errores</th><th>Total Clasificaciones</th><th>Efectividad</th></tr></thead><tbody>' +
+        TYPE_KEYS.map(k => {
+          const c = (m.ts[k] && m.ts[k].correct) || 0, w = (m.ts[k] && m.ts[k].wrong) || 0, tot = c + w;
+          return '<tr><td><strong>' + NORMAS[k].label + '</strong></td><td style="color:#065F46; font-weight:700;">' + c + '</td><td style="color:#991B1B; font-weight:700;">' + w + '</td><td>' + tot + '</td><td><strong>' + (tot > 0 ? Math.round(c / tot * 100) + '%' : '-') + '</strong></td></tr>';
+        }).join('') + '</tbody></table>';
+
+      const dateFmt = ts => ts ? new Date(ts).toLocaleDateString('es-CO', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '-';
+      const evalWrap = document.getElementById('reportEvalTable');
+      if (m.eh.length === 0) {
+        evalWrap.innerHTML = '<p style="font-size:8pt; color:#666; font-style:italic; margin:4px 0;">No se han registrado evaluaciones en este navegador.</p>';
+      } else {
+        evalWrap.innerHTML = '<table class="report-table"><thead><tr><th style="width:25px;">#</th><th>Fecha/Hora</th><th>Tipo de Evaluación</th><th>Puntaje Obtenido</th><th>Dominio %</th><th>Veredicto</th><th>Aspectos a Reforzar</th></tr></thead><tbody>' +
+          m.eh.map((ev, i) => {
+            const cls = ev.verdict === 'high' ? 'badge-high' : (ev.verdict === 'mid' ? 'badge-mid' : 'badge-low');
+            const vt = ev.verdict === 'high' ? 'Alto / Sólido' : (ev.verdict === 'mid' ? 'Medio / Con reservas' : 'Bajo / A reforzar');
+            return '<tr><td>' + (i + 1) + '</td><td>' + dateFmt(ev.ts) + '</td><td><strong>' + (ev.kind === 'general' ? 'Evaluador General' : 'Evaluador Técnico') + '</strong></td><td>' + ev.total + ' / ' + ev.max + ' pts</td><td><strong>' + Math.round(ev.total / ev.max * 100) + '%</strong></td><td><span class="report-badge ' + cls + '">' + vt + '</span></td><td>' + (ev.weak && ev.weak.length ? esc(ev.weak.join(', ')) : 'Ninguno (Excelente)') + '</td></tr>';
+          }).join('') + '</tbody></table>';
+      }
+      const gameWrap = document.getElementById('reportGameTable');
+      if (m.gh.length === 0) {
+        gameWrap.innerHTML = '<p style="font-size:8pt; color:#666; font-style:italic; margin:4px 0;">No se han registrado partidas del simulador en este navegador.</p>';
+      } else {
+        gameWrap.innerHTML = '<table class="report-table"><thead><tr><th>Partida</th><th>Fecha/Hora</th><th>Aciertos</th><th>Errores</th><th>Efectividad</th><th>NEXs Estimados</th></tr></thead><tbody>' +
+          m.gh.map((g, i) => '<tr><td><strong>Partida ' + (i + 1) + '</strong></td><td>' + dateFmt(g.ts) + '</td><td style="color:#065F46; font-weight:700;">' + g.score + ' / ' + g.total + '</td><td style="color:#991B1B; font-weight:700;">' + (g.total - g.score) + '</td><td><strong>' + Math.round(g.score / g.total * 100) + '%</strong></td><td>+' + fmtN(Math.round(g.score / g.total * NEX_GAME)) + ' NEXs</td></tr>').join('') + '</tbody></table>';
+      }
+    }
+    document.getElementById('printReportBtn').addEventListener('click', () => {
+      populatePrintReport();
+      document.body.classList.add('printing-report');
+      window.print();
+    });
+    window.addEventListener('afterprint', () => {
+      document.body.classList.remove('printing-cards');
+      document.body.classList.remove('printing-report');
+    });
+
+    // =====================================================================
+    //  MAPA MENTAL (SVG generado)
+    // =====================================================================
+    function buildMapaSVG() {
+      const panels = [
+        { x: 20, y: 20, c: '#1F7A6C', bg: '#E6F4F1', t: 'NTC 3588 · Estructura del informe', rows: ['Resumen ejecutivo: 1 a 3 páginas', 'Informe corto: 1 a 10 páginas, un capítulo', 'Informe extenso: desde la página 11', 'Preliminares: portada, contenido, glosario', 'Cuerpo: introducción, núcleo, conclusiones, firma', 'Complementario: anexos, bibliografía, índice'] },
+        { x: 550, y: 20, c: '#C68A2E', bg: '#FBF1E0', t: 'GTC 185 · Documentación organizacional', rows: ['Zonas 1, 2 y 3 de la hoja; membrete', 'Márgenes: sup. 3–4, inf. 2–3, izq. 3–4, der. 2–3 cm', 'Estilos: bloque extremo, bloque y semibloque', 'Fuente clara de 10 a 12; sin negrilla', 'Carta, memorando, circular, acta e informe', 'Actas en pasado; las de descargo, en presente'] },
+        { x: 20, y: 360, c: '#D65B4A', bg: '#FBEAE7', t: 'APA · Citación y referencias', rows: ['Citar: influencia, datos, no general, parafraseo', 'Cita textual de menos de 40 palabras: comillas', 'Cita de más de 40: bloque, sangría de 1,27 cm', 'Márgenes de 2,54 cm y doble espacio', 'Tablas con tres líneas; figuras con nota', 'Lista de referencias en orden alfabético'] },
+        { x: 550, y: 360, c: '#14213D', bg: '#E8ECF4', t: 'Buenas prácticas · Lenguaje y datos', rows: ['Claridad y precisión, sin jerga innecesaria', 'Concisión y coherencia', 'Consistencia y rigor verificable', 'Visualización: diagramas de Pareto y de barras', 'Adaptar el detalle a la audiencia (resumen ejecutivo)', 'Dashboards: Power BI, Tableau, ATS y ERP'] }
+      ];
+      let s = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" font-family="Arial, Helvetica, sans-serif">';
+      s += '<rect width="1000" height="640" fill="#FAFAFA"/>';
+      panels.forEach(p => {
+        const px = p.x + 215, py = p.y + 130;
+        s += '<line x1="500" y1="320" x2="' + (p.x < 400 ? p.x + 430 : p.x) + '" y2="' + (p.y < 300 ? p.y + 260 : p.y) + '" stroke="' + p.c + '" stroke-width="3" stroke-dasharray="6 4"/>';
+      });
+      panels.forEach(p => {
+        s += '<rect x="' + p.x + '" y="' + p.y + '" width="430" height="260" rx="12" fill="' + p.bg + '" stroke="' + p.c + '" stroke-width="2"/>';
+        s += '<rect x="' + p.x + '" y="' + p.y + '" width="430" height="44" rx="12" fill="' + p.c + '"/>';
+        s += '<rect x="' + p.x + '" y="' + (p.y + 30) + '" width="430" height="14" fill="' + p.c + '"/>';
+        s += '<text x="' + (p.x + 16) + '" y="' + (p.y + 28) + '" font-size="15" font-weight="700" fill="#fff">' + p.t + '</text>';
+        p.rows.forEach((r, i) => {
+          const y = p.y + 58 + i * 32;
+          s += '<rect x="' + (p.x + 12) + '" y="' + y + '" width="406" height="26" rx="6" fill="#fff" stroke="' + p.c + '" stroke-opacity="0.35"/>';
+          s += '<circle cx="' + (p.x + 26) + '" cy="' + (y + 13) + '" r="4" fill="' + p.c + '"/>';
+          s += '<text x="' + (p.x + 38) + '" y="' + (y + 18) + '" font-size="12.5" fill="#1D2430">' + r.replace(/&/g, '&amp;') + '</text>';
+        });
+      });
+      s += '<rect x="385" y="285" width="230" height="70" rx="16" fill="#14213D" stroke="#fff" stroke-width="4"/>';
+      s += '<text x="500" y="316" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">NORMAS TÉCNICAS</text>';
+      s += '<text x="500" y="337" text-anchor="middle" font-size="13" fill="#E6B65C">para informes de talento humano</text>';
+      s += '</svg>';
+      return s;
+    }
+    const MAPA_SVG = buildMapaSVG();
+    document.getElementById('mapaInline').innerHTML = MAPA_SVG;
+    document.getElementById('mapaModalSvg').innerHTML = MAPA_SVG;
+    function mapaBlobUrl() { return URL.createObjectURL(new Blob([MAPA_SVG], { type: 'image/svg+xml' })); }
+    function openMapaTab() { window.open(mapaBlobUrl(), '_blank'); }
+    document.getElementById('mapaOpenBtn').addEventListener('click', openMapaTab);
+    document.getElementById('mapaModalOpen').addEventListener('click', openMapaTab);
+    document.getElementById('mapaDlBtn').addEventListener('click', () => {
+      const a = document.createElement('a');
+      a.href = mapaBlobUrl(); a.download = 'MAPA_NORMAS_TECNICAS.svg';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    });
+    const mapaViewer = document.getElementById('mapaViewer'), mapaModal = document.getElementById('mapaModal');
+    function openMapaModal() { mapaModal.classList.add('active'); mapaModal.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; }
+    function closeMapaModal() { mapaModal.classList.remove('active'); mapaModal.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; }
+    mapaViewer.addEventListener('click', openMapaModal);
+    document.getElementById('mapaModalClose').addEventListener('click', closeMapaModal);
+    document.getElementById('mapaModalBackdrop').addEventListener('click', closeMapaModal);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && mapaModal.classList.contains('active')) closeMapaModal(); });
+  </script>
+</body>
+
+</html>

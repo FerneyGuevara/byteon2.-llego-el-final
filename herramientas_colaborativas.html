@@ -1,0 +1,4113 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Herramientas Web de Trabajo Colaborativo — analiza, aplica y evalúa</title>
+  <style>
+    :root {
+      --navy: #14213D;
+      --navy-2: #1C2D52;
+      --parchment: #F6F1E7;
+      --paper: #FFFFFF;
+      --ink: #1D2430;
+      --ink-soft: #5B6472;
+      --teal: #1F7A6C;
+      --teal-dark: #155A50;
+      --coral: #D65B4A;
+      --coral-dark: #B14536;
+      --gold: #C68A2E;
+      --gold-dark: #9C6D20;
+      --border: #E2D9C4;
+      --border-cool: #D7DCE6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.55;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin: 0;
+      color: var(--navy);
+    }
+
+    .tag {
+      font-family: ui-monospace, "SF Mono", Consolas, monospace;
+      font-size: 0.72rem;
+      letter-spacing: .03em;
+      color: var(--ink-soft);
+    }
+
+    p {
+      margin: 0 0 12px;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    /* ---------- Hero + nav ---------- */
+    .hero {
+      background: linear-gradient(155deg, var(--navy) 0%, var(--navy-2) 65%, #223A63 100%);
+      color: #F2F0E8;
+      padding: 44px 24px 0;
+    }
+
+    .hero-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .hero-body {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      margin-bottom: 28px;
+    }
+
+    .hero-img-wrap {
+      flex: 0 0 240px;
+      max-width: 260px;
+    }
+
+    .hero-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    .hero-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .hero .tag {
+      color: #9FB3D6;
+    }
+
+    .hero h1,
+    .hero .hero-sub {
+      color: #FFFFFF;
+      font-size: clamp(1.6rem, 3.8vw, 2.5rem);
+      line-height: 1.15;
+      font-weight: 800;
+      margin: 8px 0 4px;
+      width: 100%;
+      max-width: none;
+      text-wrap: balance;
+    }
+
+    .hero .hero-sub {
+      margin: 0 0 14px;
+    }
+
+    .hero p.lead {
+      color: #C9D3E6;
+      width: 100%;
+      max-width: none;
+      font-size: clamp(0.95rem, 1.4vw, 1.08rem);
+      margin-bottom: 0;
+      text-wrap: pretty;
+    }
+
+    @media (max-width: 768px) {
+      .hero-body {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+      }
+
+      .hero-img-wrap {
+        max-width: 200px;
+        flex: 0 0 auto;
+      }
+    }
+
+    nav.tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding-bottom: 0;
+    }
+
+    nav.tabs button,
+    nav.tabs a.tab-btn {
+      flex: 0 0 auto;
+      background: rgba(255, 255, 255, 0.06);
+      color: #D7DEEC;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-bottom: none;
+      padding: 12px 18px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 8px 8px 0 0;
+      white-space: nowrap;
+      position: relative;
+      top: 1px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+
+    nav.tabs button.active,
+    nav.tabs a.tab-btn.active {
+      background: var(--parchment);
+      color: var(--navy);
+      border-color: var(--parchment);
+    }
+
+    nav.tabs button:hover:not(.active),
+    nav.tabs a.tab-btn:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.13);
+      color: #FFFFFF;
+    }
+
+    /* ---------- Material Principal (Visor PDF) ---------- */
+    .pdf-viewer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 20px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .pdf-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .pdf-btn-open {
+      background: var(--navy);
+      color: #FFFFFF;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 10px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s ease;
+    }
+
+    .pdf-btn-open:hover {
+      background: var(--navy-2);
+    }
+
+    .pdf-btn-dl {
+      background: var(--paper);
+      color: var(--ink);
+      border: 1px solid var(--border-cool);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.88rem;
+      padding: 10px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s ease;
+    }
+
+    .pdf-btn-dl:hover {
+      background: #FBFAF6;
+    }
+
+    .pdf-container {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(20, 33, 61, 0.08);
+      height: 82vh;
+      min-height: 600px;
+    }
+
+    .pdf-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* ---------- LucIA Presentación ---------- */
+    .lucia-presentation-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 14px;
+      padding: 36px 40px;
+      box-shadow: 0 8px 24px rgba(20, 33, 61, 0.08);
+      border-left: 6px solid var(--teal);
+    }
+
+    .lucia-presentation-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .lucia-avatar-img {
+      width: 85px;
+      height: 85px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 4px 14px rgba(20, 33, 61, 0.16);
+      flex: 0 0 auto;
+      display: block;
+    }
+
+    .lucia-presentation-header h2 {
+      font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+      margin: 4px 0 0;
+      color: var(--navy);
+    }
+
+    .lucia-presentation-sub {
+      font-size: 1.2rem;
+      color: var(--navy);
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+
+    .lucia-highlight {
+      font-size: 1.08rem;
+      color: var(--teal-dark);
+      margin-bottom: 14px;
+    }
+
+    .lucia-presentation-body p {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .lucia-presentation-card {
+        padding: 24px 20px;
+      }
+    }
+
+    /* ---------- Material de apoyo ---------- */
+    .material-banner-img {
+      max-width: 240px;
+      height: auto;
+      border-radius: 12px;
+      display: block;
+      margin: 14px 0 22px;
+      box-shadow: 0 6px 18px rgba(20, 33, 61, 0.1);
+    }
+
+    .material-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+      margin-top: 16px;
+    }
+
+    .material-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 12px;
+      padding: 22px 24px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      text-decoration: none;
+      color: inherit;
+      border-left: 6px solid var(--teal);
+      transition: all 0.2s ease;
+    }
+
+    .material-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(20, 33, 61, 0.12);
+      border-color: var(--teal);
+      background: #FBFAF7;
+    }
+
+    .material-icon {
+      font-size: 2.2rem;
+      flex: 0 0 auto;
+      line-height: 1;
+    }
+
+    .material-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .material-body h3 {
+      font-size: 1.15rem;
+      margin: 4px 0 6px;
+      color: var(--navy);
+    }
+
+    .material-body p {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      margin-bottom: 14px;
+      line-height: 1.45;
+    }
+
+    .material-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--teal);
+      background: rgba(31, 122, 108, 0.1);
+      padding: 7px 14px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .material-card:hover .material-btn {
+      background: var(--teal);
+      color: #FFFFFF;
+    }
+
+    main {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 36px 24px 80px;
+    }
+
+    section {
+      display: none;
+    }
+
+    section.active {
+      display: block;
+      animation: fadeIn .35s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 28px;
+      margin-bottom: 10px;
+    }
+
+    .card-basic {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 22px 24px;
+    }
+
+    .card-intro-img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      display: block;
+      margin-bottom: 16px;
+      object-fit: cover;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .quick-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .quick-links button {
+      text-align: left;
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-left: 4px solid var(--teal);
+      border-radius: 6px;
+      padding: 12px 16px;
+      cursor: pointer;
+      font-size: 0.92rem;
+      color: var(--ink);
+    }
+
+    .quick-links button:hover {
+      background: #FBFAF6;
+    }
+
+    /* ---------- Tipos de fuentes ---------- */
+    .type-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 24px 26px;
+      margin-bottom: 18px;
+      border-left-width: 6px;
+      border-left-style: solid;
+    }
+
+    .type-card-img {
+      max-width: 170px;
+      height: auto;
+      border-radius: 8px;
+      display: block;
+      margin-bottom: 14px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .type-card.primaria {
+      border-left-color: var(--teal);
+    }
+
+    .type-card.secundaria {
+      border-left-color: var(--gold);
+    }
+
+    .type-card.terciaria {
+      border-left-color: var(--coral);
+    }
+
+    .type-head {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .type-head h3 {
+      font-size: 1.25rem;
+    }
+
+    .examples {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .ex-chip {
+      background: var(--parchment);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 0.84rem;
+    }
+
+    details.deepen {
+      margin-top: 22px;
+    }
+
+    details.deepen summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--navy);
+      padding: 10px 0;
+    }
+
+    .subgrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .subgrid.cols-3 {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    @media (max-width:760px) {
+
+      .subgrid,
+      .subgrid.cols-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .intro-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ---------- Fuentes en informática ---------- */
+    .flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin: 16px 0 8px;
+    }
+
+    .flow-step {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .flow-arrow {
+      color: var(--ink-soft);
+      font-size: 1.15rem;
+    }
+
+    .it-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 18px 20px;
+      height: 100%;
+    }
+
+    .it-card h4 {
+      font-size: 0.98rem;
+      margin-bottom: 6px;
+    }
+
+    .it-card p {
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+      margin-bottom: 0;
+    }
+
+    .it-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    table.quality-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 0.87rem;
+    }
+
+    table.quality-table th,
+    table.quality-table td {
+      border: 1px solid var(--border-cool);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    table.quality-table th {
+      background: var(--parchment);
+      color: var(--navy);
+    }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin: 14px 0;
+    }
+
+    .checklist li {
+      padding: 6px 0 6px 26px;
+      position: relative;
+      font-size: 0.9rem;
+    }
+
+    .checklist li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--teal);
+      font-weight: 800;
+    }
+
+    /* ---------- Evaluador ---------- */
+    .subnav {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .subnav button {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 20px;
+      padding: 8px 18px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: var(--ink);
+    }
+
+    .subnav button.active {
+      background: var(--navy);
+      color: #fff;
+      border-color: var(--navy);
+    }
+
+    .eval-panel {
+      display: none;
+    }
+
+    .eval-panel.active {
+      display: block;
+    }
+
+    .criteria {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 22px 24px;
+      margin-bottom: 18px;
+    }
+
+    .criteria h4 {
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .criteria p {
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+    }
+
+    .scale {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .scale label {
+      border: 1px solid var(--border-cool);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .scale input {
+      margin: 0;
+    }
+
+    .eval-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin: 22px 0;
+    }
+
+    button.primary {
+      background: var(--teal);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 22px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    button.primary:hover {
+      background: var(--teal-dark);
+    }
+
+    button.ghost {
+      background: none;
+      border: 1px solid var(--border-cool);
+      border-radius: 6px;
+      padding: 11px 18px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: var(--ink);
+    }
+
+    .verdict {
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-top: 6px;
+      display: none;
+    }
+
+    .verdict.show {
+      display: block;
+    }
+
+    .verdict.low {
+      background: #FBEAE7;
+      border: 1px solid var(--coral);
+    }
+
+    .verdict.mid {
+      background: #FBF1E0;
+      border: 1px solid var(--gold);
+    }
+
+    .verdict.high {
+      background: #E9F3EE;
+      border: 1px solid var(--teal);
+    }
+
+    .verdict h4 {
+      margin-bottom: 6px;
+    }
+
+    /* ---------- Juego ---------- */
+    .game-wrap {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 28px;
+    }
+
+    .game-progress {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+    }
+
+    .game-bar {
+      height: 6px;
+      background: var(--border-cool);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .game-bar-fill {
+      height: 100%;
+      background: var(--teal);
+      width: 0%;
+      transition: width .3s ease;
+    }
+
+    .game-card {
+      background: var(--parchment);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      font-size: 1.08rem;
+      margin-bottom: 20px;
+      min-height: 70px;
+    }
+
+    .game-options {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .game-options button {
+      flex: 1;
+      min-width: 140px;
+      padding: 14px;
+      border-radius: 8px;
+      border: 2px solid var(--border-cool);
+      background: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .game-options button:hover:not(:disabled) {
+      border-color: var(--navy);
+    }
+
+    .game-options button.correct {
+      background: #E9F3EE;
+      border-color: var(--teal);
+      color: var(--teal-dark);
+    }
+
+    .game-options button.incorrect {
+      background: #FBEAE7;
+      border-color: var(--coral);
+      color: var(--coral-dark);
+    }
+
+    .game-options button:disabled {
+      cursor: default;
+      opacity: .85;
+    }
+
+    .game-feedback {
+      font-size: 0.92rem;
+      padding: 12px 14px;
+      border-radius: 6px;
+      background: #F1F5F3;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    .game-feedback.show {
+      display: block;
+    }
+
+    .game-end {
+      text-align: center;
+      padding: 30px 10px;
+    }
+
+    .game-end .score {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    /* ---------- Actividad física ---------- */
+    .steps {
+      counter-reset: step;
+      list-style: none;
+      padding: 0;
+      margin: 18px 0;
+    }
+
+    .steps li {
+      counter-increment: step;
+      position: relative;
+      padding: 10px 0 10px 42px;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .steps li:last-child {
+      border-bottom: none;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 8px;
+      background: var(--navy);
+      color: #fff;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .print-btn {
+      margin-top: 16px;
+    }
+
+    /* ---------- Dashboard ---------- */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+
+    .stat-card .stat-value {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    .stat-card .stat-label {
+      font-size: 0.8rem;
+      color: var(--ink-soft);
+    }
+
+    .dash-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width:800px) {
+      .dash-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .chart-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+
+    .chart-card h4 {
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+
+    .chart-card svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .empty-note {
+      color: var(--ink-soft);
+      font-style: italic;
+      font-size: 0.88rem;
+    }
+
+    .pie-wrap {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .pie-wrap svg {
+      width: 150px;
+      height: 150px;
+      flex: 0 0 auto;
+    }
+
+    .legend {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.84rem;
+    }
+
+    .legend .sw {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      margin-right: 6px;
+    }
+
+    .analysis-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-left: 5px solid var(--navy);
+      border-radius: 10px;
+      padding: 20px 22px;
+      margin-bottom: 18px;
+    }
+
+    .analysis-card h4 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .analysis-card p {
+      font-size: 0.92rem;
+    }
+
+    .dash-actions {
+      margin-top: 8px;
+    }
+
+    .reward-box {
+      margin: 26px 0 22px;
+      padding: 26px 28px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, #14213D 0%, #1C2D52 70%, #223A63 100%);
+      border: 2px solid var(--gold);
+      color: #F2F0E8;
+      box-shadow: 0 8px 24px rgba(20, 33, 61, .22);
+    }
+
+    .reward-box.complete {
+      border-color: #E9B949;
+      box-shadow: 0 0 0 4px rgba(233, 185, 73, .25), 0 8px 24px rgba(20, 33, 61, .28);
+    }
+
+    .reward-box .reward-tag {
+      font-family: ui-monospace, "SF Mono", Consolas, monospace;
+      font-size: .72rem;
+      letter-spacing: .06em;
+      color: #E9B949;
+    }
+
+    .reward-box h4 {
+      color: #fff;
+      font-size: 1.25rem;
+      margin: 6px 0 10px;
+    }
+
+    .reward-box p {
+      color: #DCE3F1;
+      font-size: 1rem;
+      margin-bottom: 14px;
+    }
+
+    .reward-box p strong {
+      color: #E9B949;
+      font-size: 1.15em;
+    }
+
+    .reward-amount {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .reward-amount .big {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 800;
+      color: #E9B949;
+      line-height: 1;
+    }
+
+    .reward-amount .of {
+      color: #9FB3D6;
+      font-size: .9rem;
+    }
+
+    .reward-track {
+      height: 12px;
+      background: rgba(255, 255, 255, .14);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .reward-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #C68A2E, #E9B949);
+      border-radius: 8px;
+      transition: width .6s ease;
+    }
+
+    .reward-break {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      font-size: .86rem;
+    }
+
+    .reward-break div {
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    .reward-break b {
+      color: #fff;
+    }
+
+    .reward-status {
+      margin-top: 14px;
+      font-weight: 700;
+      font-size: .95rem;
+      color: #E9B949;
+    }
+
+    /* Print report button in dashboard */
+    .btn-print-dashboard {
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 11px 22px;
+      border: 1px solid var(--teal-dark);
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(31, 122, 108, 0.28);
+      transition: all 0.2s ease;
+    }
+
+    .btn-print-dashboard:hover {
+      background: linear-gradient(135deg, var(--teal-dark) 0%, #0E473F 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(31, 122, 108, 0.38);
+    }
+
+    /* Print report container hidden on screen */
+    #printReport {
+      display: none;
+    }
+
+    /* ---------- Print cards (hidden on screen) ---------- */
+    #printCards {
+      display: none;
+    }
+
+    @media print {
+
+      body.printing-cards>.hero,
+      body.printing-cards>main>section {
+        display: none !important;
+      }
+
+      body.printing-report>.hero,
+      body.printing-report>main,
+      body.printing-report>header,
+      body.printing-report>footer,
+      body.printing-report>nav,
+      body.printing-report>#printCards,
+      body.printing-report>.tabs,
+      body.printing-report>.tabs-bar,
+      body.printing-report>.mapa-modal,
+      body.printing-report>#mapaModal {
+        display: none !important;
+      }
+
+      body.printing-report {
+        background: #ffffff !important;
+        color: #111827 !important;
+      }
+
+      body.printing-report #printReport {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #ffffff !important;
+        color: #111827 !important;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+        font-size: 10pt !important;
+        line-height: 1.35 !important;
+      }
+
+      .report-header {
+        border-bottom: 2px solid #14213D;
+        padding-bottom: 10px;
+        margin-bottom: 12px;
+      }
+
+      .report-header-top {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 8px;
+      }
+
+      .report-logo {
+        width: 65px;
+        height: auto;
+        object-fit: contain;
+      }
+
+      .report-org {
+        font-size: 8pt;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        color: #14213D;
+        text-transform: uppercase;
+      }
+
+      .report-center {
+        font-size: 13pt;
+        font-weight: 900;
+        color: #14213D;
+        margin: 2px 0;
+        line-height: 1.15;
+      }
+
+      .report-competencia {
+        font-size: 8pt;
+        color: #333;
+        line-height: 1.25;
+      }
+
+      .report-project-card {
+        background: #F6F1E7 !important;
+        border: 1.5px solid #C68A2E !important;
+        border-radius: 6px;
+        padding: 8px 12px;
+        margin-bottom: 10px;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .report-project-title {
+        font-size: 10.5pt;
+        font-weight: 900;
+        color: #14213D;
+        margin-bottom: 2px;
+      }
+
+      .report-project-sub {
+        font-size: 8pt;
+        color: #444;
+        margin-bottom: 4px;
+      }
+
+      .report-ra {
+        font-size: 7.5pt;
+        color: #222;
+        border-top: 1px dashed #C68A2E;
+        padding-top: 4px;
+        margin-top: 3px;
+      }
+
+      .report-ra ul {
+        margin: 2px 0 0 16px;
+        padding: 0;
+      }
+
+      .report-student-box {
+        border: 1px solid #D7DCE6;
+        border-radius: 6px;
+        padding: 8px 12px;
+        margin-bottom: 12px;
+        background: #FAFAF7 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .report-field-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: 5px;
+      }
+
+      .report-field {
+        font-size: 8.5pt;
+        display: flex;
+        align-items: center;
+        flex: 1;
+        gap: 6px;
+      }
+
+      .report-field span.label {
+        font-weight: 700;
+        color: #14213D;
+        white-space: nowrap;
+      }
+
+      .report-field span.line-fill {
+        flex: 1;
+        border-bottom: 1px solid #777;
+        min-height: 12px;
+        display: inline-block;
+      }
+
+      .report-field span.line-val {
+        font-weight: 600;
+        color: #1F7A6C;
+      }
+
+      .report-sec-title {
+        font-size: 11pt;
+        font-weight: 800;
+        color: #14213D;
+        border-bottom: 1.5px solid #1F7A6C;
+        padding-bottom: 3px;
+        margin: 12px 0 8px 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .report-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 6px;
+        margin-bottom: 10px;
+      }
+
+      .report-stat-card {
+        border: 1px solid #D7DCE6;
+        border-radius: 6px;
+        padding: 6px 4px;
+        text-align: center;
+        background: #F6F8FA !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .report-stat-value {
+        font-size: 12pt;
+        font-weight: 900;
+        color: #1F7A6C;
+      }
+
+      .report-stat-label {
+        font-size: 7pt;
+        font-weight: 700;
+        color: #555;
+        text-transform: uppercase;
+        margin-top: 2px;
+      }
+
+      .report-card {
+        border: 1px solid #D7DCE6;
+        border-radius: 6px;
+        padding: 8px 10px;
+        margin-bottom: 8px;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      .report-card-title {
+        font-size: 9pt;
+        font-weight: 800;
+        color: #14213D;
+        margin: 0 0 5px 0;
+        text-transform: uppercase;
+      }
+
+      .report-reward-box {
+        background: #14213D !important;
+        color: #fff !important;
+        border-radius: 6px;
+        padding: 8px 12px;
+        margin-bottom: 8px;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .report-reward-box h4 {
+        color: #E9B949 !important;
+        margin: 0 0 3px 0;
+        font-size: 10pt;
+      }
+
+      .report-reward-box p {
+        font-size: 8pt;
+        margin: 0 0 5px 0;
+        color: #E5E7EB;
+      }
+
+      .report-reward-pills {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        font-size: 7.5pt;
+      }
+
+      .report-reward-pill {
+        background: rgba(255, 255, 255, 0.12) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 4px 6px;
+        border-radius: 4px;
+      }
+
+      .report-analysis-item {
+        font-size: 8pt;
+        margin-bottom: 5px;
+        line-height: 1.35;
+      }
+
+      .report-analysis-item strong {
+        color: #1F7A6C;
+        display: block;
+        margin-bottom: 1px;
+      }
+
+      .report-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 7.5pt;
+        margin-top: 3px;
+      }
+
+      .report-table th {
+        background: #14213D !important;
+        color: #fff !important;
+        font-weight: 700;
+        padding: 4px 6px;
+        text-align: left;
+        border: 1px solid #14213D;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .report-table td {
+        padding: 3px 6px;
+        border: 1px solid #D7DCE6;
+      }
+
+      .report-table tr:nth-child(even) {
+        background: #F9FAFB !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .report-badge {
+        display: inline-block;
+        padding: 1px 5px;
+        border-radius: 3px;
+        font-weight: 700;
+        font-size: 7pt;
+        text-transform: uppercase;
+      }
+
+      .badge-high {
+        background: #D1FAE5 !important;
+        color: #065F46 !important;
+      }
+
+      .badge-mid {
+        background: #FEF3C7 !important;
+        color: #92400E !important;
+      }
+
+      .badge-low {
+        background: #FEE2E2 !important;
+        color: #991B1B !important;
+      }
+
+      .report-signatures {
+        margin-top: 14px;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      .report-obs {
+        font-size: 8pt;
+        margin-bottom: 12px;
+      }
+
+      .obs-lines {
+        border-bottom: 1px dashed #999;
+        height: 16px;
+        margin-top: 4px;
+      }
+
+      .sig-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-top: 16px;
+      }
+
+      .sig-box {
+        text-align: center;
+      }
+
+      .sig-line {
+        border-bottom: 1px solid #333;
+        margin-bottom: 4px;
+      }
+
+      .sig-label {
+        font-size: 8pt;
+        font-weight: 700;
+        color: #14213D;
+      }
+
+      /* Registro del aprendiz */
+      .report-box-title {
+        font-size: 9pt;
+        font-weight: 800;
+        color: #14213D;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        border-bottom: 1px solid #D7DCE6;
+        padding-bottom: 3px;
+        margin-bottom: 6px;
+      }
+
+      .report-reg-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px 18px;
+      }
+
+      .report-field-wide {
+        grid-column: 1 / -1;
+      }
+
+      .report-field span.reg-val {
+        flex: 1;
+        min-height: 13px;
+        border-bottom: 1px solid #777;
+        font-weight: 700;
+        color: #111827;
+      }
+
+      /* Gráficos dentro del reporte */
+      .report-charts-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
+      .report-chart {
+        border: 1px solid #E5E7EB;
+        border-radius: 6px;
+        padding: 6px 8px;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .report-chart h4 {
+        font-size: 8pt;
+        font-weight: 800;
+        color: #14213D;
+        margin: 0 0 4px 0;
+      }
+
+      .report-chart svg {
+        width: 100%;
+        height: auto;
+        max-height: 150px;
+        display: block;
+      }
+
+      .report-chart .pie-wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .report-chart .pie-wrap svg {
+        width: 90px;
+        flex: none;
+      }
+
+      .report-chart .legend {
+        font-size: 7.5pt;
+        line-height: 1.5;
+      }
+
+      .report-chart .legend .sw {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 2px;
+        margin-right: 4px;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .report-chart svg,
+      .report-chart svg * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .report-chart .empty-note {
+        font-size: 8pt;
+        color: #666;
+        font-style: italic;
+        margin: 4px 0;
+      }
+
+      body.printing-cards #printCards {
+        display: block !important;
+        font-family: Georgia, serif;
+      }
+
+      #printCards .card-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      #printCards .p-card {
+        border: 1.5px dashed #666;
+        border-radius: 6px;
+        padding: 14px;
+        font-size: 0.95rem;
+        break-inside: avoid;
+      }
+
+      #printCards .p-card .num {
+        font-family: monospace;
+        font-size: 0.75rem;
+        color: #666;
+      }
+
+      #printCards .answer-page {
+        page-break-before: always;
+      }
+
+      #printCards h2 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+      }
+
+      #printCards table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+      }
+
+      #printCards td,
+      #printCards th {
+        border: 1px solid #999;
+        padding: 4px 8px;
+        text-align: left;
+      }
+    }
+
+    /* ---------- Mapa Mental Styles ---------- */
+    .mapamental-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 20px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .mapamental-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .mapa-btn-open {
+      background: var(--navy);
+      color: #FFFFFF;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 10px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 4px 12px rgba(20, 33, 61, 0.12);
+    }
+
+    .mapa-btn-open:hover {
+      background: var(--navy-2);
+      transform: translateY(-1px);
+    }
+
+    .mapa-btn-dl {
+      background: var(--paper);
+      color: var(--ink);
+      border: 1px solid var(--border-cool);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.88rem;
+      padding: 10px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .mapa-btn-dl:hover {
+      background: #FBFAF6;
+      border-color: var(--teal);
+      color: var(--teal-dark);
+      transform: translateY(-1px);
+    }
+
+    .mapamental-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 14px;
+      box-shadow: 0 8px 24px rgba(20, 33, 61, 0.08);
+      border-left: 6px solid var(--teal);
+      padding: 24px;
+      overflow: hidden;
+    }
+
+    .mapamental-viewer {
+      position: relative;
+      background: #FAFAFA;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      overflow: hidden;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .mapamental-viewer:hover {
+      border-color: var(--teal);
+      background: #F3F7F6;
+    }
+
+    .mapamental-img {
+      max-width: 100%;
+      height: auto;
+      max-height: 75vh;
+      display: block;
+      border-radius: 6px;
+      object-fit: contain;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+      transition: transform 0.3s ease;
+    }
+
+    .mapamental-viewer:hover .mapamental-img {
+      transform: scale(1.015);
+    }
+
+    .mapa-zoom-overlay {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      background: rgba(20, 33, 61, 0.88);
+      color: #FFFFFF;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      opacity: 0.9;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      pointer-events: none;
+    }
+
+    .mapamental-viewer:hover .mapa-zoom-overlay {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    .mapamental-footer {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .mapa-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mapa-badge {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      padding: 4px 12px;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mapa-badge.b-primary {
+      background: #E6F4F1;
+      color: var(--teal-dark);
+      border: 1px solid rgba(31, 122, 108, 0.25);
+    }
+
+    .mapa-badge.b-secondary {
+      background: #FDF4E7;
+      color: var(--gold-dark);
+      border: 1px solid rgba(198, 138, 46, 0.25);
+    }
+
+    .mapa-badge.b-tertiary {
+      background: #FDEEEB;
+      color: var(--coral-dark);
+      border: 1px solid rgba(214, 91, 74, 0.25);
+    }
+
+    .mapa-note {
+      font-size: 0.8rem;
+      color: var(--ink-soft);
+      font-family: ui-monospace, "SF Mono", Consolas, monospace;
+    }
+
+    /* Modal Lightbox */
+    .mapa-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .mapa-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mapa-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(6px);
+    }
+
+    .mapa-modal-content {
+      position: relative;
+      z-index: 1;
+      background: var(--paper);
+      border-radius: 14px;
+      max-width: 94vw;
+      max-height: 92vh;
+      width: 1200px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+      animation: mapaZoomIn 0.25s ease;
+    }
+
+    @keyframes mapaZoomIn {
+      from {
+        transform: scale(0.94);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .mapa-modal-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      background: var(--navy);
+      color: #FFFFFF;
+    }
+
+    .mapa-modal-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+    }
+
+    .mapa-modal-btns {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mapa-modal-action-btn {
+      color: #FFFFFF;
+      opacity: 0.85;
+      padding: 6px 10px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      transition: background 0.2s, opacity 0.2s;
+      text-decoration: none;
+    }
+
+    .mapa-modal-action-btn:hover {
+      opacity: 1;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .mapa-modal-close {
+      background: rgba(255, 255, 255, 0.12);
+      border: none;
+      color: #FFFFFF;
+      font-size: 1.5rem;
+      line-height: 1;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+    }
+
+    .mapa-modal-close:hover {
+      background: rgba(214, 91, 74, 0.8);
+    }
+
+    .mapa-modal-body {
+      padding: 16px;
+      overflow: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #F8F9FA;
+      max-height: calc(92vh - 60px);
+    }
+
+    .mapa-modal-img {
+      max-width: 100%;
+      height: auto;
+      max-height: calc(90vh - 80px);
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    /* ---- Extra styles: new question types & registro mini-form ---- */
+    .q-block {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+    }
+
+    .q-block h4 {
+      font-size: 0.98rem;
+      margin-bottom: 6px;
+    }
+
+    .q-block .q-type {
+      font-family: ui-monospace, monospace;
+      font-size: 0.68rem;
+      color: var(--teal-dark);
+      background: #E7F2EF;
+      padding: 2px 8px;
+      border-radius: 20px;
+      margin-right: 8px;
+    }
+
+    .q-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .q-opt-btn {
+      text-align: left;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border-cool);
+      border-radius: 10px;
+      background: var(--paper);
+      cursor: pointer;
+      font-size: 0.92rem;
+      transition: .15s;
+    }
+
+    .q-opt-btn:hover:not(:disabled) {
+      border-color: var(--teal);
+      background: #F3F9F7;
+    }
+
+    .q-opt-btn.correct {
+      border-color: var(--teal);
+      background: #E3F3EE;
+      font-weight: 700;
+    }
+
+    .q-opt-btn.incorrect {
+      border-color: var(--coral);
+      background: #FBEAE7;
+    }
+
+    .q-opt-btn:disabled {
+      cursor: default;
+      opacity: .85;
+    }
+
+    .q-tf-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .q-tf-row button {
+      flex: 1;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1.5px solid var(--border-cool);
+      background: var(--paper);
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .q-tf-row button:hover:not(:disabled) {
+      border-color: var(--teal);
+    }
+
+    .q-tf-row button.correct {
+      border-color: var(--teal);
+      background: #E3F3EE;
+    }
+
+    .q-tf-row button.incorrect {
+      border-color: var(--coral);
+      background: #FBEAE7;
+    }
+
+    .q-fill {
+      margin-top: 10px;
+      font-size: 0.95rem;
+      line-height: 2.1;
+    }
+
+    .q-fill select {
+      font-family: inherit;
+      font-size: 0.9rem;
+      padding: 4px 8px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border-cool);
+      background: #fff;
+      margin: 0 3px;
+    }
+
+    .q-fill select.correct {
+      border-color: var(--teal);
+      background: #E3F3EE;
+    }
+
+    .q-fill select.incorrect {
+      border-color: var(--coral);
+      background: #FBEAE7;
+    }
+
+    .q-check-btn {
+      margin-top: 10px;
+    }
+
+    .q-feedback {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+    }
+
+    .match-wrap {
+      display: flex;
+      gap: 22px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .match-col {
+      flex: 1;
+      min-width: 200px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .match-col .col-label {
+      font-family: ui-monospace, monospace;
+      font-size: 0.68rem;
+      color: var(--ink-soft);
+      margin-bottom: 2px;
+    }
+
+    .match-card {
+      padding: 9px 12px;
+      border-radius: 9px;
+      border: 1.5px solid var(--border-cool);
+      background: #fff;
+      cursor: pointer;
+      font-size: 0.86rem;
+      user-select: none;
+    }
+
+    .match-card.picked {
+      border-color: var(--gold);
+      background: #FBF3E3;
+    }
+
+    .match-card.used {
+      opacity: .4;
+      cursor: default;
+    }
+
+    .match-slot {
+      padding: 9px 12px;
+      border-radius: 9px;
+      border: 1.5px dashed var(--border-cool);
+      background: #FAFAF8;
+      cursor: pointer;
+      font-size: 0.86rem;
+      min-height: 20px;
+    }
+
+    .match-slot.filled {
+      border-style: solid;
+    }
+
+    .match-slot.correct {
+      border-color: var(--teal);
+      background: #E3F3EE;
+    }
+
+    .match-slot.incorrect {
+      border-color: var(--coral);
+      background: #FBEAE7;
+    }
+
+    .eval-score-box {
+      margin-top: 8px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      background: #F3F0E4;
+      font-size: 0.88rem;
+    }
+
+    .reg-mini {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 20px;
+    }
+
+    .reg-mini h4 {
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+
+    .reg-grid-mini {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+    }
+
+    .reg-grid-mini input {
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border-cool);
+      font-size: 0.88rem;
+      font-family: inherit;
+    }
+
+    .reg-save-note {
+      font-size: 0.78rem;
+      color: var(--ink-soft);
+      margin-top: 8px;
+    }
+
+    .fisica-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    .fisica-step-card {
+      border: 1.5px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 10px 12px;
+      background: #fff;
+      font-size: 0.82rem;
+      text-align: center;
+    }
+
+    .mm-svg-wrap {
+      background: #fff;
+      border: 1px solid var(--border-cool);
+      border-radius: 14px;
+      padding: 10px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-body">
+        <div class="hero-img-wrap">
+          <img src="web.png" alt="Herramientas Web de Trabajo Colaborativo" class="hero-img"
+            onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='../web.png';}">
+        </div>
+        <div class="hero-text">
+          <span class="tag">RETOS DEL PLANETA BYTEON · TÉCNICO EN TALENTO HUMANO</span>
+          <h1>Herramientas Web de Trabajo Colaborativo</h1>
+          <p class="hero-sub">Conectividad y sinergia</p>
+          <p class="lead">Los Neógenos de Byteon trabajan como una sola entidad: suben, editan y comparten información
+            sin estar físicamente juntos. Esta aplicación organiza esa misión en pasos: <strong>entender</strong> qué
+            son
+            las herramientas colaborativas, <strong>reconocerlas</strong> por tipo y funcionalidad,
+            <strong>aplicarlas</strong>
+            a procesos reales de talento humano, <strong>evaluar</strong> tu conocimiento con preguntas del material, y
+            revisar tu progreso en un <strong>dashboard</strong> con gráficos.
+          </p>
+        </div>
+      </div>
+      <nav class="tabs" id="tabs">
+        <a href="index.html" class="tab-btn" title="Ir a la p&aacute;gina principal"
+          onclick="if(window.location.pathname.indexOf('de trabajo')!==-1){this.href='../index.html';}">Inicio</a>
+        <button data-section="introduccion" class="active">Introducción</button>
+        <button data-section="lucia">LucIA</button>
+        <button data-section="principal">Material Principal</button>
+        <button data-section="material">Material de apoyo</button>
+        <button data-section="talleres">Talleres</button>
+        <button data-section="tipos">Tipos de herramientas</button>
+        <button data-section="informatica">Aplicación en Talento Humano</button>
+        <button data-section="evaluador">Evaluador</button>
+        <button data-section="juego">Juego: clasifica</button>
+        <button data-section="dashboard">Dashboard</button>
+        <button data-section="fisica">Actividad presencial</button>
+        <button data-section="mapamental">Mapa Mental</button>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- INTRODUCCIÓN -->
+    <section data-section="introduccion" class="active">
+      <div class="intro-grid">
+        <div class="card-basic">
+          <img src="web1.png" alt="&iquest;Por qu&eacute; importan las herramientas colaborativas?"
+            class="card-intro-img" onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='../web1.png';}">
+          <h2 style="font-size:1.4rem;margin-bottom:10px;">¿Por qué importan las herramientas colaborativas?</h2>
+          <p>El trabajo colaborativo digital reúne personas, procesos, documentos y decisiones en espacios virtuales
+            compartidos. Su propósito no es solo permitir que varias personas conversen, sino coordinar actividades,
+            conservar evidencias, reducir duplicidades y avanzar hacia objetivos comunes.</p>
+          <p>En Byteon, todos los Neógenos trabajan como una sola entidad: suben, editan y descargan información del
+            núcleo de forma coordinada. A ese trabajo lo llaman <strong>Aspís-Dóry</strong>. En el área de talento
+            humano, estas herramientas apoyan la comunicación interna, el reclutamiento, la inducción, la capacitación
+            y el seguimiento de compromisos.</p>
+          <p>Esta misión organiza el aprendizaje en pasos: <strong>comprender</strong> la definición y características,
+            <strong>clasificar</strong> las herramientas según su función, <strong>aplicarlas</strong> a procesos de
+            talento humano con buenas prácticas de seguridad, <strong>evaluar</strong> lo aprendido con preguntas
+            tomadas del material, <strong>practicar</strong> con un juego de clasificación, y revisar tu progreso en el
+            <strong>dashboard</strong>.
+          </p>
+        </div>
+        <div>
+          <h3 style="font-size:1rem;margin-bottom:4px;">Ir directo a:</h3>
+          <div class="quick-links">
+            <button data-goto="lucia">🤖 LucIA — tu inteligencia artificial aliada</button>
+            <button data-goto="principal">📖 Material Principal — Herramientas web de trabajo colaborativo
+              (PDF)</button>
+            <button data-goto="material">📂 Material de apoyo — 4 documentos de referencia en PDF</button>
+            <button data-goto="talleres">&#128221; Talleres &mdash; Taller Herramientas Colaborativas (PDF)</button>
+            <button data-goto="tipos">📚 Tipos de herramientas — comunicación, gestión, almacenamiento</button>
+            <button data-goto="informatica">💼 Aplicación en Talento Humano — funciones, seguridad y criterios</button>
+            <button data-goto="evaluador">🧭 Evaluador — preguntas tomadas del material, con veredicto</button>
+            <button data-goto="juego">🎮 Juego — clasifica 12 herramientas reales</button>
+            <button data-goto="dashboard">📊 Dashboard — resultados, gráficos y análisis</button>
+            <button data-goto="fisica">✋ Actividad presencial — arma el flujo colaborativo</button>
+            <button data-goto="mapamental">🗺️ Mapa Mental — esquema conceptual completo</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LUCIA -->
+    <section data-section="lucia">
+      <div class="lucia-presentation-card">
+        <div class="lucia-presentation-header">
+          <img src="lucIA.png" alt="LucIA" class="lucia-avatar-img"
+            onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='../lucIA.png';}else{this.style.display='none';}">
+          <div>
+            <span class="tag">INTELIGENCIA ARTIFICIAL ALIADA</span>
+            <h2>LucIA, tu guía en Byteon</h2>
+          </div>
+        </div>
+        <div class="lucia-presentation-body">
+          <h3 class="lucia-presentation-sub">Presentación:</h3>
+          <p class="lucia-highlight"><strong>Conectividad y Sinergia Operativa en Byteon</strong></p>
+          <p>Hola Aprendiz, soy LucIA, tu inteligencia artificial aliada en este viaje por el universo del talento
+            humano. En esta misión vamos a mirar cómo se coordina Byteon: todos los Neógenos actúan como una sola
+            entidad para subir, editar y compartir información sin necesidad de estar en el mismo lugar. A ese modo
+            de trabajar lo llaman <strong>Aspís-Dóry</strong>, el trabajo colaborativo de Byteon.</p>
+          <p>Para lograrlo, Byteon se apoya en software especializado que permite realizar tareas complejas de forma
+            conjunta. <strong>Data Prime</strong>, el regente de la información, controla lo que sube y baja de la
+            nube, y esos datos alimentan las bases de <strong>LucIA</strong> — es decir, a mí — para poder guiarte en
+            el funcionamiento del trabajo colaborativo.</p>
+          <div class="q-block" style="margin-top:18px;">
+            <h4>Lo que vas a descubrir en esta misión</h4>
+            <ul style="margin:8px 0 0 18px;padding:0;line-height:1.8;">
+              <li>Qué son y qué características tienen las herramientas web de trabajo colaborativo.</li>
+              <li>Cómo se clasifican: comunicación, gestión de tareas y almacenamiento/edición compartida.</li>
+              <li>Cómo se aplican en procesos reales de talento humano y qué riesgos hay que cuidar.</li>
+              <li>Cómo evaluar lo aprendido y practicar con un juego de clasificación.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="pdf-viewer-header" style="margin-top:24px;">
+        <div>
+          <span class="tag">DOCUMENTO OFICIAL &bull; BYTEON</span>
+          <h2 style="font-size:1.4rem;margin:4px 0 6px;">Herramientas Colaborativas &mdash; Byteon</h2>
+          <p style="color:var(--ink-soft);margin-bottom:0;">Documento oficial de estudio sobre herramientas
+            colaborativas. Siempre visible para su lectura y disponible para descarga.</p>
+        </div>
+        <div class="pdf-actions">
+          <a href="Herramientas Colaborativas - Byteon.pdf" target="_blank" class="pdf-btn-open">Abrir en ventana nueva
+            &#x2197;</a>
+          <a href="Herramientas Colaborativas - Byteon.pdf" download="Herramientas Colaborativas - Byteon.pdf"
+            class="pdf-btn-dl">Descargar PDF &#x2193;</a>
+        </div>
+      </div>
+      <div class="pdf-container">
+        <iframe src="Herramientas Colaborativas - Byteon.pdf#toolbar=1&navpanes=0" class="pdf-frame"
+          title="Herramientas Colaborativas - Byteon PDF">
+          <p>Tu navegador no permite previsualizar el PDF embebido. <a href="Herramientas Colaborativas - Byteon.pdf"
+              target="_blank">Haz clic aqu&iacute; para abrirlo</a>.</p>
+        </iframe>
+      </div>
+    </section>
+
+    <!-- MATERIAL PRINCIPAL -->
+    <section data-section="principal">
+      <div class="pdf-viewer-header">
+        <div>
+          <span class="tag">DOCUMENTO BASE DE LA MISI&Oacute;N</span>
+          <h2 style="font-size:1.5rem;margin:4px 0 6px;">Herramientas web de trabajo colaborativo &mdash; Material
+            Principal</h2>
+          <p style="color:var(--ink-soft);margin-bottom:0;">Lectura central de la misi&oacute;n: definici&oacute;n,
+            tipos, clasificaci&oacute;n, caracter&iacute;sticas, funcionalidades y aplicaci&oacute;n en talento humano.
+          </p>
+        </div>
+        <div class="pdf-actions">
+          <a href="herramientas web.pdf" target="_blank" class="pdf-btn-open">Abrir en ventana nueva &#x2197;</a>
+          <a href="herramientas web.pdf" download="herramientas web.pdf" class="pdf-btn-dl">Descargar PDF &#x2193;</a>
+        </div>
+      </div>
+      <div class="pdf-container">
+        <iframe src="herramientas web.pdf#toolbar=1&navpanes=0" class="pdf-frame" title="Herramientas Web PDF">
+          <p>Tu navegador no permite previsualizar el PDF embebido. <a href="herramientas web.pdf" target="_blank">Haz
+              clic aqu&iacute; para abrirlo</a>.</p>
+        </iframe>
+      </div>
+    </section>
+
+    <!-- MATERIAL DE APOYO -->
+    <section data-section="material">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Material de apoyo y lecturas complementarias</h2>
+      <p style="color:var(--ink-soft);margin-bottom:14px;">Cuatro documentos de referencia usados para construir esta
+        misi&oacute;n: rev&iacute;salos si quieres profundizar en alg&uacute;n tema.</p>
+      <img src="web2.png" alt="Material de apoyo y lecturas complementarias" class="material-banner-img"
+        onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='../web2.png';}">
+
+      <div class="material-grid">
+        <a href="informe_herramientas_trabajo_colaborativo.pdf" target="_blank" class="material-card">
+          <div class="material-icon">&#128196;</div>
+          <div class="material-body">
+            <span class="tag">DOCUMENTO 01</span>
+            <h3>Herramientas web de trabajo colaborativo</h3>
+            <p>Informe ampliado con criterios de selecci&oacute;n, seguridad de la informaci&oacute;n (NIST, ISO/IEC
+              25010),
+              ventajas, limitaciones y un caso pr&aacute;ctico de capacitaci&oacute;n.</p>
+            <span class="material-btn">Abrir documento PDF &#x2197;</span>
+          </div>
+        </a>
+
+        <a href="admin,+USO+DE+GOOGLE+DRIVE.pdf" target="_blank" class="material-card">
+          <div class="material-icon">&#128196;</div>
+          <div class="material-body">
+            <span class="tag">DOCUMENTO 02</span>
+            <h3>Uso de Google Drive en la educaci&oacute;n universitaria</h3>
+            <p>Bayas Huilcapi, Ordo&ntilde;ez Vivero y Huilcapi Masac&oacute;n (2021). Estudio sobre Google Drive como
+              herramienta
+              de trabajo colaborativo en la nube para estudiantes universitarios.</p>
+            <span class="material-btn">Abrir documento PDF &#x2197;</span>
+          </div>
+        </a>
+
+        <a href="Trabajo de grado.pdf" target="_blank" class="material-card">
+          <div class="material-icon">&#128196;</div>
+          <div class="material-body">
+            <span class="tag">DOCUMENTO 03</span>
+            <h3>Gu&iacute;a orientadora de herramientas colaborativas</h3>
+            <p>R&iacute;os Camelo &amp; Suarez Cruz &mdash; Fundaci&oacute;n Universitaria del &Aacute;rea Andina.
+              Encuesta a 132 estudiantes y
+              docentes sobre percepci&oacute;n y uso de herramientas colaborativas en educaci&oacute;n virtual.</p>
+            <span class="material-btn">Abrir documento PDF &#x2197;</span>
+          </div>
+        </a>
+
+        <a href="TutotialTEAMS_v2_0.pdf" target="_blank" class="material-card">
+          <div class="material-icon">&#128196;</div>
+          <div class="material-body">
+            <span class="tag">DOCUMENTO 04</span>
+            <h3>Microsoft Teams: manual de uso</h3>
+            <p>Universidad Complutense de Madrid &mdash; Servicios Inform&aacute;ticos. Gu&iacute;a paso a paso:
+              equipos, canales,
+              conversaciones, tareas, videollamadas y reuniones.</p>
+            <span class="material-btn">Abrir documento PDF &#x2197;</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- TALLERES -->
+    <section data-section="talleres">
+      <div class="pdf-viewer-header">
+        <div>
+          <span class="tag">ACTIVIDAD Y RETOS &bull; TALLERES</span>
+          <h2 style="font-size:1.5rem;margin:4px 0 6px;">Talleres &mdash; Herramientas Colaborativas</h2>
+          <p style="color:var(--ink-soft);margin-bottom:0;">Gu&iacute;a de talleres pr&aacute;cticos y retos
+            colaborativos. Documento siempre visible para su lectura y disponible para descarga.</p>
+        </div>
+        <div class="pdf-actions">
+          <a href="Talleres herramientas colaborativas.pdf" target="_blank" class="pdf-btn-open">Abrir en ventana nueva
+            &#x2197;</a>
+          <a href="Talleres herramientas colaborativas.pdf" download="Talleres herramientas colaborativas.pdf"
+            class="pdf-btn-dl">Descargar PDF &#x2193;</a>
+        </div>
+      </div>
+      <div class="pdf-container">
+        <iframe src="Talleres herramientas colaborativas.pdf#toolbar=1&navpanes=0" class="pdf-frame"
+          title="Talleres herramientas colaborativas PDF">
+          <p>Tu navegador no permite previsualizar el PDF embebido. <a href="Talleres herramientas colaborativas.pdf"
+              target="_blank">Haz clic aqu&iacute; para abrirlo</a>.</p>
+        </iframe>
+      </div>
+    </section>
+
+    <!-- TIPOS DE HERRAMIENTAS -->
+    <section data-section="tipos">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Tipos de herramientas según su función</h2>
+      <p style="color:var(--ink-soft);margin-bottom:22px;">Byteon organiza el trabajo colaborativo en tres módulos
+        funcionales: <strong>COM</strong>, <strong>GES</strong> y <strong>ALM</strong>. Son las mismas categorías que
+        usarás en el Evaluador y en el Juego.</p>
+
+      <div class="type-card primaria">
+        <img src="web3.png" alt="Comunicaci&oacute;n y reuniones" class="type-card-img"
+          onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='../web3.png';}else if(this.dataset.tried==='1'){this.dataset.tried='2';this.src='../de trabajo/web3.png';}">
+        <div class="type-head"><span class="tag">COM</span>
+          <h3>Comunicación y reuniones</h3>
+        </div>
+        <p>Facilitan conversaciones organizadas por canales, llamadas, avisos y coordinación inmediata. Permiten
+          separar las charlas informales de los comunicados oficiales.</p>
+        <div class="examples">
+          <div class="ex-chip">Slack — canales por área o proyecto</div>
+          <div class="ex-chip">Microsoft Teams — chat, reuniones y archivos integrados</div>
+          <div class="ex-chip">Videoconferencias (Zoom, Meet)</div>
+          <div class="ex-chip">Chats en vivo</div>
+        </div>
+      </div>
+
+      <div class="type-card secundaria">
+        <img src="web4.png" alt="Gesti&oacute;n de proyectos y tareas" class="type-card-img"
+          onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='../web4.png';}else if(this.dataset.tried==='1'){this.dataset.tried='2';this.src='../de trabajo/web4.png';}">
+        <div class="type-head"><span class="tag">GES</span>
+          <h3>Gestión de proyectos y tareas</h3>
+        </div>
+        <p>Ayudan a organizar, asignar responsables, priorizar, establecer fechas de vencimiento y visualizar el
+          flujo de trabajo en tableros o listas, evitando duplicidad.</p>
+        <div class="examples">
+          <div class="ex-chip">Trello — tableros por etapas (Ej: selección de personal)</div>
+          <div class="ex-chip">Asana — asignación y seguimiento de tareas</div>
+          <div class="ex-chip">Microsoft Planner — tareas dentro de Teams</div>
+        </div>
+      </div>
+
+      <div class="type-card terciaria">
+        <img src="web5.png" alt="Almacenamiento y edici&oacute;n compartida" class="type-card-img"
+          onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='../web5.png';}else if(this.dataset.tried==='1'){this.dataset.tried='2';this.src='../de trabajo/web5.png';}">
+        <div class="type-head"><span class="tag">ALM</span>
+          <h3>Almacenamiento y edición compartida</h3>
+        </div>
+        <p>Permiten guardar, organizar y editar documentos simultáneamente (texto, hojas de cálculo, presentaciones),
+          controlando permisos y centralizando la información oficial.</p>
+        <div class="examples">
+          <div class="ex-chip">Google Drive — carpetas con permisos y versiones</div>
+          <div class="ex-chip">Google Docs / Microsoft 365 — edición en tiempo real</div>
+          <div class="ex-chip">OneDrive / Dropbox — sincronización de archivos</div>
+        </div>
+      </div>
+
+      <details class="deepen" open>
+        <summary>Un cuarto tipo: prototipado y diseño</summary>
+        <div class="card-basic">
+          <p>Facilitan la colaboración en el diseño de productos e interfaces, con comentarios y prototipos en un
+            espacio compartido. Ejemplo: <strong>Figma</strong> — usado, por ejemplo, para diseñar un portal interno
+            de autoservicio para colaboradores.</p>
+        </div>
+      </details>
+
+      <h3 style="font-size:1.02rem;margin:26px 0 4px;">Clasificación según la simultaneidad</h3>
+      <div class="flow">
+        <span class="flow-step">Sincrónicas</span><span class="flow-arrow">↔</span>
+        <span class="flow-step">Tiempo real</span>
+      </div>
+      <div class="flow" style="margin-top:8px;">
+        <span class="flow-step">Asincrónicas</span><span class="flow-arrow">↔</span>
+        <span class="flow-step">Tiempo diferido</span>
+      </div>
+
+      <details class="deepen">
+        <summary>Profundizar: síncronas vs. asíncronas</summary>
+        <div class="subgrid">
+          <div class="card-basic">
+            <h4 style="margin-bottom:6px;">Herramientas sincrónicas</h4>
+            <p>Permiten la interacción y colaboración simultánea: videoconferencias (Teams, Zoom, Meet), chats en
+              vivo, pizarras digitales. Ideales para resolver asuntos urgentes, hacer entrevistas o tomar decisiones
+              rápidas.</p>
+          </div>
+          <div class="card-basic">
+            <h4 style="margin-bottom:6px;">Herramientas asincrónicas</h4>
+            <p>Permiten colaborar sin estar conectados al mismo tiempo: correo electrónico, foros, comentarios,
+              tableros de gestión. Útiles para equipos con diferencias de horario o tareas que requieren análisis
+              antes de responder.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="deepen">
+        <summary>Características principales de estas herramientas</summary>
+        <div class="subgrid cols-3">
+          <div class="card-basic">
+            <h4 style="margin-bottom:6px;">Accesibilidad</h4>
+            <p>Disponibles desde cualquier
+              lugar con conexión a internet, sujeto a permisos y políticas de la organización.</p>
+          </div>
+          <div class="card-basic">
+            <h4 style="margin-bottom:6px;">Interactividad</h4>
+            <p>Comunicación, comentarios,
+              menciones, reacciones, reuniones y edición conjunta con notificaciones.</p>
+          </div>
+          <div class="card-basic">
+            <h4 style="margin-bottom:6px;">Flexibilidad y escalabilidad</h4>
+            <p>Se adaptan a
+              proyectos, áreas y tamaños de equipo, y crecen sin cambiar por completo el sistema.</p>
+          </div>
+          <div class="card-basic">
+            <h4 style="margin-bottom:6px;">Seguridad y trazabilidad</h4>
+            <p>Autenticación,
+              permisos, cifrado y un historial de cambios que permite auditar quién hizo qué y cuándo.</p>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- APLICACIÓN EN TALENTO HUMANO -->
+    <section data-section="informatica">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Aplicación en Talento Humano</h2>
+      <p style="color:var(--ink-soft);margin-bottom:10px;">Implementar estas herramientas en el área de talento
+        humano exige combinar productividad con reglas claras, mínimo privilegio y protección de datos personales.</p>
+
+      <h3 style="font-size:1.02rem;margin:22px 0 4px;">Flujo recomendado de implementación</h3>
+      <div class="flow">
+        <span class="flow-step">Definir objetivo</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Crear espacio y permisos</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Publicar material oficial</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Asignar tareas</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Realizar sesión</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Recoger evidencias</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Cerrar y archivar</span>
+      </div>
+
+      <h3 style="font-size:1.02rem;margin:26px 0 4px;">Procesos de talento humano y su riesgo asociado</h3>
+      <div class="card-basic" style="margin-top:12px;">
+        <h3 style="font-size:1.05rem;margin-bottom:8px;">1. &iquest;Qu&eacute; son?</h3>
+        <p>Son aplicaciones y servicios accesibles por internet que facilitan la comunicaci&oacute;n, el intercambio de
+          informaci&oacute;n, la edici&oacute;n conjunta, la gesti&oacute;n de tareas, el almacenamiento y la
+          coordinaci&oacute;n de proyectos.
+          Permiten que varias personas trabajen sobre una fuente com&uacute;n de informaci&oacute;n, con distintos
+          niveles de
+          participaci&oacute;n y desde diferentes ubicaciones. Colaborar no equivale a compartir un archivo: una
+          colaboraci&oacute;n madura incluye objetivo definido, roles claros, reglas de comunicaci&oacute;n,
+          responsables, fechas,
+          control de versiones, trazabilidad de cambios y mecanismos de protecci&oacute;n de la informaci&oacute;n.</p>
+      </div>
+
+      <div class="subgrid cols-3" style="margin-top:16px;margin-bottom:18px;">
+        <div class="card-basic">
+          <h4 style="margin-bottom:6px;">2. Ejemplo aplicado</h4>
+          <p>En un proceso de selecci&oacute;n, talento humano puede usar un canal para coordinarse, una carpeta con
+            hojas
+            de vida autorizadas, un tablero para controlar etapas y una videollamada para la entrevista final. La
+            herramienta no reemplaza el criterio profesional: organiza y hace visible el trabajo.</p>
+        </div>
+        <div class="card-basic">
+          <h4 style="margin-bottom:6px;">3. Combinaci&oacute;n de modelos</h4>
+          <p>La mayor&iacute;a de plataformas combina interacci&oacute;n s&iacute;ncrona y as&iacute;ncrona: un equipo
+            puede debatir por chat o
+            videollamada y luego dejar la decisi&oacute;n documentada en un acta, una tarea o un comentario asignado,
+            para
+            que no quede solo en una conversaci&oacute;n dif&iacute;cil de rastrear.</p>
+        </div>
+        <div class="card-basic">
+          <h4 style="margin-bottom:6px;">4. Buena pr&aacute;ctica clave</h4>
+          <p>Definir reglas de comunicaci&oacute;n: qu&eacute; se publica en un chat r&aacute;pido, qu&eacute; se
+            registra como tarea, y qu&eacute; debe
+            quedar documentado de forma formal. Sin esas reglas, la informaci&oacute;n se dispersa y se vuelve
+            dif&iacute;cil de
+            auditar.</p>
+        </div>
+      </div>
+      <div class="it-grid">
+        <div class="it-card">
+          <h4>Reclutamiento y selección (GES + ALM)</h4>
+          <p>Tableros visuales para vacantes, candidatos y entrevistas; carpetas con hojas de vida autorizadas.
+            Riesgo: exposición accidental de datos personales sensibles si los permisos se configuran como
+            públicos.</p>
+        </div>
+        <div class="it-card">
+          <h4>Inducción (ALM + COM)</h4>
+          <p>Cronogramas, manuales y videos centralizados en la nube para que los nuevos ingresos aprendan de forma
+            autónoma. Riesgo: falta de contexto y saturación de notificaciones si no hay un guía responsable
+            asignado.</p>
+        </div>
+        <div class="it-card">
+          <h4>Capacitación (COM + GES + ALM)</h4>
+          <p>Un espacio de comunicación, un tablero de convocatoria/asistencia/evaluación, y un documento construido
+            entre instructores. Riesgo: pérdida de información por sobreescritura si no se domina la edición
+            concurrente.</p>
+        </div>
+        <div class="it-card">
+          <h4>Gestión del desempeño (ALM)</h4>
+          <p>Documentos vivos con control de versiones e historial de cambios para coordinar metas y
+            retroalimentación, evitando exponer información sensible a personas no autorizadas.</p>
+        </div>
+        <div class="it-card">
+          <h4>Comunicaciones internas (COM)</h4>
+          <p>Publicar políticas, novedades y canales oficiales, diferenciando lo urgente de la documentación
+            permanente.</p>
+        </div>
+        <div class="it-card">
+          <h4>Trabajo híbrido (COM + GES + ALM)</h4>
+          <p>Mantener continuidad operativa, acuerdos de disponibilidad, reuniones y seguimiento sin depender de la
+            presencia física.</p>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.02rem;margin:26px 0 4px;">Criterios para seleccionar una herramienta</h3>
+      <table class="quality-table">
+        <thead>
+          <tr>
+            <th>Criterio</th>
+            <th>Pregunta de evaluación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Necesidad</td>
+            <td>¿Se requiere comunicación, tareas, documentos, diseño o una combinación?</td>
+          </tr>
+          <tr>
+            <td>Usuarios</td>
+            <td>¿Cuántas personas participarán y habrá usuarios externos?</td>
+          </tr>
+          <tr>
+            <td>Seguridad</td>
+            <td>¿Permite MFA, roles, auditoría y control de enlaces y dispositivos?</td>
+          </tr>
+          <tr>
+            <td>Integración</td>
+            <td>¿Se conecta con correo, calendario, almacenamiento y sistemas existentes?</td>
+          </tr>
+          <tr>
+            <td>Usabilidad</td>
+            <td>¿El equipo puede aprenderla y utilizarla sin fricción?</td>
+          </tr>
+          <tr>
+            <td>Costo</td>
+            <td>¿Qué incluye el plan gratuito o licenciado y qué costos adicionales existen?</td>
+          </tr>
+          <tr>
+            <td>Continuidad</td>
+            <td>¿Hay respaldo, exportación, soporte y plan ante caída del servicio?</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <details class="deepen">
+        <summary>Seguridad, buenas prácticas y estándares de referencia</summary>
+        <div class="subgrid">
+          <div class="card-basic">
+            <h4 style="margin-bottom:6px;">Buenas prácticas</h4>
+            <p><strong>Principio de mínimo privilegio:</strong> cada persona accede solo a lo necesario para su
+              función. <strong>MFA:</strong> autenticación multifactor, contraseñas robustas y cifrado. Revisar
+              periódicamente usuarios, enlaces públicos y cuentas inactivas.</p>
+          </div>
+          <div class="card-basic">
+            <h4 style="margin-bottom:6px;">Referencias técnicas</h4>
+            <p><strong>NIST</strong> recomienda políticas de teletrabajo y acceso remoto con autenticación fuerte y
+              comunicaciones cifradas. <strong>ISO/IEC 25010</strong> ofrece un modelo para evaluar la calidad de
+              estos productos de software (usabilidad, fiabilidad, compatibilidad).</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="deepen">
+        <summary>Ventajas y limitaciones</summary>
+        <table class="quality-table">
+          <thead>
+            <tr>
+              <th>Ventajas</th>
+              <th>Limitaciones o riesgos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Reduce barreras geográficas y facilita equipos remotos.</td>
+              <td>Dependencia de internet,
+                dispositivos y disponibilidad del servicio.</td>
+            </tr>
+            <tr>
+              <td>Centraliza conversaciones, archivos y tareas.</td>
+              <td>Saturación de notificaciones y dispersión
+                si no hay reglas claras.</td>
+            </tr>
+            <tr>
+              <td>Aumenta trazabilidad mediante historial y responsables.</td>
+              <td>Exposición de datos por permisos
+                mal configurados.</td>
+            </tr>
+          </tbody>
+        </table>
+      </details>
+    </section>
+
+    <!-- EVALUADOR -->
+    <section data-section="evaluador">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Evaluador de conocimiento</h2>
+      <p style="color:var(--ink-soft);margin-bottom:16px;">Preguntas tomadas directamente del material de la misión,
+        con distintos formatos: opción única, verdadero/falso, listas desplegables y emparejamiento. Responde a tu
+        ritmo — puedes ver tu veredicto en cualquier momento, aunque no hayas contestado todo. Cada evaluación queda
+        registrada en el <strong>Dashboard</strong>.</p>
+
+      <div class="subnav" id="evalSubnav">
+        <button data-eval="general" class="active">Conceptos y clasificación</button>
+        <button data-eval="tecnico">Aplicación en Talento Humano</button>
+      </div>
+
+      <div class="eval-panel active" id="evalGeneralPanel">
+        <div id="evalQuestionsGeneral"></div>
+        <div class="eval-actions">
+          <button type="button" class="primary" data-check="general">Ver veredicto</button>
+        </div>
+        <div class="verdict" id="verdict-general">
+          <h4 class="v-title"></h4>
+          <p class="v-text"></p>
+          <p class="v-weak" style="font-size:0.88rem;color:var(--ink-soft);"></p>
+        </div>
+      </div>
+
+      <div class="eval-panel" id="evalTecnicoPanel">
+        <div id="evalQuestionsTecnico"></div>
+        <div class="eval-actions">
+          <button type="button" class="primary" data-check="tecnico">Ver veredicto</button>
+        </div>
+        <div class="verdict" id="verdict-tecnico">
+          <h4 class="v-title"></h4>
+          <p class="v-text"></p>
+          <p class="v-weak" style="font-size:0.88rem;color:var(--ink-soft);"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- JUEGO -->
+    <section data-section="juego">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Clasifica la herramienta</h2>
+      <p style="color:var(--ink-soft);margin-bottom:22px;">Se te mostrará una herramienta o un caso de uso real.
+        Decide si es de <strong>Comunicación (COM)</strong>, <strong>Gestión de tareas (GES)</strong> o
+        <strong>Almacenamiento y edición (ALM)</strong>. Cada partida se registra en el <strong>Dashboard</strong>.
+      </p>
+
+      <div class="game-wrap">
+        <div class="game-progress">
+          <span id="gameProgressText">Pregunta 1 de 12</span>
+          <span id="gameScoreText">Aciertos: 0</span>
+        </div>
+        <div class="game-bar">
+          <div class="game-bar-fill" id="gameBar"></div>
+        </div>
+
+        <div id="gamePlay">
+          <div class="game-card" id="gameQuestion"></div>
+          <div class="game-options" id="gameOptions">
+            <button data-choice="comunicacion">Comunicación (COM)</button>
+            <button data-choice="gestion">Gestión (GES)</button>
+            <button data-choice="almacenamiento">Almacenamiento (ALM)</button>
+          </div>
+          <div class="game-feedback" id="gameFeedback"></div>
+          <button class="primary" id="gameNextBtn" style="display:none;">Siguiente</button>
+        </div>
+
+        <div id="gameEnd" class="game-end" style="display:none;">
+          <p class="score"><span id="gameFinalScore"></span>/12</p>
+          <p id="gameFinalMsg" style="margin:10px 0 20px;"></p>
+          <button class="primary" id="gameReplayBtn">Jugar de nuevo</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section data-section="dashboard">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Dashboard de resultados</h2>
+      <p style="color:var(--ink-soft);margin-bottom:16px;">Resumen de tus evaluaciones y partidas. Los datos se
+        guardan solo en este navegador; no salen de tu computador.</p>
+
+      <div class="stat-row" id="dashStats"></div>
+
+      <div class="dash-grid">
+        <div class="chart-card">
+          <h4>Puntaje del juego por partida</h4>
+          <div id="chartGameBar"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Veredictos del evaluador (Conceptos vs. Aplicación)</h4>
+          <div id="chartEvalBar"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Aciertos vs. errores en el juego</h4>
+          <div id="chartGamePie"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Errores por tipo de herramienta</h4>
+          <div id="chartTypePie"></div>
+        </div>
+      </div>
+
+      <div class="analysis-card">
+        <h4>📊 Análisis — Evaluador</h4>
+        <p id="analysisEval"></p>
+      </div>
+      <div class="analysis-card">
+        <h4>🎮 Análisis — Juego de clasificación</h4>
+        <p id="analysisGame"></p>
+      </div>
+
+      <div class="reward-box" id="rewardBox">
+        <span class="reward-tag">RETO FINAL · RECOMPENSA</span>
+        <h4>&#128640; Investigador Gal&aacute;ctico grado 8</h4>
+        <p>Al completar este reto ser&aacute;s reconocido(a) como Investigador Gal&aacute;ctico grado 8 y ganar&aacute;s
+          <strong id="nexAmount">0</strong> NEXs.
+        </p>
+        <div class="reward-amount"><span class="big" id="nexBig">0</span><span class="of">NEXs de 160.000
+            posibles</span>
+        </div>
+        <div class="reward-track">
+          <div class="reward-fill" id="nexFill"></div>
+        </div>
+        <div class="reward-break" id="nexBreak"></div>
+        <div class="reward-status" id="nexStatus"></div>
+      </div>
+
+      <div class="dash-actions"
+        style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-top:24px;">
+        <button class="ghost" id="resetDashBtn" style="color:var(--coral);border-color:rgba(214,91,74,0.35);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            style="vertical-align:middle;margin-right:4px;">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          </svg>
+          Borrar historial del dashboard
+        </button>
+        <button class="btn-print-dashboard" id="printReportBtn" type="button">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <rect x="6" y="14" width="12" height="8"></rect>
+          </svg>
+          Imprimir Registro Institucional y Dashboard
+        </button>
+      </div>
+    </section>
+
+    <!-- ACTIVIDAD PRESENCIAL -->
+    <section data-section="fisica">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Actividad presencial: arma el flujo colaborativo</h2>
+      <p style="color:var(--ink-soft);margin-bottom:18px;">A diferencia del juego digital (que clasifica
+        herramientas sueltas), esta dinámica de grupo pide <strong>ordenar un proceso completo</strong> y decidir qué
+        herramienta usar en cada paso — tal como ocurre en un proceso real de talento humano.</p>
+
+      <div class="card-basic">
+        <h3 style="font-size:1.05rem;margin-bottom:10px;">Cómo organizarla</h3>
+        <ol class="steps">
+          <li>Forma equipos de 3 a 4 personas. Cada equipo recibe el mismo caso: <strong>"Capacitar a 40
+              colaboradores sobre un nuevo procedimiento"</strong>.</li>
+          <li>Imprime y recorta las 7 tarjetas de pasos y las 12 tarjetas de herramientas con el botón de abajo.</li>
+          <li>Baraja ambos mazos por separado y entrégalos al equipo.</li>
+          <li>Da 10 minutos para que el equipo: (a) ordene las 7 tarjetas de pasos en la secuencia correcta, y
+            (b) coloque debajo de cada paso la o las tarjetas de herramienta (COM, GES o ALM) que usarían ahí.</li>
+          <li>Cada equipo pega su flujo armado en una cartelera o mesa visible.</li>
+          <li>Un vocero por equipo explica en voz alta por qué eligieron esas herramientas para al menos tres pasos.
+          </li>
+          <li>Revisa los resultados con la hoja de respuestas (segunda página de la impresión) y discutan las
+            diferencias entre equipos: no siempre hay una única combinación correcta, pero sí combinaciones más
+            riesgosas que otras (por ejemplo, publicar hojas de vida sin permisos configurados).</li>
+          <li>Cierre grupal: cada equipo comparte una herramienta colaborativa que ya usa en su vida académica o
+            laboral y en qué paso del flujo la ubicaría.</li>
+        </ol>
+        <div class="fisica-cards-grid">
+          <div class="fisica-step-card"><strong>1</strong><br>Definir objetivo</div>
+          <div class="fisica-step-card"><strong>2</strong><br>Crear espacio y permisos</div>
+          <div class="fisica-step-card"><strong>3</strong><br>Publicar material oficial</div>
+          <div class="fisica-step-card"><strong>4</strong><br>Asignar tareas</div>
+          <div class="fisica-step-card"><strong>5</strong><br>Realizar sesión</div>
+          <div class="fisica-step-card"><strong>6</strong><br>Recoger evidencias</div>
+          <div class="fisica-step-card"><strong>7</strong><br>Cerrar y archivar</div>
+        </div>
+        <button class="ghost print-btn" id="printBtn">🖨️ Imprimir tarjetas de pasos, herramientas y hoja de
+          respuestas</button>
+      </div>
+    </section>
+
+    <!-- MAPA MENTAL -->
+    <section data-section="mapamental">
+      <div class="mapamental-header">
+        <div>
+          <span class="tag">ESQUEMA CONCEPTUAL</span>
+          <h2 style="font-size:1.5rem;margin:4px 0 6px;">Mapa Mental: Herramientas Web de Trabajo Colaborativo</h2>
+          <p style="color:var(--ink-soft);margin-bottom:0;">Estructura visual completa: definición, clasificación por
+            simultaneidad, los tres módulos COM / GES / ALM y su aplicación en talento humano.</p>
+        </div>
+      </div>
+
+      <div class="mapamental-card">
+        <div class="mm-svg-wrap">
+          <svg viewBox="0 0 1000 560" xmlns="http://www.w3.org/2000/svg"
+            style="width:100%;height:auto;font-family:-apple-system,Segoe UI,Roboto,sans-serif;">
+            <rect x="360" y="245" width="280" height="70" rx="14" fill="#14213D" />
+            <text x="500" y="275" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">Herramientas Web
+              de</text>
+            <text x="500" y="296" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">Trabajo
+              Colaborativo</text>
+
+            <line x1="360" y1="270" x2="170" y2="120" stroke="#C68A2E" stroke-width="2.5" />
+            <line x1="360" y1="290" x2="170" y2="440" stroke="#5B6472" stroke-width="2" />
+            <line x1="640" y1="270" x2="830" y2="80" stroke="#1F7A6C" stroke-width="2.5" />
+            <line x1="640" y1="280" x2="830" y2="280" stroke="#D65B4A" stroke-width="2.5" />
+            <line x1="640" y1="300" x2="830" y2="480" stroke="#C68A2E" stroke-width="2.5" />
+
+            <rect x="40" y="85" width="260" height="66" rx="12" fill="#FBF3E3" stroke="#C68A2E" />
+            <text x="170" y="112" text-anchor="middle" font-size="13" font-weight="700" fill="#14213D">Clasificación por
+              simultaneidad</text>
+            <text x="170" y="133" text-anchor="middle" font-size="11" fill="#5B6472">Sincrónicas (tiempo real) /</text>
+            <text x="170" y="147" text-anchor="middle" font-size="11" fill="#5B6472">Asincrónicas (tiempo
+              diferido)</text>
+
+            <rect x="40" y="405" width="260" height="80" rx="12" fill="#F3F0E4" stroke="#5B6472" />
+            <text x="170" y="428" text-anchor="middle" font-size="13" font-weight="700"
+              fill="#14213D">Características</text>
+            <text x="170" y="447" text-anchor="middle" font-size="11" fill="#5B6472">Accesibilidad ·
+              Interactividad</text>
+            <text x="170" y="463" text-anchor="middle" font-size="11" fill="#5B6472">Flexibilidad · Escalabilidad</text>
+            <text x="170" y="479" text-anchor="middle" font-size="11" fill="#5B6472">Seguridad y trazabilidad</text>
+
+            <rect x="700" y="45" width="260" height="72" rx="12" fill="#E3F3EE" stroke="#1F7A6C" />
+            <text x="830" y="70" text-anchor="middle" font-size="13" font-weight="700" fill="#14213D">COM —
+              Comunicación</text>
+            <text x="830" y="90" text-anchor="middle" font-size="11" fill="#5B6472">Slack · Teams · Zoom</text>
+            <text x="830" y="105" text-anchor="middle" font-size="11" fill="#5B6472">canales, chats,
+              videollamadas</text>
+
+            <rect x="700" y="246" width="260" height="72" rx="12" fill="#FBEAE7" stroke="#D65B4A" />
+            <text x="830" y="271" text-anchor="middle" font-size="13" font-weight="700" fill="#14213D">GES — Gestión de
+              tareas</text>
+            <text x="830" y="291" text-anchor="middle" font-size="11" fill="#5B6472">Trello · Asana · Planner</text>
+            <text x="830" y="306" text-anchor="middle" font-size="11" fill="#5B6472">tableros, asignación, fechas</text>
+
+            <rect x="700" y="445" width="260" height="72" rx="12" fill="#FBF3E3" stroke="#C68A2E" />
+            <text x="830" y="470" text-anchor="middle" font-size="13" font-weight="700" fill="#14213D">ALM —
+              Almacenamiento</text>
+            <text x="830" y="490" text-anchor="middle" font-size="11" fill="#5B6472">Drive · Docs · OneDrive</text>
+            <text x="830" y="505" text-anchor="middle" font-size="11" fill="#5B6472">archivos, edición compartida</text>
+
+            <text x="500" y="345" text-anchor="middle" font-size="12" fill="#5B6472" font-style="italic">Aplicación en
+              Talento Humano: reclutamiento · inducción · capacitación · desempeño · comunicaciones internas · trabajo
+              híbrido</text>
+          </svg>
+        </div>
+        <div class="mapamental-footer">
+          <div class="mapa-badges">
+            <span class="mapa-badge b-primary">COM</span>
+            <span class="mapa-badge b-secondary">GES</span>
+            <span class="mapa-badge b-tertiary">ALM</span>
+          </div>
+          <span class="mapa-note">Esquema generado a partir del material de la misión</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Printable content, only visible via window.print() -->
+  <div id="printCards">
+    <h2>Tarjetas de pasos — recorta y ordena</h2>
+    <div class="card-grid" id="printStepsGrid"></div>
+    <h2 style="margin-top:22px;">Tarjetas de herramientas — recorta y clasifica (COM / GES / ALM)</h2>
+    <div class="card-grid" id="printToolsGrid"></div>
+    <div class="answer-page">
+      <h2>Hoja de respuestas (para el instructor)</h2>
+      <h3 style="font-size:0.95rem;">Secuencia correcta del flujo</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Paso</th>
+          </tr>
+        </thead>
+        <tbody id="answerStepsBody"></tbody>
+      </table>
+      <h3 style="font-size:0.95rem;margin-top:16px;">Categoría correcta de cada herramienta</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Herramienta / caso</th>
+            <th>Categoría correcta</th>
+          </tr>
+        </thead>
+        <tbody id="answerToolsBody"></tbody>
+      </table>
+    </div>
+  </div><!-- /#printCards -->
+
+  <!-- Reporte: Registro del aprendiz + Resultados del Dashboard (Impresión) -->
+  <div id="printReport">
+    <header class="report-header">
+      <div class="report-header-top">
+        <img src="sena.png" alt="Logo SENA" class="report-logo" onerror="this.style.display='none'" />
+        <div class="report-header-text">
+          <div class="report-org">SERVICIO NACIONAL DE APRENDIZAJE SENA &bull; REGIONAL DISTRITO CAPITAL</div>
+          <h1 class="report-center">CENTRO DE GESTI&Oacute;N ADMINISTRATIVA</h1>
+          <div class="report-competencia">
+            <strong>COMPETENCIA:</strong> 210601026 - OPERAR HERRAMIENTAS INFORM&Aacute;TICAS Y DIGITALES DE ACUERDO CON
+            PROTOCOLOS Y MANUALES T&Eacute;CNICOS
+          </div>
+        </div>
+      </div>
+
+      <div class="report-project-card">
+        <div class="report-project-title">RETOS DEL PLANETA BYTEON &mdash; REPORTE DE EVALUACI&Oacute;N Y
+          DESEMPE&Ntilde;O</div>
+        <div class="report-project-sub">
+          <strong>FASES DEL PROYECTO:</strong> AN&Aacute;LISIS Y APLICACI&Oacute;N &bull;
+          <strong>PROGRAMA:</strong> T&Eacute;CNICO EN TALENTO HUMANO &bull;
+          <strong>RETO:</strong> 2. HERRAMIENTAS WEB DE TRABAJO COLABORATIVO
+        </div>
+        <div class="report-ra">
+          <strong>RESULTADOS DE APRENDIZAJE:</strong>
+          <ul>
+            <li>Aplicar herramientas web de trabajo colaborativo de acuerdo con las necesidades de comunicaci&oacute;n,
+              gesti&oacute;n y almacenamiento de informaci&oacute;n en talento humano.</li>
+            <li>Seleccionar herramientas tecnol&oacute;gicas colaborativas considerando criterios de seguridad,
+              accesibilidad y buenas pr&aacute;cticas organizacionales.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="report-student-box">
+        <div class="report-box-title">Registro del aprendiz</div>
+        <div class="report-reg-grid">
+          <div class="report-field report-field-wide"><span class="label">Nombre completo:</span> <span class="reg-val"
+              id="regNombre"></span></div>
+          <div class="report-field"><span class="label">N&uacute;mero de documento:</span> <span class="reg-val"
+              id="regDocumento"></span></div>
+          <div class="report-field"><span class="label">Ficha:</span> <span class="reg-val" id="regFicha"></span></div>
+          <div class="report-field report-field-wide"><span class="label">Programa:</span> <span class="reg-val"
+              id="regPrograma"></span></div>
+          <div class="report-field"><span class="label">Centro de formaci&oacute;n:</span> <span class="reg-val"
+              id="regCentro"></span></div>
+          <div class="report-field"><span class="label">Regional:</span> <span class="reg-val" id="regRegional"></span>
+          </div>
+          <div class="report-field"><span class="label">Fecha y hora de emisi&oacute;n:</span> <span class="reg-val"
+              id="reportDate"></span></div>
+          <div class="report-field"><span class="label">Instructor / Evaluador:</span> <span class="reg-val"></span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="report-body">
+      <h2 class="report-sec-title">Resultados Consolidados del Dashboard</h2>
+      <div class="report-stats-grid" id="reportStatsGrid"></div>
+      <div id="reportRewardCard"></div>
+      <div class="report-card">
+        <h3 class="report-card-title">Gr&aacute;ficos del Dashboard</h3>
+        <div class="report-charts-grid" id="reportCharts"></div>
+      </div>
+      <div class="report-card">
+        <h3 class="report-card-title">Diagn&oacute;stico y An&aacute;lisis Cualitativo</h3>
+        <div class="report-analysis-item">
+          <strong>Evaluador de Herramientas Colaborativas:</strong>
+          <p id="reportAnalysisEval"></p>
+        </div>
+        <div class="report-analysis-item">
+          <strong>Juego de Clasificaci&oacute;n (COM / GES / ALM):</strong>
+          <p id="reportAnalysisGame"></p>
+        </div>
+      </div>
+      <div class="report-card">
+        <h3 class="report-card-title">Desempe&ntilde;o por Tipo de Herramienta</h3>
+        <div id="reportCategoryTable"></div>
+      </div>
+      <div class="report-card">
+        <h3 class="report-card-title">Historial Detallado de Evaluaciones Realizadas</h3>
+        <div id="reportEvalTable"></div>
+      </div>
+      <div class="report-card">
+        <h3 class="report-card-title">Historial de Partidas en el Simulador</h3>
+        <div id="reportGameTable"></div>
+      </div>
+      <div class="report-signatures">
+        <div class="report-obs">
+          <strong>Observaciones y Recomendaciones del Instructor / Evaluador:</strong>
+          <div class="obs-lines"></div>
+          <div class="obs-lines" style="margin-top:6px;"></div>
+        </div>
+        <div class="sig-grid">
+          <div class="sig-box">
+            <div class="sig-line"></div>
+            <div class="sig-label">Firma del Aprendiz</div>
+          </div>
+          <div class="sig-box">
+            <div class="sig-line"></div>
+            <div class="sig-label">Firma del Instructor / Evaluador</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /#printReport -->
+
+  <script>
+    // ================= DATA =================
+    const TOOL_ITEMS = [
+      { text: "Slack: plataforma de comunicación en equipo organizada por canales.", type: "comunicacion", explain: "Es una herramienta de comunicación: facilita conversaciones en tiempo real por canal." },
+      { text: "Microsoft Teams: chat, videollamadas, reuniones y archivos integrados con Office 365.", type: "comunicacion", explain: "Su función principal es la comunicación y las reuniones en equipo." },
+      { text: "Videoconferencia por Zoom o Google Meet para una entrevista de trabajo remota.", type: "comunicacion", explain: "Es una herramienta sincrónica de comunicación en tiempo real." },
+      { text: "Un canal dedicado a avisos y coordinación diaria del equipo de selección.", type: "comunicacion", explain: "Organiza la comunicación oficial del equipo, separándola de otras conversaciones." },
+      { text: "Trello: tablero con tarjetas para visualizar las etapas de una vacante (abierta, preselección, entrevista, cierre).", type: "gestion", explain: "Es una herramienta de gestión de proyectos: organiza y da seguimiento a tareas." },
+      { text: "Asana: asignación de responsables, prioridades y fechas de vencimiento para un proyecto.", type: "gestion", explain: "Ayuda a organizar, asignar y priorizar tareas de un equipo." },
+      { text: "Microsoft Planner: crear tareas y subtareas dentro de un equipo de Teams, con fecha límite.", type: "gestion", explain: "Es el módulo de gestión de tareas integrado en Microsoft Teams." },
+      { text: "Un tablero de convocatoria, asistencia y evaluación para una capacitación a 40 colaboradores.", type: "gestion", explain: "Controla el flujo de un proceso mediante tarjetas o listas de tareas." },
+      { text: "Google Drive: carpetas con permisos y control de versiones para archivos del equipo.", type: "almacenamiento", explain: "Es almacenamiento en la nube con control de acceso y versiones." },
+      { text: "Google Docs: varios instructores construyen el mismo manual de inducción en tiempo real.", type: "almacenamiento", explain: "Es edición colaborativa y compartida de documentos, parte del módulo de almacenamiento." },
+      { text: "OneDrive: sincronización y acceso a archivos de Office 365 desde cualquier lugar.", type: "almacenamiento", explain: "Es un servicio de almacenamiento y sincronización de archivos." },
+      { text: "Una carpeta compartida con la versión aprobada del material oficial de una capacitación.", type: "almacenamiento", explain: "Centraliza y da acceso controlado a los documentos oficiales del proceso." }
+    ];
+
+    const FLOW_STEPS = [
+      "Definir el objetivo de la actividad",
+      "Crear el espacio de trabajo y configurar permisos",
+      "Publicar el material oficial aprobado",
+      "Asignar tareas a los responsables",
+      "Realizar la sesión (reunión o capacitación)",
+      "Recoger preguntas y evidencias",
+      "Cerrar tareas, archivar y revisar accesos"
+    ];
+
+    const TYPE_LABEL = { comunicacion: "Comunicación (COM)", gestion: "Gestión (GES)", almacenamiento: "Almacenamiento (ALM)" };
+
+    // ---------- Evaluador: banco de preguntas mixtas ----------
+    const EVAL_QUESTIONS = {
+      general: [
+        {
+          id: "g1", type: "mc", prompt: "Según el documento de Byteon, ¿cómo llaman los Neógenos a su trabajo colaborativo conjunto?",
+          options: ["Aspís-Dóry", "QuantumFlux", "Data Prime", "LucIA"], correct: 0,
+          explain: "Es el nombre que da Byteon al trabajo de subir, editar y compartir información como una sola entidad."
+        },
+        {
+          id: "g2", type: "tf", prompt: "Las herramientas web de trabajo colaborativo eliminan las barreras de distancia y tiempo, permitiendo que los equipos trabajen juntos desde cualquier lugar.",
+          correct: true, explain: "Así las define el material base: aplicaciones en línea que eliminan esas barreras."
+        },
+        {
+          id: "g3", type: "fill",
+          template: "Las herramientas {0} permiten la colaboración en tiempo real (videoconferencias, chats en vivo), mientras que las {1} permiten colaborar sin estar conectados al mismo tiempo (correo, foros).",
+          blanks: [
+            { options: ["sincrónicas", "asincrónicas"], correct: "sincrónicas" },
+            { options: ["sincrónicas", "asincrónicas"], correct: "asincrónicas" }
+          ],
+          explain: "Es la clasificación de las herramientas según la simultaneidad de la comunicación."
+        },
+        {
+          id: "g4", type: "mc", prompt: "¿Cuál de las siguientes NO aparece como característica principal de las herramientas colaborativas en el material?",
+          options: ["Accesibilidad", "Interactividad", "Exclusividad", "Escalabilidad"], correct: 2,
+          explain: "Las características mencionadas son accesibilidad, interactividad, flexibilidad, escalabilidad y seguridad — no \"exclusividad\"."
+        },
+        {
+          id: "g5", type: "match", prompt: "Empareja cada herramienta con su módulo funcional (haz clic en la tarjeta y luego en la categoría).",
+          cards: [
+            { label: "Slack", correct: "COM" },
+            { label: "Trello", correct: "GES" },
+            { label: "Google Drive", correct: "ALM" },
+            { label: "Microsoft Planner", correct: "GES" }
+          ],
+          slots: ["COM", "GES", "ALM"],
+          explain: "Slack es comunicación; Trello y Planner son gestión de tareas; Google Drive es almacenamiento."
+        },
+        {
+          id: "g6", type: "tf", prompt: "Según la encuesta de la Fundación Universitaria del Área Andina (132 participantes), el 86,4% de los encuestados ha utilizado alguna herramienta de trabajo colaborativo.",
+          correct: true, explain: "El estudio reporta 86,4% de uso frente a un 14% que afirma no haberlas utilizado."
+        }
+      ],
+      tecnico: [
+        {
+          id: "t1", type: "mc", prompt: "¿Qué significa aplicar el \"principio de mínimo privilegio\" en un equipo de talento humano?",
+          options: ["Dar acceso total a todos los miembros del equipo", "Que cada persona acceda solo a la información necesaria para su función", "Compartir las carpetas mediante enlaces públicos", "Usar la misma contraseña para todo el equipo"], correct: 1,
+          explain: "Es una de las buenas prácticas de seguridad recomendadas al implementar estas herramientas."
+        },
+        {
+          id: "t2", type: "tf", prompt: "Según las recomendaciones de NIST citadas en el material, se aconseja usar autenticación multifactor (MFA) para proteger el acceso remoto.",
+          correct: true, explain: "NIST recomienda autenticación fuerte, preferiblemente multifactor, y cifrado de las comunicaciones."
+        },
+        {
+          id: "t3", type: "fill",
+          template: "En el proceso de reclutamiento y selección, un tablero como {0} ayuda a visualizar las etapas de cada vacante, mientras que una carpeta en {1} centraliza las hojas de vida autorizadas.",
+          blanks: [
+            { options: ["Trello", "Google Drive"], correct: "Trello" },
+            { options: ["Trello", "Google Drive"], correct: "Google Drive" }
+          ],
+          explain: "Trello (GES) visualiza etapas; Google Drive (ALM) centraliza y controla el acceso a los documentos."
+        },
+        {
+          id: "t4", type: "mc", prompt: "Según la encuesta del Área Andina, ¿cuál fue la principal barrera para usar herramientas de trabajo colaborativo?",
+          options: ["El desconocimiento de las herramientas (40,9%)", "El cobro o costo (28%)", "La dificultad de acceso a internet (37,1%)", "El rechazo de los docentes"], correct: 0,
+          explain: "El desconocimiento de las herramientas fue la barrera más señalada, con 40,9%."
+        },
+        {
+          id: "t5", type: "match", prompt: "Empareja cada proceso de talento humano con su principal riesgo (haz clic en la tarjeta y luego en el riesgo correspondiente).",
+          cards: [
+            { label: "Reclutamiento y selección", correct: "Exposición de datos personales sensibles" },
+            { label: "Inducción y capacitación", correct: "Saturación de notificaciones o falta de guía" },
+            { label: "Gestión del desempeño", correct: "Pérdida de información por sobreescritura" }
+          ],
+          slots: ["Exposición de datos personales sensibles", "Saturación de notificaciones o falta de guía", "Pérdida de información por sobreescritura"],
+          explain: "Cada proceso tiene un riesgo típico si no se configuran bien los permisos o no hay guía."
+        },
+        {
+          id: "t6", type: "tf", prompt: "En Microsoft Teams, escribir \"@\" seguido del nombre de una persona dentro de un mensaje envía una notificación directa a esa persona.",
+          correct: true, explain: "Es el truco de mención (@nombre) descrito en el manual de Teams."
+        }
+      ]
+    };
+
+    // ---------- Registro del aprendiz (formulario propio, sin index.html externo) ----------
+    const REG_KEY = 'byteon_colab_registro';
+    const regFields = ['regNombreInput', 'regDocumentoInput', 'regFichaInput', 'regProgramaInput', 'regCentroInput', 'regRegionalInput'];
+    function loadRegistroForm() {
+      try {
+        const raw = localStorage.getItem(REG_KEY);
+        if (raw) {
+          const d = JSON.parse(raw);
+          regFields.forEach(id => { const el = document.getElementById(id); if (el && d[id]) el.value = d[id]; });
+        }
+      } catch (e) { /* ignore */ }
+    }
+    function saveRegistroForm() {
+      const d = {};
+      regFields.forEach(id => { const el = document.getElementById(id); if (el) d[id] = el.value; });
+      try { localStorage.setItem(REG_KEY, JSON.stringify(d)); } catch (e) { /* ignore */ }
+    }
+    function getRegistro() {
+      const d = {};
+      regFields.forEach(id => { const el = document.getElementById(id); if (el) d[id] = el.value; });
+      return {
+        nombre: d.regNombreInput, documento: d.regDocumentoInput, ficha: d.regFichaInput,
+        programa: d.regProgramaInput, centro: d.regCentroInput, regional: d.regRegionalInput
+      };
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      loadRegistroForm();
+      regFields.forEach(id => { const el = document.getElementById(id); if (el) el.addEventListener('input', saveRegistroForm); });
+    });
+
+    // ---------- Persisted dashboard data ----------
+    const DASH_KEY = 'byteon_colab_dashboard_v1';
+    function loadDash() {
+      try { const raw = localStorage.getItem(DASH_KEY); if (raw) return JSON.parse(raw); } catch (e) { /* ignore */ }
+      return null;
+    }
+    let DASH = loadDash() || {
+      evalHistory: [],
+      gameHistory: [],
+      typeStats: { comunicacion: { correct: 0, wrong: 0 }, gestion: { correct: 0, wrong: 0 }, almacenamiento: { correct: 0, wrong: 0 } }
+    };
+    function saveDash() { try { localStorage.setItem(DASH_KEY, JSON.stringify(DASH)); } catch (e) { /* ignore */ } }
+
+    // ---------- Navigation ----------
+    const tabButtons = document.querySelectorAll('#tabs button[data-section]');
+    const sections = document.querySelectorAll('main > section');
+    function goTo(name) {
+      tabButtons.forEach(b => b.classList.toggle('active', b.dataset.section === name));
+      sections.forEach(s => s.classList.toggle('active', s.dataset.section === name));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (name === 'dashboard') renderDashboard();
+    }
+    tabButtons.forEach(b => b.addEventListener('click', () => goTo(b.dataset.section)));
+    document.querySelectorAll('[data-goto]').forEach(b => b.addEventListener('click', () => goTo(b.dataset.goto)));
+
+    // ---------- Evaluador sub-nav ----------
+    const evalSubButtons = document.querySelectorAll('#evalSubnav button');
+    const evalPanels = { general: document.getElementById('evalGeneralPanel'), tecnico: document.getElementById('evalTecnicoPanel') };
+    evalSubButtons.forEach(b => b.addEventListener('click', () => {
+      evalSubButtons.forEach(x => x.classList.toggle('active', x === b));
+      Object.entries(evalPanels).forEach(([key, panel]) => panel.classList.toggle('active', key === b.dataset.eval));
+    }));
+
+    // ---------- Evaluador: motor genérico de preguntas mixtas ----------
+    const evalState = { general: {}, tecnico: {} };
+
+    function questionMaxPoints(q) {
+      if (q.type === 'fill') return q.blanks.length;
+      if (q.type === 'match') return q.cards.length;
+      return 1;
+    }
+    function questionScore(panel, q) {
+      const st = evalState[panel][q.id];
+      if (!st) return 0;
+      if (q.type === 'mc') return st.choice === q.correct ? 1 : 0;
+      if (q.type === 'tf') return st.choice === q.correct ? 1 : 0;
+      if (q.type === 'fill') {
+        let s = 0;
+        q.blanks.forEach((b, i) => { if (st.values && st.values[i] === b.correct) s++; });
+        return s;
+      }
+      if (q.type === 'match') {
+        let s = 0;
+        q.cards.forEach(c => { if (st.placements && st.placements[c.label] === c.correct) s++; });
+        return s;
+      }
+      return 0;
+    }
+
+    function renderQuestionBlock(panel, q, idx) {
+      const wrap = document.createElement('div');
+      wrap.className = 'q-block';
+      const typeName = { mc: 'Opción única', tf: 'Verdadero / Falso', fill: 'Lista desplegable', match: 'Emparejar' }[q.type];
+      const head = document.createElement('h4');
+      head.innerHTML = '<span class="q-type">' + (idx + 1) + ' · ' + typeName + '</span>' + (q.type === 'fill' ? '' : escapeHtml(q.prompt));
+      wrap.appendChild(head);
+
+      if (!evalState[panel][q.id]) evalState[panel][q.id] = {};
+      const st = evalState[panel][q.id];
+
+      if (q.type === 'mc') {
+        const opts = document.createElement('div'); opts.className = 'q-options';
+        q.options.forEach((opt, i) => {
+          const btn = document.createElement('button');
+          btn.type = 'button'; btn.className = 'q-opt-btn'; btn.textContent = opt;
+          btn.addEventListener('click', () => {
+            st.choice = i;
+            opts.querySelectorAll('button').forEach((b2, i2) => {
+              b2.disabled = true;
+              if (i2 === q.correct) b2.classList.add('correct');
+              else if (i2 === i) b2.classList.add('incorrect');
+            });
+            const fb = wrap.querySelector('.q-feedback');
+            if (fb) fb.textContent = (i === q.correct ? '✅ ' : '❌ ') + q.explain;
+          });
+          opts.appendChild(btn);
+        });
+        wrap.appendChild(opts);
+      }
+
+      if (q.type === 'tf') {
+        const row = document.createElement('div'); row.className = 'q-tf-row';
+        [['Verdadero', true], ['Falso', false]].forEach(([label, val]) => {
+          const btn = document.createElement('button');
+          btn.type = 'button'; btn.textContent = label;
+          btn.addEventListener('click', () => {
+            st.choice = val;
+            row.querySelectorAll('button').forEach(b2 => b2.disabled = true);
+            btn.classList.add(val === q.correct ? 'correct' : 'incorrect');
+            if (val !== q.correct) {
+              const correctBtn = Array.from(row.children).find((b2, i2) => [true, false][i2] === q.correct);
+              if (correctBtn) correctBtn.classList.add('correct');
+            }
+            const fb = wrap.querySelector('.q-feedback');
+            if (fb) fb.textContent = (val === q.correct ? '✅ ' : '❌ ') + q.explain;
+          });
+          row.appendChild(btn);
+        });
+        wrap.appendChild(row);
+      }
+
+      if (q.type === 'fill') {
+        const p = document.createElement('div'); p.className = 'q-fill';
+        st.values = st.values || q.blanks.map(() => '');
+        const parts = q.template.split(/\{(\d)\}/);
+        parts.forEach((part, i) => {
+          if (i % 2 === 0) {
+            p.appendChild(document.createTextNode(part));
+          } else {
+            const bi = parseInt(part, 10);
+            const sel = document.createElement('select');
+            const blank = q.blanks[bi];
+            const empty = document.createElement('option'); empty.value = ''; empty.textContent = '— elegir —';
+            sel.appendChild(empty);
+            blank.options.forEach(o => { const op = document.createElement('option'); op.value = o; op.textContent = o; sel.appendChild(op); });
+            sel.addEventListener('change', () => {
+              st.values[bi] = sel.value;
+              sel.classList.remove('correct', 'incorrect');
+              sel.classList.add(sel.value === blank.correct ? 'correct' : 'incorrect');
+            });
+            p.appendChild(sel);
+          }
+        });
+        wrap.appendChild(p);
+      }
+
+      if (q.type === 'match') {
+        st.placements = st.placements || {};
+        st.picked = null;
+        const mw = document.createElement('div'); mw.className = 'match-wrap';
+        const colCards = document.createElement('div'); colCards.className = 'match-col';
+        colCards.innerHTML = '<div class="col-label">TARJETAS</div>';
+        const colSlots = document.createElement('div'); colSlots.className = 'match-col';
+        colSlots.innerHTML = '<div class="col-label">CATEGORÍAS</div>';
+
+        const cardEls = {};
+        q.cards.forEach(c => {
+          const el = document.createElement('div'); el.className = 'match-card'; el.textContent = c.label;
+          el.addEventListener('click', () => {
+            if (el.classList.contains('used')) return;
+            colCards.querySelectorAll('.match-card').forEach(x => x.classList.remove('picked'));
+            st.picked = c.label;
+            el.classList.add('picked');
+          });
+          cardEls[c.label] = el;
+          colCards.appendChild(el);
+        });
+
+        const slotEls = {};
+        q.slots.forEach(s => {
+          const el = document.createElement('div'); el.className = 'match-slot';
+          el.innerHTML = '<strong>' + escapeHtml(s) + '</strong><div class="slot-items"></div>';
+          el.addEventListener('click', () => {
+            if (!st.picked) return;
+            st.placements[st.picked] = s;
+            const cardObj = q.cards.find(c => c.label === st.picked);
+            cardEls[st.picked].classList.add('used');
+            colCards.querySelectorAll('.match-card').forEach(x => x.classList.remove('picked'));
+            const item = document.createElement('span');
+            item.textContent = st.picked + ' ✕';
+            item.style.cssText = 'display:inline-block;margin:3px 4px 0 0;padding:2px 6px;border-radius:6px;background:#fff;border:1px solid var(--border-cool);cursor:pointer;font-size:0.78rem;';
+            item.addEventListener('click', (ev) => {
+              ev.stopPropagation();
+              delete st.placements[cardObj.label];
+              cardEls[cardObj.label].classList.remove('used');
+              item.remove();
+              el.classList.toggle('filled', el.querySelector('.slot-items').children.length > 0);
+            });
+            el.querySelector('.slot-items').appendChild(item);
+            el.classList.add('filled');
+            st.picked = null;
+          });
+          slotEls[s] = el;
+          colSlots.appendChild(el);
+        });
+
+        mw.appendChild(colCards); mw.appendChild(colSlots);
+        wrap.appendChild(mw);
+      }
+
+      const fb = document.createElement('p'); fb.className = 'q-feedback';
+      wrap.appendChild(fb);
+      return wrap;
+    }
+
+    function escapeHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+    function renderEvalPanel(panel) {
+      const containerId = panel === 'general' ? 'evalQuestionsGeneral' : 'evalQuestionsTecnico';
+      const container = document.getElementById(containerId);
+      container.innerHTML = '';
+      evalState[panel] = {};
+      EVAL_QUESTIONS[panel].forEach((q, i) => container.appendChild(renderQuestionBlock(panel, q, i)));
+      const verdictBox = document.getElementById('verdict-' + panel);
+      verdictBox.classList.remove('show', 'low', 'mid', 'high');
+    }
+    renderEvalPanel('general');
+    renderEvalPanel('tecnico');
+
+    document.querySelectorAll('[data-reset]').forEach(btn => {
+      btn.addEventListener('click', () => renderEvalPanel(btn.dataset.reset));
+    });
+
+    document.querySelectorAll('[data-check]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const panel = btn.dataset.check;
+        const qs = EVAL_QUESTIONS[panel];
+        let total = 0, max = 0;
+        const weak = [];
+        qs.forEach(q => {
+          const pts = questionScore(panel, q);
+          const mx = questionMaxPoints(q);
+          total += pts; max += mx;
+          if (pts < mx) weak.push(q.prompt || q.template);
+        });
+        const verdictBox = document.getElementById('verdict-' + panel);
+        verdictBox.classList.remove('low', 'mid', 'high');
+        const title = verdictBox.querySelector('.v-title');
+        const text = verdictBox.querySelector('.v-text');
+        const weakEl = verdictBox.querySelector('.v-weak');
+        const pct = max > 0 ? total / max : 0;
+        let verdictKey;
+        if (pct <= 0.42) {
+          verdictKey = 'low'; verdictBox.classList.add('low');
+          title.textContent = '🔴 Confiabilidad baja (' + total + '/' + max + ')';
+          text.textContent = 'Repasa el material antes de aplicar estos conceptos: hay varios puntos por reforzar.';
+        } else if (pct <= 0.78) {
+          verdictKey = 'mid'; verdictBox.classList.add('mid');
+          title.textContent = '🟡 Confiabilidad aceptable, con reservas (' + total + '/' + max + ')';
+          text.textContent = 'Vas bien, pero conviene repasar los puntos señalados abajo.';
+        } else {
+          verdictKey = 'high'; verdictBox.classList.add('high');
+          title.textContent = '🟢 Confiabilidad sólida (' + total + '/' + max + ')';
+          text.textContent = 'Dominas estos conceptos. Buen nivel de exigencia.';
+        }
+        weakEl.textContent = weak.length ? ('Puntos a reforzar: ' + weak.length + ' pregunta(s) sin acertar del todo.') : 'No se detectaron puntos débiles.';
+        verdictBox.classList.add('show');
+        DASH.evalHistory.push({ ts: Date.now(), kind: panel, total, max, verdict: verdictKey, weak: weak.map((w, i) => 'P' + (i + 1)) });
+        saveDash();
+      });
+    });
+    function renderPieChart(containerId, slices) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = '';
+      const total = slices.reduce((s, x) => s + x.value, 0);
+      if (total <= 0) {
+        container.innerHTML = '<p class="empty-note">Aún no hay datos suficientes.</p>';
+        return;
+      }
+      const size = 150, r = 55, cx = size / 2, cy = size / 2, thickness = 26;
+      const circumference = 2 * Math.PI * r;
+      const svgNS = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(svgNS, 'svg');
+      svg.setAttribute('viewBox', '0 0 ' + size + ' ' + size);
+
+      const bg = document.createElementNS(svgNS, 'circle');
+      bg.setAttribute('cx', cx); bg.setAttribute('cy', cy); bg.setAttribute('r', r);
+      bg.setAttribute('fill', 'none'); bg.setAttribute('stroke', '#EDE7D8'); bg.setAttribute('stroke-width', thickness);
+      svg.appendChild(bg);
+
+      let offset = 0;
+      slices.forEach(sl => {
+        if (sl.value <= 0) return;
+        const frac = sl.value / total;
+        const len = frac * circumference;
+        const circle = document.createElementNS(svgNS, 'circle');
+        circle.setAttribute('cx', cx); circle.setAttribute('cy', cy); circle.setAttribute('r', r);
+        circle.setAttribute('fill', 'none');
+        circle.setAttribute('stroke', sl.color);
+        circle.setAttribute('stroke-width', thickness);
+        circle.setAttribute('stroke-dasharray', len + ' ' + (circumference - len));
+        circle.setAttribute('stroke-dashoffset', -offset);
+        circle.setAttribute('transform', 'rotate(-90 ' + cx + ' ' + cy + ')');
+        svg.appendChild(circle);
+        offset += len;
+      });
+
+      const label = document.createElementNS(svgNS, 'text');
+      label.setAttribute('x', cx); label.setAttribute('y', cy + 5);
+      label.setAttribute('text-anchor', 'middle');
+      label.setAttribute('font-size', '15');
+      label.setAttribute('font-weight', '800');
+      label.setAttribute('fill', '#14213D');
+      label.textContent = total;
+      svg.appendChild(label);
+
+      const wrap = document.createElement('div');
+      wrap.className = 'pie-wrap';
+      wrap.appendChild(svg);
+      const legend = document.createElement('div');
+      legend.className = 'legend';
+      slices.forEach(sl => {
+        const pct = total > 0 ? Math.round((sl.value / total) * 100) : 0;
+        const row = document.createElement('div');
+        row.innerHTML = '<span class="sw" style="background:' + sl.color + '"></span>' + sl.label + ': <strong>' + sl.value + '</strong> (' + pct + '%)';
+        legend.appendChild(row);
+      });
+      wrap.appendChild(legend);
+      container.appendChild(wrap);
+    }
+
+    // Simple / grouped vertical bar chart.
+    function renderBarChart(containerId, categories, series, maxOverride) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = '';
+      const allValues = series.flatMap(s => s.data);
+      const hasData = allValues.some(v => v > 0);
+      if (!hasData) {
+        container.innerHTML = '<p class="empty-note">Aún no hay datos suficientes.</p>';
+        return;
+      }
+      const maxVal = maxOverride || Math.max(1, ...allValues);
+      const width = 380, height = 210, padLeft = 28, padBottom = 34, padTop = series.length > 1 ? 26 : 12;
+      const chartW = width - padLeft - 10;
+      const chartH = height - padBottom - padTop;
+      const groupW = chartW / categories.length;
+      const barW = Math.min(30, (groupW - 14) / series.length);
+      const svgNS = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(svgNS, 'svg');
+      svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
+
+      [0, 0.25, 0.5, 0.75, 1].forEach(f => {
+        const y = padTop + chartH - f * chartH;
+        const line = document.createElementNS(svgNS, 'line');
+        line.setAttribute('x1', padLeft); line.setAttribute('x2', width - 6);
+        line.setAttribute('y1', y); line.setAttribute('y2', y);
+        line.setAttribute('stroke', '#EDE7D8'); line.setAttribute('stroke-width', 1);
+        svg.appendChild(line);
+        const txt = document.createElementNS(svgNS, 'text');
+        txt.setAttribute('x', 2); txt.setAttribute('y', y + 3);
+        txt.setAttribute('font-size', '9'); txt.setAttribute('fill', '#5B6472');
+        txt.textContent = Math.round(f * maxVal);
+        svg.appendChild(txt);
+      });
+
+      if (series.length > 1) {
+        series.forEach((s, si) => {
+          const lx = padLeft + si * 110;
+          const rect = document.createElementNS(svgNS, 'rect');
+          rect.setAttribute('x', lx); rect.setAttribute('y', 4); rect.setAttribute('width', 10); rect.setAttribute('height', 10);
+          rect.setAttribute('fill', s.color);
+          svg.appendChild(rect);
+          const txt = document.createElementNS(svgNS, 'text');
+          txt.setAttribute('x', lx + 14); txt.setAttribute('y', 13);
+          txt.setAttribute('font-size', '10'); txt.setAttribute('fill', '#1D2430');
+          txt.textContent = s.name;
+          svg.appendChild(txt);
+        });
+      }
+
+      categories.forEach((cat, ci) => {
+        const groupX = padLeft + ci * groupW;
+        series.forEach((s, si) => {
+          const val = s.data[ci] || 0;
+          const barH = (val / maxVal) * chartH;
+          const x = groupX + (groupW - series.length * barW) / 2 + si * barW;
+          const y = padTop + chartH - barH;
+          const rect = document.createElementNS(svgNS, 'rect');
+          rect.setAttribute('x', x); rect.setAttribute('y', y);
+          rect.setAttribute('width', Math.max(2, barW - 3)); rect.setAttribute('height', Math.max(0, barH));
+          rect.setAttribute('fill', s.color);
+          rect.setAttribute('rx', 2);
+          svg.appendChild(rect);
+          if (val > 0) {
+            const vt = document.createElementNS(svgNS, 'text');
+            vt.setAttribute('x', x + (barW - 3) / 2); vt.setAttribute('y', y - 4);
+            vt.setAttribute('font-size', '9'); vt.setAttribute('fill', '#1D2430'); vt.setAttribute('text-anchor', 'middle');
+            vt.textContent = val;
+            svg.appendChild(vt);
+          }
+        });
+        const lt = document.createElementNS(svgNS, 'text');
+        lt.setAttribute('x', groupX + groupW / 2); lt.setAttribute('y', height - 10);
+        lt.setAttribute('font-size', '10'); lt.setAttribute('fill', '#5B6472'); lt.setAttribute('text-anchor', 'middle');
+        lt.textContent = cat;
+        svg.appendChild(lt);
+      });
+
+      container.appendChild(svg);
+    }
+
+    // ---------- Juego: clasifica la herramienta ----------
+    let gameOrder = [];
+    let gameIndex = 0;
+    let gameScore = 0;
+
+    function shuffledIndices(n) {
+      const arr = Array.from({ length: n }, (_, i) => i);
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function startGame() {
+      gameOrder = shuffledIndices(TOOL_ITEMS.length);
+      gameIndex = 0;
+      gameScore = 0;
+      document.getElementById('gamePlay').style.display = 'block';
+      document.getElementById('gameEnd').style.display = 'none';
+      renderGameQuestion();
+    }
+
+    function renderGameQuestion() {
+      const item = TOOL_ITEMS[gameOrder[gameIndex]];
+      document.getElementById('gameQuestion').textContent = item.text;
+      document.getElementById('gameProgressText').textContent = 'Pregunta ' + (gameIndex + 1) + ' de ' + TOOL_ITEMS.length;
+      document.getElementById('gameScoreText').textContent = 'Aciertos: ' + gameScore;
+      document.getElementById('gameBar').style.width = Math.round((gameIndex / TOOL_ITEMS.length) * 100) + '%';
+      const feedback = document.getElementById('gameFeedback');
+      feedback.classList.remove('show'); feedback.textContent = '';
+      document.getElementById('gameNextBtn').style.display = 'none';
+      document.querySelectorAll('#gameOptions button').forEach(btn => { btn.disabled = false; btn.classList.remove('correct', 'incorrect'); });
+    }
+
+    document.getElementById('gameOptions').addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-choice]');
+      if (!btn) return;
+      const item = TOOL_ITEMS[gameOrder[gameIndex]];
+      const choice = btn.dataset.choice;
+      document.querySelectorAll('#gameOptions button').forEach(b => b.disabled = true);
+      const feedback = document.getElementById('gameFeedback');
+      feedback.classList.add('show');
+      if (choice === item.type) {
+        btn.classList.add('correct');
+        gameScore++;
+        feedback.textContent = '✅ Correcto. ' + item.explain;
+        DASH.typeStats[item.type].correct++;
+      } else {
+        btn.classList.add('incorrect');
+        document.querySelector('#gameOptions button[data-choice="' + item.type + '"]').classList.add('correct');
+        feedback.textContent = '❌ Era ' + TYPE_LABEL[item.type] + '. ' + item.explain;
+        DASH.typeStats[item.type].wrong++;
+      }
+      saveDash();
+      document.getElementById('gameScoreText').textContent = 'Aciertos: ' + gameScore;
+      document.getElementById('gameNextBtn').style.display = 'inline-block';
+    });
+
+    document.getElementById('gameNextBtn').addEventListener('click', () => {
+      gameIndex++;
+      if (gameIndex >= TOOL_ITEMS.length) {
+        document.getElementById('gamePlay').style.display = 'none';
+        document.getElementById('gameEnd').style.display = 'block';
+        document.getElementById('gameBar').style.width = '100%';
+        document.getElementById('gameFinalScore').textContent = gameScore;
+        const msgEl = document.getElementById('gameFinalMsg');
+        if (gameScore === TOOL_ITEMS.length) msgEl.textContent = 'Puntaje perfecto. Dominas la clasificación COM / GES / ALM.';
+        else if (gameScore >= TOOL_ITEMS.length * 0.7) msgEl.textContent = 'Muy buen resultado. Repasa los casos donde fallaste en "Tipos de herramientas".';
+        else msgEl.textContent = 'Vale la pena repasar las definiciones antes de intentarlo de nuevo.';
+        DASH.gameHistory.push({ ts: Date.now(), score: gameScore, total: TOOL_ITEMS.length });
+        saveDash();
+      } else {
+        renderGameQuestion();
+      }
+    });
+    document.getElementById('gameReplayBtn').addEventListener('click', startGame);
+    startGame();
+
+    // ---------- Tarjetas imprimibles (actividad presencial) ----------
+    const printStepsGrid = document.getElementById('printStepsGrid');
+    const printToolsGrid = document.getElementById('printToolsGrid');
+    const answerStepsBody = document.getElementById('answerStepsBody');
+    const answerToolsBody = document.getElementById('answerToolsBody');
+
+    shuffledIndices(FLOW_STEPS.length).forEach((si, i) => {
+      const div = document.createElement('div'); div.className = 'p-card';
+      div.innerHTML = '<div class="num">Paso — tarjeta ' + (i + 1) + '</div>' + FLOW_STEPS[si];
+      printStepsGrid.appendChild(div);
+    });
+    FLOW_STEPS.forEach((step, i) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + (i + 1) + '</td><td>' + step + '</td>';
+      answerStepsBody.appendChild(tr);
+    });
+
+    shuffledIndices(TOOL_ITEMS.length).forEach((ti, i) => {
+      const item = TOOL_ITEMS[ti];
+      const div = document.createElement('div'); div.className = 'p-card';
+      div.innerHTML = '<div class="num">Herramienta ' + (i + 1) + '</div>' + item.text;
+      printToolsGrid.appendChild(div);
+    });
+    TOOL_ITEMS.forEach((item, i) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + (i + 1) + '</td><td>' + item.text + '</td><td><strong>' + TYPE_LABEL[item.type] + '</strong></td>';
+      answerToolsBody.appendChild(tr);
+    });
+
+    document.getElementById('printBtn').addEventListener('click', () => {
+      document.body.classList.add('printing-cards');
+      window.print();
+    });
+    window.addEventListener('afterprint', () => {
+      document.body.classList.remove('printing-cards');
+      document.body.classList.remove('printing-report');
+    });
+
+    // ================= DASHBOARD =================
+    function renderDashboard() {
+      const evalHistory = DASH.evalHistory;
+      const gameHistory = DASH.gameHistory;
+      const typeStats = DASH.typeStats;
+
+      const statsWrap = document.getElementById('dashStats');
+      const avgConfiabilidad = evalHistory.length ? Math.round(evalHistory.reduce((s, e) => s + (e.total / e.max * 100), 0) / evalHistory.length) : null;
+      const avgGameScore = gameHistory.length ? (gameHistory.reduce((s, g) => s + g.score, 0) / gameHistory.length) : null;
+      const bestGameScore = gameHistory.length ? Math.max(...gameHistory.map(g => g.score)) : null;
+
+      const stats = [
+        { label: 'Evaluaciones realizadas', value: evalHistory.length },
+        { label: 'Confiabilidad promedio', value: avgConfiabilidad !== null ? avgConfiabilidad + '%' : '—' },
+        { label: 'Partidas jugadas', value: gameHistory.length },
+        { label: 'Aciertos promedio', value: avgGameScore !== null ? avgGameScore.toFixed(1) + '/12' : '—' },
+        { label: 'Mejor partida', value: bestGameScore !== null ? bestGameScore + '/12' : '—' }
+      ];
+      statsWrap.innerHTML = stats.map(s => '<div class="stat-card"><div class="stat-value">' + s.value + '</div><div class="stat-label">' + s.label + '</div></div>').join('');
+
+      const gameCategories = gameHistory.map((g, i) => 'P' + (i + 1));
+      renderBarChart('chartGameBar', gameCategories, [{ name: 'Aciertos', color: '#1F7A6C', data: gameHistory.map(g => g.score) }], 12);
+
+      function countVerdicts(kind) {
+        const subset = evalHistory.filter(e => e.kind === kind);
+        return ['low', 'mid', 'high'].map(v => subset.filter(e => e.verdict === v).length);
+      }
+      renderBarChart('chartEvalBar', ['Bajo', 'Medio', 'Alto'], [
+        { name: 'Conceptos', color: '#1F7A6C', data: countVerdicts('general') },
+        { name: 'Aplicación', color: '#C68A2E', data: countVerdicts('tecnico') }
+      ]);
+
+      const totalCorrect = Object.values(typeStats).reduce((s, t) => s + t.correct, 0);
+      const totalWrong = Object.values(typeStats).reduce((s, t) => s + t.wrong, 0);
+      renderPieChart('chartGamePie', [
+        { label: 'Aciertos', value: totalCorrect, color: '#1F7A6C' },
+        { label: 'Errores', value: totalWrong, color: '#D65B4A' }
+      ]);
+      renderPieChart('chartTypePie', [
+        { label: 'Comunicación', value: typeStats.comunicacion.wrong, color: '#1F7A6C' },
+        { label: 'Gestión', value: typeStats.gestion.wrong, color: '#C68A2E' },
+        { label: 'Almacenamiento', value: typeStats.almacenamiento.wrong, color: '#D65B4A' }
+      ]);
+
+      const NEX_MAX = 160000, NEX_EVAL = 80000, NEX_GAME = 80000;
+      const doneGeneral = evalHistory.some(e => e.kind === 'general');
+      const doneTecnico = evalHistory.some(e => e.kind === 'tecnico');
+      const nexEval = (doneGeneral ? NEX_EVAL / 2 : 0) + (doneTecnico ? NEX_EVAL / 2 : 0);
+      const bestScoreVal = bestGameScore !== null ? bestGameScore : 0;
+      const nexGame = Math.round((bestScoreVal / TOOL_ITEMS.length) * NEX_GAME);
+      const nexTotal = nexEval + nexGame;
+      const fmt = n => n.toLocaleString('es-CO');
+      document.getElementById('nexAmount').textContent = fmt(nexTotal);
+      document.getElementById('nexBig').textContent = fmt(nexTotal);
+      document.getElementById('nexFill').style.width = Math.round(nexTotal / NEX_MAX * 100) + '%';
+      document.getElementById('nexBreak').innerHTML =
+        '<div><b>Evaluador — Conceptos:</b> ' + (doneGeneral ? '✓ completado' : 'pendiente') + ' · ' + fmt(doneGeneral ? NEX_EVAL / 2 : 0) + ' / ' + fmt(NEX_EVAL / 2) + ' NEXs</div>' +
+        '<div><b>Evaluador — Aplicación:</b> ' + (doneTecnico ? '✓ completado' : 'pendiente') + ' · ' + fmt(doneTecnico ? NEX_EVAL / 2 : 0) + ' / ' + fmt(NEX_EVAL / 2) + ' NEXs</div>' +
+        '<div><b>Juego (mejor partida):</b> ' + bestScoreVal + '/' + TOOL_ITEMS.length + ' · ' + fmt(nexGame) + ' / ' + fmt(NEX_GAME) + ' NEXs</div>';
+      const box = document.getElementById('rewardBox');
+      const complete = nexTotal >= NEX_MAX;
+      box.classList.toggle('complete', complete);
+      document.getElementById('nexStatus').innerHTML = complete
+        ? '&#127942; &iexcl;Reto completado! Eres Investigador Gal&aacute;ctico grado 8.'
+        : (nexTotal === 0 ? 'A&uacute;n no has iniciado el reto: completa evaluaciones y juega para ganar NEXs.' : 'Reto en progreso: te faltan ' + fmt(NEX_MAX - nexTotal) + ' NEXs.');
+
+      const analysisEval = document.getElementById('analysisEval');
+      if (evalHistory.length === 0) {
+        analysisEval.textContent = 'Aún no has usado el Evaluador. Completa al menos una evaluación para ver aquí tu confiabilidad promedio.';
+      } else {
+        const nGeneral = evalHistory.filter(e => e.kind === 'general').length;
+        const nTecnico = evalHistory.filter(e => e.kind === 'tecnico').length;
+        analysisEval.textContent = 'Has completado ' + evalHistory.length + ' evaluaciones (' + nGeneral + ' de Conceptos y ' + nTecnico + ' de Aplicación), con una confiabilidad promedio de ' + avgConfiabilidad + '%. ' +
+          (avgConfiabilidad >= 78 ? 'Buen dominio del material.' : 'Conviene repasar el material antes de aplicarlo en un caso real.');
+      }
+
+      const analysisGame = document.getElementById('analysisGame');
+      if (gameHistory.length === 0) {
+        analysisGame.textContent = 'Aún no has jugado "Clasifica la herramienta". Juega al menos una partida para ver tu promedio de aciertos.';
+      } else {
+        const avgPct = Math.round((avgGameScore / 12) * 100);
+        let txt = 'Has jugado ' + gameHistory.length + ' partida' + (gameHistory.length === 1 ? '' : 's') + ', con un promedio de ' + avgGameScore.toFixed(1) + '/12 aciertos (' + avgPct + '%). ';
+        const wrongEntries = Object.entries(typeStats).map(([type, s]) => [type, s.wrong]).filter(([, w]) => w > 0).sort((a, b) => b[1] - a[1]);
+        if (wrongEntries.length) txt += 'El tipo que más se confunde es "' + TYPE_LABEL[wrongEntries[0][0]] + '", con ' + wrongEntries[0][1] + ' error(es). Repasa esa categoría en "Tipos de herramientas".';
+        else txt += 'No se han registrado errores por tipo: buen dominio de la clasificación.';
+        analysisGame.textContent = txt;
+      }
+    }
+
+    document.getElementById('resetDashBtn').addEventListener('click', () => {
+      if (!confirm('¿Borrar todo el historial de evaluaciones y partidas guardado en este navegador?')) return;
+      DASH = { evalHistory: [], gameHistory: [], typeStats: { comunicacion: { correct: 0, wrong: 0 }, gestion: { correct: 0, wrong: 0 }, almacenamiento: { correct: 0, wrong: 0 } } };
+      saveDash();
+      renderDashboard();
+    });
+
+    // ---------- Reporte Institucional y Dashboard para Impresión ----------
+    function populatePrintReport() {
+      renderDashboard();
+      const reg = getRegistro();
+      const setReg = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value || ''; };
+      setReg('regNombre', reg.nombre);
+      setReg('regDocumento', reg.documento);
+      setReg('regFicha', reg.ficha);
+      setReg('regPrograma', reg.programa || 'Programa Técnico en Talento Humano');
+      setReg('regCentro', reg.centro || 'Centro de Gestión Administrativa');
+      setReg('regRegional', reg.regional || 'Regional Distrito Capital');
+
+      const chartsWrap = document.getElementById('reportCharts');
+      if (chartsWrap) {
+        chartsWrap.innerHTML = ['chartGameBar', 'chartEvalBar', 'chartGamePie', 'chartTypePie'].map(id => {
+          const src = document.getElementById(id);
+          const title = src && src.previousElementSibling ? src.previousElementSibling.textContent : '';
+          return '<div class="report-chart"><h4>' + title + '</h4>' + (src ? src.innerHTML : '') + '</div>';
+        }).join('');
+      }
+
+      const evalHistory = DASH.evalHistory || [];
+      const gameHistory = DASH.gameHistory || [];
+      const typeStats = DASH.typeStats || { comunicacion: { correct: 0, wrong: 0 }, gestion: { correct: 0, wrong: 0 }, almacenamiento: { correct: 0, wrong: 0 } };
+      const fmt = n => (n || 0).toLocaleString('es-CO');
+
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('es-CO', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+      const reportDateEl = document.getElementById('reportDate');
+      if (reportDateEl) reportDateEl.textContent = dateStr;
+
+      const avgConfiabilidad = evalHistory.length ? Math.round(evalHistory.reduce((s, e) => s + (e.total / e.max * 100), 0) / evalHistory.length) : null;
+      const avgGameScore = gameHistory.length ? (gameHistory.reduce((s, g) => s + g.score, 0) / gameHistory.length) : null;
+      const bestGameScore = gameHistory.length ? Math.max(...gameHistory.map(g => g.score)) : null;
+      const totalCorrect = Object.values(typeStats).reduce((s, t) => s + (t.correct || 0), 0);
+      const totalWrong = Object.values(typeStats).reduce((s, t) => s + (t.wrong || 0), 0);
+      const totalAnswers = totalCorrect + totalWrong;
+      const accuracyPct = totalAnswers > 0 ? Math.round((totalCorrect / totalAnswers) * 100) : null;
+
+      const statsGrid = document.getElementById('reportStatsGrid');
+      if (statsGrid) {
+        statsGrid.innerHTML = `
+          <div class="report-stat-card"><div class="report-stat-value">${evalHistory.length}</div><div class="report-stat-label">Evaluaciones</div></div>
+          <div class="report-stat-card"><div class="report-stat-value">${avgConfiabilidad !== null ? avgConfiabilidad + '%' : '-'}</div><div class="report-stat-label">Confiabilidad Promedio</div></div>
+          <div class="report-stat-card"><div class="report-stat-value">${gameHistory.length}</div><div class="report-stat-label">Partidas Jugadas</div></div>
+          <div class="report-stat-card"><div class="report-stat-value">${avgGameScore !== null ? avgGameScore.toFixed(1) + '/12' : '-'}</div><div class="report-stat-label">Aciertos Promedio</div></div>
+          <div class="report-stat-card"><div class="report-stat-value">${accuracyPct !== null ? accuracyPct + '%' : (bestGameScore !== null ? bestGameScore + '/12' : '-')}</div><div class="report-stat-label">Precisión Global</div></div>
+        `;
+      }
+
+      const NEX_MAX = 160000, NEX_EVAL = 80000, NEX_GAME = 80000;
+      const doneGeneral = evalHistory.some(e => e.kind === 'general');
+      const doneTecnico = evalHistory.some(e => e.kind === 'tecnico');
+      const nexEval = (doneGeneral ? NEX_EVAL / 2 : 0) + (doneTecnico ? NEX_EVAL / 2 : 0);
+      const bestScoreVal = bestGameScore !== null ? bestGameScore : 0;
+      const nexGame = Math.round((bestScoreVal / TOOL_ITEMS.length) * NEX_GAME);
+      const nexTotal = nexEval + nexGame;
+      const isComplete = nexTotal >= NEX_MAX;
+
+      const rewardCard = document.getElementById('reportRewardCard');
+      if (rewardCard) {
+        rewardCard.innerHTML = `
+          <div class="report-reward-box">
+        <h4>&#128640; Investigador Gal&aacute;ctico grado 8</h4>
+            <p><strong>NEXs Acumulados:</strong> ${fmt(nexTotal)} / ${fmt(NEX_MAX)} NEXs (${Math.round(nexTotal / NEX_MAX * 100)}%) &bull; <em>${isComplete ? '¡Reto Completado con Éxito!' : 'Reto en progreso'}</em></p>
+            <div class="report-reward-pills">
+              <div class="report-reward-pill"><b>Evaluador — Conceptos:</b> ${doneGeneral ? '✓ Completado' : 'Pendiente'} (${fmt(doneGeneral ? NEX_EVAL / 2 : 0)} NEXs)</div>
+              <div class="report-reward-pill"><b>Evaluador — Aplicación:</b> ${doneTecnico ? '✓ Completado' : 'Pendiente'} (${fmt(doneTecnico ? NEX_EVAL / 2 : 0)} NEXs)</div>
+              <div class="report-reward-pill"><b>Juego (Mejor Partida):</b> ${bestScoreVal}/12 (${fmt(nexGame)} NEXs)</div>
+            </div>
+          </div>
+        `;
+      }
+
+      const analysisEvalSrc = document.getElementById('analysisEval');
+      const analysisGameSrc = document.getElementById('analysisGame');
+      const repEval = document.getElementById('reportAnalysisEval');
+      const repGame = document.getElementById('reportAnalysisGame');
+      if (repEval) repEval.textContent = analysisEvalSrc ? analysisEvalSrc.textContent : 'Sin registros de evaluación.';
+      if (repGame) repGame.textContent = analysisGameSrc ? analysisGameSrc.textContent : 'Sin partidas registradas.';
+
+      const catTable = document.getElementById('reportCategoryTable');
+      if (catTable) {
+        catTable.innerHTML = `
+          <table class="report-table">
+            <thead><tr><th>Tipo de Herramienta</th><th>Aciertos</th><th>Errores</th><th>Total Clasificaciones</th><th>Efectividad</th></tr></thead>
+            <tbody>
+              ${['comunicacion', 'gestion', 'almacenamiento'].map(cat => {
+          const c = typeStats[cat] ? typeStats[cat].correct : 0;
+          const w = typeStats[cat] ? typeStats[cat].wrong : 0;
+          const tot = c + w;
+          const pct = tot > 0 ? Math.round((c / tot) * 100) + '%' : '-';
+          return `<tr><td><strong>${TYPE_LABEL[cat]}</strong></td><td style="color:#065F46;font-weight:700;">${c}</td><td style="color:#991B1B;font-weight:700;">${w}</td><td>${tot}</td><td><strong>${pct}</strong></td></tr>`;
+        }).join('')}
+            </tbody>
+          </table>
+        `;
+      }
+
+      const evalWrap = document.getElementById('reportEvalTable');
+      if (evalWrap) {
+        if (evalHistory.length === 0) {
+          evalWrap.innerHTML = '<p style="font-size:8pt;color:#666;font-style:italic;margin:4px 0;">No se han registrado evaluaciones en este navegador.</p>';
+        } else {
+          evalWrap.innerHTML = `
+            <table class="report-table">
+              <thead><tr><th style="width:25px;">#</th><th>Fecha/Hora</th><th>Tipo de Evaluación</th><th>Puntaje Obtenido</th><th>Confiabilidad %</th><th>Veredicto</th><th>Aspectos a Reforzar</th></tr></thead>
+              <tbody>
+                ${evalHistory.map((ev, idx) => {
+            const date = ev.ts ? new Date(ev.ts).toLocaleDateString('es-CO', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '-';
+            const kindLabel = ev.kind === 'general' ? 'Evaluador Conceptos' : 'Evaluador Aplicación';
+            const pct = Math.round((ev.total / ev.max) * 100);
+            const verdictClass = ev.verdict === 'high' ? 'badge-high' : (ev.verdict === 'mid' ? 'badge-mid' : 'badge-low');
+            const verdictText = ev.verdict === 'high' ? 'Alto / Confiable' : (ev.verdict === 'mid' ? 'Medio / Usar con cautela' : 'Bajo / No recomendado');
+            const weakText = ev.weak && ev.weak.length ? ev.weak.join(', ') : 'Ninguno (Excelente)';
+            return `<tr><td>${idx + 1}</td><td>${date}</td><td><strong>${kindLabel}</strong></td><td>${ev.total} / ${ev.max} pts</td><td><strong>${pct}%</strong></td><td><span class="report-badge ${verdictClass}">${verdictText}</span></td><td>${weakText}</td></tr>`;
+          }).join('')}
+              </tbody>
+            </table>
+          `;
+        }
+      }
+
+      const gameWrap = document.getElementById('reportGameTable');
+      if (gameWrap) {
+        if (gameHistory.length === 0) {
+          gameWrap.innerHTML = '<p style="font-size:8pt;color:#666;font-style:italic;margin:4px 0;">No se han registrado partidas del simulador en este navegador.</p>';
+        } else {
+          gameWrap.innerHTML = `
+            <table class="report-table">
+              <thead><tr><th>Partida</th><th>Fecha/Hora</th><th>Aciertos</th><th>Errores</th><th>Efectividad</th><th>NEXs Estimados</th></tr></thead>
+              <tbody>
+                ${gameHistory.map((g, idx) => {
+            const date = g.ts ? new Date(g.ts).toLocaleDateString('es-CO', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '-';
+            const pct = Math.round((g.score / g.total) * 100);
+            const nex = Math.round((g.score / g.total) * 80000);
+            return `<tr><td><strong>Partida ${idx + 1}</strong></td><td>${date}</td><td style="color:#065F46;font-weight:700;">${g.score} / ${g.total}</td><td style="color:#991B1B;font-weight:700;">${g.total - g.score}</td><td><strong>${pct}%</strong></td><td>+${fmt(nex)} NEXs</td></tr>`;
+          }).join('')}
+              </tbody>
+            </table>
+          `;
+        }
+      }
+    }
+
+    const printReportBtn = document.getElementById('printReportBtn');
+    if (printReportBtn) {
+      printReportBtn.addEventListener('click', () => {
+        populatePrintReport();
+        document.body.classList.add('printing-report');
+        window.print();
+      });
+    }
+  </script>
+</body>
+
+</html>

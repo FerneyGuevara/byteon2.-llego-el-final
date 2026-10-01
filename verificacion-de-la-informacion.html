@@ -1,0 +1,3628 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Verificación de la Información — analiza, explica y evalúa</title>
+  <style>
+    :root {
+      --navy: #14213D;
+      --navy-2: #1C2D52;
+      --parchment: #F6F1E7;
+      --paper: #FFFFFF;
+      --ink: #1D2430;
+      --ink-soft: #5B6472;
+      --teal: #1F7A6C;
+      --teal-dark: #155A50;
+      --coral: #D65B4A;
+      --coral-dark: #B14536;
+      --gold: #C68A2E;
+      --gold-dark: #9C6D20;
+      --border: #E2D9C4;
+      --border-cool: #D7DCE6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.55;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin: 0;
+      color: var(--navy);
+    }
+
+    .tag {
+      font-family: ui-monospace, "SF Mono", Consolas, monospace;
+      font-size: 0.72rem;
+      letter-spacing: .03em;
+      color: var(--ink-soft);
+    }
+
+    p {
+      margin: 0 0 12px;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    /* ---------- Hero + nav ---------- */
+    .hero {
+      background: linear-gradient(155deg, var(--navy) 0%, var(--navy-2) 65%, #223A63 100%);
+      color: #F2F0E8;
+      padding: 44px 24px 0;
+    }
+
+    .hero-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .hero-body {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      margin-bottom: 28px;
+    }
+
+    .hero-img-wrap {
+      flex: 0 0 240px;
+      max-width: 260px;
+    }
+
+    .hero-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    .hero-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .hero .tag {
+      color: #9FB3D6;
+    }
+
+    .hero h1,
+    .hero .hero-sub {
+      color: #FFFFFF;
+      font-size: clamp(1.6rem, 3.8vw, 2.5rem);
+      line-height: 1.15;
+      font-weight: 800;
+      margin: 8px 0 4px;
+      width: 100%;
+      max-width: none;
+      text-wrap: balance;
+    }
+
+    .hero .hero-sub {
+      margin: 0 0 14px;
+    }
+
+    .hero p.lead {
+      color: #C9D3E6;
+      width: 100%;
+      max-width: none;
+      font-size: clamp(0.95rem, 1.4vw, 1.08rem);
+      margin-bottom: 0;
+      text-wrap: pretty;
+    }
+
+    @media (max-width: 768px) {
+      .hero-body {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+      }
+
+      .hero-img-wrap {
+        max-width: 200px;
+        flex: 0 0 auto;
+      }
+    }
+
+    nav.tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding-bottom: 0;
+    }
+
+    nav.tabs button,
+    nav.tabs a.tab-btn {
+      flex: 0 0 auto;
+      background: rgba(255, 255, 255, 0.06);
+      color: #D7DEEC;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-bottom: none;
+      padding: 12px 18px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 8px 8px 0 0;
+      white-space: nowrap;
+      position: relative;
+      top: 1px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+
+    nav.tabs button.active,
+    nav.tabs a.tab-btn.active {
+      background: var(--parchment);
+      color: var(--navy);
+      border-color: var(--parchment);
+    }
+
+    nav.tabs button:hover:not(.active),
+    nav.tabs a.tab-btn:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.13);
+      color: #FFFFFF;
+    }
+
+    /* ---------- Material Principal (Visor PDF) ---------- */
+    .pdf-viewer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 20px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .pdf-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .pdf-btn-open {
+      background: var(--navy);
+      color: #FFFFFF;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 10px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s ease;
+    }
+
+    .pdf-btn-open:hover {
+      background: var(--navy-2);
+    }
+
+    .pdf-btn-dl {
+      background: var(--paper);
+      color: var(--ink);
+      border: 1px solid var(--border-cool);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.88rem;
+      padding: 10px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s ease;
+    }
+
+    .pdf-btn-dl:hover {
+      background: #FBFAF6;
+    }
+
+    .pdf-container {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(20, 33, 61, 0.08);
+      height: 82vh;
+      min-height: 600px;
+    }
+
+    .pdf-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* ---------- LucIA Presentación ---------- */
+    .lucia-presentation-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 14px;
+      padding: 36px 40px;
+      box-shadow: 0 8px 24px rgba(20, 33, 61, 0.08);
+      border-left: 6px solid var(--teal);
+    }
+
+    .lucia-presentation-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .lucia-avatar-img {
+      width: 85px;
+      height: 85px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 4px 14px rgba(20, 33, 61, 0.16);
+      flex: 0 0 auto;
+      display: block;
+    }
+
+    .lucia-presentation-header h2 {
+      font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+      margin: 4px 0 0;
+      color: var(--navy);
+    }
+
+    .lucia-presentation-sub {
+      font-size: 1.2rem;
+      color: var(--navy);
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+
+    .lucia-highlight {
+      font-size: 1.08rem;
+      color: var(--teal-dark);
+      margin-bottom: 14px;
+    }
+
+    .lucia-presentation-body p {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .lucia-presentation-card {
+        padding: 24px 20px;
+      }
+    }
+
+    /* ---------- Material de apoyo ---------- */
+    .material-banner-img {
+      max-width: 240px;
+      height: auto;
+      border-radius: 12px;
+      display: block;
+      margin: 14px 0 22px;
+      box-shadow: 0 6px 18px rgba(20, 33, 61, 0.1);
+    }
+
+    .material-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+      margin-top: 16px;
+    }
+
+    .material-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 12px;
+      padding: 22px 24px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      text-decoration: none;
+      color: inherit;
+      border-left: 6px solid var(--teal);
+      transition: all 0.2s ease;
+    }
+
+    .material-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(20, 33, 61, 0.12);
+      border-color: var(--teal);
+      background: #FBFAF7;
+    }
+
+    .material-icon {
+      font-size: 2.2rem;
+      flex: 0 0 auto;
+      line-height: 1;
+    }
+
+    .material-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .material-body h3 {
+      font-size: 1.15rem;
+      margin: 4px 0 6px;
+      color: var(--navy);
+    }
+
+    .material-body p {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      margin-bottom: 14px;
+      line-height: 1.45;
+    }
+
+    .material-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--teal);
+      background: rgba(31, 122, 108, 0.1);
+      padding: 7px 14px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .material-card:hover .material-btn {
+      background: var(--teal);
+      color: #FFFFFF;
+    }
+
+    main {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 36px 24px 80px;
+    }
+
+    section {
+      display: none;
+    }
+
+    section.active {
+      display: block;
+      animation: fadeIn .35s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 28px;
+      margin-bottom: 10px;
+    }
+
+    .card-basic {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 22px 24px;
+    }
+
+    .card-intro-img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      display: block;
+      margin-bottom: 16px;
+      object-fit: cover;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .quick-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .quick-links button {
+      text-align: left;
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-left: 4px solid var(--teal);
+      border-radius: 6px;
+      padding: 12px 16px;
+      cursor: pointer;
+      font-size: 0.92rem;
+      color: var(--ink);
+    }
+
+    .quick-links button:hover {
+      background: #FBFAF6;
+    }
+
+    /* ---------- Tipos de fuentes ---------- */
+    .type-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 24px 26px;
+      margin-bottom: 18px;
+      border-left-width: 6px;
+      border-left-style: solid;
+    }
+
+    .type-card-img {
+      max-width: 170px;
+      height: auto;
+      border-radius: 8px;
+      display: block;
+      margin-bottom: 14px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .type-card.primaria {
+      border-left-color: var(--teal);
+    }
+
+    .type-card.secundaria {
+      border-left-color: var(--gold);
+    }
+
+    .type-card.terciaria {
+      border-left-color: var(--coral);
+    }
+
+    .type-head {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .type-head h3 {
+      font-size: 1.25rem;
+    }
+
+    .examples {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .ex-chip {
+      background: var(--parchment);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 0.84rem;
+    }
+
+    details.deepen {
+      margin-top: 22px;
+    }
+
+    details.deepen summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--navy);
+      padding: 10px 0;
+    }
+
+    .subgrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .subgrid.cols-3 {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    @media (max-width:760px) {
+
+      .subgrid,
+      .subgrid.cols-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .intro-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ---------- Fuentes en informática ---------- */
+    .flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin: 16px 0 8px;
+    }
+
+    .flow-step {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .flow-arrow {
+      color: var(--ink-soft);
+      font-size: 1.15rem;
+    }
+
+    .it-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 18px 20px;
+      height: 100%;
+    }
+
+    .it-card h4 {
+      font-size: 0.98rem;
+      margin-bottom: 6px;
+    }
+
+    .it-card p {
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+      margin-bottom: 0;
+    }
+
+    .it-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    table.quality-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 0.87rem;
+    }
+
+    table.quality-table th,
+    table.quality-table td {
+      border: 1px solid var(--border-cool);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    table.quality-table th {
+      background: var(--parchment);
+      color: var(--navy);
+    }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin: 14px 0;
+    }
+
+    .checklist li {
+      padding: 6px 0 6px 26px;
+      position: relative;
+      font-size: 0.9rem;
+    }
+
+    .checklist li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--teal);
+      font-weight: 800;
+    }
+
+    /* ---------- Evaluador ---------- */
+    .subnav {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .subnav button {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 20px;
+      padding: 8px 18px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: var(--ink);
+    }
+
+    .subnav button.active {
+      background: var(--navy);
+      color: #fff;
+      border-color: var(--navy);
+    }
+
+    .eval-panel {
+      display: none;
+    }
+
+    .eval-panel.active {
+      display: block;
+    }
+
+    .criteria {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 22px 24px;
+      margin-bottom: 18px;
+    }
+
+    .criteria h4 {
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .criteria p {
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+    }
+
+    .scale {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .scale label {
+      border: 1px solid var(--border-cool);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .scale input {
+      margin: 0;
+    }
+
+    .eval-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin: 22px 0;
+    }
+
+    button.primary {
+      background: var(--teal);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 22px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    button.primary:hover {
+      background: var(--teal-dark);
+    }
+
+    button.ghost {
+      background: none;
+      border: 1px solid var(--border-cool);
+      border-radius: 6px;
+      padding: 11px 18px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: var(--ink);
+    }
+
+    .verdict {
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-top: 6px;
+      display: none;
+    }
+
+    .verdict.show {
+      display: block;
+    }
+
+    .verdict.low {
+      background: #FBEAE7;
+      border: 1px solid var(--coral);
+    }
+
+    .verdict.mid {
+      background: #FBF1E0;
+      border: 1px solid var(--gold);
+    }
+
+    .verdict.high {
+      background: #E9F3EE;
+      border: 1px solid var(--teal);
+    }
+
+    .verdict h4 {
+      margin-bottom: 6px;
+    }
+
+    /* ---------- Juego ---------- */
+    .game-wrap {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 28px;
+    }
+
+    .game-progress {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+    }
+
+    .game-bar {
+      height: 6px;
+      background: var(--border-cool);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .game-bar-fill {
+      height: 100%;
+      background: var(--teal);
+      width: 0%;
+      transition: width .3s ease;
+    }
+
+    .game-card {
+      background: var(--parchment);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      font-size: 1.08rem;
+      margin-bottom: 20px;
+      min-height: 70px;
+    }
+
+    .game-options {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .game-options button {
+      flex: 1;
+      min-width: 140px;
+      padding: 14px;
+      border-radius: 8px;
+      border: 2px solid var(--border-cool);
+      background: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .game-options button:hover:not(:disabled) {
+      border-color: var(--navy);
+    }
+
+    .game-options button.correct {
+      background: #E9F3EE;
+      border-color: var(--teal);
+      color: var(--teal-dark);
+    }
+
+    .game-options button.incorrect {
+      background: #FBEAE7;
+      border-color: var(--coral);
+      color: var(--coral-dark);
+    }
+
+    .game-options button:disabled {
+      cursor: default;
+      opacity: .85;
+    }
+
+    .game-feedback {
+      font-size: 0.92rem;
+      padding: 12px 14px;
+      border-radius: 6px;
+      background: #F1F5F3;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    .game-feedback.show {
+      display: block;
+    }
+
+    .game-end {
+      text-align: center;
+      padding: 30px 10px;
+    }
+
+    .game-end .score {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    /* ---------- Actividad física ---------- */
+    .steps {
+      counter-reset: step;
+      list-style: none;
+      padding: 0;
+      margin: 18px 0;
+    }
+
+    .steps li {
+      counter-increment: step;
+      position: relative;
+      padding: 10px 0 10px 42px;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .steps li:last-child {
+      border-bottom: none;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 8px;
+      background: var(--navy);
+      color: #fff;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .print-btn {
+      margin-top: 16px;
+    }
+
+    /* ---------- Dashboard ---------- */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+
+    .stat-card .stat-value {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    .stat-card .stat-label {
+      font-size: 0.8rem;
+      color: var(--ink-soft);
+    }
+
+    .dash-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width:800px) {
+      .dash-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .chart-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+
+    .chart-card h4 {
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+
+    .chart-card svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .empty-note {
+      color: var(--ink-soft);
+      font-style: italic;
+      font-size: 0.88rem;
+    }
+
+    .pie-wrap {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .pie-wrap svg {
+      width: 150px;
+      height: 150px;
+      flex: 0 0 auto;
+    }
+
+    .legend {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.84rem;
+    }
+
+    .legend .sw {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      margin-right: 6px;
+    }
+
+    .analysis-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-left: 5px solid var(--navy);
+      border-radius: 10px;
+      padding: 20px 22px;
+      margin-bottom: 18px;
+    }
+
+    .analysis-card h4 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .analysis-card p {
+      font-size: 0.92rem;
+    }
+
+    .dash-actions {
+      margin-top: 8px;
+    }
+
+    .reward-box {
+      margin: 26px 0 22px;
+      padding: 26px 28px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, #14213D 0%, #1C2D52 70%, #223A63 100%);
+      border: 2px solid var(--gold);
+      color: #F2F0E8;
+      box-shadow: 0 8px 24px rgba(20, 33, 61, .22);
+    }
+
+    .reward-box.complete {
+      border-color: #E9B949;
+      box-shadow: 0 0 0 4px rgba(233, 185, 73, .25), 0 8px 24px rgba(20, 33, 61, .28);
+    }
+
+    .reward-box .reward-tag {
+      font-family: ui-monospace, "SF Mono", Consolas, monospace;
+      font-size: .72rem;
+      letter-spacing: .06em;
+      color: #E9B949;
+    }
+
+    .reward-box h4 {
+      color: #fff;
+      font-size: 1.25rem;
+      margin: 6px 0 10px;
+    }
+
+    .reward-box p {
+      color: #DCE3F1;
+      font-size: 1rem;
+      margin-bottom: 14px;
+    }
+
+    .reward-box p strong {
+      color: #E9B949;
+      font-size: 1.15em;
+    }
+
+    .reward-amount {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .reward-amount .big {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 800;
+      color: #E9B949;
+      line-height: 1;
+    }
+
+    .reward-amount .of {
+      color: #9FB3D6;
+      font-size: .9rem;
+    }
+
+    .reward-track {
+      height: 12px;
+      background: rgba(255, 255, 255, .14);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .reward-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #C68A2E, #E9B949);
+      border-radius: 8px;
+      transition: width .6s ease;
+    }
+
+    .reward-break {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      font-size: .86rem;
+    }
+
+    .reward-break div {
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    .reward-break b {
+      color: #fff;
+    }
+
+    .reward-status {
+      margin-top: 14px;
+      font-weight: 700;
+      font-size: .95rem;
+      color: #E9B949;
+    }
+
+    /* Print report button in dashboard */
+    .btn-print-dashboard {
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 11px 22px;
+      border: 1px solid var(--teal-dark);
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(31, 122, 108, 0.28);
+      transition: all 0.2s ease;
+    }
+
+    .btn-print-dashboard:hover {
+      background: linear-gradient(135deg, var(--teal-dark) 0%, #0E473F 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(31, 122, 108, 0.38);
+    }
+
+    /* Print report container hidden on screen */
+    #printReport {
+      display: none;
+    }
+
+    /* ---------- Print cards (hidden on screen) ---------- */
+    #printCards {
+      display: none;
+    }
+
+    @media print {
+
+      body.printing-cards>.hero,
+      body.printing-cards>main>section {
+        display: none !important;
+      }
+
+      body.printing-report>.hero,
+      body.printing-report>main,
+      body.printing-report>header,
+      body.printing-report>footer,
+      body.printing-report>nav,
+      body.printing-report>#printCards,
+      body.printing-report>.tabs,
+      body.printing-report>.tabs-bar,
+      body.printing-report>.mapa-modal,
+      body.printing-report>#mapaModal {
+        display: none !important;
+      }
+
+      body.printing-report {
+        background: #ffffff !important;
+        color: #111827 !important;
+      }
+
+      body.printing-report #printReport {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #ffffff !important;
+        color: #111827 !important;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+        font-size: 10pt !important;
+        line-height: 1.35 !important;
+      }
+
+      .report-header {
+        border-bottom: 2px solid #14213D;
+        padding-bottom: 10px;
+        margin-bottom: 12px;
+      }
+
+      .report-header-top {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 8px;
+      }
+
+      .report-logo {
+        width: 65px;
+        height: auto;
+        object-fit: contain;
+      }
+
+      .report-org {
+        font-size: 8pt;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        color: #14213D;
+        text-transform: uppercase;
+      }
+
+      .report-center {
+        font-size: 13pt;
+        font-weight: 900;
+        color: #14213D;
+        margin: 2px 0;
+        line-height: 1.15;
+      }
+
+      .report-competencia {
+        font-size: 8pt;
+        color: #333;
+        line-height: 1.25;
+      }
+
+      .report-project-card {
+        background: #F6F1E7 !important;
+        border: 1.5px solid #C68A2E !important;
+        border-radius: 6px;
+        padding: 8px 12px;
+        margin-bottom: 10px;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .report-project-title {
+        font-size: 10.5pt;
+        font-weight: 900;
+        color: #14213D;
+        margin-bottom: 2px;
+      }
+
+      .report-project-sub {
+        font-size: 8pt;
+        color: #444;
+        margin-bottom: 4px;
+      }
+
+      .report-ra {
+        font-size: 7.5pt;
+        color: #222;
+        border-top: 1px dashed #C68A2E;
+        padding-top: 4px;
+        margin-top: 3px;
+      }
+
+      .report-ra ul {
+        margin: 2px 0 0 16px;
+        padding: 0;
+      }
+
+      .report-student-box {
+        border: 1px solid #D7DCE6;
+        border-radius: 6px;
+        padding: 8px 12px;
+        margin-bottom: 12px;
+        background: #FAFAF7 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .report-field-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: 5px;
+      }
+
+      .report-field {
+        font-size: 8.5pt;
+        display: flex;
+        align-items: center;
+        flex: 1;
+        gap: 6px;
+      }
+
+      .report-field span.label {
+        font-weight: 700;
+        color: #14213D;
+        white-space: nowrap;
+      }
+
+      .report-field span.line-fill {
+        flex: 1;
+        border-bottom: 1px solid #777;
+        min-height: 12px;
+        display: inline-block;
+      }
+
+      .report-field span.line-val {
+        font-weight: 600;
+        color: #1F7A6C;
+      }
+
+      .report-sec-title {
+        font-size: 11pt;
+        font-weight: 800;
+        color: #14213D;
+        border-bottom: 1.5px solid #1F7A6C;
+        padding-bottom: 3px;
+        margin: 12px 0 8px 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .report-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 6px;
+        margin-bottom: 10px;
+      }
+
+      .report-stat-card {
+        border: 1px solid #D7DCE6;
+        border-radius: 6px;
+        padding: 6px 4px;
+        text-align: center;
+        background: #F6F8FA !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .report-stat-value {
+        font-size: 12pt;
+        font-weight: 900;
+        color: #1F7A6C;
+      }
+
+      .report-stat-label {
+        font-size: 7pt;
+        font-weight: 700;
+        color: #555;
+        text-transform: uppercase;
+        margin-top: 2px;
+      }
+
+      .report-card {
+        border: 1px solid #D7DCE6;
+        border-radius: 6px;
+        padding: 8px 10px;
+        margin-bottom: 8px;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      .report-card-title {
+        font-size: 9pt;
+        font-weight: 800;
+        color: #14213D;
+        margin: 0 0 5px 0;
+        text-transform: uppercase;
+      }
+
+      .report-reward-box {
+        background: #14213D !important;
+        color: #fff !important;
+        border-radius: 6px;
+        padding: 8px 12px;
+        margin-bottom: 8px;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .report-reward-box h4 {
+        color: #E9B949 !important;
+        margin: 0 0 3px 0;
+        font-size: 10pt;
+      }
+
+      .report-reward-box p {
+        font-size: 8pt;
+        margin: 0 0 5px 0;
+        color: #E5E7EB;
+      }
+
+      .report-reward-pills {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        font-size: 7.5pt;
+      }
+
+      .report-reward-pill {
+        background: rgba(255, 255, 255, 0.12) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 4px 6px;
+        border-radius: 4px;
+      }
+
+      .report-analysis-item {
+        font-size: 8pt;
+        margin-bottom: 5px;
+        line-height: 1.35;
+      }
+
+      .report-analysis-item strong {
+        color: #1F7A6C;
+        display: block;
+        margin-bottom: 1px;
+      }
+
+      .report-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 7.5pt;
+        margin-top: 3px;
+      }
+
+      .report-table th {
+        background: #14213D !important;
+        color: #fff !important;
+        font-weight: 700;
+        padding: 4px 6px;
+        text-align: left;
+        border: 1px solid #14213D;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .report-table td {
+        padding: 3px 6px;
+        border: 1px solid #D7DCE6;
+      }
+
+      .report-table tr:nth-child(even) {
+        background: #F9FAFB !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .report-badge {
+        display: inline-block;
+        padding: 1px 5px;
+        border-radius: 3px;
+        font-weight: 700;
+        font-size: 7pt;
+        text-transform: uppercase;
+      }
+
+      .badge-high {
+        background: #D1FAE5 !important;
+        color: #065F46 !important;
+      }
+
+      .badge-mid {
+        background: #FEF3C7 !important;
+        color: #92400E !important;
+      }
+
+      .badge-low {
+        background: #FEE2E2 !important;
+        color: #991B1B !important;
+      }
+
+      .report-signatures {
+        margin-top: 14px;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      .report-obs {
+        font-size: 8pt;
+        margin-bottom: 12px;
+      }
+
+      .obs-lines {
+        border-bottom: 1px dashed #999;
+        height: 16px;
+        margin-top: 4px;
+      }
+
+      .sig-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-top: 16px;
+      }
+
+      .sig-box {
+        text-align: center;
+      }
+
+      .sig-line {
+        border-bottom: 1px solid #333;
+        margin-bottom: 4px;
+      }
+
+      .sig-label {
+        font-size: 8pt;
+        font-weight: 700;
+        color: #14213D;
+      }
+
+      /* Registro del aprendiz */
+      .report-box-title {
+        font-size: 9pt;
+        font-weight: 800;
+        color: #14213D;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        border-bottom: 1px solid #D7DCE6;
+        padding-bottom: 3px;
+        margin-bottom: 6px;
+      }
+
+      .report-reg-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px 18px;
+      }
+
+      .report-field-wide {
+        grid-column: 1 / -1;
+      }
+
+      .report-field span.reg-val {
+        flex: 1;
+        min-height: 13px;
+        border-bottom: 1px solid #777;
+        font-weight: 700;
+        color: #111827;
+      }
+
+      /* Gráficos dentro del reporte */
+      .report-charts-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
+      .report-chart {
+        border: 1px solid #E5E7EB;
+        border-radius: 6px;
+        padding: 6px 8px;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .report-chart h4 {
+        font-size: 8pt;
+        font-weight: 800;
+        color: #14213D;
+        margin: 0 0 4px 0;
+      }
+
+      .report-chart svg {
+        width: 100%;
+        height: auto;
+        max-height: 150px;
+        display: block;
+      }
+
+      .report-chart .pie-wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .report-chart .pie-wrap svg {
+        width: 90px;
+        flex: none;
+      }
+
+      .report-chart .legend {
+        font-size: 7.5pt;
+        line-height: 1.5;
+      }
+
+      .report-chart .legend .sw {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 2px;
+        margin-right: 4px;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .report-chart svg,
+      .report-chart svg * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .report-chart .empty-note {
+        font-size: 8pt;
+        color: #666;
+        font-style: italic;
+        margin: 4px 0;
+      }
+
+      body.printing-cards #printCards {
+        display: block !important;
+        font-family: Georgia, serif;
+      }
+
+      #printCards .card-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      #printCards .p-card {
+        border: 1.5px dashed #666;
+        border-radius: 6px;
+        padding: 14px;
+        font-size: 0.95rem;
+        break-inside: avoid;
+      }
+
+      #printCards .p-card .num {
+        font-family: monospace;
+        font-size: 0.75rem;
+        color: #666;
+      }
+
+      #printCards .answer-page {
+        page-break-before: always;
+      }
+
+      #printCards h2 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+      }
+
+      #printCards table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+      }
+
+      #printCards td,
+      #printCards th {
+        border: 1px solid #999;
+        padding: 4px 8px;
+        text-align: left;
+      }
+    }
+
+    /* ---------- Mapa Mental Styles ---------- */
+    .mapamental-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 20px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .mapamental-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .mapa-btn-open {
+      background: var(--navy);
+      color: #FFFFFF;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 10px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 4px 12px rgba(20, 33, 61, 0.12);
+    }
+
+    .mapa-btn-open:hover {
+      background: var(--navy-2);
+      transform: translateY(-1px);
+    }
+
+    .mapa-btn-dl {
+      background: var(--paper);
+      color: var(--ink);
+      border: 1px solid var(--border-cool);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.88rem;
+      padding: 10px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .mapa-btn-dl:hover {
+      background: #FBFAF6;
+      border-color: var(--teal);
+      color: var(--teal-dark);
+      transform: translateY(-1px);
+    }
+
+    .mapamental-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 14px;
+      box-shadow: 0 8px 24px rgba(20, 33, 61, 0.08);
+      border-left: 6px solid var(--teal);
+      padding: 24px;
+      overflow: hidden;
+    }
+
+    .mapamental-viewer {
+      position: relative;
+      background: #FAFAFA;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      overflow: hidden;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .mapamental-viewer:hover {
+      border-color: var(--teal);
+      background: #F3F7F6;
+    }
+
+    .mapamental-img {
+      max-width: 100%;
+      height: auto;
+      max-height: 75vh;
+      display: block;
+      border-radius: 6px;
+      object-fit: contain;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+      transition: transform 0.3s ease;
+    }
+
+    .mapamental-viewer:hover .mapamental-img {
+      transform: scale(1.015);
+    }
+
+    .mapa-zoom-overlay {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      background: rgba(20, 33, 61, 0.88);
+      color: #FFFFFF;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      opacity: 0.9;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      pointer-events: none;
+    }
+
+    .mapamental-viewer:hover .mapa-zoom-overlay {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    .mapamental-footer {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .mapa-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mapa-badge {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      padding: 4px 12px;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mapa-badge.b-primary {
+      background: #E6F4F1;
+      color: var(--teal-dark);
+      border: 1px solid rgba(31, 122, 108, 0.25);
+    }
+
+    .mapa-badge.b-secondary {
+      background: #FDF4E7;
+      color: var(--gold-dark);
+      border: 1px solid rgba(198, 138, 46, 0.25);
+    }
+
+    .mapa-badge.b-tertiary {
+      background: #FDEEEB;
+      color: var(--coral-dark);
+      border: 1px solid rgba(214, 91, 74, 0.25);
+    }
+
+    .mapa-note {
+      font-size: 0.8rem;
+      color: var(--ink-soft);
+      font-family: ui-monospace, "SF Mono", Consolas, monospace;
+    }
+
+    /* Modal Lightbox */
+    .mapa-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .mapa-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mapa-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(6px);
+    }
+
+    .mapa-modal-content {
+      position: relative;
+      z-index: 1;
+      background: var(--paper);
+      border-radius: 14px;
+      max-width: 94vw;
+      max-height: 92vh;
+      width: 1200px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+      animation: mapaZoomIn 0.25s ease;
+    }
+
+    @keyframes mapaZoomIn {
+      from {
+        transform: scale(0.94);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .mapa-modal-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      background: var(--navy);
+      color: #FFFFFF;
+    }
+
+    .mapa-modal-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+    }
+
+    .mapa-modal-btns {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mapa-modal-action-btn {
+      color: #FFFFFF;
+      opacity: 0.85;
+      padding: 6px 10px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      transition: background 0.2s, opacity 0.2s;
+      text-decoration: none;
+    }
+
+    .mapa-modal-action-btn:hover {
+      opacity: 1;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .mapa-modal-close {
+      background: rgba(255, 255, 255, 0.12);
+      border: none;
+      color: #FFFFFF;
+      font-size: 1.5rem;
+      line-height: 1;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+    }
+
+    .mapa-modal-close:hover {
+      background: rgba(214, 91, 74, 0.8);
+    }
+
+    .mapa-modal-body {
+      padding: 16px;
+      overflow: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #F8F9FA;
+      max-height: calc(92vh - 60px);
+    }
+
+    .mapa-modal-img {
+      max-width: 100%;
+      height: auto;
+      max-height: calc(90vh - 80px);
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    @page {
+      size: letter;
+      margin: 12mm
+    }
+
+    .q-opts label {
+      display: block;
+      padding: 8px 12px;
+      border: 1px solid var(--border-cool);
+      border-radius: 8px;
+      margin: 6px 0;
+      cursor: pointer;
+      background: #fff
+    }
+
+    .q-opts label:hover {
+      background: #FBFAF6
+    }
+
+    .tfrow,
+    .selrow {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px dashed var(--border);
+      flex-wrap: wrap
+    }
+
+    .tfrow .scale {
+      margin: 0
+    }
+
+    select {
+      padding: 8px;
+      border: 1px solid var(--border-cool);
+      border-radius: 8px;
+      font: inherit;
+      max-width: 100%;
+      background: #fff
+    }
+
+    .pool,
+    .zone {
+      min-height: 54px;
+      border: 2px dashed var(--border-cool);
+      border-radius: 10px;
+      padding: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: #FBFAF6;
+      align-content: flex-start
+    }
+
+    .zones {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      margin-top: 10px
+    }
+
+    .zone h5 {
+      margin: 0 0 4px;
+      width: 100%;
+      font-size: .85rem;
+      color: var(--navy)
+    }
+
+    .dcard {
+      background: #fff;
+      border: 1px solid var(--gold);
+      border-radius: 8px;
+      padding: 6px 10px;
+      cursor: grab;
+      font-size: .88rem;
+      user-select: none
+    }
+
+    .dcard.sel {
+      outline: 3px solid var(--teal)
+    }
+
+    .zone.over,
+    .pool.over {
+      background: #E8F3F0
+    }
+
+    .mem {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 8px
+    }
+
+    .mcard {
+      min-height: 64px;
+      border-radius: 8px;
+      border: 1px solid var(--navy);
+      background: var(--navy);
+      color: #fff;
+      font-size: .82rem;
+      padding: 8px;
+      cursor: pointer;
+      font-weight: 700
+    }
+
+    .mcard.open {
+      background: #fff;
+      color: var(--ink)
+    }
+
+    .mcard.done {
+      background: #E3F3EE;
+      color: var(--teal-dark);
+      border-color: var(--teal);
+      cursor: default
+    }
+
+    .ord {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 6px 10px;
+      border: 1px solid var(--border-cool);
+      border-radius: 8px;
+      margin: 5px 0;
+      background: #fff
+    }
+
+    .ord span {
+      flex: 1
+    }
+
+    .ord button {
+      border: 1px solid var(--border-cool);
+      background: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+      padding: 2px 9px
+    }
+
+    .q-exp {
+      margin-top: 10px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: .88rem
+    }
+
+    .q-exp.ok {
+      background: #E3F3EE
+    }
+
+    .q-exp.bad {
+      background: #FBE9E5
+    }
+
+    .warn {
+      color: var(--coral-dark);
+      font-weight: 600;
+      margin-top: 8px
+    }
+
+    .vt {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .88rem;
+      background: #fff
+    }
+
+    .vt td,
+    .vt th {
+      border: 1px solid var(--border-cool);
+      padding: 6px 10px;
+      text-align: left
+    }
+
+    .vt th {
+      background: var(--navy);
+      color: #fff
+    }
+
+    @media print {
+
+      #printCards td,
+      #printCards th {
+        font-size: 7.5pt;
+        padding: 3px 4px
+      }
+
+      #printCards .answer-page,
+      #printCards .sheet {
+        page-break-before: always
+      }
+
+      #printCards p {
+        font-size: 9pt
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-body">
+        <div class="hero-img-wrap">
+          <img src="veriinfo.png" alt="Verificación de la Información" class="hero-img"
+            onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='../veriinfo.png';}">
+        </div>
+        <div class="hero-text"><span class="tag">MISIÓN PRINCIPAL No 4 BYTEON</span>
+          <h1>VERIFICACIÓN DE LA INFORMACIÓN</h1>
+          <h2 class="hero-sub">Once parámetros para confiar en los datos de talento humano</h2>
+          <p class="lead">Guía interactiva para verificar información de talento humano registrada en sistemas de
+            información: contenido, vigencia, pertinencia, oportunidad, coherencia, soporte, fuente, cálculos, recursos,
+            alcance y difusión.</p>
+        </div>
+      </div>
+      <nav class="tabs" id="tabs"><a href="index.html" class="tab-btn" title="Ir a la página principal">Inicio</a>
+        <button data-section="introduccion" class="active">Introducción</button><button
+          data-section="lucia">LucIA</button><button data-section="principal">Material Principal</button><button
+          data-section="material">Material de apoyo</button><button data-section="tipos">Los 11
+          parámetros</button><button data-section="informatica">Parámetros en los SI</button><button
+          data-section="evaluador">Evaluador</button><button data-section="juego">Juego: clasifica</button><button
+          data-section="dashboard">Dashboard</button><button data-section="fisica">Actividad presencial</button><button
+          data-section="mapamental">Mapa Mental</button>
+      </nav>
+    </div>
+  </div>
+  <main>
+    <section data-section="introduccion" class="active">
+      <div class="intro-grid">
+        <div class="card-basic">
+          <img src="veriinfo1.png" alt="¿Por qué verificar la información?" class="card-intro-img"
+            onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='../veriinfo1.png';}">
+          <h2 style="font-size:1.4rem;margin-bottom:10px;">¿Por qué verificar la información?</h2>
+          <p>Un registro puede verse bien y aun así estar desactualizado, sin soporte, duplicado o ser inaccesible para
+            quien lo necesita. En talento humano (selección, nómina, afiliaciones, evaluación, retiro) un dato errado
+            genera pagos injustos, reprocesos y riesgos de privacidad.</p>
+          <p>Esta aplicación te lleva por pasos: <strong>conocer</strong> los 11 parámetros,
+            <strong>relacionarlos</strong> con los sistemas de información, <strong>evaluar</strong> tu dominio con
+            preguntas interactivas, <strong>practicar</strong> con casos reales, revisar tu <strong>dashboard</strong> y
+            cerrar con una <strong>auditoría presencial</strong>.
+          </p>
+        </div>
+        <div>
+          <h3 style="font-size:1rem;margin-bottom:4px;">Ir directo a:</h3>
+          <div class="quick-links" id="ql"></div>
+        </div>
+      </div>
+    </section>
+    <section data-section="lucia">
+      <div class="lucia-presentation-card">
+        <div class="lucia-presentation-header"><img src="lucIA.png" alt="LucIA" class="lucia-avatar-img"
+            onerror="this.style.display='none'">
+          <div><span class="tag">INTELIGENCIA ARTIFICIAL GUÍA</span>
+            <h2>LucIA la Inteligencia Artificial guía</h2>
+          </div>
+        </div>
+        <div class="lucia-presentation-body">
+          <h3 class="lucia-presentation-sub">Presentación:</h3>
+          <p class="lucia-highlight"><strong>Asegurar que cada dato sea preciso, útil y confiable</strong></p>
+          <p>Hola Aprendiz, soy LucIA. En Byteon la información es el combustible de las decisiones: si el dato falla,
+            la decisión falla. Conmigo revisarás los 11 parámetros de verificación y verás qué pasa en talento humano
+            cuando alguno se descuida.</p>
+          <div class="pdf-viewer-header" style="margin-top:28px;padding-top:24px;border-top:1px solid var(--border);">
+            <div><span class="tag">DOCUMENTO OFICIAL DE BYTEON</span>
+              <h3 style="font-size:1.35rem;margin:4px 0 6px;">Verificación de la Información - Byteon</h3>
+            </div>
+            <div class="pdf-actions"><a href="verificacion-byteon-lucia.pdf" target="_blank" class="pdf-btn-open">Abrir
+                en ventana nueva ↗</a><a href="verificacion-byteon-lucia.pdf" download class="pdf-btn-dl">Descargar PDF
+                ⬇</a></div>
+          </div>
+          <div class="pdf-container"><iframe src="verificacion-byteon-lucia.pdf#toolbar=1&navpanes=0" class="pdf-frame"
+              title="Verificación Byteon"></iframe></div>
+        </div>
+      </div>
+    </section>
+    <section data-section="principal">
+      <div class="pdf-viewer-header">
+        <div><span class="tag">DOCUMENTO BASE DE LA MISIÓN</span>
+          <h2 style="font-size:1.5rem;margin:4px 0 6px;">Verificación de la información — Material Principal</h2>
+          <p style="color:var(--ink-soft);margin-bottom:0;">Retos del planeta Byteon 2: parámetros de verificación con
+            definiciones y ejemplos.</p>
+        </div>
+        <div class="pdf-actions"><a href="verificacion-de-la-informacion.pdf" target="_blank" class="pdf-btn-open">Abrir
+            en ventana nueva ↗</a><a href="verificacion-de-la-informacion.pdf" download class="pdf-btn-dl">Descargar PDF
+            ⬇</a></div>
+      </div>
+      <div class="pdf-container"><iframe src="verificacion-de-la-informacion.pdf#toolbar=1&navpanes=0" class="pdf-frame"
+          title="Verificación de la información — Material Principal"></iframe></div>
+    </section>
+    <section data-section="material">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Material de apoyo y lecturas complementarias</h2>
+      <p style="color:var(--ink-soft);margin-bottom:14px;">Cinco documentos PDF para profundizar en los criterios y su
+        aplicación en talento humano.</p>
+      <img src="veriinfo2.png" alt="Material de apoyo y lecturas complementarias" class="material-banner-img"
+        onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='../veriinfo2.png';}">
+      <div class="material-grid"><a href="criterios-de-validacion.pdf" target="_blank" class="material-card">
+          <div class="material-icon">📄</div>
+          <div class="material-body"><span class="tag">DOCUMENTO 01</span>
+            <h3>Criterios de validación</h3>
+            <p>Relevancia, alcance, autoridad, actualidad, objetividad y exactitud.</p><span class="material-btn">Abrir
+              documento PDF ↗</span>
+          </div>
+        </a><a href="contexto-sistemas-de-informacion.pdf" target="_blank" class="material-card">
+          <div class="material-icon">📄</div>
+          <div class="material-body"><span class="tag">DOCUMENTO 02</span>
+            <h3>Atributos en los sistemas de información</h3>
+            <p>Qué aporta cada parámetro en un SI: contenido, vigencia, soporte, difusión…</p><span
+              class="material-btn">Abrir documento PDF ↗</span>
+          </div>
+        </a><a href="parametros-de-verificacion.pdf" target="_blank" class="material-card">
+          <div class="material-icon">📄</div>
+          <div class="material-body"><span class="tag">DOCUMENTO 03</span>
+            <h3>Los parámetros de verificación</h3>
+            <p>Para qué sirve cada filtro y su aplicación en el diseño de un SI.</p><span class="material-btn">Abrir
+              documento PDF ↗</span>
+          </div>
+        </a><a href="parametros-verificacion-sistemas-informacion.pdf" target="_blank" class="material-card">
+          <div class="material-icon">📄</div>
+          <div class="material-body"><span class="tag">DOCUMENTO 04</span>
+            <h3>Parámetros en Sistemas de Información</h3>
+            <p>Cómo validar cada parámetro: auditoría, QA y pruebas de interfaz.</p><span class="material-btn">Abrir
+              documento PDF ↗</span>
+          </div>
+        </a><a href="guia-verificacion-talento-humano.pdf" target="_blank" class="material-card">
+          <div class="material-icon">📄</div>
+          <div class="material-body"><span class="tag">DOCUMENTO 05</span>
+            <h3>Guía ampliada de talento humano</h3>
+            <p>Lista de chequeo, Ley 1581 de 2012, indicadores y caso práctico.</p><span class="material-btn">Abrir
+              documento PDF ↗</span>
+          </div>
+        </a></div>
+    </section>
+    <section data-section="tipos">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Los 11 parámetros de verificación</h2>
+      <p style="color:var(--ink-soft);margin-bottom:22px;">Se agrupan en tres niveles; cada chip es la pregunta de
+        control que debes hacerle al dato.</p>
+      <div class="type-card primaria">
+        <img src="veriinfo.png" alt="Fundamentos del dato" class="type-card-img"
+          onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='../veriinfo.png';}">
+        <div class="type-head"><span class="tag">G-01</span>
+          <h3>Fundamentos del dato</h3>
+        </div>
+        <p>Aseguran la calidad inicial: qué dice el dato, si sigue vigente, si sirve al propósito y si llega a tiempo.
+        </p>
+        <div class="examples" id="chips0"></div>
+      </div>
+      <div class="type-card secundaria">
+        <img src="veriinfo2.png" alt="Integridad y confiabilidad" class="type-card-img"
+          onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='../veriinfo2.png';}">
+        <div class="type-head"><span class="tag">G-02</span>
+          <h3>Integridad y confiabilidad</h3>
+        </div>
+        <p>Verifican la solidez lógica del dato y el respaldo que lo sostiene: sin contradicciones, con evidencia y
+          origen confiable.</p>
+        <div class="examples" id="chips1"></div>
+      </div>
+      <div class="type-card terciaria">
+        <img src="veriinfo3.png" alt="Técnicos, alcance y difusión" class="type-card-img"
+          onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='../veriinfo3.png';}">
+        <div class="type-head"><span class="tag">G-03</span>
+          <h3>Técnicos, alcance y difusión</h3>
+        </div>
+        <p>Auditan cómo se calcula, con qué medios se produce, hasta dónde aplica y a quién se comparte.</p>
+        <div class="examples" id="chips2"></div>
+      </div>
+      <details class="deepen">
+        <summary>Profundizar: criterios para evaluar cualquier fuente</summary>
+        <div class="subgrid">
+          <div class="card-basic">
+            <h4>Relevancia, alcance y autoridad</h4>
+            <p>Define qué necesitas, contrasta puntos de vista y prefiere fuentes con autor, fecha y revisión editorial.
+            </p>
+          </div>
+          <div class="card-basic">
+            <h4>Actualidad, objetividad y exactitud</h4>
+            <p>Revisa la fecha (temas cambiantes: 3 a 5 años), cuestiona intereses del autor y compara los datos con
+              otra fuente.</p>
+          </div>
+        </div>
+      </details>
+    </section>
+    <section data-section="informatica">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Los parámetros en los sistemas de información</h2>
+      <p style="color:var(--ink-soft);margin-bottom:10px;">Cada parámetro tiene una forma técnica en un SI y una técnica
+        de validación (auditoría, QA o pruebas de interfaz).</p>
+      <div style="overflow-x:auto">
+        <table class="vt">
+          <thead>
+            <tr>
+              <th>Parámetro</th>
+              <th>En el sistema de información</th>
+              <th>Cómo validarlo</th>
+            </tr>
+          </thead>
+          <tbody id="siBody"></tbody>
+        </table>
+      </div>
+      <h3 style="font-size:1.02rem;margin:22px 0 4px;">Flujo de verificación en talento humano</h3>
+      <div class="flow"><span class="flow-step">Propósito</span><span class="flow-arrow">→</span><span
+          class="flow-step">Fuente de verdad</span><span class="flow-arrow">→</span><span class="flow-step">Validar al
+          capturar</span><span class="flow-arrow">→</span><span class="flow-step">Comparar y conciliar</span><span
+          class="flow-arrow">→</span><span class="flow-step">Corregir con trazabilidad</span><span
+          class="flow-arrow">→</span><span class="flow-step">Aprobar y distribuir</span><span
+          class="flow-arrow">→</span><span class="flow-step">Monitorear</span></div>
+      <details class="deepen">
+        <summary>Protección de datos personales (Ley 1581 de 2012)</summary>
+        <div class="card-basic">
+          <ul class="checklist">
+            <li>Principio de veracidad o calidad: información veraz, completa, exacta, actualizada, comprobable y
+              comprensible.</li>
+            <li>Los titulares pueden conocer, actualizar y rectificar su información.</li>
+            <li>Recolecta solo lo necesario y restringe el acceso por rol.</li>
+            <li>Evita enviar bases completas por correo cuando basta un reporte agregado.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+    <section data-section="evaluador">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Evaluador de parámetros de verificación</h2>
+      <p style="color:var(--ink-soft);margin-bottom:16px;">Responde con preguntas de opción única, verdadero/falso,
+        listas desplegables, tarjetas arrastrables, ordenamiento y concéntrese. Puedes calificar en cualquier momento y
+        repetir; cada evaluación queda registrada en el <strong>Dashboard</strong>.</p>
+      <div class="subnav" id="evalSubnav"><button data-eval="general" class="active">Conceptos de los
+          parámetros</button><button data-eval="tecnico">Aplicación en talento humano</button></div>
+      <div class="eval-panel active" id="evalGeneralPanel">
+        <form id="evalFormGeneral" data-max="12" data-kind="general">
+          <div class="qs"></div>
+          <div class="warn"></div>
+          <div class="eval-actions"><button type="submit" class="primary">Ver veredicto</button></div>
+        </form>
+        <div class="verdict" id="verdict-evalFormGeneral">
+          <h4 class="v-title"></h4>
+          <p class="v-text"></p>
+          <p class="v-weak" style="font-size:0.88rem;color:var(--ink-soft);"></p>
+        </div>
+      </div>
+      <div class="eval-panel" id="evalTecnicoPanel">
+        <form id="evalFormTecnico" data-max="12" data-kind="tecnico">
+          <div class="qs"></div>
+          <div class="warn"></div>
+          <div class="eval-actions"><button type="submit" class="primary">Ver veredicto</button></div>
+        </form>
+        <div class="verdict" id="verdict-evalFormTecnico">
+          <h4 class="v-title"></h4>
+          <p class="v-text"></p>
+          <p class="v-weak" style="font-size:0.88rem;color:var(--ink-soft);"></p>
+        </div>
+      </div>
+    </section>
+    <section data-section="juego">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Clasifica el parámetro</h2>
+      <p style="color:var(--ink-soft);margin-bottom:22px;">Se te mostrará un caso de verificación de información de
+        talento humano. Decide a qué grupo pertenece el parámetro que falla: fundamentos del dato, integridad y
+        confiabilidad, o técnicos/alcance/difusión. Cada partida se registra en el <strong>Dashboard</strong>.</p>
+
+      <div class="game-wrap">
+        <div class="game-progress">
+          <span id="gameProgressText">Pregunta 1 de 12</span>
+          <span id="gameScoreText">Aciertos: 0</span>
+        </div>
+        <div class="game-bar">
+          <div class="game-bar-fill" id="gameBar"></div>
+        </div>
+
+        <div id="gamePlay">
+          <div class="game-card" id="gameQuestion"></div>
+          <div class="game-options" id="gameOptions">
+            <button data-choice="fund">Fundamentos del dato</button>
+            <button data-choice="integ">Integridad y confiabilidad</button>
+            <button data-choice="tec">Técnicos, alcance y difusión</button>
+          </div>
+          <div class="game-feedback" id="gameFeedback"></div>
+          <button class="primary" id="gameNextBtn" style="display:none;">Siguiente</button>
+        </div>
+
+        <div id="gameEnd" class="game-end" style="display:none;">
+          <p class="score"><span id="gameFinalScore"></span>/12</p>
+          <p id="gameFinalMsg" style="margin:10px 0 20px;"></p>
+          <button class="primary" id="gameReplayBtn">Jugar de nuevo</button>
+        </div>
+      </div>
+    </section>
+    <section data-section="dashboard">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Dashboard de resultados</h2>
+      <p style="color:var(--ink-soft);margin-bottom:20px;">Resumen de tus evaluaciones y partidas. Los datos se guardan
+        solo en este navegador; no salen de tu computador.</p>
+
+      <div class="stat-row" id="dashStats"></div>
+
+      <div class="dash-grid">
+        <div class="chart-card">
+          <h4>Puntaje del juego por partida</h4>
+          <div id="chartGameBar"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Veredictos del evaluador (General vs. Técnico)</h4>
+          <div id="chartEvalBar"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Aciertos vs. errores en el juego</h4>
+          <div id="chartGamePie"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Errores por grupo de parámetros</h4>
+          <div id="chartTypePie"></div>
+        </div>
+      </div>
+
+      <div class="analysis-card">
+        <h4>📊 Análisis — Evaluador</h4>
+        <p id="analysisEval"></p>
+      </div>
+      <div class="analysis-card">
+        <h4>🎮 Análisis — Juego de clasificación</h4>
+        <p id="analysisGame"></p>
+      </div>
+
+      <div class="reward-box" id="rewardBox">
+        <span class="reward-tag">RETO FINAL · RECOMPENSA</span>
+        <h4>🚀 Jefe de investigación grado 1</h4>
+        <p>Al alcanzar el desarrollo de este reto serás considerado jefe de investigación grado 1 y te recompensará con
+          <strong id="nexAmount">0</strong> NEXs.
+        </p>
+        <div class="reward-amount"><span class="big" id="nexBig">0</span><span class="of">NEXs de 100.000
+            posibles</span>
+        </div>
+        <div class="reward-track">
+          <div class="reward-fill" id="nexFill"></div>
+        </div>
+        <div class="reward-break" id="nexBreak"></div>
+        <div class="reward-status" id="nexStatus"></div>
+      </div>
+
+      <div class="dash-actions"
+        style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between; margin-top: 24px;">
+        <button class="ghost" id="resetDashBtn" style="color: var(--coral); border-color: rgba(214, 91, 74, 0.35);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            style="vertical-align: middle; margin-right: 4px;">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          </svg>
+          Borrar historial del dashboard
+        </button>
+        <button class="btn-print-dashboard" id="printReportBtn" type="button">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <rect x="6" y="14" width="12" height="8"></rect>
+          </svg>
+          Imprimir Registro Institucional y Dashboard
+        </button>
+      </div>
+    </section>
+    <section data-section="fisica">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Actividad presencial: Auditores de Byteon</h2>
+      <p style="color:var(--ink-soft);margin-bottom:18px;">Caza de errores en equipo: auditan la base de empleados, las
+        novedades y el informe de ausentismo de la empresa ficticia Nébula S.A.S., y ubican cada hallazgo en su
+        parámetro.</p>
+      <div class="card-basic">
+        <h3 style="font-size:1.05rem;margin-bottom:10px;">Cómo organizarla</h3>
+        <ol class="steps">
+          <li>Forma equipos auditores de 3 a 4 personas. Cada equipo recibe la <strong>hoja del caso</strong> y la
+            <strong>lista de chequeo</strong> (imprímelas con el botón).
+          </li>
+          <li>Durante 15 minutos revisan las tablas A, B y C y marcan cada posible error con su referencia (A1, B1,
+            C1…).</li>
+          <li>En la lista de chequeo anotan, por cada parámetro, Sí / No / N.A., la evidencia del hallazgo y la
+            corrección propuesta.</li>
+          <li>Cada equipo expone tres hallazgos y explica qué decisión habría afectado.</li>
+          <li>Comparan con la hoja de respuestas (última página): ¿cuántos de los 14 hallazgos detectaron y en cuántos
+            parámetros acertaron?</li>
+          <li>Cierre: cada equipo propone un control (validación, log, permiso) y un indicador de calidad para evitar
+            que el error se repita.</li>
+        </ol>
+        <button class="ghost print-btn" id="printBtn">🖨️ Imprimir caso, lista de chequeo y respuestas</button>
+      </div>
+    </section>
+    <section data-section="mapamental">
+      <div class="mapamental-header">
+        <div><span class="tag">ESQUEMA CONCEPTUAL</span>
+          <h2 style="font-size:1.5rem;margin:4px 0 6px;">Mapa Mental: Parámetros de verificación</h2>
+          <p style="color:var(--ink-soft);margin-bottom:0;">Los 11 parámetros organizados en tres grupos.</p>
+        </div>
+        <div class="mapamental-actions"><button type="button" class="mapa-btn-dl" id="mapaDl">Descargar SVG</button>
+        </div>
+      </div>
+      <div class="mapamental-card">
+        <div class="mapamental-viewer" id="mapaViewer" title="Haz clic para ampliar">
+          <div id="mapaBox"></div>
+          <div class="mapa-zoom-overlay"><span>Clic para ampliar</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="printCards">
+    <div id="printAudit"></div>
+  </div>
+  <div id="printReport">
+    <!-- ENCABEZADO INSTITUCIONAL SENA (DEL INDEX.HTML) -->
+    <header class="report-header">
+      <div class="report-header-top">
+        <img src="sena.png" alt="Logo SENA" class="report-logo" onerror="this.style.display='none'" />
+        <div class="report-header-text">
+          <div class="report-org">SERVICIO NACIONAL DE APRENDIZAJE SENA &bull; REGIONAL DISTRITO CAPITAL</div>
+          <h1 class="report-center">CENTRO DE GESTI&Oacute;N ADMINISTRATIVA</h1>
+          <div class="report-competencia">
+            <strong>COMPETENCIA:</strong> 210601026 - OPERAR HERRAMIENTAS INFORM&Aacute;TICAS Y DIGITALES DE ACUERDO CON
+            PROTOCOLOS Y MANUALES T&Eacute;CNICOS
+          </div>
+        </div>
+      </div>
+
+      <div class="report-project-card">
+        <div class="report-project-title">RETOS DEL PLANETA BYTEON &mdash; REPORTE DE EVALUACI&Oacute;N Y
+          DESEMPE&Ntilde;O</div>
+        <div class="report-project-sub">
+          <strong>FASES DEL PROYECTO:</strong> AN&Aacute;LISIS Y PLANEACI&Oacute;N &bull;
+          <strong>PROGRAMA:</strong> T&Eacute;CNICO EN TALENTO HUMANO &bull;
+          <strong>RETO:</strong> 2. VERIFICACI&Oacute;N DE LA INFORMACI&Oacute;N
+        </div>
+        <div class="report-ra">
+          <strong>RESULTADOS DE APRENDIZAJE:</strong>
+          <ul>
+            <li>Caracterizar sistemas de informaci&oacute;n de acuerdo a disponibilidad y necesidades de talento humano.
+            </li>
+            <li>Tratar informaci&oacute;n de talento humano utilizando paquete b&aacute;sico de ofim&aacute;tica de
+              acuerdo con recursos y requerimientos de la organizaci&oacute;n.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- REGISTRO DEL APRENDIZ (datos capturados en index.html) -->
+      <div class="report-student-box">
+        <div class="report-box-title">Registro del aprendiz</div>
+        <div class="report-reg-grid">
+          <div class="report-field report-field-wide"><span class="label">Nombre completo:</span> <span class="reg-val"
+              id="regNombre"></span></div>
+          <div class="report-field"><span class="label">N&uacute;mero de documento:</span> <span class="reg-val"
+              id="regDocumento"></span></div>
+          <div class="report-field"><span class="label">Ficha:</span> <span class="reg-val" id="regFicha"></span></div>
+          <div class="report-field report-field-wide"><span class="label">Programa:</span> <span class="reg-val"
+              id="regPrograma"></span></div>
+          <div class="report-field"><span class="label">Centro de formaci&oacute;n:</span> <span class="reg-val"
+              id="regCentro"></span></div>
+          <div class="report-field"><span class="label">Regional:</span> <span class="reg-val" id="regRegional"></span>
+          </div>
+          <div class="report-field"><span class="label">Fecha y hora de emisi&oacute;n:</span> <span class="reg-val"
+              id="reportDate"></span></div>
+          <div class="report-field"><span class="label">Instructor / Evaluador:</span> <span class="reg-val"></span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- RESULTADOS DEL DASHBOARD -->
+    <div class="report-body">
+      <h2 class="report-sec-title">Resultados Consolidados del Dashboard</h2>
+
+      <!-- RESUMEN DE MÉTRICAS -->
+      <div class="report-stats-grid" id="reportStatsGrid"></div>
+
+      <!-- RECOMPENSA Y RANGO -->
+      <div id="reportRewardCard"></div>
+
+      <!-- GRÁFICOS DEL DASHBOARD -->
+      <div class="report-card">
+        <h3 class="report-card-title">Gr&aacute;ficos del Dashboard</h3>
+        <div class="report-charts-grid" id="reportCharts"></div>
+      </div>
+
+      <!-- DIAGNÓSTICO CUALITATIVO -->
+      <div class="report-card">
+        <h3 class="report-card-title">Diagn&oacute;stico y An&aacute;lisis Cualitativo</h3>
+        <div class="report-analysis-item">
+          <strong>Evaluador de Par&aacute;metros de Verificaci&oacute;n:</strong>
+          <p id="reportAnalysisEval"></p>
+        </div>
+        <div class="report-analysis-item">
+          <strong>Juego de Clasificaci&oacute;n (Fundamentos / Integridad / Técnicos):</strong>
+          <p id="reportAnalysisGame"></p>
+        </div>
+      </div>
+
+      <!-- CATEGORÍAS -->
+      <div class="report-card">
+        <h3 class="report-card-title">Desempe&ntilde;o por Grupo de parámetros</h3>
+        <div id="reportCategoryTable"></div>
+      </div>
+
+      <!-- HISTORIAL EVALUACIONES -->
+      <div class="report-card">
+        <h3 class="report-card-title">Historial Detallado de Evaluaciones Realizadas</h3>
+        <div id="reportEvalTable"></div>
+      </div>
+
+      <!-- HISTORIAL PARTIDAS -->
+      <div class="report-card">
+        <h3 class="report-card-title">Historial de Partidas en el Simulador</h3>
+        <div id="reportGameTable"></div>
+      </div>
+
+      <!-- FIRMAS Y OBSERVACIONES -->
+      <div class="report-signatures">
+        <div class="report-obs">
+          <strong>Observaciones y Recomendaciones del Instructor / Evaluador:</strong>
+          <div class="obs-lines"></div>
+          <div class="obs-lines" style="margin-top: 6px;"></div>
+        </div>
+        <div class="sig-grid">
+          <div class="sig-box">
+            <div class="sig-line"></div>
+            <div class="sig-label">Firma del Aprendiz</div>
+          </div>
+          <div class="sig-box">
+            <div class="sig-line"></div>
+            <div class="sig-label">Firma del Instructor / Evaluador</div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /.report-body -->
+  </div><!-- /#printReport -->
+
+
+
+  <div class="mapa-modal" id="mapaModal" aria-hidden="true">
+    <div class="mapa-modal-backdrop" id="mapaModalBackdrop"></div>
+    <div class="mapa-modal-content">
+      <div class="mapa-modal-bar"><span class="mapa-modal-title">Mapa Mental - Parámetros de verificación</span>
+        <div class="mapa-modal-btns"><button type="button" class="mapa-modal-close" id="mapaModalClose">&times;</button>
+        </div>
+      </div>
+      <div class="mapa-modal-body" id="mapaModalBody"></div>
+    </div>
+  </div>
+  <script>
+    const GN = { fund: 'Fundamentos del dato', integ: 'Integridad y confiabilidad', tec: 'Técnicos, alcance y difusión' };
+    const PARAMS = [['Contenido', '¿El registro es exacto, completo y claro?'], ['Vigencia', '¿Tiene fecha de actualización y sigue siendo útil?'], ['Pertinencia', '¿Los datos son necesarios para el propósito?'], ['Oportunidad', '¿Está disponible dentro del tiempo requerido?'], ['Coherencia', '¿Coincide con otros sistemas y no se contradice?'], ['Soporte', '¿Existe evidencia y metodología documentada?'], ['Fuente', '¿La fuente es identificable, autorizada y verificable?'], ['Cálculos', '¿Las fórmulas, entradas y unidades son correctas?'], ['Recursos', '¿Se usaron herramientas y capacidades adecuadas?'], ['Alcance', '¿Están definidos población, período y limitaciones?'], ['Difusión', '¿Se comunicó al público correcto con controles de acceso?']];
+    const PG = [0, 0, 0, 0, 1, 1, 1, 2, 2, 2, 2];
+    PARAMS.forEach((p, i) => { document.getElementById('chips' + PG[i]).insertAdjacentHTML('beforeend', '<div class="ex-chip"><b>' + p[0] + ':</b> ' + p[1] + '</div>'); });
+    const SI = [['Contenido', 'Modelo de datos y completitud de registros', 'Matriz de trazabilidad contra los requerimientos'], ['Vigencia', 'Marcas de tiempo, sincronización, retención', 'Probar fechas pasadas; evitar parámetros «quemados»'], ['Pertinencia', 'Consultas y filtros por rol', 'Pruebas de usuario (UAT)'], ['Oportunidad', 'Latencia y disponibilidad', 'Medir tiempos en DevTools › Network'], ['Coherencia', 'Integridad referencial', 'Cambiar un estado y revisarlo en todos los módulos'], ['Soporte', 'Logs, versiones y respaldos', 'Auditar quién, cuándo y por qué cambió'], ['Fuente', 'Entrada manual, sistemas heredados y APIs', 'Verificar endpoints oficiales (HTTPS) y validar entradas'], ['Cálculos', 'Algoritmos y reglas de negocio', 'Pruebas unitarias con casos extremos'], ['Recursos', 'Memoria, red y hosting', 'Pruebas de estrés y peso del código'], ['Alcance', 'Roles, permisos y escalabilidad', 'Intentar entrar con un rol inferior'], ['Difusión', 'Interfaces, reportes y APIs de salida', 'Probar diseño responsivo y exportaciones']];
+    document.getElementById('siBody').innerHTML = SI.map(r => '<tr><td><b>' + r[0] + '</b></td><td>' + r[1] + '</td><td>' + r[2] + '</td></tr>').join('');
+    const QL = [['lucia', '🤖 LucIA — guía de inteligencia artificial'], ['principal', '📖 Material Principal — documento base (PDF)'], ['material', '📂 Material de apoyo — 5 documentos PDF'], ['tipos', '📚 Los 11 parámetros — tres grupos'], ['informatica', '💻 Parámetros en los SI — cómo validarlos'], ['evaluador', '🧭 Evaluador — 12 preguntas interactivas'], ['juego', '🎮 Juego — clasifica 12 casos'], ['dashboard', '📊 Dashboard — resultados y NEXs'], ['fisica', '✋ Actividad presencial — Auditores de Byteon'], ['mapamental', '🗺️ Mapa Mental — esquema de parámetros']];
+    document.getElementById('ql').innerHTML = QL.map(q => '<button data-goto="' + q[0] + '">' + q[1] + '</button>').join('');
+
+    const ITEMS = [
+      { text: 'El sistema registra a Ana Pérez como auxiliar administrativa, pero su contrato vigente indica el cargo de analista.', type: 'fund', explain: 'Contenido: el dato no es exacto frente al contrato firmado.' },
+      { text: 'Se llamó a un contacto de emergencia con un teléfono registrado hace tres años que ya no funciona.', type: 'fund', explain: 'Vigencia: el dato fue correcto al registrarse, pero ya no está actualizado.' },
+      { text: 'Un formulario de actualización pide estrato y creencias religiosas que no se necesitan para la finalidad informada.', type: 'fund', explain: 'Pertinencia: se recolectan datos innecesarios, lo que aumenta riesgos y errores.' },
+      { text: 'Una incapacidad se registró después del cierre de nómina y produjo un pago incorrecto.', type: 'fund', explain: 'Oportunidad: el dato llegó tarde para la decisión que debía apoyar.' },
+      { text: 'El sistema de talento humano marca a Luis como retirado, pero el sistema de acceso mantiene sus permisos activos.', type: 'integ', explain: 'Coherencia: el mismo dato es distinto entre sistemas relacionados.' },
+      { text: 'Un cambio salarial aparece en la base por edición manual, sin comunicación ni aprobación que lo respalde.', type: 'integ', explain: 'Soporte: falta la evidencia que justifique el dato.' },
+      { text: 'Para confirmar una certificación laboral se usó una captura reenviada por un tercero, no el expediente oficial.', type: 'integ', explain: 'Fuente: el origen no es primario, autorizado ni verificable.' },
+      { text: 'En un informe la fecha de retiro de un empleado es anterior a su fecha de ingreso.', type: 'integ', explain: 'Coherencia: campos dependientes que se contradicen dentro del mismo registro.' },
+      { text: 'La rotación se calculó dividiendo entre el total de empleados del mes anterior, en lugar del promedio del período.', type: 'tec', explain: 'Cálculos: el dato de entrada del denominador es incorrecto.' },
+      { text: 'Cientos de registros se digitan en una hoja sin validaciones, sin permisos ni copia de respaldo.', type: 'tec', explain: 'Recursos: la herramienta no es adecuada para generar información confiable.' },
+      { text: 'Un informe del primer semestre se presentó como diagnóstico anual e incluyó contratistas fuera de la metodología.', type: 'tec', explain: 'Alcance: no se delimitaron período ni población.' },
+      { text: 'El detalle nominal con salarios se envió por correo a toda la organización en lugar de un resumen agregado a la dirección.', type: 'tec', explain: 'Difusión: canal y audiencia sin control de acceso.' }
+    ];
+
+    const QG = [
+      { t: 'single', k: 'Contenido', q: '¿Qué evalúa el parámetro <b>Contenido</b> de un dato?', o: ['Que sea exacto, completo, profundo y claro', 'Que esté disponible antes de una fecha límite', 'Que solo lo vean usuarios autorizados', 'Que las fórmulas usen unidades consistentes'], e: 'Contenido revisa la sustancia del dato: exactitud, integridad, profundidad y claridad. Las otras opciones describen Oportunidad, Difusión y Cálculos.' },
+      { t: 'tf', k: 'Vigencia', q: 'Marca cada afirmación sobre <b>Vigencia</b> como verdadera o falsa.', r: [['Un dato correcto al registrarse sigue siendo válido aunque pasen años.', 0], ['Conviene distinguir la fecha del documento de la fecha de actualización en el sistema.', 1], ['Cargo, teléfono y cuenta bancaria son datos sensibles al cambio.', 1]], e: 'La vigencia exige conocer las fechas de creación y actualización: un teléfono correcto hace tres años puede estar obsoleto hoy.' },
+      { t: 'sel', k: 'Identificar el parámetro', q: 'En cada lista elige el parámetro que falla en la situación.', opts: ['Oportunidad', 'Pertinencia', 'Coherencia', 'Soporte'], r: [['Un dato exacto llega después del comité que debía usarlo.', 'Oportunidad'], ['El informe muestra datos que no aportan al objetivo.', 'Pertinencia'], ['Dos módulos muestran estados distintos del mismo perfil.', 'Coherencia'], ['El dato no tiene ningún documento que lo respalde.', 'Soporte']], e: 'Oportunidad = llegar a tiempo; Pertinencia = útil para el propósito; Coherencia = sin contradicciones; Soporte = evidencia que lo respalda.' },
+      { t: 'drag', k: 'Grupos de parámetros', q: 'Arrastra cada parámetro a su grupo (o toca la tarjeta y luego el grupo).', z: [GN.fund, GN.integ, GN.tec], cs: [['Vigencia', 0], ['Oportunidad', 0], ['Soporte', 1], ['Fuente', 1], ['Cálculos', 2], ['Difusión', 2]], e: 'Fundamentos: contenido, vigencia, pertinencia, oportunidad. Integridad: coherencia, soporte, fuente. Técnicos: cálculos, recursos, alcance y difusión.' },
+      { t: 'single', k: 'Fuente', q: 'Para verificar la fecha de ingreso de un empleado, ¿qué fuente tiene mayor autoridad?', o: ['El contrato firmado (fuente primaria)', 'Un resumen del informe mensual (fuente terciaria)', 'Una captura reenviada por un compañero', 'La memoria del jefe inmediato'], e: 'La fuente principal es el documento o sistema oficial: debe ser identificable, autorizada y verificable.' },
+      { t: 'memory', k: 'Preguntas de control', q: 'Concéntrese: encuentra las parejas parámetro ↔ pregunta de control.', p: [['Vigencia', '¿Sigue siendo actual?'], ['Cálculos', '¿Fórmulas y unidades correctas?'], ['Alcance', '¿Qué población y período cubre?'], ['Difusión', '¿Llegó al público correcto?']], e: 'Cada parámetro se traduce en una pregunta de control de la lista de chequeo.' }
+    ];
+    const QT = [
+      { t: 'order', k: 'Flujo de verificación', q: 'Ordena con las flechas los pasos del flujo de verificación (del primero al último).', s: ['Definir el propósito y los campos necesarios', 'Identificar la fuente de verdad', 'Validar al momento de captura', 'Comparar y conciliar con otras fuentes', 'Corregir con trazabilidad'], e: 'Orden: propósito → fuente de verdad → validación en captura → conciliación → corrección con registro de qué, quién, cuándo y por qué.' },
+      { t: 'single', k: 'Cálculos', q: 'Ventas tuvo 33 días perdidos, 25 empleados y 22 días laborales. Con ausentismo = días perdidos ÷ (empleados × días laborales) × 100, ¿cuál es el resultado correcto?', o: ['6,0 %', '7,5 %', '1,3 %', '132 %'], e: '33 ÷ (25 × 22) × 100 = 6,0 %. El 7,5 % sale de usar 20 empleados del mes anterior: error de denominador.' },
+      { t: 'tf', k: 'Protección de datos', q: 'Sobre la Ley 1581 de 2012 y el manejo de datos, marca verdadero o falso.', r: [['La información debe ser veraz, completa, exacta, actualizada, comprobable y comprensible.', 1], ['Conviene enviar la base completa por correo aunque baste un reporte agregado.', 0], ['Las personas pueden conocer, actualizar y rectificar su información.', 1]], e: 'La ley exige calidad del dato y reconoce derechos de los titulares; se comparte lo mínimo necesario y solo con autorizados.' },
+      { t: 'sel', k: 'Técnicas de validación', q: 'Elige la técnica que valida cada parámetro en un sistema de información.', opts: ['Pruebas unitarias con casos extremos', 'Intentar entrar con un usuario de rol inferior', 'Medir el tiempo de respuesta en Network', 'Cambiar un estado y revisarlo en todos los módulos'], r: [['Cálculos', 'Pruebas unitarias con casos extremos'], ['Alcance', 'Intentar entrar con un usuario de rol inferior'], ['Oportunidad', 'Medir el tiempo de respuesta en Network'], ['Coherencia', 'Cambiar un estado y revisarlo en todos los módulos']], e: 'Cálculos → unit testing; Alcance → matriz de roles; Oportunidad → latencia; Coherencia → flujo cruzado entre módulos.' },
+      { t: 'memory', k: 'Indicadores de calidad', q: 'Concéntrese: une cada indicador con su fórmula.', p: [['Completitud', 'Con campos obligatorios ÷ total × 100'], ['Exactitud', 'Coinciden con la fuente ÷ revisados × 100'], ['Oportunidad', 'Novedades en plazo ÷ total × 100'], ['Duplicidad', 'Duplicados ÷ total × 100']], e: 'Si 186 de 200 expedientes tienen todos los campos, la completitud es 93 %.' },
+      { t: 'single', k: 'Corrección con trazabilidad', q: 'Un informe de ausentismo tiene cinco personas duplicadas, tres incapacidades omitidas y un denominador del mes anterior. ¿Qué debe entregarse?', o: ['Versión corregida, bitácora de cambios, limitaciones y recomendación para no repetir el error', 'Solo el porcentaje corregido', 'El mismo informe con una nota verbal', 'Eliminar los registros dudosos sin dejar rastro'], e: 'Corregir exige trazabilidad: qué se cambió, quién, cuándo, por qué y con qué soporte.' }
+    ];
+
+    const TA_H = ['Ref', 'Nombre', 'Documento', 'Cargo (sistema)', 'Cargo (contrato)', 'Ingreso', 'Retiro', 'Estado RR.HH.', 'Acceso', 'Últ. act. contacto', 'Soporte'];
+    const TA = [['A1', 'Ana Pérez', '1.023.456.789', 'Auxiliar administrativa', 'Analista', '2023-03-01', '—', 'Activo', 'Activo', '2026-05-10', 'Contrato firmado'], ['A2', 'Ana M. Pérez', '1.023.456.789', 'Analista', 'Analista', '2023-03-01', '—', 'Activo', 'Activo', '2026-05-10', 'Contrato firmado'], ['A3', 'Luis Gómez', '79.845.120', 'Analista de nómina', 'Analista de nómina', '2025-08-15', '2025-05-30', 'Retirado', 'Retirado', '2025-06-01', 'Contrato firmado'], ['A4', 'María Rojas', '52.310.778', 'Coordinadora', 'Coordinadora', '2021-01-10', '—', 'Activo', 'Activo', '2022-02-05', 'Contrato firmado'], ['A5', 'Carlos Díaz', '80.112.334', 'Auxiliar', 'Auxiliar', '2024-02-01', '2026-03-31', 'Retirado', 'Activo', '2026-03-31', 'Carta de retiro'], ['A6', 'Sofía Ríos', '—', 'Analista', 'Analista', '2025-04-07', '—', 'Activo', 'Activo', '2026-06-20', 'Contrato firmado'], ['A7', 'Pedro Salas', '1.032.998.771', 'Auxiliar', 'Auxiliar', '2025-01-15', '—', 'Activo', 'Activo', '2026-02-11', 'Salario $1.850.000 editado a mano, sin aprobación'], ['A8', 'Julián Mora', '1.019.223.410', 'Asistente', 'Asistente', '2024-09-02', '—', 'Activo', 'Activo', '2026-07-30', 'Afiliación EPS: captura de WhatsApp reenviada']];
+    const TB_H = ['Ref', 'Novedad', 'Fecha del hecho', 'Fecha de registro', 'Cierre de nómina'];
+    const TB = [['B1', 'Incapacidad de J. Torres', '2026-09-02', '2026-09-28', '2026-09-25']];
+    const TC_H = ['Ref', 'Área', 'Empleados (mes actual)', 'Empleados usados en el cálculo', 'Días perdidos', '% ausentismo', 'Dirección de residencia', 'Salario'];
+    const TC = [['C1', 'Ventas', '25', '20', '33', '7,5 %', 'Cra. 15 # 80-10', '$2.400.000'], ['C2', 'Contabilidad', '18', '18', '12', '3,0 %', 'Cll. 45 # 20-31', '$3.100.000']];
+    const ERR = [['A1', 'Cargo del sistema distinto al contrato', 'Contenido', 'Corregir a «Analista» y conservar el soporte'], ['A2', 'Registro duplicado de A1', 'Contenido', 'Depurar el duplicado (unicidad)'], ['A6', 'Documento de identidad vacío', 'Contenido', 'Completar el campo obligatorio'], ['A4', 'Contacto sin actualizar desde 2022', 'Vigencia', 'Solicitar actualización y fijar periodicidad'], ['C1-C2 (cols.)', 'Dirección y salario innecesarios para el informe', 'Pertinencia', 'Eliminar columnas no requeridas'], ['B1', 'Incapacidad registrada tras el cierre de nómina', 'Oportunidad', 'Reprocesar y definir plazo máximo de registro'], ['A3', 'Fecha de retiro anterior a la de ingreso', 'Coherencia', 'Corregir con el contrato como fuente de verdad'], ['A5', 'Retirado en RR.HH. pero con acceso activo', 'Coherencia', 'Inactivar acceso y conciliar sistemas'], ['A7', 'Salario editado sin aprobación', 'Soporte', 'Anexar aprobación válida o revertir'], ['A8', 'Afiliación sustentada en captura reenviada', 'Fuente', 'Solicitar certificado oficial'], ['C1', '7,5 % calculado con 20 empleados: correcto 33÷(25×22)=6,0 %', 'Cálculos', 'Recalcular con el denominador del mes'], ['Nota 1', 'Plantilla sin validaciones, protección ni respaldo', 'Recursos', 'Usar listas controladas, permisos y copias'], ['Nota 2', 'Título «anual» con datos ene–jun e incluye contratistas', 'Alcance', 'Delimitar período y población'], ['Nota 3', 'Enviado a la lista general de correo', 'Difusión', 'Enviar resumen agregado a personas autorizadas']];
+
+    // ---------- Registro del aprendiz (capturado en index.html) ----------
+    const REG_KEY = 'sena_registro_aprendiz';
+    const REG_DEFAULTS = {
+      programa: 'Programa Técnico en Talento Humano',
+      centro: 'Centro de Gestión Administrativa',
+      regional: 'Regional Distrito Capital'
+    };
+    function loadRegistro() {
+      // 1) Datos recién enviados desde index.html en el enlace (#registro=...)
+      try {
+        const m = location.hash.match(/^#registro=(.+)$/);
+        if (m) {
+          const d = JSON.parse(decodeURIComponent(m[1]));
+          if (d && d.nombre) {
+            try { localStorage.setItem(REG_KEY, JSON.stringify(d)); } catch (e) { /* ignore */ }
+            try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { /* ignore */ }
+            return d;
+          }
+        }
+      } catch (e) { /* hash inválido */ }
+      // 2) Último registro guardado en este navegador
+      try {
+        const raw = localStorage.getItem(REG_KEY);
+        if (raw) return JSON.parse(raw);
+      } catch (e) { /* localStorage unavailable */ }
+      return null;
+    }
+    let REGISTRO = loadRegistro();
+
+    // ---------- Persisted dashboard data ----------
+    const DASH_KEY = 'vdi_dashboard_v1';
+    function loadDash() {
+      try {
+        const raw = localStorage.getItem(DASH_KEY);
+        if (raw) return JSON.parse(raw);
+      } catch (e) { /* localStorage unavailable */ }
+      return null;
+    }
+    let DASH = loadDash() || {
+      evalHistory: [],
+      gameHistory: [],
+      typeStats: { fund: { correct: 0, wrong: 0 }, integ: { correct: 0, wrong: 0 }, tec: { correct: 0, wrong: 0 } }
+    };
+    function saveDash() {
+      try { localStorage.setItem(DASH_KEY, JSON.stringify(DASH)); } catch (e) { /* ignore */ }
+    }
+
+    // ---------- Navigation ----------
+    const tabButtons = document.querySelectorAll('#tabs button[data-section]');
+    const sections = document.querySelectorAll('main > section');
+    function goTo(name) {
+      tabButtons.forEach(b => b.classList.toggle('active', b.dataset.section === name));
+      sections.forEach(s => s.classList.toggle('active', s.dataset.section === name));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (name === 'dashboard') renderDashboard();
+    }
+    tabButtons.forEach(b => b.addEventListener('click', () => goTo(b.dataset.section)));
+    document.querySelectorAll('[data-goto]').forEach(b => {
+      b.addEventListener('click', () => goTo(b.dataset.goto));
+    });
+
+    // ---------- Evaluador sub-nav ----------
+    const evalSubButtons = document.querySelectorAll('#evalSubnav button');
+    const evalPanels = { general: document.getElementById('evalGeneralPanel'), tecnico: document.getElementById('evalTecnicoPanel') };
+    evalSubButtons.forEach(b => b.addEventListener('click', () => {
+      evalSubButtons.forEach(x => x.classList.toggle('active', x === b));
+      Object.entries(evalPanels).forEach(([key, panel]) => panel.classList.toggle('active', key === b.dataset.eval));
+    }));
+
+
+    // ---------- Motor de preguntas interactivas (ninguna bloquea a las demás) ----------
+    const shuf = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[a[i], a[j]] = [a[j], a[i]]; } return a; };
+    const uid = () => 'n' + Math.random().toString(36).slice(2);
+    const fr = (c, n) => c === n ? 2 : (c >= n / 2 ? 1 : 0);
+    const Q = {
+      single(q, box) {
+        const nm = uid(), o = shuf(q.o.map((t, i) => ({ t, i })));
+        box.innerHTML = '<div class="q-opts">' + o.map(x => '<label><input type="radio" name="' + nm + '" value="' + x.i + '"> ' + x.t + '</label>').join('') + '</div>';
+        const cur = () => box.querySelector('input:checked');
+        return { done: () => !!cur(), grade: () => cur() && +cur().value === 0 ? 2 : 0 };
+      },
+      tf(q, box) {
+        const nm = uid();
+        box.innerHTML = q.r.map((r, i) => '<div class="tfrow"><span>' + r[0] + '</span><div class="scale"><label><input type="radio" name="' + nm + i + '" value="1"> Verdadero</label><label><input type="radio" name="' + nm + i + '" value="0"> Falso</label></div></div>').join('');
+        const v = i => { const s = box.querySelector('input[name="' + nm + i + '"]:checked'); return s ? +s.value : -1; };
+        return { done: () => q.r.every((r, i) => v(i) >= 0), grade: () => fr(q.r.filter((r, i) => v(i) === r[1]).length, q.r.length) };
+      },
+      sel(q, box) {
+        box.innerHTML = q.r.map(r => '<div class="selrow"><span>' + r[0] + '</span><select><option value="">— elige —</option>' + shuf(q.opts).map(o => '<option>' + o + '</option>').join('') + '</select></div>').join('');
+        const S = () => Array.from(box.querySelectorAll('select'));
+        return { done: () => S().every(s => s.value), grade: () => fr(S().filter((s, i) => s.value === q.r[i][1]).length, q.r.length) };
+      },
+      drag(q, box) {
+        const cs = shuf(q.cs), pl = cs.map(() => -1); let sel = -1;
+        box.innerHTML = '<div class="pool" data-z="-1"></div><div class="zones">' + q.z.map((z, i) => '<div class="zone" data-z="' + i + '"><h5>' + z + '</h5></div>').join('') + '</div>';
+        const draw = () => {
+          box.querySelectorAll('.dcard').forEach(e => e.remove());
+          cs.forEach((c, i) => {
+            const e = document.createElement('div');
+            e.className = 'dcard' + (i === sel ? ' sel' : ''); e.textContent = c[0]; e.draggable = true;
+            e.ondragstart = ev => { ev.dataTransfer.setData('text', String(i)); };
+            e.onclick = ev => { ev.stopPropagation(); sel = sel === i ? -1 : i; draw(); };
+            box.querySelector('[data-z="' + pl[i] + '"]').appendChild(e);
+          });
+        };
+        box.querySelectorAll('[data-z]').forEach(z => {
+          z.ondragover = e => { e.preventDefault(); z.classList.add('over'); };
+          z.ondragleave = () => z.classList.remove('over');
+          z.ondrop = e => { e.preventDefault(); z.classList.remove('over'); const i = parseInt(e.dataTransfer.getData('text'), 10); if (i >= 0 && i < cs.length) { pl[i] = +z.dataset.z; sel = -1; draw(); } };
+          z.onclick = () => { if (sel >= 0) { pl[sel] = +z.dataset.z; sel = -1; draw(); } };
+        });
+        draw();
+        return { done: () => pl.every(p => p >= 0), grade: () => fr(cs.filter((c, i) => pl[i] === c[1]).length, cs.length) };
+      },
+      memory(q, box) {
+        const cs = shuf(q.p.flatMap((p, i) => [{ i, t: p[0] }, { i, t: p[1] }])); let open = [], done = new Set(), tm;
+        box.innerHTML = '<div class="mem"></div>'; const g = box.firstChild;
+        const draw = () => {
+          g.innerHTML = '';
+          cs.forEach((c, k) => {
+            const b = document.createElement('button'), shown = done.has(c.i) || open.includes(k);
+            b.type = 'button'; b.className = 'mcard' + (done.has(c.i) ? ' done' : open.includes(k) ? ' open' : ''); b.textContent = shown ? c.t : '?';
+            b.onclick = () => {
+              if (done.has(c.i) || open.includes(k)) return;
+              if (open.length >= 2) open = [];
+              open.push(k);
+              if (open.length === 2 && cs[open[0]].i === cs[open[1]].i) { done.add(c.i); open = []; }
+              clearTimeout(tm);
+              if (open.length === 2) tm = setTimeout(() => { open = []; draw(); }, 1200);
+              draw();
+            };
+            g.appendChild(b);
+          });
+        };
+        draw();
+        return { done: () => done.size > 0, grade: () => fr(done.size, q.p.length) };
+      },
+      order(q, box) {
+        let a = q.s.map((t, i) => i), touched = false;
+        do { a = shuf(a); } while (a.every((v, i) => v === i));
+        const draw = () => { box.innerHTML = a.map((v, p) => '<div class="ord"><b>' + (p + 1) + '.</b><span>' + q.s[v] + '</span><button type="button" data-m="' + p + '" data-d="-1">↑</button><button type="button" data-m="' + p + '" data-d="1">↓</button></div>').join(''); };
+        box.onclick = e => {
+          const b = e.target.closest('button[data-m]'); if (!b) return;
+          const p = +b.dataset.m, n = p + +b.dataset.d; if (n < 0 || n >= a.length) return;
+          [a[p], a[n]] = [a[n], a[p]]; touched = true; draw();
+        };
+        draw();
+        return { done: () => touched, grade: () => { const c = a.filter((v, i) => v === i).length; return c === a.length ? 2 : (c >= Math.ceil(a.length / 2) ? 1 : 0); } };
+      }
+    };
+
+    function setupEval(formId, qs) {
+      const form = document.getElementById(formId), max = +form.dataset.max, kind = form.dataset.kind;
+      const vb = document.getElementById('verdict-' + formId), wrap = form.querySelector('.qs'), warn = form.querySelector('.warn');
+      let H = [];
+      const build = () => {
+        wrap.innerHTML = ''; warn.textContent = ''; form.dataset.warned = '';
+        vb.classList.remove('show', 'low', 'mid', 'high');
+        H = qs.map((q, i) => {
+          const c = document.createElement('div'); c.className = 'criteria';
+          c.innerHTML = '<h4>' + (i + 1) + '. ' + q.k + '</h4><p>' + q.q + '</p><div class="qb"></div><div class="q-exp" style="display:none"></div>';
+          wrap.appendChild(c);
+          return Object.assign(Q[q.t](q, c.querySelector('.qb')), { c });
+        });
+      };
+      build();
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        const miss = H.filter(h => !h.done()).length;
+        if (miss && form.dataset.warned !== '1') {
+          form.dataset.warned = '1';
+          warn.textContent = 'Hay ' + miss + ' pregunta(s) sin responder o incompletas (cuentan 0). Sigue respondiendo o pulsa «Ver veredicto» otra vez para calificar así.';
+          return;
+        }
+        warn.textContent = ''; form.dataset.warned = '';
+        let total = 0; const weak = [];
+        H.forEach((h, i) => {
+          const s = h.grade(); total += s;
+          const ex = h.c.querySelector('.q-exp'); ex.style.display = 'block'; ex.className = 'q-exp ' + (s === 2 ? 'ok' : 'bad');
+          ex.textContent = (s === 2 ? '✅ Correcto. ' : s === 1 ? '🟡 Parcial. ' : '❌ Incorrecto. ') + qs[i].e;
+          if (s < 2) weak.push(qs[i].k);
+        });
+        vb.classList.remove('low', 'mid', 'high');
+        const lowCut = Math.round(max * 0.42), midCut = Math.round(max * 0.78);
+        let key, tt, tx;
+        if (total <= lowCut) { key = 'low'; tt = '🔴 Dominio bajo (' + total + '/' + max + ')'; tx = 'Aún confundes varios parámetros. Repasa el material principal y el mapa mental y vuelve a intentarlo.'; }
+        else if (total <= midCut) { key = 'mid'; tt = '🟡 Dominio medio (' + total + '/' + max + ')'; tx = 'Vas bien, pero conviene reforzar los puntos marcados antes de verificar información real.'; }
+        else { key = 'high'; tt = '🟢 Dominio alto (' + total + '/' + max + ')'; tx = 'Aplicas los parámetros con criterio. Ya puedes auditar información de talento humano.'; }
+        vb.classList.add(key, 'show');
+        vb.querySelector('.v-title').textContent = tt; vb.querySelector('.v-text').textContent = tx;
+        vb.querySelector('.v-weak').textContent = weak.length ? 'Puntos a reforzar: ' + weak.join(', ') + '.' : 'No se detectaron puntos débiles.';
+        DASH.evalHistory.push({ ts: Date.now(), kind, total, max, verdict: key, weak }); saveDash();
+        vb.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+      const resetBtn = form.querySelector('[data-reset]'); if (resetBtn) resetBtn.addEventListener('click', build);
+    }
+    setupEval('evalFormGeneral', QG);
+    setupEval('evalFormTecnico', QT);
+
+    // ---------- Actividad presencial: material imprimible ----------
+    const tbl = (h, rows) => '<table><thead><tr>' + h.map(x => '<th>' + x + '</th>').join('') + '</tr></thead><tbody>' + rows.map(r => '<tr>' + r.map(x => '<td>' + x + '</td>').join('') + '</tr>').join('') + '</tbody></table>';
+    document.getElementById('printAudit').innerHTML =
+      '<h2>Auditores de Byteon — Hoja del caso: Nébula S.A.S. (septiembre de 2026)</h2><p>Equipo: ____________________________ Integrantes: ______________________________________</p>' +
+      '<p>Revisen las tablas A, B y C. Marquen cada posible error con su referencia y ubíquenlo en un parámetro en la lista de chequeo.</p>' +
+      '<h3>A. Base de empleados (extracto)</h3>' + tbl(TA_H, TA) + '<h3>B. Novedades de nómina</h3>' + tbl(TB_H, TB) +
+      '<h3>C. Informe «Ausentismo anual 2026 — incluye contratistas» (datos enero–junio)</h3>' + tbl(TC_H, TC) +
+      '<p><small>Ausentismo = días perdidos ÷ (empleados × 22 días laborales) × 100. Nota 1: la plantilla se digita a mano en una hoja sin validaciones, protección ni copia de respaldo. Nota 2: el título y el período difieren. Nota 3: el archivo se envió a la lista general de correo de la empresa.</small></p>' +
+      '<div class="sheet"><h2>Lista de chequeo del equipo auditor</h2>' + tbl(['Parámetro', 'Pregunta de control', 'Sí / No / N.A.', 'Evidencia o hallazgo (ref.)', 'Corrección propuesta'], PARAMS.map(p => [p[0], p[1], '<br><br>', '', ''])) + '<p>Indicador propuesto por el equipo: ______________________________________________</p></div>' +
+      '<div class="answer-page"><h2>Hoja de respuestas (para el docente) — 14 hallazgos</h2>' + tbl(['Ref.', 'Hallazgo', 'Parámetro', 'Corrección esperada'], ERR) + '</div>';
+    document.getElementById('printBtn').addEventListener('click', () => { document.body.classList.add('printing-cards'); window.print(); });
+
+    // ---------- Mapa mental (SVG) ----------
+    function mapaSVG() {
+      const G = [[GN.fund, '#1F7A6C', ['Contenido', 'Vigencia', 'Pertinencia', 'Oportunidad']], [GN.integ, '#C68A2E', ['Coherencia', 'Soporte', 'Fuente']], [GN.tec, '#D65B4A', ['Cálculos', 'Recursos', 'Alcance', 'Difusión']]];
+      let s = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 450" style="width:100%;height:auto;display:block" font-family="Segoe UI,Arial,sans-serif"><rect width="900" height="450" fill="#F6F1E7"/><rect x="290" y="14" width="320" height="46" rx="23" fill="#14213D"/><text x="450" y="43" text-anchor="middle" fill="#fff" font-size="18" font-weight="800">Parámetros de verificación</text>';
+      G.forEach((g, i) => {
+        const x = 150 + i * 300;
+        s += '<path d="M450 60V84H' + x + 'V108" stroke="' + g[1] + '" stroke-width="2.5" fill="none"/><rect x="' + (x - 125) + '" y="108" width="250" height="44" rx="10" fill="' + g[1] + '"/><text x="' + x + '" y="136" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">' + g[0] + '</text>';
+        g[2].forEach((n, j) => {
+          const y = 180 + j * 62;
+          s += '<path d="M' + x + ' ' + (j ? y - 22 : 152) + 'V' + y + '" stroke="' + g[1] + '" stroke-width="2"/><rect x="' + (x - 90) + '" y="' + y + '" width="180" height="38" rx="8" fill="#fff" stroke="' + g[1] + '" stroke-width="2"/><text x="' + x + '" y="' + (y + 24) + '" text-anchor="middle" fill="#14213D" font-size="14" font-weight="600">' + n + '</text>';
+        });
+      });
+      return s + '</svg>';
+    }
+    const MAPA = mapaSVG();
+    document.getElementById('mapaBox').innerHTML = MAPA;
+    const mModal = document.getElementById('mapaModal');
+    const mToggle = on => { mModal.classList.toggle('active', on); mModal.setAttribute('aria-hidden', String(!on)); document.body.style.overflow = on ? 'hidden' : ''; if (on) document.getElementById('mapaModalBody').innerHTML = MAPA; };
+    document.getElementById('mapaViewer').addEventListener('click', () => mToggle(true));
+    document.getElementById('mapaModalClose').addEventListener('click', () => mToggle(false));
+    document.getElementById('mapaModalBackdrop').addEventListener('click', () => mToggle(false));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') mToggle(false); });
+    document.getElementById('mapaDl').addEventListener('click', () => {
+      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([MAPA], { type: 'image/svg+xml' })); a.download = 'mapa-mental-parametros.svg'; a.click();
+    });
+
+    // ---------- Juego ----------
+    let gameOrder = [];
+    let gameIndex = 0;
+    let gameScore = 0;
+
+    function shuffledIndices(n) {
+      const arr = Array.from({ length: n }, (_, i) => i);
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function startGame() {
+      gameOrder = shuffledIndices(ITEMS.length);
+      gameIndex = 0;
+      gameScore = 0;
+      document.getElementById('gamePlay').style.display = 'block';
+      document.getElementById('gameEnd').style.display = 'none';
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const item = ITEMS[gameOrder[gameIndex]];
+      document.getElementById('gameQuestion').textContent = item.text;
+      document.getElementById('gameProgressText').textContent = 'Pregunta ' + (gameIndex + 1) + ' de ' + ITEMS.length;
+      document.getElementById('gameScoreText').textContent = 'Aciertos: ' + gameScore;
+      document.getElementById('gameBar').style.width = Math.round((gameIndex / ITEMS.length) * 100) + '%';
+      const feedback = document.getElementById('gameFeedback');
+      feedback.classList.remove('show');
+      feedback.textContent = '';
+      document.getElementById('gameNextBtn').style.display = 'none';
+      document.querySelectorAll('#gameOptions button').forEach(btn => {
+        btn.disabled = false;
+        btn.classList.remove('correct', 'incorrect');
+      });
+    }
+
+    document.getElementById('gameOptions').addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-choice]');
+      if (!btn) return;
+      const item = ITEMS[gameOrder[gameIndex]];
+      const choice = btn.dataset.choice;
+      document.querySelectorAll('#gameOptions button').forEach(b => b.disabled = true);
+      const feedback = document.getElementById('gameFeedback');
+      feedback.classList.add('show');
+      if (choice === item.type) {
+        btn.classList.add('correct');
+        gameScore++;
+        feedback.textContent = '✅ Correcto. ' + item.explain;
+        DASH.typeStats[item.type].correct++;
+      } else {
+        btn.classList.add('incorrect');
+        document.querySelector('#gameOptions button[data-choice="' + item.type + '"]').classList.add('correct');
+        feedback.textContent = '❌ Era «' + GN[item.type] + '»' + '. ' + item.explain;
+        DASH.typeStats[item.type].wrong++;
+      }
+      saveDash();
+      document.getElementById('gameScoreText').textContent = 'Aciertos: ' + gameScore;
+      document.getElementById('gameNextBtn').style.display = 'inline-block';
+    });
+
+    document.getElementById('gameNextBtn').addEventListener('click', () => {
+      gameIndex++;
+      if (gameIndex >= ITEMS.length) {
+        document.getElementById('gamePlay').style.display = 'none';
+        document.getElementById('gameEnd').style.display = 'block';
+        document.getElementById('gameBar').style.width = '100%';
+        document.getElementById('gameFinalScore').textContent = gameScore;
+        const msgEl = document.getElementById('gameFinalMsg');
+        if (gameScore === ITEMS.length) {
+          msgEl.textContent = 'Puntaje perfecto. Dominas la clasificación de fuentes.';
+        } else if (gameScore >= ITEMS.length * 0.7) {
+          msgEl.textContent = 'Muy buen resultado. Repasa los casos donde fallaste en la sección "Los 11 parámetros".';
+        } else {
+          msgEl.textContent = 'Vale la pena repasar las definiciones antes de intentarlo de nuevo.';
+        }
+        DASH.gameHistory.push({ ts: Date.now(), score: gameScore, total: ITEMS.length });
+        saveDash();
+      } else {
+        renderQuestion();
+      }
+    });
+    document.getElementById('gameReplayBtn').addEventListener('click', startGame);
+    startGame();
+
+
+    // ================= DASHBOARD =================
+
+    // Simple donut chart built with stroke-dasharray segments on a circle.
+    function renderPieChart(containerId, slices) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = '';
+      const total = slices.reduce((s, x) => s + x.value, 0);
+      if (total <= 0) {
+        container.innerHTML = '<p class="empty-note">Aún no hay datos suficientes.</p>';
+        return;
+      }
+      const size = 150, r = 55, cx = size / 2, cy = size / 2, thickness = 26;
+      const circumference = 2 * Math.PI * r;
+      const svgNS = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(svgNS, 'svg');
+      svg.setAttribute('viewBox', '0 0 ' + size + ' ' + size);
+
+      const bg = document.createElementNS(svgNS, 'circle');
+      bg.setAttribute('cx', cx); bg.setAttribute('cy', cy); bg.setAttribute('r', r);
+      bg.setAttribute('fill', 'none'); bg.setAttribute('stroke', '#EDE7D8'); bg.setAttribute('stroke-width', thickness);
+      svg.appendChild(bg);
+
+      let offset = 0;
+      slices.forEach(sl => {
+        if (sl.value <= 0) return;
+        const frac = sl.value / total;
+        const len = frac * circumference;
+        const circle = document.createElementNS(svgNS, 'circle');
+        circle.setAttribute('cx', cx); circle.setAttribute('cy', cy); circle.setAttribute('r', r);
+        circle.setAttribute('fill', 'none');
+        circle.setAttribute('stroke', sl.color);
+        circle.setAttribute('stroke-width', thickness);
+        circle.setAttribute('stroke-dasharray', len + ' ' + (circumference - len));
+        circle.setAttribute('stroke-dashoffset', -offset);
+        circle.setAttribute('transform', 'rotate(-90 ' + cx + ' ' + cy + ')');
+        svg.appendChild(circle);
+        offset += len;
+      });
+
+      const label = document.createElementNS(svgNS, 'text');
+      label.setAttribute('x', cx); label.setAttribute('y', cy + 5);
+      label.setAttribute('text-anchor', 'middle');
+      label.setAttribute('font-size', '15');
+      label.setAttribute('font-weight', '800');
+      label.setAttribute('fill', '#14213D');
+      label.textContent = total;
+      svg.appendChild(label);
+
+      const wrap = document.createElement('div');
+      wrap.className = 'pie-wrap';
+      wrap.appendChild(svg);
+      const legend = document.createElement('div');
+      legend.className = 'legend';
+      slices.forEach(sl => {
+        const pct = total > 0 ? Math.round((sl.value / total) * 100) : 0;
+        const row = document.createElement('div');
+        row.innerHTML = '<span class="sw" style="background:' + sl.color + '"></span>' + sl.label + ': <strong>' + sl.value + '</strong> (' + pct + '%)';
+        legend.appendChild(row);
+      });
+      wrap.appendChild(legend);
+      container.appendChild(wrap);
+    }
+
+    // Simple / grouped vertical bar chart.
+    function renderBarChart(containerId, categories, series, maxOverride) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = '';
+      const allValues = series.flatMap(s => s.data);
+      const hasData = allValues.some(v => v > 0);
+      if (!hasData) {
+        container.innerHTML = '<p class="empty-note">Aún no hay datos suficientes.</p>';
+        return;
+      }
+      const maxVal = maxOverride || Math.max(1, ...allValues);
+      const width = 380, height = 210, padLeft = 28, padBottom = 34, padTop = series.length > 1 ? 26 : 12;
+      const chartW = width - padLeft - 10;
+      const chartH = height - padBottom - padTop;
+      const groupW = chartW / categories.length;
+      const barW = Math.min(30, (groupW - 14) / series.length);
+      const svgNS = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(svgNS, 'svg');
+      svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
+
+      [0, 0.25, 0.5, 0.75, 1].forEach(f => {
+        const y = padTop + chartH - f * chartH;
+        const line = document.createElementNS(svgNS, 'line');
+        line.setAttribute('x1', padLeft); line.setAttribute('x2', width - 6);
+        line.setAttribute('y1', y); line.setAttribute('y2', y);
+        line.setAttribute('stroke', '#EDE7D8'); line.setAttribute('stroke-width', 1);
+        svg.appendChild(line);
+        const txt = document.createElementNS(svgNS, 'text');
+        txt.setAttribute('x', 2); txt.setAttribute('y', y + 3);
+        txt.setAttribute('font-size', '9'); txt.setAttribute('fill', '#5B6472');
+        txt.textContent = Math.round(f * maxVal);
+        svg.appendChild(txt);
+      });
+
+      if (series.length > 1) {
+        series.forEach((s, si) => {
+          const lx = padLeft + si * 110;
+          const rect = document.createElementNS(svgNS, 'rect');
+          rect.setAttribute('x', lx); rect.setAttribute('y', 4); rect.setAttribute('width', 10); rect.setAttribute('height', 10);
+          rect.setAttribute('fill', s.color);
+          svg.appendChild(rect);
+          const txt = document.createElementNS(svgNS, 'text');
+          txt.setAttribute('x', lx + 14); txt.setAttribute('y', 13);
+          txt.setAttribute('font-size', '10'); txt.setAttribute('fill', '#1D2430');
+          txt.textContent = s.name;
+          svg.appendChild(txt);
+        });
+      }
+
+      categories.forEach((cat, ci) => {
+        const groupX = padLeft + ci * groupW;
+        series.forEach((s, si) => {
+          const val = s.data[ci] || 0;
+          const barH = (val / maxVal) * chartH;
+          const x = groupX + (groupW - series.length * barW) / 2 + si * barW;
+          const y = padTop + chartH - barH;
+          const rect = document.createElementNS(svgNS, 'rect');
+          rect.setAttribute('x', x); rect.setAttribute('y', y);
+          rect.setAttribute('width', Math.max(2, barW - 3)); rect.setAttribute('height', Math.max(0, barH));
+          rect.setAttribute('fill', s.color);
+          rect.setAttribute('rx', 2);
+          svg.appendChild(rect);
+          if (val > 0) {
+            const vt = document.createElementNS(svgNS, 'text');
+            vt.setAttribute('x', x + (barW - 3) / 2); vt.setAttribute('y', y - 4);
+            vt.setAttribute('font-size', '9'); vt.setAttribute('fill', '#1D2430'); vt.setAttribute('text-anchor', 'middle');
+            vt.textContent = val;
+            svg.appendChild(vt);
+          }
+        });
+        const lt = document.createElementNS(svgNS, 'text');
+        lt.setAttribute('x', groupX + groupW / 2); lt.setAttribute('y', height - 10);
+        lt.setAttribute('font-size', '10'); lt.setAttribute('fill', '#5B6472'); lt.setAttribute('text-anchor', 'middle');
+        lt.textContent = cat;
+        svg.appendChild(lt);
+      });
+
+      container.appendChild(svg);
+    }
+
+    function renderDashboard() {
+      const evalHistory = DASH.evalHistory;
+      const gameHistory = DASH.gameHistory;
+      const typeStats = DASH.typeStats;
+
+      const statsWrap = document.getElementById('dashStats');
+      const avgConfiabilidad = evalHistory.length
+        ? Math.round(evalHistory.reduce((s, e) => s + (e.total / e.max * 100), 0) / evalHistory.length)
+        : null;
+      const avgGameScore = gameHistory.length
+        ? (gameHistory.reduce((s, g) => s + g.score, 0) / gameHistory.length)
+        : null;
+      const bestGameScore = gameHistory.length ? Math.max(...gameHistory.map(g => g.score)) : null;
+
+      const stats = [
+        { label: 'Evaluaciones realizadas', value: evalHistory.length },
+        { label: 'Dominio promedio', value: avgConfiabilidad !== null ? avgConfiabilidad + '%' : '—' },
+        { label: 'Partidas jugadas', value: gameHistory.length },
+        { label: 'Aciertos promedio', value: avgGameScore !== null ? avgGameScore.toFixed(1) + '/12' : '—' },
+        { label: 'Mejor partida', value: bestGameScore !== null ? bestGameScore + '/12' : '—' }
+      ];
+      statsWrap.innerHTML = stats.map(s =>
+        '<div class="stat-card"><div class="stat-value">' + s.value + '</div><div class="stat-label">' + s.label + '</div></div>'
+      ).join('');
+
+      const gameCategories = gameHistory.map((g, i) => 'P' + (i + 1));
+      renderBarChart('chartGameBar', gameCategories, [
+        { name: 'Aciertos', color: '#1F7A6C', data: gameHistory.map(g => g.score) }
+      ], 12);
+
+      function countVerdicts(kind) {
+        const subset = evalHistory.filter(e => e.kind === kind);
+        return ['low', 'mid', 'high'].map(v => subset.filter(e => e.verdict === v).length);
+      }
+      renderBarChart('chartEvalBar', ['Bajo', 'Medio', 'Alto'], [
+        { name: 'General', color: '#1F7A6C', data: countVerdicts('general') },
+        { name: 'Técnico', color: '#C68A2E', data: countVerdicts('tecnico') }
+      ]);
+
+      const totalCorrect = Object.values(typeStats).reduce((s, t) => s + t.correct, 0);
+      const totalWrong = Object.values(typeStats).reduce((s, t) => s + t.wrong, 0);
+      renderPieChart('chartGamePie', [
+        { label: 'Aciertos', value: totalCorrect, color: '#1F7A6C' },
+        { label: 'Errores', value: totalWrong, color: '#D65B4A' }
+      ]);
+
+      renderPieChart('chartTypePie', [
+        { label: 'Fundamentos', value: typeStats.fund.wrong, color: '#1F7A6C' },
+        { label: 'Integridad', value: typeStats.integ.wrong, color: '#C68A2E' },
+        { label: 'Técnicos', value: typeStats.tec.wrong, color: '#D65B4A' }
+      ]);
+
+      // ---------- Recompensa NEX ----------
+      const NEX_MAX = 100000, NEX_EVAL = 50000, NEX_GAME = 50000;
+      const doneGeneral = evalHistory.some(e => e.kind === 'general');
+      const doneTecnico = evalHistory.some(e => e.kind === 'tecnico');
+      const nexEval = (doneGeneral ? NEX_EVAL / 2 : 0) + (doneTecnico ? NEX_EVAL / 2 : 0);
+      const bestScoreVal = bestGameScore !== null ? bestGameScore : 0;
+      const nexGame = Math.round((bestScoreVal / ITEMS.length) * NEX_GAME);
+      const nexTotal = nexEval + nexGame;
+      const fmt = n => n.toLocaleString('es-CO');
+      document.getElementById('nexAmount').textContent = fmt(nexTotal);
+      document.getElementById('nexBig').textContent = fmt(nexTotal);
+      document.getElementById('nexFill').style.width = Math.round(nexTotal / NEX_MAX * 100) + '%';
+      document.getElementById('nexBreak').innerHTML =
+        '<div><b>Evaluador general:</b> ' + (doneGeneral ? '✓ completado' : 'pendiente') + ' · ' + fmt(doneGeneral ? NEX_EVAL / 2 : 0) + ' / ' + fmt(NEX_EVAL / 2) + ' NEXs</div>' +
+        '<div><b>Evaluador técnico:</b> ' + (doneTecnico ? '✓ completado' : 'pendiente') + ' · ' + fmt(doneTecnico ? NEX_EVAL / 2 : 0) + ' / ' + fmt(NEX_EVAL / 2) + ' NEXs</div>' +
+        '<div><b>Juego (mejor partida):</b> ' + bestScoreVal + '/' + ITEMS.length + ' · ' + fmt(nexGame) + ' / ' + fmt(NEX_GAME) + ' NEXs</div>';
+      const box = document.getElementById('rewardBox');
+      const complete = nexTotal >= NEX_MAX;
+      box.classList.toggle('complete', complete);
+      document.getElementById('nexStatus').textContent = complete
+        ? '🏆 ¡Reto completado! Eres jefe de investigación grado 1.'
+        : (nexTotal === 0
+          ? 'Aún no has iniciado el reto: completa evaluaciones y juega para ganar NEXs.'
+          : 'Reto en progreso: te faltan ' + fmt(NEX_MAX - nexTotal) + ' NEXs para ser jefe de investigación grado 1.');
+
+      const analysisEval = document.getElementById('analysisEval');
+      if (evalHistory.length === 0) {
+        analysisEval.textContent = 'Aún no has usado el Evaluador. Completa al menos una evaluación para ver aquí tu dominio promedio y tus puntos débiles más frecuentes.';
+      } else {
+        const nGeneral = evalHistory.filter(e => e.kind === 'general').length;
+        const nTecnico = evalHistory.filter(e => e.kind === 'tecnico').length;
+        const weakCounts = {};
+        evalHistory.forEach(e => e.weak.forEach(w => { weakCounts[w] = (weakCounts[w] || 0) + 1; }));
+        const sortedWeak = Object.entries(weakCounts).sort((a, b) => b[1] - a[1]);
+        let txt = 'Has completado ' + evalHistory.length + ' evaluaciones (' + nGeneral + ' generales y ' + nTecnico + ' técnicas), con una dominio promedio de ' + avgConfiabilidad + '%. ';
+        if (sortedWeak.length) {
+          txt += 'El criterio que más se repite como débil es "' + sortedWeak[0][0] + '" (' + sortedWeak[0][1] + ' veces). Conviene reforzar ese aspecto antes de apoyarte en un parámetro.';
+        } else {
+          txt += 'No se han registrado criterios débiles recurrentes: buen nivel de exigencia al evaluar.';
+        }
+        analysisEval.textContent = txt;
+      }
+
+      const analysisGame = document.getElementById('analysisGame');
+      if (gameHistory.length === 0) {
+        analysisGame.textContent = 'Aún no has jugado "Clasifica el parámetro". Juega al menos una partida para ver aquí tu promedio de aciertos y en qué tipo de fuente te confundes más.';
+      } else {
+        const avgPct = Math.round((avgGameScore / 12) * 100);
+        let txt = 'Has jugado ' + gameHistory.length + ' partida' + (gameHistory.length === 1 ? '' : 's') + ', con un promedio de ' + avgGameScore.toFixed(1) + '/12 aciertos (' + avgPct + '%). ';
+        const wrongEntries = Object.entries(typeStats).map(([type, s]) => [type, s.wrong]).filter(([, w]) => w > 0).sort((a, b) => b[1] - a[1]);
+        if (wrongEntries.length) {
+          txt += 'El grupo que más se confunde es "' + GN[wrongEntries[0][0]] + '", con ' + wrongEntries[0][1] + ' error' + (wrongEntries[0][1] === 1 ? '' : 'es') + ' registrado' + (wrongEntries[0][1] === 1 ? '' : 's') + '. Repasa esa categoría en la sección "Los 11 parámetros".';
+        } else {
+          txt += 'No se han registrado errores por tipo de fuente: buen dominio de la clasificación.';
+        }
+        analysisGame.textContent = txt;
+      }
+    }
+
+    document.getElementById('resetDashBtn').addEventListener('click', () => {
+      if (!confirm('¿Borrar todo el historial de evaluaciones y partidas guardado en este navegador?')) return;
+      DASH = { evalHistory: [], gameHistory: [], typeStats: { fund: { correct: 0, wrong: 0 }, integ: { correct: 0, wrong: 0 }, tec: { correct: 0, wrong: 0 } } };
+      saveDash();
+      renderDashboard();
+    });
+
+    // ---------- Reporte Institucional y Dashboard para Impresión ----------
+    function populatePrintReport() {
+      // Asegura que gráficos y análisis estén actualizados antes de copiarlos al reporte
+      renderDashboard();
+
+      // 0. Registro del aprendiz (index.html)
+      REGISTRO = loadRegistro() || REGISTRO;
+      const reg = REGISTRO || {};
+      const setReg = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value || ''; };
+      setReg('regNombre', reg.nombre);
+      setReg('regDocumento', reg.documento);
+      setReg('regFicha', reg.ficha);
+      setReg('regPrograma', reg.programa || REG_DEFAULTS.programa);
+      setReg('regCentro', reg.centro || REG_DEFAULTS.centro);
+      setReg('regRegional', reg.regional || REG_DEFAULTS.regional);
+
+      // Gráficos del dashboard
+      const chartsWrap = document.getElementById('reportCharts');
+      if (chartsWrap) {
+        chartsWrap.innerHTML = ['chartGameBar', 'chartEvalBar', 'chartGamePie', 'chartTypePie'].map(id => {
+          const src = document.getElementById(id);
+          const title = src && src.previousElementSibling ? src.previousElementSibling.textContent : '';
+          return '<div class="report-chart"><h4>' + title + '</h4>' + (src ? src.innerHTML : '') + '</div>';
+        }).join('');
+      }
+
+      const evalHistory = DASH.evalHistory || [];
+      const gameHistory = DASH.gameHistory || [];
+      const typeStats = DASH.typeStats || { fund: { correct: 0, wrong: 0 }, integ: { correct: 0, wrong: 0 }, tec: { correct: 0, wrong: 0 } };
+      const fmt = n => (n || 0).toLocaleString('es-CO');
+
+      // 1. Fecha de emisión
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('es-CO', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+      const reportDateEl = document.getElementById('reportDate');
+      if (reportDateEl) reportDateEl.textContent = dateStr;
+
+      // 2. Métricas globales
+      const avgConfiabilidad = evalHistory.length
+        ? Math.round(evalHistory.reduce((s, e) => s + (e.total / e.max * 100), 0) / evalHistory.length)
+        : null;
+      const avgGameScore = gameHistory.length
+        ? (gameHistory.reduce((s, g) => s + g.score, 0) / gameHistory.length)
+        : null;
+      const bestGameScore = gameHistory.length ? Math.max(...gameHistory.map(g => g.score)) : null;
+
+      const totalCorrect = Object.values(typeStats).reduce((s, t) => s + (t.correct || 0), 0);
+      const totalWrong = Object.values(typeStats).reduce((s, t) => s + (t.wrong || 0), 0);
+      const totalAnswers = totalCorrect + totalWrong;
+      const accuracyPct = totalAnswers > 0 ? Math.round((totalCorrect / totalAnswers) * 100) : null;
+
+      const statsGrid = document.getElementById('reportStatsGrid');
+      if (statsGrid) {
+        statsGrid.innerHTML = `
+          <div class="report-stat-card">
+            <div class="report-stat-value">${evalHistory.length}</div>
+            <div class="report-stat-label">Evaluaciones</div>
+          </div>
+          <div class="report-stat-card">
+            <div class="report-stat-value">${avgConfiabilidad !== null ? avgConfiabilidad + '%' : '-'}</div>
+            <div class="report-stat-label">Dominio Promedio</div>
+          </div>
+          <div class="report-stat-card">
+            <div class="report-stat-value">${gameHistory.length}</div>
+            <div class="report-stat-label">Partidas Jugadas</div>
+          </div>
+          <div class="report-stat-card">
+            <div class="report-stat-value">${avgGameScore !== null ? avgGameScore.toFixed(1) + '/12' : '-'}</div>
+            <div class="report-stat-label">Aciertos Promedio</div>
+          </div>
+          <div class="report-stat-card">
+            <div class="report-stat-value">${accuracyPct !== null ? accuracyPct + '%' : (bestGameScore !== null ? bestGameScore + '/12' : '-')}</div>
+            <div class="report-stat-label">Precisión Global</div>
+          </div>
+        `;
+      }
+
+      // 3. Recompensa NEXs
+      const NEX_MAX = 100000, NEX_EVAL = 50000, NEX_GAME = 50000;
+      const doneGeneral = evalHistory.some(e => e.kind === 'general');
+      const doneTecnico = evalHistory.some(e => e.kind === 'tecnico');
+      const nexEval = (doneGeneral ? NEX_EVAL / 2 : 0) + (doneTecnico ? NEX_EVAL / 2 : 0);
+      const bestScoreVal = bestGameScore !== null ? bestGameScore : 0;
+      const nexGame = Math.round((bestScoreVal / ITEMS.length) * NEX_GAME);
+      const nexTotal = nexEval + nexGame;
+      const isComplete = nexTotal >= NEX_MAX;
+
+      const rewardCard = document.getElementById('reportRewardCard');
+      if (rewardCard) {
+        rewardCard.innerHTML = `
+          <div class="report-reward-box">
+            <h4>🌟 Jefe de investigación grado 1 &mdash; Sistema de Recompensas</h4>
+            <p><strong>NEXs Acumulados:</strong> ${fmt(nexTotal)} / ${fmt(NEX_MAX)} NEXs (${Math.round(nexTotal / NEX_MAX * 100)}%) &bull; <em>${isComplete ? '¡Reto Completado con Éxito!' : 'Reto en progreso'}</em></p>
+            <div class="report-reward-pills">
+              <div class="report-reward-pill"><b>Evaluador general:</b> ${doneGeneral ? '✓ Completado' : 'Pendiente'} (${fmt(doneGeneral ? NEX_EVAL / 2 : 0)} NEXs)</div>
+              <div class="report-reward-pill"><b>Evaluador técnico:</b> ${doneTecnico ? '✓ Completado' : 'Pendiente'} (${fmt(doneTecnico ? NEX_EVAL / 2 : 0)} NEXs)</div>
+              <div class="report-reward-pill"><b>Juego (Mejor Partida):</b> ${bestScoreVal}/12 (${fmt(nexGame)} NEXs)</div>
+            </div>
+          </div>
+        `;
+      }
+
+      // 4. Análisis Cualitativo
+      const analysisEvalSrc = document.getElementById('analysisEval');
+      const analysisGameSrc = document.getElementById('analysisGame');
+      const repEval = document.getElementById('reportAnalysisEval');
+      const repGame = document.getElementById('reportAnalysisGame');
+      if (repEval) repEval.textContent = analysisEvalSrc ? analysisEvalSrc.textContent : 'Sin registros de evaluación.';
+      if (repGame) repGame.textContent = analysisGameSrc ? analysisGameSrc.textContent : 'Sin partidas registradas.';
+
+      // 5. Categorías
+      const catTable = document.getElementById('reportCategoryTable');
+      if (catTable) {
+        catTable.innerHTML = `
+          <table class="report-table">
+            <thead>
+              <tr>
+                <th>Grupo de parámetros</th>
+                <th>Aciertos</th>
+                <th>Errores</th>
+                <th>Total Clasificaciones</th>
+                <th>Efectividad</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${['fund', 'integ', 'tec'].map(cat => {
+          const c = typeStats[cat] ? typeStats[cat].correct : 0;
+          const w = typeStats[cat] ? typeStats[cat].wrong : 0;
+          const tot = c + w;
+          const pct = tot > 0 ? Math.round((c / tot) * 100) + '%' : '-';
+          const label = cat === 'fund' ? 'Fundamentos' : (cat === 'integ' ? 'Integridad' : 'Técnicos');
+          return `
+                  <tr>
+                    <td><strong>${label}</strong></td>
+                    <td style="color:#065F46; font-weight:700;">${c}</td>
+                    <td style="color:#991B1B; font-weight:700;">${w}</td>
+                    <td>${tot}</td>
+                    <td><strong>${pct}</strong></td>
+                  </tr>
+                `;
+        }).join('')}
+            </tbody>
+          </table>
+        `;
+      }
+
+      // 6. Historial de Evaluaciones
+      const evalWrap = document.getElementById('reportEvalTable');
+      if (evalWrap) {
+        if (evalHistory.length === 0) {
+          evalWrap.innerHTML = '<p style="font-size:8pt; color:#666; font-style:italic; margin:4px 0;">No se han registrado evaluaciones en este navegador.</p>';
+        } else {
+          evalWrap.innerHTML = `
+            <table class="report-table">
+              <thead>
+                <tr>
+                  <th style="width:25px;">#</th>
+                  <th>Fecha/Hora</th>
+                  <th>Tipo de Evaluación</th>
+                  <th>Puntaje Obtenido</th>
+                  <th>Dominio %</th>
+                  <th>Veredicto</th>
+                  <th>Aspectos a Reforzar</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${evalHistory.map((ev, idx) => {
+            const date = ev.ts ? new Date(ev.ts).toLocaleDateString('es-CO', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '-';
+            const kindLabel = ev.kind === 'general' ? 'Evaluador General' : 'Evaluador Técnico';
+            const pct = Math.round((ev.total / ev.max) * 100);
+            const verdictClass = ev.verdict === 'high' ? 'badge-high' : (ev.verdict === 'mid' ? 'badge-mid' : 'badge-low');
+            const verdictText = ev.verdict === 'high' ? 'Alto / Dominado' : (ev.verdict === 'mid' ? 'Medio / Reforzar' : 'Bajo / Repasar');
+            const weakText = ev.weak && ev.weak.length ? ev.weak.join(', ') : 'Ninguno (Excelente)';
+            return `
+                    <tr>
+                      <td>${idx + 1}</td>
+                      <td>${date}</td>
+                      <td><strong>${kindLabel}</strong></td>
+                      <td>${ev.total} / ${ev.max} pts</td>
+                      <td><strong>${pct}%</strong></td>
+                      <td><span class="report-badge ${verdictClass}">${verdictText}</span></td>
+                      <td>${weakText}</td>
+                    </tr>
+                  `;
+          }).join('')}
+              </tbody>
+            </table>
+          `;
+        }
+      }
+
+      // 7. Historial de Partidas
+      const gameWrap = document.getElementById('reportGameTable');
+      if (gameWrap) {
+        if (gameHistory.length === 0) {
+          gameWrap.innerHTML = '<p style="font-size:8pt; color:#666; font-style:italic; margin:4px 0;">No se han registrado partidas del simulador en este navegador.</p>';
+        } else {
+          gameWrap.innerHTML = `
+            <table class="report-table">
+              <thead>
+                <tr>
+                  <th>Partida</th>
+                  <th>Fecha/Hora</th>
+                  <th>Aciertos</th>
+                  <th>Errores</th>
+                  <th>Efectividad</th>
+                  <th>NEXs Estimados</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${gameHistory.map((g, idx) => {
+            const date = g.ts ? new Date(g.ts).toLocaleDateString('es-CO', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '-';
+            const pct = Math.round((g.score / g.total) * 100);
+            const nex = Math.round((g.score / g.total) * 50000);
+            return `
+                    <tr>
+                      <td><strong>Partida ${idx + 1}</strong></td>
+                      <td>${date}</td>
+                      <td style="color:#065F46; font-weight:700;">${g.score} / ${g.total}</td>
+                      <td style="color:#991B1B; font-weight:700;">${g.total - g.score}</td>
+                      <td><strong>${pct}%</strong></td>
+                      <td>+${fmt(nex)} NEXs</td>
+                    </tr>
+                  `;
+          }).join('')}
+              </tbody>
+            </table>
+          `;
+        }
+      }
+    }
+
+    const printReportBtn = document.getElementById('printReportBtn');
+    if (printReportBtn) {
+      printReportBtn.addEventListener('click', () => {
+        populatePrintReport();
+        document.body.classList.add('printing-report');
+        window.print();
+      });
+    }
+
+    window.addEventListener('afterprint', () => {
+      document.body.classList.remove('printing-cards');
+      document.body.classList.remove('printing-report');
+    });
+
+
+  </script>
+</body>
+
+</html>
