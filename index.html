@@ -481,72 +481,92 @@
         <!-- PESTAÑA: REGISTRO -->
         <div id="tab-registro" class="tab-content active"
             style="--accent:#6D28D9;--accent-dark:#551FA9;--accent-soft:rgba(109,40,217,0.12);--accent-border:#CCB4F2;--card-bg:#F6F2FD;--accent-glow:rgba(109,40,217,0.3);">
-            <article class="route-card rounded-xl p-6 sm:p-8 max-w-3xl mx-auto">
-                <div class="flex items-center gap-4 mb-6">
-                    <div class="icon-box w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
-                        <i class="fas fa-id-card text-xl"></i>
-                    </div>
-                    <div>
-                        <h3 class="card-title text-xl sm:text-2xl font-bold">Registro del aprendiz</h3>
-                        <p class="card-text text-sm">Completa tus datos para ingresar. Al terminar pasarás
-                            automáticamente a LucIA.</p>
-                    </div>
+
+            <!-- Contenedor Flex para acomodar el contador a la izquierda y el formulario a la derecha -->
+            <div class="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-8 max-w-6xl mx-auto">
+
+                <!-- CONTADOR DE VISITAS -->
+                <div
+                    class="flex flex-col items-center justify-center p-5 rounded-xl route-card shadow-md lg:mt-12 w-full lg:w-auto shrink-0">
+                    <span class="text-xs font-bold tracking-wider uppercase mb-3"
+                        style="color: var(--accent-dark);">Visitas Byteon 2</span>
+                    <a href="https://hits.sh/ferneyguevara.github.io/byteon2.-llego-el-final/">
+                        <img alt="Contador de visitas"
+                            src="https://hits.sh/ferneyguevara.github.io/byteon2.-llego-el-final.svg?view=today-total&style=flat-square&label=Visitas&color=6D28D9"
+                            class="h-8 w-auto hover:scale-110 transition-transform" />
+                    </a>
                 </div>
 
-                <form id="registro-form" novalidate autocomplete="off"
-                    class="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-4">
-                    <div class="sm:col-span-2">
-                        <label class="reg-label" for="reg-nombre">Nombre completo</label>
-                        <input id="reg-nombre" name="nombre" type="text" class="reg-input"
-                            placeholder="Nombres y apellidos" maxlength="80" />
-                        <p class="reg-error" data-error-for="reg-nombre"></p>
+                <!-- FORMULARIO DE REGISTRO ORIGINAL -->
+                <article class="route-card rounded-xl p-6 sm:p-8 w-full max-w-3xl">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="icon-box w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
+                            <i class="fas fa-id-card text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title text-xl sm:text-2xl font-bold">Registro del aprendiz</h3>
+                            <p class="card-text text-sm">Completa tus datos para ingresar. Al terminar pasarás
+                                automáticamente a LucIA.</p>
+                        </div>
                     </div>
 
-                    <div>
-                        <label class="reg-label" for="reg-documento">Número de documento</label>
-                        <input id="reg-documento" name="documento" type="text" inputmode="numeric" class="reg-input"
-                            placeholder="Sin puntos ni espacios" maxlength="12" />
-                        <p class="reg-error" data-error-for="reg-documento"></p>
-                    </div>
+                    <form id="registro-form" novalidate autocomplete="off"
+                        class="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-4">
+                        <div class="sm:col-span-2">
+                            <label class="reg-label" for="reg-nombre">Nombre completo</label>
+                            <input id="reg-nombre" name="nombre" type="text" class="reg-input"
+                                placeholder="Nombres y apellidos" maxlength="80" />
+                            <p class="reg-error" data-error-for="reg-nombre"></p>
+                        </div>
 
-                    <div>
-                        <label class="reg-label" for="reg-ficha">Ficha</label>
-                        <input id="reg-ficha" name="ficha" type="text" inputmode="numeric" class="reg-input"
-                            placeholder="Número de ficha" maxlength="10" />
-                        <p class="reg-error" data-error-for="reg-ficha"></p>
-                    </div>
+                        <div>
+                            <label class="reg-label" for="reg-documento">Número de documento</label>
+                            <input id="reg-documento" name="documento" type="text" inputmode="numeric" class="reg-input"
+                                placeholder="Sin puntos ni espacios" maxlength="12" />
+                            <p class="reg-error" data-error-for="reg-documento"></p>
+                        </div>
 
-                    <div class="sm:col-span-2">
-                        <label class="reg-label" for="reg-programa"><i
-                                class="fas fa-lock text-[10px] mr-1"></i>Programa</label>
-                        <input id="reg-programa" type="text" class="reg-input reg-locked"
-                            value="Programa Técnico en Talento Humano" readonly tabindex="-1" />
-                    </div>
+                        <div>
+                            <label class="reg-label" for="reg-ficha">Ficha</label>
+                            <input id="reg-ficha" name="ficha" type="text" inputmode="numeric" class="reg-input"
+                                placeholder="Número de ficha" maxlength="10" />
+                            <p class="reg-error" data-error-for="reg-ficha"></p>
+                        </div>
 
-                    <div>
-                        <label class="reg-label" for="reg-centro"><i class="fas fa-lock text-[10px] mr-1"></i>Centro de
-                            formación</label>
-                        <input id="reg-centro" type="text" class="reg-input reg-locked"
-                            value="Centro de Gestión Administrativa" readonly tabindex="-1" />
-                    </div>
+                        <div class="sm:col-span-2">
+                            <label class="reg-label" for="reg-programa"><i
+                                    class="fas fa-lock text-[10px] mr-1"></i>Programa</label>
+                            <input id="reg-programa" type="text" class="reg-input reg-locked"
+                                value="Programa Técnico en Talento Humano" readonly tabindex="-1" />
+                        </div>
 
-                    <div>
-                        <label class="reg-label" for="reg-regional"><i
-                                class="fas fa-lock text-[10px] mr-1"></i>Regional</label>
-                        <input id="reg-regional" type="text" class="reg-input reg-locked"
-                            value="Regional Distrito Capital" readonly tabindex="-1" />
-                    </div>
+                        <div>
+                            <label class="reg-label" for="reg-centro"><i class="fas fa-lock text-[10px] mr-1"></i>Centro
+                                de
+                                formación</label>
+                            <input id="reg-centro" type="text" class="reg-input reg-locked"
+                                value="Centro de Gestión Administrativa" readonly tabindex="-1" />
+                        </div>
 
-                    <div class="sm:col-span-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-2">
-                        <p id="reg-status" class="card-text text-sm" aria-live="polite">Completa los campos para
-                            continuar.</p>
-                        <button type="submit" id="reg-submit"
-                            class="go-btn px-6 py-2.5 rounded-lg font-semibold text-sm">
-                            Continuar a LucIA
-                        </button>
-                    </div>
-                </form>
-            </article>
+                        <div>
+                            <label class="reg-label" for="reg-regional"><i
+                                    class="fas fa-lock text-[10px] mr-1"></i>Regional</label>
+                            <input id="reg-regional" type="text" class="reg-input reg-locked"
+                                value="Regional Distrito Capital" readonly tabindex="-1" />
+                        </div>
+
+                        <div
+                            class="sm:col-span-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-2">
+                            <p id="reg-status" class="card-text text-sm" aria-live="polite">Completa los campos para
+                                continuar.</p>
+                            <button type="submit" id="reg-submit"
+                                class="go-btn px-6 py-2.5 rounded-lg font-semibold text-sm">
+                                Continuar a LucIA
+                            </button>
+                        </div>
+                    </form>
+                </article>
+            </div>
         </div>
 
         <!-- PESTAÑA: LUCIA -->
@@ -2410,7 +2430,7 @@
             if (tabName === 'certificado') {
                 const certIframe = document.getElementById('certificado-iframe');
                 const certLink = document.getElementById('cert-ext-link');
-                const activeData = aprendiz || (function() {
+                const activeData = aprendiz || (function () {
                     try {
                         const raw = localStorage.getItem(REG_KEY) || sessionStorage.getItem(REG_KEY);
                         return raw ? JSON.parse(raw) : null;
