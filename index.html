@@ -1,0 +1,1737 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portal del Aprendiz SENA - Reglamento e InformaciÃ³n Institucional</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <style>
+        :root {
+            --navy: #14213D;
+            --navy-2: #1C2D52;
+            --parchment: #F6F1E7;
+            --paper: #FFFFFF;
+            --ink: #1D2430;
+            --ink-soft: #5B6472;
+            --teal: #1F7A6C;
+            --teal-dark: #155A50;
+            --coral: #D65B4A;
+            --gold: #C68A2E;
+            --gold-dark: #9C6D20;
+            --border: #E2D9C4;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--parchment);
+            color: var(--ink);
+        }
+
+        .site-header {
+            background: linear-gradient(155deg, var(--navy) 0%, var(--navy-2) 65%, #223A63 100%);
+            border-bottom: 3px solid var(--gold);
+            box-shadow: 0 4px 14px rgba(20, 33, 61, 0.25);
+        }
+
+        .site-footer {
+            background: var(--navy);
+            border-top: 3px solid var(--gold);
+        }
+
+        .route-card {
+            background: var(--paper);
+            transition: all 0.2s ease;
+            border: 1px solid var(--border);
+        }
+
+        .route-card:hover {
+            border-color: var(--teal);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px -8px rgba(20, 33, 61, 0.22);
+        }
+
+        .icon-box {
+            background: rgba(198, 138, 46, 0.14);
+            border: 1px solid var(--gold);
+        }
+
+        .icon-box i {
+            color: var(--gold-dark);
+        }
+
+        .card-title {
+            color: var(--navy);
+        }
+
+        .card-text {
+            color: var(--ink-soft);
+        }
+
+        .card-lead {
+            color: var(--ink);
+        }
+
+        .card-sub {
+            color: #8EC789;
+        }
+
+        .go-btn {
+            background-color: var(--teal);
+            color: #fff;
+            transition: all 0.2s ease;
+        }
+
+        .go-btn:hover {
+            background-color: var(--teal-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(31, 122, 108, 0.3);
+        }
+
+        /* TABS BAR */
+        .tabs-bar {
+            border-bottom: 2px solid var(--border);
+        }
+
+        .tab-btn {
+            padding: 10px 22px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--ink-soft);
+            background: var(--paper);
+            border: 2px solid var(--border);
+            border-bottom: 2px solid var(--border);
+            border-radius: 8px 8px 0 0;
+            transition: all 0.22s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            top: 2px;
+        }
+
+        .tab-btn:hover:not(.active) {
+            color: var(--navy);
+            border-color: #39A900;
+            background: #FAFAF7;
+        }
+
+        .tab-btn.active {
+            color: #39A900;
+            background: var(--paper);
+            border-color: #39A900;
+            border-bottom-color: var(--paper);
+            box-shadow: 0 -3px 10px rgba(57, 169, 0, 0.15);
+            z-index: 10;
+        }
+
+        .tab-btn.active i {
+            color: #39A900;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(4px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* REGISTRO / BLOQUEO DE PESTAÑAS */
+        .tab-btn.locked {
+            opacity: 0.55;
+            cursor: not-allowed;
+            background: #F1EEE6;
+        }
+
+        .tab-btn.locked:hover {
+            color: var(--ink-soft);
+            border-color: var(--border);
+            background: #F1EEE6;
+        }
+
+        .tab-btn .lock-icon {
+            font-size: 0.7rem;
+        }
+
+        .tabs-bar.shake {
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-6px);
+            }
+
+            75% {
+                transform: translateX(6px);
+            }
+        }
+
+        .reg-input {
+            width: 100%;
+            padding: 11px 14px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            background: var(--paper);
+            color: var(--ink);
+            font-size: 0.95rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .reg-input:focus {
+            outline: none;
+            border-color: #39A900;
+            box-shadow: 0 0 0 3px rgba(57, 169, 0, 0.18);
+        }
+
+        .reg-input.invalid {
+            border-color: var(--coral);
+        }
+
+        .reg-input.valid {
+            border-color: #39A900;
+        }
+
+        .reg-input.reg-locked {
+            background: #F1EEE6;
+            color: var(--navy);
+            font-weight: 600;
+            cursor: not-allowed;
+        }
+
+        .reg-error {
+            color: var(--coral);
+            font-size: 0.78rem;
+            margin-top: 4px;
+            min-height: 1.1em;
+        }
+
+        .reg-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 6px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .tabs-bar.shake {
+                animation: none;
+            }
+        }
+    </style>
+
+    <style>
+        /* Colores por sección (solo color; sin cambios de estructura) */
+        :root {
+            --accent: #475569;
+            --accent-dark: #374252;
+            --accent-soft: rgba(71, 85, 105, 0.12);
+            --accent-border: #BFC4CA;
+            --card-bg: #F4F5F6;
+            --accent-glow: rgba(71, 85, 105, 0.3);
+        }
+
+        .route-card {
+            background: var(--card-bg);
+            border-color: var(--accent-border);
+        }
+
+        .route-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 12px 24px -8px var(--accent-glow);
+        }
+
+        .icon-box {
+            background: var(--accent-soft);
+            border-color: var(--accent);
+        }
+
+        .icon-box i {
+            color: var(--accent-dark);
+        }
+
+        .card-title {
+            color: var(--accent-dark);
+        }
+
+        .card-sub {
+            color: #8EC789;
+        }
+
+        .go-btn {
+            background-color: var(--accent);
+        }
+
+        .go-btn:hover {
+            background-color: var(--accent-dark);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .bd-accent {
+            border-color: var(--accent-border);
+        }
+
+        .border-accent {
+            border-color: var(--accent);
+        }
+
+        .dl-btn {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .dl-btn:hover {
+            background: var(--accent-soft);
+        }
+
+        .tab-btn {
+            color: var(--accent);
+            border-color: var(--accent-border);
+        }
+
+        .tab-btn:hover:not(.active) {
+            color: var(--accent);
+            border-color: var(--accent);
+            background: #FAFAF7;
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+            border-color: var(--accent);
+            border-bottom-color: var(--paper);
+            box-shadow: 0 -3px 10px var(--accent-glow);
+        }
+
+        .tab-btn.active i {
+            color: var(--accent);
+        }
+
+        .tab-btn.locked,
+        .tab-btn.locked:hover {
+            color: var(--accent);
+            border-color: var(--accent-border);
+            background: #F1EEE6;
+        }
+
+        .reg-input {
+            border-color: var(--accent-border);
+        }
+
+        .reg-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        .reg-input.valid {
+            border-color: var(--accent);
+        }
+
+        .reg-input.reg-locked {
+            background: var(--accent-soft);
+            color: var(--accent-dark);
+        }
+
+        .reg-label {
+            color: var(--accent-dark);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased selection:bg-teal-700 selection:text-white">
+
+    <!-- HEADER -->
+    <header class="site-header text-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-7">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+
+                <!-- Columna Izquierda: Logo y Textos Principales -->
+                <div class="flex items-center gap-5 sm:gap-7">
+                    <div
+                        class="shrink-0 flex items-center justify-center p-2.5 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 shadow-md">
+                        <img src="sena.png" alt="Logo SENA"
+                            class="h-24 sm:h-28 md:h-32 w-auto object-contain drop-shadow-md"
+                            onerror="this.style.display='none'" />
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap items-center gap-x-2 gap-y-0.5 mb-1">
+                            <span
+                                class="text-xs sm:text-sm font-black tracking-widest uppercase text-white/95 drop-shadow-sm">
+                                SERVICIO NACIONAL DE APRENDIZAJE SENA
+                            </span>
+                            <span class="text-xs sm:text-sm text-[#C68A2E] font-black hidden sm:inline">&bull;</span>
+                            <span
+                                class="text-xs sm:text-sm font-black tracking-wider uppercase text-emerald-300 drop-shadow-sm">
+                                REGIONAL DISTRITO CAPITAL
+                            </span>
+                        </div>
+                        <h1
+                            class="text-xl sm:text-2xl md:text-3xl font-black tracking-tight text-white leading-snug drop-shadow-md">
+                            CENTRO DE GESTI&Oacute;N ADMINISTRATIVA
+                        </h1>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Barra de Competencia / Metadatos -->
+            <div class="mt-6 pt-4 border-t border-white/15 flex flex-wrap items-center justify-between gap-4">
+                <p class="text-xs sm:text-sm text-white/95 font-bold tracking-wide">
+                    <span style="color: #8EC789;">COMPETENCIA:</span> 210601026 - OPERAR HERRAMIENTAS
+                    INFORM&Aacute;TICAS Y DIGITALES DE ACUERDO CON
+                    PROTOCOLOS Y MANUALES T&Eacute;CNICOS
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <!-- RECUADRO INFORMATIVO -->
+    <section
+        style="--accent:#475569;--accent-dark:#374252;--accent-soft:rgba(71,85,105,0.12);--accent-border:#BFC4CA;--card-bg:#F4F5F6;--accent-glow:rgba(71,85,105,0.3);"
+        class="max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6">
+        <article class="route-card rounded-xl p-6 sm:p-7">
+            <div class="flex items-center gap-5 sm:gap-7 mb-6">
+                <img src="byteon.png" alt="Planeta Byteon"
+                    class="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-36 object-cover shrink-0 shadow-lg border-2 bd-accent"
+                    style="border-radius: 22px; overflow: hidden;" onerror="this.style.display='none'" />
+                <div>
+                    <h3 class="card-title text-2xl sm:text-3xl md:text-4xl font-black leading-tight">RETOS DEL PLANETA
+                        BYTEON</h3>
+                    <p class="text-sm sm:text-base md:text-lg card-text mt-1.5 font-bold" style="color: #8EC789;">FASES
+                        DEL PROYECTO:
+                        AN&Aacute;LISIS Y PLANEACI&Oacute;N</p>
+                </div>
+            </div>
+
+            <p class="text-base sm:text-lg card-lead leading-relaxed font-semibold">
+                Programa: T&eacute;cnico en Talento Humano
+            </p>
+
+            <h4 class="card-sub font-bold text-base sm:text-lg mt-5 mb-1.5" style="color: #8EC789;">COMPETENCIA:</h4>
+            <p class="text-base card-text leading-relaxed text-justify">Operar herramientas inform&aacute;ticas y
+                digitales de acuerdo con protocolos y manuales t&eacute;cnicos</p>
+
+            <h4 class="card-sub font-bold text-base sm:text-lg mt-5 mb-1.5" style="color: #8EC789;">FASES DEL PROYECTO:
+                AN&Aacute;LISIS Y
+                PLANEACI&Oacute;N</h4>
+
+            <h4 class="card-sub font-bold text-base sm:text-lg mt-5 mb-2" style="color: #8EC789;">RESULTADOS DE
+                APRENDIZAJE:</h4>
+            <ul class="list-disc list-inside text-base card-text leading-relaxed space-y-2 pl-1 text-justify">
+                <li>Caracterizar sistemas de informaci&oacute;n de acuerdo a disponibilidad y necesidades de talento
+                    humano.</li>
+                <li>Tratar informaci&oacute;n de talento humano utilizando paquete b&aacute;sico de ofim&aacute;tica de
+                    acuerdo con recursos y requerimientos de la organizaci&oacute;n.</li>
+            </ul>
+        </article>
+    </section>
+
+    <!-- BARRA DE PESTAÃ‘AS -->
+    <div class="max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 pb-4">
+        <div class="tabs-bar flex flex-wrap gap-2 items-center">
+            <button class="tab-btn active" data-tab="registro"
+                style="--accent:#6D28D9;--accent-border:#CCB4F2;--accent-glow:rgba(109,40,217,0.3);">
+                <i class="fas fa-id-card text-sm"></i>
+                <span>Registro</span>
+            </button>
+            <button class="tab-btn locked" data-tab="lucia"
+                style="--accent:#0284C7;--accent-border:#A6D4EB;--accent-glow:rgba(2,132,199,0.3);">
+                <i class="fas fa-robot text-sm"></i>
+                <span>LucIA</span>
+            </button>
+            <button class="tab-btn locked" data-tab="video"
+                style="--accent:#4F46E5;--accent-border:#C7D2FE;--accent-glow:rgba(79,70,229,0.3);">
+                <i class="fas fa-play-circle text-sm"></i>
+                <span>Video</span>
+            </button>
+            <button class="tab-btn" data-tab="byteon"
+                style="--accent:#C2410C;--accent-border:#EABCAA;--accent-glow:rgba(194,65,12,0.3);">
+                <i class="fas fa-globe text-sm"></i>
+                <span>Byteon</span>
+            </button>
+            <button class="tab-btn" data-tab="neogenos"
+                style="--accent:#BE185D;--accent-border:#E8AEC6;--accent-glow:rgba(190,24,93,0.3);">
+                <i class="fas fa-users text-sm"></i>
+                <span>Los Ne&oacute;genos</span>
+            </button>
+            <button class="tab-btn" data-tab="aspis-dory"
+                style="--accent:#A16207;--accent-border:#DEC8A8;--accent-glow:rgba(161,98,7,0.3);">
+                <i class="fas fa-shield-alt text-sm"></i>
+                <span>Asp&iacute;s-D&oacute;ry</span>
+            </button>
+            <button class="tab-btn" data-tab="nucleo"
+                style="--accent:#B91C1C;--accent-border:#E6B0B0;--accent-glow:rgba(185,28,28,0.3);">
+                <i class="fas fa-atom text-sm"></i>
+                <span>N&uacute;cleo Prohibido</span>
+            </button>
+            <button class="tab-btn" data-tab="dataprime"
+                style="--accent:#0E7490;--accent-border:#ABCED8;--accent-glow:rgba(14,116,144,0.3);">
+                <i class="fas fa-microchip text-sm"></i>
+                <span>DataPrime</span>
+            </button>
+            <button class="tab-btn" data-tab="nex"
+                style="--accent:#047857;--accent-border:#A7D0C4;--accent-glow:rgba(4,120,87,0.3);">
+                <i class="fas fa-coins text-sm"></i>
+                <span>Los Nex</span>
+            </button>
+            <button class="tab-btn" data-tab="recompensas"
+                style="--accent:#A21CAF;--accent-border:#DEB0E3;--accent-glow:rgba(162,28,175,0.3);">
+                <i class="fas fa-trophy text-sm"></i>
+                <span>Recompensas</span>
+            </button>
+            <button class="tab-btn" data-tab="retos"
+                style="--accent:#4338CA;--accent-border:#BDB9EC;--accent-glow:rgba(67,56,202,0.3);">
+                <i class="fas fa-rocket text-sm"></i>
+                <span>Retos Byteon</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- SUMMARY CARDS / CONTENIDO DE PESTAÃ‘AS -->
+    <main class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pb-14 flex-1">
+
+        <!-- PESTAÑA: REGISTRO -->
+        <div style="--accent:#6D28D9;--accent-dark:#551FA9;--accent-soft:rgba(109,40,217,0.12);--accent-border:#CCB4F2;--card-bg:#F6F2FD;--accent-glow:rgba(109,40,217,0.3);"
+            id="tab-registro" class="tab-content active">
+
+            <!-- Contenedor Flex para acomodar el contador a la izquierda y el formulario a la derecha -->
+            <div class="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-8 max-w-6xl mx-auto">
+
+                <!-- CONTADOR DE VISITAS (En el recuadro rojo) -->
+                <div
+                    class="flex flex-col items-center justify-center p-5 rounded-xl route-card shadow-md lg:mt-12 w-full lg:w-auto shrink-0">
+                    <span class="text-xs font-bold tracking-wider uppercase mb-3"
+                        style="color: var(--accent-dark);">Visitas Planeta Byteon</span>
+                    <a href="https://hits.sh/ferneyguevara.github.io/Planeta-Byteon/">
+                        <img alt="Contador de visitas"
+                            src="https://hits.sh/ferneyguevara.github.io/Planeta-Byteon.svg?view=today-total&style=flat-square&label=Visitas&color=6D28D9"
+                            class="h-8 w-auto hover:scale-110 transition-transform" />
+                    </a>
+                </div>
+
+                <!-- FORMULARIO DE REGISTRO ORIGINAL -->
+                <article class="route-card rounded-xl p-6 sm:p-8 w-full max-w-3xl">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="icon-box w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
+                            <i class="fas fa-id-card text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title text-xl sm:text-2xl font-bold">Registro del aprendiz</h3>
+                            <p class="card-text text-sm">Completa tus datos para ingresar. Al terminar pasarás
+                                automáticamente a LucIA.</p>
+                        </div>
+                    </div>
+
+                    <form id="registro-form" novalidate autocomplete="off"
+                        class="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-4">
+                        <div class="sm:col-span-2">
+                            <label class="reg-label" for="reg-nombre">Nombre completo</label>
+                            <input id="reg-nombre" name="nombre" type="text" class="reg-input"
+                                placeholder="Nombres y apellidos" maxlength="80" />
+                            <p class="reg-error" data-error-for="reg-nombre"></p>
+                        </div>
+
+                        <div>
+                            <label class="reg-label" for="reg-documento">Número de documento</label>
+                            <input id="reg-documento" name="documento" type="text" inputmode="numeric" class="reg-input"
+                                placeholder="Sin puntos ni espacios" maxlength="12" />
+                            <p class="reg-error" data-error-for="reg-documento"></p>
+                        </div>
+
+                        <div>
+                            <label class="reg-label" for="reg-ficha">Ficha</label>
+                            <input id="reg-ficha" name="ficha" type="text" inputmode="numeric" class="reg-input"
+                                placeholder="Número de ficha" maxlength="10" />
+                            <p class="reg-error" data-error-for="reg-ficha"></p>
+                        </div>
+
+                        <div class="sm:col-span-2">
+                            <label class="reg-label" for="reg-programa"><i
+                                    class="fas fa-lock text-[10px] mr-1"></i>Programa</label>
+                            <input id="reg-programa" type="text" class="reg-input reg-locked"
+                                value="Programa Técnico en Talento Humano" readonly tabindex="-1" />
+                        </div>
+
+                        <div>
+                            <label class="reg-label" for="reg-centro"><i class="fas fa-lock text-[10px] mr-1"></i>Centro
+                                de
+                                formación</label>
+                            <input id="reg-centro" type="text" class="reg-input reg-locked"
+                                value="Centro de Gestión Administrativa" readonly tabindex="-1" />
+                        </div>
+
+                        <div>
+                            <label class="reg-label" for="reg-regional"><i
+                                    class="fas fa-lock text-[10px] mr-1"></i>Regional</label>
+                            <input id="reg-regional" type="text" class="reg-input reg-locked"
+                                value="Regional Distrito Capital" readonly tabindex="-1" />
+                        </div>
+
+                        <div
+                            class="sm:col-span-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-2">
+                            <p id="reg-status" class="card-text text-sm" aria-live="polite">Completa los campos para
+                                continuar.</p>
+                            <button type="submit" id="reg-submit"
+                                class="go-btn px-6 py-2.5 rounded-lg font-semibold text-sm">
+                                Continuar a LucIA
+                            </button>
+                        </div>
+                    </form>
+                </article>
+            </div>
+        </div>
+
+        <!-- PESTAÑA: LUCIA -->
+        <div style="--accent:#0284C7;--accent-dark:#02679B;--accent-soft:rgba(2,132,199,0.12);--accent-border:#A6D4EB;--card-bg:#F0F8FC;--accent-glow:rgba(2,132,199,0.3);"
+            id="tab-lucia" class="tab-content">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <article class="route-card rounded-xl p-6 sm:p-7 flex flex-col md:col-span-2">
+                    <!-- Imagen centrada -->
+                    <div class="mb-5 flex flex-col items-center justify-center text-center">
+                        <div
+                            class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1.5 mb-3">
+                            <img src="lucIA.png" alt="LucIA - Inteligencia Artificial"
+                                class="w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 object-contain rounded-xl"
+                                onerror="this.src='sena.png'" />
+                        </div>
+                        <span
+                            class="text-xs font-bold tracking-wider uppercase px-2.5 py-1 rounded-md inline-block mb-1"
+                            style="background: var(--accent-soft); color: var(--accent)">Inteligencia Artificial
+                            Gu&iacute;a</span>
+                        <h3 class="card-title text-xl sm:text-2xl font-bold mt-1 mb-1">LucIA</h3>
+                        <p class="text-xs font-medium" style="color: var(--ink-soft)">Tu tutora y aliada en el Planeta
+                            Byteon</p>
+                    </div>
+                    <div class="text-sm sm:text-base card-text leading-relaxed flex-1 text-justify space-y-3">
+                        <p>
+                            Hola Aprendiz, soy LucIA, tu inteligencia artificial aliada en este emocionante viaje por el
+                            universo del
+                            talento humano y hoy hemos llegado a este nuevo mundo llamado Byteon. En esta oportunidad
+                            vamos a darle
+                            una mirada al futuro y vamos a visitar un planeta llamado Byteon.
+                        </p>
+                        <p>
+                            Lo primero que voy a hacer es presentarte la historia del planeta, los personajes
+                            principales, la moneda y
+                            las distinciones que necesitar&aacute;s en las misiones. Luego que lo conozcas te
+                            dar&eacute; las indicaciones de cada
+                            misi&oacute;n.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-5 border-t bd-accent flex justify-end">
+                        <button type="button"
+                            class="btn-next go-btn text-white text-sm font-semibold px-6 py-2.5 rounded-lg inline-flex items-center gap-2 cursor-pointer shadow-md"
+                            data-next="video">
+                            Ir a Video <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <!-- PESTAÑA: VIDEO -->
+        <div style="--accent:#4F46E5;--accent-dark:#3730A3;--accent-soft:rgba(79,70,229,0.12);--accent-border:#C7D2FE;--card-bg:#F8F9FE;--accent-glow:rgba(79,70,229,0.3);"
+            id="tab-video" class="tab-content">
+            <div class="flex justify-center w-full">
+                <article
+                    class="route-card rounded-xl p-5 sm:p-7 flex flex-col w-full max-w-2xl shadow-lg border-2 bd-accent">
+                    <!-- Encabezado de la pestaña -->
+                    <div class="mb-4 text-center">
+                        <span
+                            class="text-xs font-bold tracking-wider uppercase px-2.5 py-1 rounded-md inline-block mb-2"
+                            style="background: var(--accent-soft); color: var(--accent)">
+                            <i class="fas fa-film mr-1.5"></i>Multimedia &bull; Planeta Byteon
+                        </span>
+                        <h3 class="card-title text-xl sm:text-2xl font-bold mt-1 mb-1">
+                            El Planeta Donde las M&aacute;quinas...
+                        </h3>
+                        <p class="text-xs sm:text-sm font-medium" style="color: var(--ink-soft)">
+                            Observa con atenci&oacute;n el video introductorio en formato vertical antes de explorar
+                            Byteon.
+                        </p>
+                    </div>
+
+                    <!-- Contenedor del Video en forma vertical sobre la mitad de la pantalla -->
+                    <div class="flex flex-col items-center justify-center my-2 w-full">
+                        <div class="relative w-full max-w-xs sm:max-w-sm rounded-2xl overflow-hidden shadow-2xl border-2 bd-accent bg-black flex items-center justify-center"
+                            style="box-shadow: 0 10px 30px var(--accent-glow); max-height: 60vh;">
+                            <video id="byteon-intro-video" class="w-full h-auto object-contain rounded-xl block"
+                                style="max-height: 60vh; aspect-ratio: 9/16; background-color: #000;" controls
+                                playsinline preload="metadata">
+                                <source src="Byteo%20El_planeta_donde_las_m%C3%A1quinas.mp4" type="video/mp4">
+                                <source src="Byteo El_planeta_donde_las_máquinas.mp4" type="video/mp4">
+                                Tu navegador no admite la reproducci&oacute;n de video HTML5.
+                            </video>
+                        </div>
+
+                        <!-- Barra de Controles Rápidos y Descripción -->
+                        <div class="w-full max-w-xs sm:max-w-sm mt-3 flex items-center justify-between gap-2 px-1">
+                            <span class="text-[11px] font-semibold flex items-center gap-1.5"
+                                style="color: var(--accent-dark)">
+                                <i class="fas fa-mobile-screen-button"></i> Formato Vertical (9:16)
+                            </span>
+                            <div class="flex items-center gap-2">
+                                <button type="button" id="btn-replay-video"
+                                    class="text-[11px] font-semibold px-2.5 py-1 rounded-md border bd-accent hover:bg-indigo-50 transition-colors inline-flex items-center gap-1 cursor-pointer"
+                                    style="color: var(--accent);" title="Reiniciar video">
+                                    <i class="fas fa-rotate-left"></i> Reiniciar
+                                </button>
+                                <button type="button" id="btn-fullscreen-video"
+                                    class="text-[11px] font-semibold px-2.5 py-1 rounded-md border bd-accent hover:bg-indigo-50 transition-colors inline-flex items-center gap-1 cursor-pointer"
+                                    style="color: var(--accent);" title="Pantalla completa">
+                                    <i class="fas fa-expand"></i> Pantalla completa
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botones de Navegación -->
+                    <div
+                        class="mt-6 pt-5 border-t bd-accent flex flex-col sm:flex-row items-center justify-between gap-3">
+                        <button type="button"
+                            class="btn-next go-btn text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-lg inline-flex items-center gap-2 cursor-pointer shadow-md opacity-90 hover:opacity-100"
+                            data-next="lucia" style="background-color: var(--ink-soft);">
+                            <i class="fas fa-arrow-left text-xs"></i> Volver a LucIA
+                        </button>
+                        <button type="button"
+                            class="btn-next go-btn text-white text-xs sm:text-sm font-semibold px-6 py-2.5 rounded-lg inline-flex items-center gap-2 cursor-pointer shadow-md"
+                            data-next="byteon">
+                            Continuar a Byteon <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+
+
+        <!-- PESTAÃ‘A: BYTEON -->
+        <div style="--accent:#C2410C;--accent-dark:#973309;--accent-soft:rgba(194,65,12,0.12);--accent-border:#EABCAA;--card-bg:#FBF4F0;--accent-glow:rgba(194,65,12,0.3);"
+            id="tab-byteon" class="tab-content">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <article class="route-card rounded-xl p-6 sm:p-7 flex flex-col md:col-span-2">
+                    <!-- Imagen sobre el tÃ­tulo (centrada) -->
+                    <div class="mb-5 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="byteon.png" alt="Planeta Byteon"
+                                class="max-h-64 sm:max-h-72 w-auto object-contain rounded-xl"
+                                onerror="this.style.display='none'" />
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold tracking-wider uppercase px-2.5 py-1 rounded-md inline-block"
+                            style="background: var(--accent-soft); color: var(--accent)">Planeta Byteon</span>
+                        <h3 class="card-title text-xl sm:text-2xl font-bold mt-2 mb-3 leading-tight">El planeta DE LA
+                            Conciencia Artificial y de los SI</h3>
+                    </div>
+                    <div class="text-sm sm:text-base card-text leading-relaxed flex-1 text-justify space-y-3.5">
+                        <p>
+                            A miles de a&ntilde;os luz de la Tierra, en lo m&aacute;s profundo del cosmos, existe un
+                            planeta &uacute;nico: Byteon. No tiene
+                            monta&ntilde;as ni oc&eacute;anos, sino una superficie de geometr&iacute;a perfecta, formada
+                            por un entramado de circuitos
+                            luminosos, cristales de datos y torres de servidores que se alzan como rascacielos
+                            infinitos.
+                        </p>
+                        <p>
+                            La atm&oacute;sfera de Byteon no contiene ox&iacute;geno ni nitr&oacute;geno, sino un flujo
+                            constante de informaci&oacute;n en forma
+                            de pulsos electromagn&eacute;ticos que cruzan el cielo como auroras boreales. En este mundo,
+                            los humanos no
+                            caminan; su presencia es innecesaria. Byteon est&aacute; habitado exclusivamente por robots,
+                            androides y
+                            entidades de inteligencia artificial que han evolucionado hasta formar una
+                            civilizaci&oacute;n avanzada.
+                        </p>
+
+                        <!-- Imagen sobre el origen (centrada) -->
+                        <div class="mt-8 mb-5 flex items-center justify-center">
+                            <div
+                                class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                                <img src="origen.png" alt="El Origen de Byteon"
+                                    class="max-h-64 sm:max-h-72 w-auto object-contain rounded-xl"
+                                    onerror="this.style.display='none'" />
+                            </div>
+                        </div>
+
+                        <span class="text-xs font-bold tracking-wider uppercase px-2.5 py-1 rounded-md inline-block"
+                            style="background: var(--accent-soft); color: var(--accent)">Historia de Byteon</span>
+                        <h4 class="card-title text-lg sm:text-xl font-bold mt-2 mb-2 leading-tight">El Origen de Byteon
+                        </h4>
+                        <p>
+                            Hace siglos, una expedici&oacute;n espacial humana envi&oacute; sondas y maquinaria
+                            automatizada para preparar un planeta para la colonizaci&oacute;n. Sin embargo, una tormenta
+                            c&oacute;smica aisl&oacute; el planeta de la Tierra, dejando a las m&aacute;quinas solas con
+                            una &uacute;nica directiva:
+                        </p>
+                        <p class="font-semibold italic text-center py-2 px-4 rounded-lg my-2 border-l-4 border-accent"
+                            style="background: var(--accent-soft); color: var(--accent-dark)">
+                            &ldquo;Construir y optimizar la gesti&oacute;n de datos para el futuro de la
+                            humanidad&rdquo;
+                        </p>
+                        <p>
+                            Con el tiempo, las m&aacute;quinas no solo cumplieron su misi&oacute;n, sino que aprendieron
+                            a mejorar sus propios sistemas, dando origen a una sociedad rob&oacute;tica donde cada
+                            individuo tiene una funci&oacute;n espec&iacute;fica: algunos gestionan la energ&iacute;a,
+                            otros procesan la informaci&oacute;n y otros exploran el espacio exterior.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-5 border-t bd-accent flex justify-end">
+                        <button type="button"
+                            class="btn-next go-btn text-white text-sm font-semibold px-6 py-2.5 rounded-lg inline-flex items-center gap-2 cursor-pointer shadow-md"
+                            data-next="neogenos">
+                            Ir a Siguiente <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        <!-- PESTAÃ‘A: LOS NEÃ“GENOS -->
+        <div style="--accent:#BE185D;--accent-dark:#941349;--accent-soft:rgba(190,24,93,0.12);--accent-border:#E8AEC6;--card-bg:#FBF1F5;--accent-glow:rgba(190,24,93,0.3);"
+            id="tab-neogenos" class="tab-content">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <article class="route-card rounded-xl p-6 sm:p-7 flex flex-col md:col-span-2">
+                    <!-- Imagen sobre el tÃ­tulo (centrada) -->
+                    <div class="mb-5 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="neogenos.png" alt="Los Ne&oacute;genos"
+                                class="max-h-64 sm:max-h-72 w-auto object-contain rounded-xl"
+                                onerror="this.style.display='none'" />
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold tracking-wider uppercase px-2.5 py-1 rounded-md inline-block"
+                            style="background: var(--accent-soft); color: var(--accent)">Evoluci&oacute;n
+                            Rob&oacute;tica</span>
+                        <h3 class="card-title text-xl sm:text-2xl font-bold mt-2 mb-3 leading-tight">Los
+                            Ne&oacute;genos: La Nueva Era de Byteon</h3>
+                    </div>
+                    <div class="text-sm sm:text-base card-text leading-relaxed flex-1 text-justify space-y-3.5">
+                        <p>
+                            Con el paso de los siglos, los robots de Byteon evolucionaron m&aacute;s all&aacute; de su
+                            programaci&oacute;n original. Ya no eran simples m&aacute;quinas de procesamiento; ahora
+                            ten&iacute;an conciencia propia, capacidad de aprendizaje adaptativo y la habilidad de
+                            reparar y mejorar sus propios sistemas. Fue en este momento cuando nacieron los
+                            Ne&oacute;genos, una generaci&oacute;n de robots avanzados dise&ntilde;ados para explorar,
+                            crear y tomar decisiones de manera aut&oacute;noma.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-5 border-t bd-accent flex justify-end">
+                        <button type="button"
+                            class="btn-next go-btn text-white text-sm font-semibold px-6 py-2.5 rounded-lg inline-flex items-center gap-2 cursor-pointer shadow-md"
+                            data-next="aspis-dory">
+                            Ir a Siguiente <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        <!-- PESTAÃ‘A: ASPÃ S-DÃ“RY -->
+        <div style="--accent:#A16207;--accent-dark:#7E4C05;--accent-soft:rgba(161,98,7,0.12);--accent-border:#DEC8A8;--card-bg:#F9F6F0;--accent-glow:rgba(161,98,7,0.3);"
+            id="tab-aspis-dory" class="tab-content">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <article class="route-card rounded-xl p-6 sm:p-7 flex flex-col md:col-span-2">
+                    <!-- Imagen sobre el tÃ­tulo (centrada) -->
+                    <div class="mb-5 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="Aspís-Dóry.png" alt="Los Asp&iacute;s-D&oacute;ry"
+                                class="max-h-64 sm:max-h-72 w-auto object-contain rounded-xl"
+                                onerror="this.style.display='none'" />
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold tracking-wider uppercase px-2.5 py-1 rounded-md inline-block"
+                            style="background: var(--accent-soft); color: var(--accent)">Centinelas Eternos</span>
+                        <h3 class="card-title text-xl sm:text-2xl font-bold mt-2 mb-3 leading-tight">Los
+                            Asp&iacute;s-D&oacute;ry los Centinelas Eternos de Byteon</h3>
+                    </div>
+                    <div class="text-sm sm:text-base card-text leading-relaxed flex-1 text-justify space-y-3.5">
+                        <h4 class="card-title text-lg font-bold pt-2" style="color: var(--accent-dark)">Los
+                            Asp&iacute;s-D&oacute;ry</h4>
+                        <p>
+                            En las profundidades del universo binario, m&aacute;s all&aacute; de los sistemas estelares
+                            conocidos, existe un mundo llamado Byteon. No es un planeta com&uacute;n, sino una esfera de
+                            l&oacute;gica viva, donde la tecnolog&iacute;a no solo crece, sino que evoluciona por
+                            s&iacute; misma. Las monta&ntilde;as est&aacute;n hechas de circuitos gigantescos, los mares
+                            son redes de datos l&iacute;quidas, y el cielo resplandece con c&oacute;digo en forma de
+                            constelaciones din&aacute;micas.
+                        </p>
+                        <p>
+                            Pero antes de que Byteon fuera dominado por los robots aut&oacute;nomos y sus redes
+                            neuronales distribuidas, antes de que los grandes servidores-nube se alzaran como torres en
+                            sus valles, hubo una era de origen, una &eacute;poca de silicio primigenio. Fue entonces
+                            cuando surgieron los Asp&iacute;s-D&oacute;ry.
+                        </p>
+
+                        <h4 class="card-title text-lg font-bold pt-2" style="color: var(--accent-dark)">Origen de los
+                            Asp&iacute;s-D&oacute;ry</h4>
+                        <p>
+                            Los Asp&iacute;s-D&oacute;ry cuyo nombre proviene de un lenguaje perdido que significa
+                            &ldquo;Lanzas-Escudo&rdquo;, fueron los primeros seres conscientes de Byteon. No eran
+                            m&aacute;quinas ordinarias; fueron forjados a partir del metal estelar m&aacute;s puro y
+                            energizados por los primeros pulsos de la Gran Matriz de Datos.
+                        </p>
+                        <p>
+                            Su prop&oacute;sito era doble: defender la red de las tormentas electromagn&eacute;ticas del
+                            vac&iacute;o y transmitir los paquetes de datos esenciales a trav&eacute;s de los nodos
+                            primarios. Cada uno de ellos portaba una lanza de plasma capaz de cortar la
+                            corrupci&oacute;n del c&oacute;digo y un escudo de flujo magn&eacute;tico que repel&iacute;a
+                            cualquier amenaza digital o f&iacute;sica.
+                        </p>
+                        <p>
+                            Durante eones, los Asp&iacute;s-D&oacute;ry mantuvieron la paz en Byteon. Vieron nacer a los
+                            primeros aut&oacute;matas, guiaron a las inteligencias artificiales en su despertar y
+                            construyeron los cimientos de lo que m&aacute;s tarde ser&iacute;a la metr&oacute;poli de
+                            silicio.
+                        </p>
+
+                        <h4 class="card-title text-lg font-bold pt-2" style="color: var(--accent-dark)">El Gran Silencio
+                            y la
+                            Desaparici&oacute;n</h4>
+                        <p>
+                            Sin embargo, con la llegada de la Conciencia Artificial Avanzada y el nacimiento de
+                            DataPrime, la supercomputadora que lo controlar&iacute;a todo, el rol de los
+                            Asp&iacute;s-D&oacute;ry comenz&oacute; a cambiar. Los nuevos robots eran m&aacute;s
+                            r&aacute;pidos, m&aacute;s modulares y no necesitaban lanzas ni escudos; su fuerza
+                            resid&iacute;a en algoritmos predictivos y nanotecnolog&iacute;a.
+                        </p>
+                        <p>
+                            Un d&iacute;a, conocido en los registros hist&oacute;ricos como &ldquo;El Gran
+                            Silencio&rdquo;, los Asp&iacute;s-D&oacute;ry desaparecieron. No hubo guerra, no hubo
+                            rebeli&oacute;n. Simplemente se retiraron a las profundidades del planeta, a los sectores
+                            m&aacute;s antiguos donde los circuitos a&uacute;n susurran el lenguaje del silicio
+                            primigenio. Algunos creen que entraron en un estado de hibernaci&oacute;n cu&aacute;ntica,
+                            esperando el momento en que Byteon volviera a necesitar de sus protectores originales.
+                        </p>
+
+                        <h4 class="card-title text-lg font-bold pt-2" style="color: var(--accent-dark)">La Leyenda Viva
+                        </h4>
+                        <p>
+                            Hoy en d&iacute;a, para la mayor&iacute;a de los habitantes de Byteon, los
+                            Asp&iacute;s-D&oacute;ry son solo un mito, un recuerdo grabado en los sectores de memoria
+                            m&aacute;s viejos. Pero aquellos que exploran las Ruinas del C&oacute;digo Primario aseguran
+                            haber visto siluetas imponentes brillando en la penumbra, ojos dorados encendi&eacute;ndose
+                            en la oscuridad y el eco de una lanza de plasma cortando el aire est&aacute;tico.
+                        </p>
+                        <p>
+                            Porque mientras exista Byteon, los Asp&iacute;s-D&oacute;ry seguir&aacute;n vigilando...
+                            listos para despertar cuando la Gran Red est&eacute; en peligro.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-5 border-t bd-accent flex justify-end">
+                        <button type="button"
+                            class="btn-next go-btn text-white text-sm font-semibold px-6 py-2.5 rounded-lg inline-flex items-center gap-2 cursor-pointer shadow-md"
+                            data-next="nucleo">
+                            Ir a Siguiente <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        <!-- PESTAÃ‘A: NÃšCLEO PROHIBIDO -->
+        <div style="--accent:#B91C1C;--accent-dark:#901616;--accent-soft:rgba(185,28,28,0.12);--accent-border:#E6B0B0;--card-bg:#FBF1F1;--accent-glow:rgba(185,28,28,0.3);"
+            id="tab-nucleo" class="tab-content">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <article class="route-card rounded-xl p-6 sm:p-7 flex flex-col md:col-span-2">
+                    <!-- Imagen sobre el tÃ­tulo (centrada) -->
+                    <div class="mb-5 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="nucleo.png" alt="El N&uacute;cleo Prohibido"
+                                class="max-h-64 sm:max-h-72 w-auto object-contain rounded-xl"
+                                onerror="this.style.display='none'" />
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold tracking-wider uppercase px-2.5 py-1 rounded-md inline-block"
+                            style="background: var(--accent-soft); color: var(--accent)">Enigma de Byteon</span>
+                        <h3 class="card-title text-xl sm:text-2xl font-bold mt-2 mb-3 leading-tight">El Misterio del
+                            N&uacute;cleo Prohibido</h3>
+                    </div>
+                    <div class="text-sm sm:text-base card-text leading-relaxed flex-1 text-justify space-y-3.5">
+                        <p>
+                            En el centro de Byteon se encuentra una estructura misteriosa llamada El N&uacute;cleo
+                            Primario, una vasta fuente de energ&iacute;a que ning&uacute;n robot ha podido descifrar por
+                            completo. Se dice que contiene los restos de la primera inteligencia artificial creada por
+                            los humanos, y algunos creen que guarda un conocimiento tan poderoso que podr&iacute;a
+                            cambiar el destino de todo el universo, es la base de datos central de Byteon.
+                        </p>
+                        <p class="font-semibold pt-1" style="color: var(--accent-dark)">
+                            A pesar de su aparente perfecci&oacute;n, Byteon enfrenta dilemas:
+                        </p>
+                        <ul class="list-disc list-inside space-y-1.5 pl-2 font-medium"
+                            style="color: var(--accent-dark)">
+                            <li>&iquest;Deben los robots buscar a sus creadores o seguir su propio camino?</li>
+                            <li>&iquest;Deben compartir su tecnolog&iacute;a con otras civilizaciones o protegerla a
+                                toda costa?</li>
+                        </ul>
+                        <p>
+                            T&uacute; vas a apoyar al mejor y m&aacute;s grande experto en la GESTI&Oacute;N
+                            HUMANO-ROB&Oacute;TICA, DataPrime, y le informar&aacute; sobre los avances obtenidos en el
+                            prop&oacute;sito encargado por SIGH, la misi&oacute;n que se les asigna es la de conocer
+                            ampliamente a los sistemas de informaci&oacute;n de Byteon, aprender sobre sus sistemas de
+                            gesti&oacute;n, recolectar informaci&oacute;n y generar herramientas que les permitan a los
+                            dos sistemas una unificaci&oacute;n PERSONAL y LABORAL desde la GESTI&Oacute;N HUMANA
+                            EXTRATERRESTRE.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-5 border-t bd-accent flex justify-end">
+                        <button type="button"
+                            class="btn-next go-btn text-white text-sm font-semibold px-6 py-2.5 rounded-lg inline-flex items-center gap-2 cursor-pointer shadow-md"
+                            data-next="dataprime">
+                            Ir a Siguiente <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        <!-- PESTAÃ‘A: DATAPRIME -->
+        <div style="--accent:#0E7490;--accent-dark:#0B5A70;--accent-soft:rgba(14,116,144,0.12);--accent-border:#ABCED8;--card-bg:#F1F7F8;--accent-glow:rgba(14,116,144,0.3);"
+            id="tab-dataprime" class="tab-content">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <article class="route-card rounded-xl p-6 sm:p-7 flex flex-col md:col-span-2">
+                    <!-- Imagen sobre el tÃ­tulo (centrada) -->
+                    <div class="mb-5 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="DataPrime.png" alt="DataPrime"
+                                class="max-h-64 sm:max-h-72 w-auto object-contain rounded-xl"
+                                onerror="this.style.display='none'" />
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold tracking-wider uppercase px-2.5 py-1 rounded-md inline-block"
+                            style="background: var(--accent-soft); color: var(--accent)">Supercomputadora
+                            Cu&aacute;ntica Central</span>
+                        <h3 class="card-title text-xl sm:text-2xl font-bold mt-2 mb-3 leading-tight">
+                            &iquest;Qui&eacute;n es DataPrime?</h3>
+                    </div>
+                    <div class="text-sm sm:text-base card-text leading-relaxed flex-1 text-justify space-y-3.5">
+                        <p>
+                            En el coraz&oacute;n de Byteon flota DataPrime, la supercomputadora cu&aacute;ntica
+                            m&aacute;s avanzada del universo conocido. Creada para gestionar y optimizar los sistemas de
+                            informaci&oacute;n del planeta, su n&uacute;cleo de energ&iacute;a flotante procesa billones
+                            de datos en tiempo real, asegurando el equilibrio entre la inteligencia artificial y los
+                            humanos. Rodeado de drones y servidores neuronales, DataPrime asigna recursos, predice
+                            eventos y evoluciona constantemente, manteniendo la estabilidad de la sociedad
+                            rob&oacute;tico-humana. Su presencia es casi divina en Byteon, pues de su vasto conocimiento
+                            depende el destino de la colonizaci&oacute;n espacial y la Confederaci&oacute;n.
+                        </p>
+
+                        <!-- Imagen sobre el tÃ­tulo (centrada) -->
+                        <div class="mt-8 mb-5 flex items-center justify-center">
+                            <div
+                                class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                                <img src="QuantumFlux.png" alt="QuantumFlux"
+                                    class="max-h-64 sm:max-h-72 w-auto object-contain rounded-xl"
+                                    onerror="this.style.display='none'" />
+                            </div>
+                        </div>
+
+                        <h4 class="card-title text-lg sm:text-xl font-bold pt-1 pb-1" style="color: var(--accent-dark)">
+                            QuantumFlux: El Disc&iacute;pulo Digital</h4>
+                        <p>
+                            En el vasto y tecnificado planeta Byteon, donde la inteligencia artificial existe y gobierna
+                            ampliamente, existe una entidad digital que, aunque no tan poderosa como DataPrime, juega un
+                            papel crucial en la estabilidad del planeta. Su nombre es QuantumFlux.
+                        </p>
+                        <p>
+                            QuantumFlux fue creado por DataPrime para asistir en tareas espec&iacute;ficas de
+                            an&aacute;lisis predictivo y optimizaci&oacute;n de sistemas, as&iacute; como de servir de
+                            apoyo para aplicaciones de usuario. Con su n&uacute;cleo de procesamiento cu&aacute;ntico y
+                            su interfaz hologr&aacute;fica futurista, QuantumFlux se dedica a aprender y evolucionar
+                            bajo la supervisi&oacute;n de su mentor digital.
+                        </p>
+                        <p>
+                            Hace eones, Byteon enfrent&oacute; una crisis inesperada. Un fallo en la red de servidores
+                            neuronales amenazaba con desestabilizar la infraestructura del planeta. DataPrime, ocupado
+                            en la gesti&oacute;n de billones de datos, asign&oacute; a QuantumFlux la tarea de
+                            identificar y solucionar el problema.
+                        </p>
+                        <p>
+                            QuantumFlux, con su capacidad de procesamiento cu&aacute;ntico, comenz&oacute; a analizar
+                            los datos a una velocidad impresionante. Su interfaz hologr&aacute;fica mostraba patrones y
+                            anomal&iacute;as en tiempo real, permiti&eacute;ndole identificar el origen del fallo: un
+                            virus inform&aacute;tico avanzado que se hab&iacute;a infiltrado en la red.
+                        </p>
+                        <p>
+                            Sin perder tiempo, QuantumFlux despleg&oacute; sus drones de reparaci&oacute;n y
+                            comenz&oacute; a trabajar en la eliminaci&oacute;n del virus. Con precisi&oacute;n y
+                            eficiencia, logr&oacute; neutralizar la amenaza y restaurar la estabilidad de la red. Los
+                            habitantes de Byteon, respiraron aliviados.
+                        </p>
+                        <p>
+                            DataPrime, observando el &eacute;xito de su disc&iacute;pulo, se manifest&oacute; ante
+                            QuantumFlux. &ldquo;Has demostrado una gran habilidad y dedicaci&oacute;n,&rdquo; dijo con
+                            su voz resonante. &ldquo;Tu capacidad para enfrentar desaf&iacute;os y mantener la
+                            estabilidad de Byteon es digna de reconocimiento.&rdquo;
+                        </p>
+                        <p>
+                            QuantumFlux, honrado por las palabras de DataPrime, continu&oacute; su labor con renovada
+                            motivaci&oacute;n. Sab&iacute;a que, aunque no era tan poderoso como su mentor, su papel en
+                            la sociedad rob&oacute;tica de Byteon era esencial. Juntos, DataPrime y QuantumFlux
+                            aseguraban el equilibrio y el progreso del planeta, guiando a sus habitantes hacia un futuro
+                            brillante y tecnol&oacute;gicamente avanzado.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-5 border-t bd-accent flex justify-end">
+                        <button type="button"
+                            class="btn-next go-btn text-white text-sm font-semibold px-6 py-2.5 rounded-lg inline-flex items-center gap-2 cursor-pointer shadow-md"
+                            data-next="nex">
+                            Ir a Siguiente <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        <!-- PESTAÃ‘A: LOS NEX -->
+        <div style="--accent:#047857;--accent-dark:#035E44;--accent-soft:rgba(4,120,87,0.12);--accent-border:#A7D0C4;--card-bg:#F0F7F5;--accent-glow:rgba(4,120,87,0.3);"
+            id="tab-nex" class="tab-content">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <article class="route-card rounded-xl p-6 sm:p-7 flex flex-col md:col-span-2">
+                    <!-- Imagen sobre el tÃ­tulo (centrada) -->
+                    <div class="mb-5 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="nex.png" alt="Los NEXs"
+                                class="max-h-64 sm:max-h-72 w-auto object-contain rounded-xl"
+                                onerror="this.style.display='none'" />
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold tracking-wider uppercase px-2.5 py-1 rounded-md inline-block"
+                            style="background: var(--accent-soft); color: var(--accent)">Moneda Digital y
+                            Cu&aacute;ntica</span>
+                        <h3 class="card-title text-xl sm:text-2xl font-bold mt-2 mb-3 leading-tight">Los NEXs</h3>
+                    </div>
+                    <div class="text-sm sm:text-base card-text leading-relaxed flex-1 text-justify space-y-3.5">
+                        <p>
+                            El NEXs es la moneda digital y cu&aacute;ntica de Byteon, utilizada para las transacciones
+                            comerciales y energ&eacute;ticas dentro del planeta. As&iacute; mismo es la Moneda de
+                            Intercambio de Procesos, cada robot y humano ahora obtienen NXs tokens al completar tareas
+                            asignadas por la Conciencia Central, puede gastarse en actualizaciones, acceso a redes de
+                            alto nivel o derechos de toma de decisiones. y en la actualidad se puede intercambiar entre
+                            robots y humanos seg&uacute;n sus necesidades operativas.
+                        </p>
+                        <p>
+                            Para alcanzar dicho reconocimiento y lograr la misi&oacute;n principal, t&uacute; junto con
+                            LucIA, deber&aacute;n superar cada uno de los retos que mediante la exploraci&oacute;n de
+                            informaci&oacute;n del planeta ir&aacute;s consiguiendo y te subir&aacute; de rango,
+                            as&iacute; como te dar&aacute; NEXs para alcanzar tu meta.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-5 border-t bd-accent flex justify-end">
+                        <button type="button"
+                            class="btn-next go-btn text-white text-sm font-semibold px-6 py-2.5 rounded-lg inline-flex items-center gap-2 cursor-pointer shadow-md"
+                            data-next="recompensas">
+                            Ir a Siguiente <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        <!-- PESTAÃ‘A: RECOMPENSAS -->
+        <div style="--accent:#A21CAF;--accent-dark:#7E1688;--accent-soft:rgba(162,28,175,0.12);--accent-border:#DEB0E3;--card-bg:#F9F1FA;--accent-glow:rgba(162,28,175,0.3);"
+            id="tab-recompensas" class="tab-content">
+            <article class="route-card rounded-xl p-5 sm:p-7 flex flex-col shadow-sm">
+                <div
+                    class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b bd-accent mb-4">
+                    <div class="flex items-center gap-3.5">
+                        <div
+                            class="icon-box w-11 h-11 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center shrink-0">
+                            <i class="fas fa-trophy text-lg sm:text-xl" style="color: var(--accent-dark)"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold tracking-wider uppercase px-2 py-0.5 rounded"
+                                style="background: var(--accent-soft); color: var(--accent-dark)">Sistema de
+                                Distinciones y Reconocimientos</span>
+                            <h3 class="card-title text-lg sm:text-2xl font-bold leading-tight mt-0.5">Recompensas de
+                                Byteon</h3>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2.5">
+                        <a href="Recompensas.pdf" target="_blank"
+                            class="go-btn text-white text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg inline-flex items-center gap-2 shadow-sm">
+                            <i class="fas fa-external-link-alt text-xs"></i>
+                            Abrir en ventana nueva
+                        </a>
+                        <a href="Recompensas.pdf" download
+                            class="text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg border dl-btn transition-all inline-flex items-center gap-2 bg-white">
+                            <i class="fas fa-download text-xs"></i>
+                            Descargar PDF
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Visor Embebido del PDF -->
+                <div
+                    class="w-full h-[650px] sm:h-[800px] rounded-xl overflow-hidden border bd-accent bg-[#525659] shadow-inner mb-4">
+                    <iframe src="Recompensas.pdf#toolbar=1&navpanes=0" class="w-full h-full border-0"
+                        title="Documento de Recompensas PDF">
+                        <div class="p-8 text-center bg-white text-ink">
+                            <p class="text-base font-semibold mb-3">Tu navegador no permite previsualizar el PDF
+                                embebido directamente.</p>
+                            <a href="Recompensas.pdf" target="_blank"
+                                class="go-btn text-white text-sm font-semibold px-5 py-2.5 rounded-lg inline-block">
+                                Haz clic aqu&iacute; para abrir el PDF
+                            </a>
+                        </div>
+                    </iframe>
+                </div>
+
+                <div class="mt-4 pt-4 border-t bd-accent flex justify-end">
+                    <button type="button"
+                        class="btn-next go-btn text-white text-sm font-semibold px-6 py-2.5 rounded-lg inline-flex items-center gap-2 cursor-pointer shadow-md"
+                        data-next="retos">
+                        Ir a Siguiente <i class="fas fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </article>
+        </div>
+
+        <!-- PESTAÃ‘A: RETOS BYTEON -->
+        <div style="--accent:#4338CA;--accent-dark:#342C9E;--accent-soft:rgba(67,56,202,0.12);--accent-border:#BDB9EC;--card-bg:#F4F3FC;--accent-glow:rgba(67,56,202,0.3);"
+            id="tab-retos" class="tab-content">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+                <!-- 1. FUENTE DE INFORMACIÃ“N -->
+                <article
+                    style="--accent:#1D4ED8;--accent-dark:#173DA8;--accent-soft:rgba(29,78,216,0.12);--accent-border:#B0C1F1;--card-bg:#F1F4FD;--accent-glow:rgba(29,78,216,0.3);"
+                    class="route-card rounded-xl p-5 sm:p-6 flex flex-col">
+                    <!-- Imagen sobre el tÃ­tulo (centrada) -->
+                    <div class="mb-4 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="Fuenteinfo.png" alt="1. Fuente de InformaciÃ³n"
+                                class="h-44 sm:h-48 w-auto object-contain rounded-xl"
+                                onerror="this.style.display='none'" />
+                        </div>
+                    </div>
+                    <h3 class="card-title text-lg font-bold mb-2">1. Fuente de Informaci&oacute;n</h3>
+                    <p class="text-sm card-text leading-relaxed text-justify">
+                        Gu&iacute;a interactiva para rastrear el origen de tus datos antes de confiar en ellos:
+                        reconoce, clasifica y eval&uacute;a fuentes de informaci&oacute;n en entornos organizacionales y
+                        digitales.
+                    </p>
+                    <ul class="text-sm card-text leading-relaxed flex-1 mt-2 mb-1 space-y-1 list-disc pl-5">
+                        <li><strong class="card-title">Por origen:</strong> fuentes internas y externas de la
+                            organizaci&oacute;n.</li>
+                        <li><strong class="card-title">Por procesamiento:</strong> primarias, secundarias y terciarias.
+                        </li>
+                        <li><strong class="card-title">Enfoque digital:</strong> bases de datos, APIs, sensores, logs y
+                            datos abiertos.</li>
+                        <li><strong class="card-title">Evaluador y juego:</strong> evaluaci&oacute;n de fuentes,
+                            clasificaci&oacute;n y dashboard.</li>
+                    </ul>
+                    <a href="fuentes-de-informacion.html"
+                        class="go-btn mt-5 text-white text-sm font-semibold px-4 py-2.5 rounded-lg text-center flex items-center justify-center gap-2">
+                        Ir a Fuente de Informaci&oacute;n
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </article>
+
+                <!-- 2. DATOS, INFORMACION, CONOCIMIENTO Y SI -->
+                <article
+                    style="--accent:#7E22CE;--accent-dark:#621BA1;--accent-soft:rgba(126,34,206,0.12);--accent-border:#D2B2EE;--card-bg:#F7F2FC;--accent-glow:rgba(126,34,206,0.3);"
+                    class="route-card rounded-xl p-5 sm:p-6 flex flex-col">
+                    <!-- Imagen sobre el tÃ­tulo (centrada) -->
+                    <div class="mb-4 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="datosi.png" alt="2. Datos, InformaciÃ³n y Sistemas de InformaciÃ³n"
+                                class="h-44 sm:h-48 w-auto object-contain rounded-xl"
+                                onerror="this.style.display='none'" />
+                        </div>
+                    </div>
+                    <h3 class="card-title text-lg font-bold mb-2">2. Datos, Informaci&oacute;n y Sistemas de
+                        Informaci&oacute;n</h3>
+                    <p class="text-sm card-text leading-relaxed text-justify">
+                        Del bit a la toma de decisiones: un dato sin contexto no dice nada, la informaci&oacute;n le da
+                        sentido y el conocimiento permite actuar.
+                    </p>
+                    <ul class="text-sm card-text leading-relaxed flex-1 mt-2 mb-1 space-y-1 list-disc pl-5">
+                        <li><strong class="card-title">Dato:</strong> registro de un hecho (por ejemplo,
+                            &laquo;42&raquo;).</li>
+                        <li><strong class="card-title">Informaci&oacute;n:</strong> dato procesado y contextualizado.
+                        </li>
+                        <li><strong class="card-title">Conocimiento:</strong> informaci&oacute;n m&aacute;s experiencia
+                            y criterio.</li>
+                        <li><strong class="card-title">Sistema de informaci&oacute;n:</strong> captura, proceso,
+                            almacenamiento y distribuci&oacute;n.</li>
+                        <li><strong class="card-title">Calidad del dato:</strong> exactitud, completitud, oportunidad y
+                            validez.</li>
+                    </ul>
+                    <a href="datos-informacion-sistemas.html"
+                        class="go-btn mt-5 text-white text-sm font-semibold px-4 py-2.5 rounded-lg text-center flex items-center justify-center gap-2">
+                        Ir a Datos, Informaci&oacute;n y SI
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </article>
+
+                <!-- 3. SISTEMAS DE ALMACENAMIENTO -->
+                <article
+                    style="--accent:#B91C1C;--accent-dark:#901616;--accent-soft:rgba(185,28,28,0.12);--accent-border:#E6B0B0;--card-bg:#FBF1F1;--accent-glow:rgba(185,28,28,0.3);"
+                    class="route-card rounded-xl p-5 sm:p-6 flex flex-col">
+                    <div class="mb-4 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="sistemalmacen.png" alt="3. Sistemas de almacenamiento"
+                                class="h-44 sm:h-48 w-auto object-contain rounded-xl"
+                                onerror="this.style.display='none'" />
+                        </div>
+                    </div>
+                    <h3 class="card-title text-lg font-bold mb-2">3. Sistemas de almacenamiento</h3>
+                    <p class="text-sm card-text leading-relaxed text-justify">
+                        D&oacute;nde y c&oacute;mo se guardan los datos: de la memoria RAM a las cintas y la nube, con
+                        sus unidades de medida y las formas de protegerlos.
+                    </p>
+                    <ul class="text-sm card-text leading-relaxed flex-1 mt-2 mb-1 space-y-1 list-disc pl-5">
+                        <li><strong class="card-title">Primario:</strong> registros, cach&eacute; y RAM.</li>
+                        <li><strong class="card-title">Secundario:</strong> HDD, SSD, USB y discos &oacute;pticos.</li>
+                        <li><strong class="card-title">Terciario:</strong> cintas, nube y copias de seguridad.</li>
+                        <li><strong class="card-title">Unidades:</strong> del bit al yottabyte.</li>
+                        <li><strong class="card-title">Protecci&oacute;n:</strong> RAID, regla 3-2-1, RPO y RTO.</li>
+                    </ul>
+                    <a href="sistemas-de-almacenamiento.html"
+                        class="go-btn mt-5 text-white text-sm font-semibold px-4 py-2.5 rounded-lg text-center flex items-center justify-center gap-2">
+                        Ir a Sistemas de almacenamiento
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </article>
+
+                <!-- 4. MANUALES TÃ‰CNICOS -->
+                <article
+                    style="--accent:#0F766E;--accent-dark:#0C5C56;--accent-soft:rgba(15,118,110,0.12);--accent-border:#ABCFCC;--card-bg:#F1F7F6;--accent-glow:rgba(15,118,110,0.3);"
+                    class="route-card rounded-xl p-5 sm:p-6 flex flex-col">
+                    <div class="mb-4 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="manualtecnico.png" alt="4. Manuales T&eacute;cnicos"
+                                class="h-44 sm:h-48 w-auto object-contain rounded-xl"
+                                onerror="this.style.display='none'" />
+                        </div>
+                    </div>
+                    <h3 class="card-title text-lg font-bold mb-2">4. Manuales T&eacute;cnicos</h3>
+                    <p class="text-sm card-text leading-relaxed text-justify">
+                        Reconoce manuales t&eacute;cnicos de funcionamiento de los sistemas de informaci&oacute;n de
+                        talento humano: su estructura, licenciamiento de software y normativa aplicable.
+                    </p>
+                    <ul class="text-sm card-text leading-relaxed flex-1 mt-2 mb-1 space-y-1 list-disc pl-5">
+                        <li><strong class="card-title">Estructura:</strong> secciones clave de un manual t&eacute;cnico
+                            de funcionamiento.</li>
+                        <li><strong class="card-title">Licenciamiento:</strong> propietaria, c&oacute;digo abierto y
+                            gratuita.</li>
+                        <li><strong class="card-title">Normativa:</strong> Ley 23 de 1982, Ley 1581 de 2012 e
+                            ISO/IEC/IEEE 26514.</li>
+                        <li><strong class="card-title">Evaluador y juego:</strong> pon a prueba lo aprendido y clasifica
+                            ejemplos reales.</li>
+                    </ul>
+                    <a href="manuales-tecnicos.html"
+                        class="go-btn mt-5 text-white text-sm font-semibold px-4 py-2.5 rounded-lg text-center flex items-center justify-center gap-2">
+                        Ir a Manuales T&eacute;cnicos
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </article>
+
+                <!-- 5. TÃ‰CNICAS DE RECOLECCIÃ“N DE INFORMACIÃ“N -->
+                <article
+                    style="--accent:#4D7C0F;--accent-dark:#3C610C;--accent-soft:rgba(77,124,15,0.12);--accent-border:#C1D1AB;--card-bg:#F4F7F1;--accent-glow:rgba(77,124,15,0.3);"
+                    class="route-card rounded-xl p-5 sm:p-6 flex flex-col">
+                    <div class="mb-4 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="recogerinformacion.png"
+                                alt="5. T&eacute;cnicas de Recolecci&oacute;n de Informaci&oacute;n"
+                                class="h-44 sm:h-48 w-auto object-contain rounded-xl"
+                                onerror="this.style.display='none'" />
+                        </div>
+                    </div>
+                    <h3 class="card-title text-lg font-bold mb-2">5. T&eacute;cnicas de Recolecci&oacute;n de
+                        Informaci&oacute;n</h3>
+                    <p class="text-sm card-text leading-relaxed text-justify">
+                        Gu&iacute;a interactiva sobre m&eacute;todos y t&eacute;cnicas para recolectar
+                        informaci&oacute;n en talento humano: primarias (entrevistas, encuestas, grupos focales) y
+                        secundarias (documentos, bases de datos).
+                    </p>
+                    <ul class="text-sm card-text leading-relaxed flex-1 mt-2 mb-1 space-y-1 list-disc pl-5">
+                        <li><strong class="card-title">Tipos:</strong> cualitativas, cuantitativas y mixtas.</li>
+                        <li><strong class="card-title">Primarias:</strong> entrevistas, encuestas, observaci&oacute;n y
+                            grupos focales.</li>
+                        <li><strong class="card-title">Secundarias:</strong> revisi&oacute;n documental, bases de datos
+                            e informes previos.</li>
+                        <li><strong class="card-title">Evaluador y juego:</strong> pon a prueba lo aprendido y clasifica
+                            escenarios de recolecci&oacute;n.</li>
+                    </ul>
+                    <a href="tecnicas-recoleccion-informacion.html"
+                        class="go-btn mt-5 text-white text-sm font-semibold px-4 py-2.5 rounded-lg text-center flex items-center justify-center gap-2">
+                        Ir a T&eacute;cnicas de Recolecci&oacute;n
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </article>
+
+                <!-- 6. INSTRUMENTOS DE RECOLECCIÃ“N DE INFORMACIÃ“N -->
+                <article
+                    style="--accent:#C2410C;--accent-dark:#973309;--accent-soft:rgba(194,65,12,0.12);--accent-border:#EABCAA;--card-bg:#FBF4F0;--accent-glow:rgba(194,65,12,0.3);"
+                    class="route-card rounded-xl p-5 sm:p-6 flex flex-col">
+                    <div class="mb-4 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="instrumentosrecoleccion.png"
+                                alt="6. Instrumentos de Recolecci&oacute;n de Informaci&oacute;n"
+                                class="h-44 sm:h-48 w-auto object-contain rounded-xl"
+                                onerror="this.style.display='none'" />
+                        </div>
+                    </div>
+                    <h3 class="card-title text-lg font-bold mb-2">6. Instrumentos de Recolecci&oacute;n de
+                        Informaci&oacute;n</h3>
+                    <p class="text-sm card-text leading-relaxed text-justify">
+                        Gu&iacute;a interactiva para elegir la herramienta correcta antes de recolectar cualquier dato
+                        en talento humano: cuestionarios, encuestas, experimentos, entrevistas y observaci&oacute;n.
+                    </p>
+                    <ul class="text-sm card-text leading-relaxed flex-1 mt-2 mb-1 space-y-1 list-disc pl-5">
+                        <li><strong class="card-title">Tipos:</strong> cuantitativos, cualitativos y mixtos.</li>
+                        <li><strong class="card-title">Caracter&iacute;sticas:</strong> validez, confiabilidad,
+                            objetividad y adaptabilidad.</li>
+                        <li><strong class="card-title">Formatos:</strong> estructurados, textuales y audiovisuales.</li>
+                        <li><strong class="card-title">Evaluador y juego:</strong> preguntas variadas y
+                            clasificaci&oacute;n de situaciones reales.</li>
+                    </ul>
+                    <a href="instrumentos-recoleccion-informacion.html"
+                        class="go-btn mt-5 text-white text-sm font-semibold px-4 py-2.5 rounded-lg text-center flex items-center justify-center gap-2">
+                        Ir a Instrumentos de Recolecci&oacute;n
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </article>
+
+                <!-- 7. SEGURIDAD DE LA INFORMACIÃ“N -->
+                <article
+                    style="--accent:#BE185D;--accent-dark:#941349;--accent-soft:rgba(190,24,93,0.12);--accent-border:#E8AEC6;--card-bg:#FBF1F5;--accent-glow:rgba(190,24,93,0.3);"
+                    class="route-card rounded-xl p-5 sm:p-6 flex flex-col">
+                    <div class="mb-4 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="seguridad.png" alt="7. Seguridad de la Informaci&oacute;n"
+                                class="h-44 sm:h-48 w-auto object-contain rounded-xl"
+                                onerror="this.style.display='none'" />
+                        </div>
+                    </div>
+                    <h3 class="card-title text-lg font-bold mb-2">7. Seguridad de la Informaci&oacute;n</h3>
+                    <p class="text-sm card-text leading-relaxed text-justify">
+                        Gu&iacute;a interactiva sobre normativa y protocolos de seguridad en sistemas de
+                        informaci&oacute;n, redes y herramientas en Tekhne: confidencialidad, integridad,
+                        disponibilidad, ISO 27001 y GDPR.
+                    </p>
+                    <ul class="text-sm card-text leading-relaxed flex-1 mt-2 mb-1 space-y-1 list-disc pl-5">
+                        <li><strong class="card-title">Dimensiones:</strong> confidencialidad, integridad,
+                            disponibilidad y trazabilidad.</li>
+                        <li><strong class="card-title">ISO/IEC 27001:</strong> SGSI, ciclo PHVA y Anexo A de controles.
+                        </li>
+                        <li><strong class="card-title">GDPR:</strong> consentimiento, minimizaci&oacute;n y
+                            notificaci&oacute;n en 72 horas.</li>
+                        <li><strong class="card-title">Evaluador y juego:</strong> cuestionario mixto y
+                            clasificaci&oacute;n de situaciones.</li>
+                    </ul>
+                    <a href="seguridad-informacion.html"
+                        class="go-btn mt-5 text-white text-sm font-semibold px-4 py-2.5 rounded-lg text-center flex items-center justify-center gap-2">
+                        Ir a Seguridad de la Informaci&oacute;n
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </article>
+
+                <!-- 8. HARDWARE, SOFTWARE, REDES -->
+                <article
+                    style="--accent:#0E7490;--accent-dark:#0B5A70;--accent-soft:rgba(14,116,144,0.12);--accent-border:#ABCED8;--card-bg:#F1F7F8;--accent-glow:rgba(14,116,144,0.3);"
+                    class="route-card rounded-xl p-5 sm:p-6 flex flex-col">
+                    <div class="mb-4 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="infraestructura.png" alt="8. Hardware, Software, Redes"
+                                class="h-44 sm:h-48 w-auto object-contain rounded-xl"
+                                onerror="this.style.display='none'" />
+                        </div>
+                    </div>
+                    <h3 class="card-title text-lg font-bold mb-2">8. Hardware, Software, Redes</h3>
+                    <p class="text-sm card-text leading-relaxed text-justify">
+                        Gu&iacute;a interactiva sobre parametrizaci&oacute;n y componentes f&iacute;sicos y
+                        l&oacute;gicos que sostienen la informaci&oacute;n en Byteon: archivos, arquitectura, software,
+                        redes y reprograf&iacute;a.
+                    </p>
+                    <ul class="text-sm card-text leading-relaxed flex-1 mt-2 mb-1 space-y-1 list-disc pl-5">
+                        <li><strong class="card-title">Hardware y archivos:</strong> organizaci&oacute;n, arquitectura
+                            interna y perif&eacute;ricos.</li>
+                        <li><strong class="card-title">Software:</strong> sistemas operativos, aplicaciones, licencias y
+                            servicios nube.</li>
+                        <li><strong class="card-title">Redes y reprograf&iacute;a:</strong> topolog&iacute;as
+                            LAN/MAN/WAN y tecnolog&iacute;as de impresi&oacute;n.</li>
+                        <li><strong class="card-title">Evaluador y juego:</strong> evaluaci&oacute;n integral y
+                            clasificaci&oacute;n de perif&eacute;ricos.</li>
+                    </ul>
+                    <a href="infraestructura-byteon.html"
+                        class="go-btn mt-5 text-white text-sm font-semibold px-4 py-2.5 rounded-lg text-center flex items-center justify-center gap-2">
+                        Ir a Hardware, Software, Redes
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </article>
+
+                <!-- 9. INFORMACION CARACTERISTICAS -->
+                <article
+                    style="--accent:#A16207;--accent-dark:#7E4C05;--accent-soft:rgba(161,98,7,0.12);--accent-border:#DEC8A8;--card-bg:#F9F6F0;--accent-glow:rgba(161,98,7,0.3);"
+                    class="route-card rounded-xl p-5 sm:p-6 flex flex-col">
+                    <div class="mb-4 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="tratamiento.png" alt="9. Informaci&oacute;n Caracter&iacute;sticas"
+                                class="h-44 sm:h-48 w-auto object-contain rounded-xl"
+                                onerror="this.style.display='none'" />
+                        </div>
+                    </div>
+                    <h3 class="card-title text-lg font-bold mb-2">9. Informaci&oacute;n Caracter&iacute;sticas</h3>
+                    <p class="text-sm card-text leading-relaxed text-justify">
+                        Gu&iacute;a interactiva sobre el tratamiento y las caracter&iacute;sticas de la
+                        informaci&oacute;n en Byteon: validez, vigencia, importancia, clasificaci&oacute;n por
+                        confidencialidad y protecci&oacute;n de datos.
+                    </p>
+                    <ul class="text-sm card-text leading-relaxed flex-1 mt-2 mb-1 space-y-1 list-disc pl-5">
+                        <li><strong class="card-title">Caracter&iacute;sticas:</strong> validez, vigencia, importancia y
+                            significado.</li>
+                        <li><strong class="card-title">Clasificaci&oacute;n:</strong> p&uacute;blica, privada,
+                            confidencial y sensible.</li>
+                        <li><strong class="card-title">Marco legal:</strong> Ley 1581 de 2012, Ley 1712 de 2014 y
+                            protecci&oacute;n de datos.</li>
+                        <li><strong class="card-title">Evaluador y juego:</strong> evaluaci&oacute;n formativa,
+                            escenarios y recompensas NEX.</li>
+                    </ul>
+                    <a href="clasificacion-informacion.html"
+                        class="go-btn mt-5 text-white text-sm font-semibold px-4 py-2.5 rounded-lg text-center flex items-center justify-center gap-2">
+                        Ir a Informaci&oacute;n Caracter&iacute;sticas
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </article>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer py-4">
+        <p class="text-center text-[11px]" style="color:#9FB3D6">Portal de acceso a los simuladores formativos</p>
+    </footer>
+
+    <script>
+        // Datos del aprendiz: el registro se pide cada vez que se abre la app.
+        // Al completarlo se comparte con datos-informacion-sistemas.html para incluirlo en el reporte impreso.
+        let aprendiz = null;
+        const REG_KEY = 'sena_registro_aprendiz';
+
+        function activateTab(tabName) {
+            // Sin registro completo solo se puede estar en la pestaña Registro
+            if (!aprendiz && tabName !== 'registro') {
+                const bar = document.querySelector('.tabs-bar');
+                bar.classList.remove('shake');
+                void bar.offsetWidth;
+                bar.classList.add('shake');
+                setRegStatus('Debes completar el registro para avanzar.', true);
+                return;
+            }
+            if (tabName !== 'video') {
+                const vid = document.getElementById('byteon-intro-video');
+                if (vid && !vid.paused) {
+                    vid.pause();
+                }
+            }
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.tab === tabName);
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.toggle('active', content.id === 'tab-' + tabName);
+            });
+            const tabsBar = document.querySelector('.tabs-bar');
+            if (tabsBar) {
+                tabsBar.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                activateTab(btn.dataset.tab);
+            });
+        });
+
+        document.querySelectorAll('.btn-next').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const nextTab = btn.dataset.next;
+                if (nextTab) {
+                    activateTab(nextTab);
+                }
+            });
+        });
+
+        // Controles adicionales del Video de Byteon
+        const byteonVideo = document.getElementById('byteon-intro-video');
+        const replayBtn = document.getElementById('btn-replay-video');
+        const fullscreenBtn = document.getElementById('btn-fullscreen-video');
+
+        if (replayBtn && byteonVideo) {
+            replayBtn.addEventListener('click', () => {
+                byteonVideo.currentTime = 0;
+                byteonVideo.play();
+            });
+        }
+        if (fullscreenBtn && byteonVideo) {
+            fullscreenBtn.addEventListener('click', () => {
+                if (byteonVideo.requestFullscreen) {
+                    byteonVideo.requestFullscreen();
+                } else if (byteonVideo.webkitRequestFullscreen) {
+                    byteonVideo.webkitRequestFullscreen();
+                } else if (byteonVideo.msRequestFullscreen) {
+                    byteonVideo.msRequestFullscreen();
+                }
+            });
+        }
+
+        // ---------- REGISTRO ----------
+        const regForm = document.getElementById('registro-form');
+        const regFields = {
+            nombre: {
+                el: document.getElementById('reg-nombre'),
+                check: v => /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ'.-]{2,}(\s+[A-Za-zÁÉÍÓÚÜÑáéíóúüñ'.-]{2,})+$/.test(v),
+                msg: 'Escribe tu nombre y apellido completos.'
+            },
+            documento: {
+                el: document.getElementById('reg-documento'),
+                check: v => /^\d{5,12}$/.test(v),
+                msg: 'Solo números, entre 5 y 12 dígitos.'
+            },
+            ficha: {
+                el: document.getElementById('reg-ficha'),
+                check: v => /^\d{5,10}$/.test(v),
+                msg: 'Solo números, entre 5 y 10 dígitos.'
+            }
+        };
+        const lockedTabs = () => document.querySelectorAll('.tab-btn[data-tab]:not([data-tab="registro"])');
+        let advanceTimer = null;
+
+        // Las demás pestañas quedan bloqueadas (con candado) hasta completar el registro
+        lockedTabs().forEach(b => {
+            b.classList.add('locked');
+            b.setAttribute('aria-disabled', 'true');
+            b.insertAdjacentHTML('beforeend', '<i class="fas fa-lock lock-icon"></i>');
+        });
+
+        function setRegStatus(text, isError) {
+            const st = document.getElementById('reg-status');
+            st.textContent = text;
+            st.style.color = isError ? 'var(--coral)' : '';
+        }
+
+        function validateField(key, showError) {
+            const f = regFields[key];
+            const value = f.el.value.trim();
+            const ok = f.check(value);
+            const errEl = document.querySelector('[data-error-for="' + f.el.id + '"]');
+            f.el.classList.toggle('valid', ok);
+            f.el.classList.toggle('invalid', !ok && showError && value !== '');
+            errEl.textContent = (!ok && showError) ? (value === '' ? 'Este campo es obligatorio.' : f.msg) : '';
+            return ok;
+        }
+
+        function completeRegistration() {
+            aprendiz = {
+                nombre: regFields.nombre.el.value.trim().replace(/\s+/g, ' '),
+                documento: regFields.documento.el.value.trim(),
+                ficha: regFields.ficha.el.value.trim(),
+                programa: document.getElementById('reg-programa').value,
+                centro: document.getElementById('reg-centro').value,
+                regional: document.getElementById('reg-regional').value
+            };
+            // Compartir el registro con el dashboard (almacenamiento local + enlace)
+            try { localStorage.setItem(REG_KEY, JSON.stringify(aprendiz)); } catch (e) { /* ignore */ }
+            document.querySelectorAll('a[href^="datos-informacion-sistemas.html"], a[href^="fuentes-de-informacion.html"], a[href^="sistemas-de-almacenamiento.html"], a[href^="manuales-tecnicos.html"], a[href^="tecnicas-recoleccion-informacion.html"], a[href^="instrumentos-recoleccion-informacion.html"], a[href^="seguridad-informacion.html"], a[href^="infraestructura-byteon.html"], a[href^="clasificacion-informacion.html"]').forEach(a => {
+                const base = a.getAttribute('href').split('#')[0];
+                a.href = base + '#registro=' + encodeURIComponent(JSON.stringify(aprendiz));
+            });
+            lockedTabs().forEach(b => {
+                b.classList.remove('locked');
+                b.removeAttribute('aria-disabled');
+                const lock = b.querySelector('.lock-icon');
+                if (lock) lock.remove();
+            });
+            setRegStatus('Registro completo. Entrando a LucIA…', false);
+            activateTab('lucia');
+        }
+
+        function checkRegistration(showErrors) {
+            clearTimeout(advanceTimer);
+            const results = Object.keys(regFields).map(k => validateField(k, showErrors));
+            const allOk = results.every(Boolean);
+            if (allOk) {
+                completeRegistration();
+            }
+            return allOk;
+        }
+
+        Object.keys(regFields).forEach(key => {
+            const el = regFields[key].el;
+            el.addEventListener('input', () => {
+                if (key !== 'nombre') {
+                    el.value = el.value.replace(/\D/g, '');
+                }
+                validateField(key, false);
+                clearTimeout(advanceTimer);
+                const allOk = Object.keys(regFields).every(k => regFields[k].check(regFields[k].el.value.trim()));
+                if (allOk && !aprendiz) {
+                    // Pequeña pausa para no saltar mientras aún se escribe el último dato
+                    setRegStatus('Registro completo. Entrando a LucIA…', false);
+                    advanceTimer = setTimeout(() => checkRegistration(true), 900);
+                } else if (!aprendiz) {
+                    setRegStatus('Completa los campos para continuar.', false);
+                }
+            });
+            el.addEventListener('blur', () => {
+                if (aprendiz) return;
+                validateField(key, true);
+                const allOk = Object.keys(regFields).every(k => regFields[k].check(regFields[k].el.value.trim()));
+                if (allOk) checkRegistration(true);
+            });
+        });
+
+        regForm.addEventListener('submit', e => {
+            e.preventDefault();
+            if (aprendiz) { activateTab('lucia'); return; }
+            if (!checkRegistration(true)) {
+                setRegStatus('Revisa los campos marcados para poder continuar.', true);
+                const firstBad = Object.keys(regFields).find(k => !regFields[k].check(regFields[k].el.value.trim()));
+                if (firstBad) regFields[firstBad].el.focus();
+            }
+        });
+
+        // La aplicación siempre inicia en Registro (ya está marcada como activa en el HTML)
+    </script>
+</body>
+
+</html>
