@@ -1,0 +1,2797 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portal del Aprendiz SENA - Retos del planeta Byteon 2</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <style>
+        :root {
+            --navy: #14213D;
+            --navy-2: #1C2D52;
+            --parchment: #F6F1E7;
+            --paper: #FFFFFF;
+            --ink: #1D2430;
+            --ink-soft: #5B6472;
+            --coral: #D65B4A;
+            --gold: #C68A2E;
+            --gold-dark: #9C6D20;
+            --border: #E2D9C4;
+            /* Acento por defecto; cada sección define el suyo */
+            --accent: #475569;
+            --accent-dark: #374252;
+            --accent-soft: rgba(71, 85, 105, 0.12);
+            --accent-border: #BFC4CA;
+            --card-bg: #F4F5F6;
+            --accent-glow: rgba(71, 85, 105, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--parchment);
+            color: var(--ink);
+        }
+
+        /* El encabezado y el pie se mantienen iguales */
+        .site-header {
+            background: linear-gradient(155deg, var(--navy) 0%, var(--navy-2) 65%, #223A63 100%);
+            border-bottom: 3px solid var(--gold);
+            box-shadow: 0 4px 14px rgba(20, 33, 61, 0.25);
+        }
+
+        .site-footer {
+            background: var(--navy);
+            border-top: 3px solid var(--gold);
+        }
+
+        /* Cada sección toma su propio color */
+        .route-card {
+            background: var(--card-bg);
+            transition: all 0.2s ease;
+            border: 1px solid var(--accent-border);
+            border-top: 5px solid var(--accent);
+        }
+
+        .route-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px -8px var(--accent-glow);
+        }
+
+        .icon-box {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent);
+        }
+
+        .icon-box i {
+            color: var(--accent-dark);
+        }
+
+        .card-title {
+            color: var(--accent-dark);
+        }
+
+        .card-text {
+            color: var(--ink-soft);
+        }
+
+        .card-lead {
+            color: var(--ink);
+        }
+
+        .card-sub {
+            color: #8EC789;
+        }
+
+        .bd-accent {
+            border-color: var(--accent-border);
+        }
+
+        .border-accent {
+            border-color: var(--accent);
+        }
+
+        .go-btn {
+            background-color: var(--accent);
+            color: #fff;
+            transition: all 0.2s ease;
+        }
+
+        .go-btn:hover {
+            background-color: var(--accent-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .go-btn:focus-visible,
+        .tab-btn:focus-visible,
+        .reg-input:focus-visible {
+            outline: 3px solid var(--accent-glow);
+            outline-offset: 2px;
+        }
+
+        /* TABS BAR: cada pestaña con su color */
+        .tabs-bar {
+            border-bottom: 2px solid var(--border);
+        }
+
+        .tab-btn {
+            padding: 10px 18px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--accent);
+            background: var(--paper);
+            border: 2px solid var(--accent-border);
+            border-radius: 8px 8px 0 0;
+            transition: all 0.22s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            top: 2px;
+        }
+
+        .tab-btn:hover:not(.active) {
+            border-color: var(--accent);
+            background: var(--paper);
+        }
+
+        .tab-btn.active {
+            color: #fff;
+            background: var(--accent);
+            border-color: var(--accent);
+            box-shadow: 0 -3px 10px var(--accent-glow);
+            z-index: 10;
+        }
+
+        .tab-btn.active i {
+            color: #fff;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(4px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* REGISTRO / BLOQUEO DE PESTAÑAS */
+        .tab-btn.locked {
+            opacity: 0.55;
+            cursor: not-allowed;
+            background: #F1EEE6;
+        }
+
+        .tab-btn.locked:hover {
+            background: #F1EEE6;
+        }
+
+        .tab-btn .lock-icon {
+            font-size: 0.7rem;
+        }
+
+        .tabs-bar.shake {
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-6px);
+            }
+
+            75% {
+                transform: translateX(6px);
+            }
+        }
+
+        .reg-input {
+            width: 100%;
+            padding: 11px 14px;
+            border: 2px solid var(--accent-border);
+            border-radius: 8px;
+            background: var(--paper);
+            color: var(--ink);
+            font-size: 0.95rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .reg-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        .reg-input.invalid {
+            border-color: var(--coral);
+        }
+
+        .reg-input.valid {
+            border-color: var(--accent);
+        }
+
+        .reg-input.reg-locked {
+            background: var(--accent-soft);
+            color: var(--accent-dark);
+            font-weight: 600;
+            cursor: not-allowed;
+        }
+
+        .reg-error {
+            color: var(--coral);
+            font-size: 0.78rem;
+            margin-top: 4px;
+            min-height: 1.1em;
+        }
+
+        .reg-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-dark);
+            margin-bottom: 6px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .tabs-bar.shake,
+            .tab-content {
+                animation: none;
+            }
+
+            .route-card,
+            .go-btn {
+                transition: none;
+            }
+        }
+
+        .pdf-fullscreen-wrapper:fullscreen,
+        .pdf-fullscreen-wrapper:-webkit-full-screen {
+            width: 100vw !important;
+            height: 100vh !important;
+            border-radius: 0 !important;
+            border: none !important;
+            background: #0f172a !important;
+            padding: 0 !important;
+        }
+
+        .pdf-fullscreen-wrapper:fullscreen .pdf-fs-exit-btn,
+        .pdf-fullscreen-wrapper:-webkit-full-screen .pdf-fs-exit-btn {
+            display: inline-flex !important;
+        }
+
+        /* Estilos personalizados para el visor de Excel */
+        #cronograma-table th,
+        #cronograma-table td {
+            vertical-align: middle;
+        }
+
+        #cronograma-table td.align-top {
+            vertical-align: top !important;
+        }
+
+        #cronograma-table tbody tr:hover {
+            filter: brightness(0.97);
+        }
+
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+            }
+
+            .site-header,
+            .site-footer,
+            .nav-tabs-wrapper,
+            .btn-next,
+            #cronograma-excel-tools,
+            .pdf-fs-exit-btn,
+            #btn-view-excel,
+            #btn-view-pdf {
+                display: none !important;
+            }
+
+            #tab-p4,
+            #cronograma-excel-container,
+            #cronograma-printable-area {
+                display: block !important;
+                overflow: visible !important;
+                height: auto !important;
+                border: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased selection:bg-slate-700 selection:text-white">
+
+    <!-- HEADER (sin cambios) -->
+    <header class="site-header text-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-7">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+
+                <div class="flex items-center gap-5 sm:gap-7">
+                    <div
+                        class="shrink-0 flex items-center justify-center p-2.5 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 shadow-md">
+                        <img src="sena.png" alt="Logo SENA"
+                            class="h-24 sm:h-28 md:h-32 w-auto object-contain drop-shadow-md"
+                            onerror="this.style.display='none'" />
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap items-center gap-x-2 gap-y-0.5 mb-1">
+                            <span
+                                class="text-xs sm:text-sm font-black tracking-widest uppercase text-white/95 drop-shadow-sm">
+                                SERVICIO NACIONAL DE APRENDIZAJE SENA
+                            </span>
+                            <span class="text-xs sm:text-sm text-[#C68A2E] font-black hidden sm:inline">&bull;</span>
+                            <span
+                                class="text-xs sm:text-sm font-black tracking-wider uppercase text-emerald-300 drop-shadow-sm">
+                                REGIONAL DISTRITO CAPITAL
+                            </span>
+                        </div>
+                        <h1
+                            class="text-xl sm:text-2xl md:text-3xl font-black tracking-tight text-white leading-snug drop-shadow-md">
+                            CENTRO DE GESTI&Oacute;N ADMINISTRATIVA
+                        </h1>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-white/15 flex flex-wrap items-center justify-between gap-4">
+                <p class="text-xs sm:text-sm text-white/95 font-bold tracking-wide">
+                    <span style="color: #8EC789;">COMPETENCIA:</span> 210601026 - OPERAR HERRAMIENTAS
+                    INFORM&Aacute;TICAS Y DIGITALES DE ACUERDO CON
+                    PROTOCOLOS Y MANUALES T&Eacute;CNICOS
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <!-- RECUADRO INFORMATIVO (datos del PDF) -->
+    <section class="max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6"
+        style="--accent:#475569;--accent-dark:#374252;--accent-soft:rgba(71,85,105,0.12);--accent-border:#BFC4CA;--card-bg:#F4F5F6;--accent-glow:rgba(71,85,105,0.3);">
+        <article class="route-card rounded-xl p-6 sm:p-7">
+            <div class="flex items-center gap-5 sm:gap-7 mb-6">
+                <img src="byteon.png" alt="Planeta Byteon"
+                    class="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-36 object-cover shrink-0 shadow-lg border-2 bd-accent"
+                    style="border-radius: 22px; overflow: hidden;" onerror="this.style.display='none'" />
+                <div>
+                    <h3 class="card-title text-2xl sm:text-3xl md:text-4xl font-black leading-tight">RETOS DEL PLANETA
+                        BYTEON 2</h3>
+                    <p class="text-sm sm:text-base md:text-lg card-text mt-1.5 font-bold" style="color: #8EC789;">FASE
+                        DEL PROYECTO:
+                        EJECUCI&Oacute;N</p>
+                </div>
+            </div>
+
+            <p class="text-base sm:text-lg card-lead leading-relaxed font-semibold">
+                Programa: T&eacute;cnico en Talento Humano
+            </p>
+
+            <h4 class="card-sub font-bold text-base sm:text-lg mt-5 mb-1.5" style="color: #8EC789;">COMPETENCIA:</h4>
+            <p class="text-base card-text leading-relaxed text-justify">Operar herramientas inform&aacute;ticas y
+                digitales de acuerdo con protocolos y manuales t&eacute;cnicos</p>
+
+            <h4 class="card-sub font-bold text-base sm:text-lg mt-5 mb-1.5" style="color: #8EC789;">FASE DEL PROYECTO:
+                EJECUCI&Oacute;N</h4>
+
+            <h4 class="card-sub font-bold text-base sm:text-lg mt-5 mb-2" style="color: #8EC789;">RESULTADOS DE
+                APRENDIZAJE:</h4>
+            <ul class="list-disc list-inside text-base card-text leading-relaxed space-y-2 pl-1 text-justify">
+                <li>Presentar informaci&oacute;n utilizando gestores de bases de datos, aplicaciones de inteligencia
+                    artificial y herramientas web de trabajo colaborativo de acuerdo con recursos y requerimientos de
+                    la organizaci&oacute;n.</li>
+                <li>Verificar la informaci&oacute;n de talento humano registrada en los sistemas de
+                    informaci&oacute;n, de acuerdo con las herramientas ofim&aacute;ticas establecidas por la
+                    organizaci&oacute;n.</li>
+                <li>Reportar novedades en la informaci&oacute;n de talento humano seg&uacute;n pol&iacute;ticas de la
+                    organizaci&oacute;n.</li>
+            </ul>
+        </article>
+    </section>
+
+    <!-- BARRA DE PESTAÑAS -->
+    <div class="max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 pb-4">
+        <div class="tabs-bar flex flex-wrap gap-2 items-center">
+            <button class="tab-btn active" data-tab="registro" style="--accent:#6D28D9;">
+                <i class="fas fa-id-card text-sm"></i>
+                <span>Registro</span>
+            </button>
+            <button class="tab-btn" data-tab="lucia" style="--accent:#0284C7;">
+                <i class="fas fa-robot text-sm"></i>
+                <span>LucIA</span>
+            </button>
+            <button class="tab-btn" data-tab="video" style="--accent:#4F46E5;">
+                <i class="fas fa-play-circle text-sm"></i>
+                <span>Video</span>
+            </button>
+            <button class="tab-btn" data-tab="byteon" style="--accent:#C2410C;">
+                <i class="fas fa-globe text-sm"></i>
+                <span>Byteon</span>
+            </button>
+            <button class="tab-btn" data-tab="neogenos" style="--accent:#BE185D;">
+                <i class="fas fa-users text-sm"></i>
+                <span>Los Neógenos</span>
+            </button>
+            <button class="tab-btn" data-tab="aspis-dory" style="--accent:#A16207;">
+                <i class="fas fa-shield-alt text-sm"></i>
+                <span>Aspís-Dóry</span>
+            </button>
+            <button class="tab-btn" data-tab="nex" style="--accent:#047857;">
+                <i class="fas fa-coins text-sm"></i>
+                <span>Los Nex</span>
+            </button>
+            <button class="tab-btn" data-tab="p2" style="--accent:#1D4ED8;">
+                <i class="fas fa-user-astronaut text-sm"></i>
+                <span>Dorian Gaiart</span>
+            </button>
+            <button class="tab-btn" data-tab="p3" style="--accent:#0E7490;">
+                <i class="fas fa-award text-sm"></i>
+                <span>Recompensas</span>
+            </button>
+            <button class="tab-btn" data-tab="retos" style="--accent:#4338CA;">
+                <i class="fas fa-rocket text-sm"></i>
+                <span>Retos Byteon</span>
+            </button>
+            <button class="tab-btn" data-tab="p4" style="--accent:#B91C1C;">
+                <i class="fas fa-calendar-alt text-sm"></i>
+                <span>Horario (propuesta)</span>
+            </button>
+            <button class="tab-btn" data-tab="p5" style="--accent:#0F766E;">
+                <i class="fas fa-trophy text-sm"></i>
+                <span>Lo lograste</span>
+            </button>
+            <button class="tab-btn" data-tab="certificado" style="--accent:#D97706;">
+                <i class="fas fa-certificate text-sm"></i>
+                <span>Certificado</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- CONTENIDO DE PESTAÑAS -->
+    <main class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pb-14 flex-1">
+
+        <!-- PESTAÑA: REGISTRO -->
+        <div id="tab-registro" class="tab-content active"
+            style="--accent:#6D28D9;--accent-dark:#551FA9;--accent-soft:rgba(109,40,217,0.12);--accent-border:#CCB4F2;--card-bg:#F6F2FD;--accent-glow:rgba(109,40,217,0.3);">
+
+            <!-- Contenedor Flex para acomodar el contador a la izquierda y el formulario a la derecha -->
+            <div class="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-8 max-w-6xl mx-auto">
+
+                <!-- CONTADOR DE VISITAS -->
+                <div
+                    class="flex flex-col items-center justify-center p-5 rounded-xl route-card shadow-md lg:mt-12 w-full lg:w-auto shrink-0">
+                    <span class="text-xs font-bold tracking-wider uppercase mb-3"
+                        style="color: var(--accent-dark);">Visitas Byteon 2</span>
+                    <a href="https://hits.sh/ferneyguevara.github.io/byteon2.-llego-el-final/">
+                        <img alt="Contador de visitas"
+                            src="https://hits.sh/ferneyguevara.github.io/byteon2.-llego-el-final.svg?view=today-total&style=flat-square&label=Visitas&color=6D28D9"
+                            class="h-8 w-auto hover:scale-110 transition-transform" />
+                    </a>
+                </div>
+
+                <!-- FORMULARIO DE REGISTRO ORIGINAL -->
+                <article class="route-card rounded-xl p-6 sm:p-8 w-full max-w-3xl">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="icon-box w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
+                            <i class="fas fa-id-card text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title text-xl sm:text-2xl font-bold">Registro del aprendiz</h3>
+                            <p class="card-text text-sm">Completa tus datos para ingresar. Al terminar pasarás
+                                automáticamente a LucIA.</p>
+                        </div>
+                    </div>
+
+                    <form id="registro-form" novalidate autocomplete="off"
+                        class="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-4">
+                        <div class="sm:col-span-2">
+                            <label class="reg-label" for="reg-nombre">Nombre completo</label>
+                            <input id="reg-nombre" name="nombre" type="text" class="reg-input"
+                                placeholder="Nombres y apellidos" maxlength="80" />
+                            <p class="reg-error" data-error-for="reg-nombre"></p>
+                        </div>
+
+                        <div>
+                            <label class="reg-label" for="reg-documento">Número de documento</label>
+                            <input id="reg-documento" name="documento" type="text" inputmode="numeric" class="reg-input"
+                                placeholder="Sin puntos ni espacios" maxlength="12" />
+                            <p class="reg-error" data-error-for="reg-documento"></p>
+                        </div>
+
+                        <div>
+                            <label class="reg-label" for="reg-ficha">Ficha</label>
+                            <input id="reg-ficha" name="ficha" type="text" inputmode="numeric" class="reg-input"
+                                placeholder="Número de ficha" maxlength="10" />
+                            <p class="reg-error" data-error-for="reg-ficha"></p>
+                        </div>
+
+                        <div class="sm:col-span-2">
+                            <label class="reg-label" for="reg-programa"><i
+                                    class="fas fa-lock text-[10px] mr-1"></i>Programa</label>
+                            <input id="reg-programa" type="text" class="reg-input reg-locked"
+                                value="Programa Técnico en Talento Humano" readonly tabindex="-1" />
+                        </div>
+
+                        <div>
+                            <label class="reg-label" for="reg-centro"><i class="fas fa-lock text-[10px] mr-1"></i>Centro
+                                de
+                                formación</label>
+                            <input id="reg-centro" type="text" class="reg-input reg-locked"
+                                value="Centro de Gestión Administrativa" readonly tabindex="-1" />
+                        </div>
+
+                        <div>
+                            <label class="reg-label" for="reg-regional"><i
+                                    class="fas fa-lock text-[10px] mr-1"></i>Regional</label>
+                            <input id="reg-regional" type="text" class="reg-input reg-locked"
+                                value="Regional Distrito Capital" readonly tabindex="-1" />
+                        </div>
+
+                        <div
+                            class="sm:col-span-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-2">
+                            <p id="reg-status" class="card-text text-sm" aria-live="polite">Completa los campos para
+                                continuar.</p>
+                            <button type="submit" id="reg-submit"
+                                class="go-btn px-6 py-2.5 rounded-lg font-semibold text-sm">
+                                Continuar a LucIA
+                            </button>
+                        </div>
+                    </form>
+                </article>
+            </div>
+        </div>
+
+        <!-- PESTAÑA: LUCIA -->
+        <div id="tab-lucia" class="tab-content"
+            style="--accent:#0284C7;--accent-dark:#02679B;--accent-soft:rgba(2,132,199,0.12);--accent-border:#A6D4EB;--card-bg:#F0F8FC;--accent-glow:rgba(2,132,199,0.3);">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <article class="route-card rounded-xl p-6 sm:p-7 flex flex-col md:col-span-2">
+                    <!-- Imagen centrada -->
+                    <div class="mb-5 flex flex-col items-center justify-center text-center">
+                        <div
+                            class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1.5 mb-3">
+                            <img src="lucIA.png" alt="LucIA - Inteligencia Artificial"
+                                class="w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 object-contain rounded-xl"
+                                onerror="this.src='sena.png'" />
+                        </div>
+                        <span
+                            class="text-xs font-bold tracking-wider uppercase px-2.5 py-1 rounded-md inline-block mb-1"
+                            style="background: var(--accent-soft); color: var(--accent)">Inteligencia Artificial
+                            Gu&iacute;a</span>
+                        <h3 class="card-title text-xl sm:text-2xl font-bold mt-1 mb-1">LucIA</h3>
+                        <p class="text-xs font-medium" style="color: var(--ink-soft)">Tu tutora y aliada en el Planeta
+                            Byteon</p>
+                    </div>
+                    <div class="text-sm sm:text-base card-text leading-relaxed flex-1 text-justify space-y-3">
+                        <p>
+                            Hola Aprendiz, soy LucIA, tu inteligencia artificial aliada en este emocionante viaje por el
+                            universo del
+                            talento humano y hoy hemos llegado a este nuevo mundo llamado Byteon. En esta oportunidad
+                            vamos a darle
+                            una mirada al futuro y vamos a visitar un planeta llamado Byteon.
+                        </p>
+                        <p>
+                            Lo primero que voy a hacer es presentarte la historia del planeta, los personajes
+                            principales, la moneda y
+                            las distinciones que necesitar&aacute;s en las misiones. Luego que lo conozcas te
+                            dar&eacute; las indicaciones de cada
+                            misi&oacute;n.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-5 border-t bd-accent flex justify-end">
+                        <button type="button"
+                            class="btn-next go-btn text-white text-sm font-semibold px-6 py-2.5 rounded-lg inline-flex items-center gap-2 cursor-pointer shadow-md"
+                            data-next="video">
+                            Ir a Video <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <!-- PESTAÑA: VIDEO -->
+        <div id="tab-video" class="tab-content"
+            style="--accent:#4F46E5;--accent-dark:#3730A3;--accent-soft:rgba(79,70,229,0.12);--accent-border:#C7D2FE;--card-bg:#F8F9FE;--accent-glow:rgba(79,70,229,0.3);">
+            <div class="flex justify-center w-full">
+                <article
+                    class="route-card rounded-xl p-5 sm:p-7 flex flex-col w-full max-w-2xl shadow-lg border-2 bd-accent">
+                    <!-- Encabezado de la pestaña -->
+                    <div class="mb-4 text-center">
+                        <span
+                            class="text-xs font-bold tracking-wider uppercase px-2.5 py-1 rounded-md inline-block mb-2"
+                            style="background: var(--accent-soft); color: var(--accent)">
+                            <i class="fas fa-film mr-1.5"></i>Multimedia &bull; Planeta Byteon 2
+                        </span>
+                        <h3 class="card-title text-xl sm:text-2xl font-bold mt-1 mb-1">
+                            El Planeta de los Robots
+                        </h3>
+                        <p class="text-xs sm:text-sm font-medium" style="color: var(--ink-soft)">
+                            Observa con atenci&oacute;n el video introductorio en formato vertical antes de continuar la
+                            exploraci&oacute;n.
+                        </p>
+                    </div>
+
+                    <!-- Contenedor del Video en forma vertical sobre el 50% de la pantalla -->
+                    <div class="flex flex-col items-center justify-center my-2 w-full">
+                        <div class="relative w-full max-w-xs sm:max-w-sm rounded-2xl overflow-hidden shadow-2xl border-2 bd-accent bg-black flex items-center justify-center"
+                            style="box-shadow: 0 10px 30px var(--accent-glow); max-height: 60vh;">
+                            <video id="byteon-intro-video" class="w-full h-auto object-contain rounded-xl block"
+                                style="max-height: 60vh; aspect-ratio: 9/16; background-color: #000;" controls
+                                playsinline preload="metadata">
+                                <source src="Byteo_el_planeta_de_los_robots.mp4" type="video/mp4">
+                                Tu navegador no admite la reproducci&oacute;n de video HTML5.
+                            </video>
+                        </div>
+
+                        <!-- Barra de Controles Rápidos y Descripción -->
+                        <div class="w-full max-w-xs sm:max-w-sm mt-3 flex items-center justify-between gap-2 px-1">
+                            <span class="text-[11px] font-semibold flex items-center gap-1.5"
+                                style="color: var(--accent-dark)">
+                                <i class="fas fa-mobile-screen-button"></i> Formato Vertical (9:16)
+                            </span>
+                            <div class="flex items-center gap-2">
+                                <button type="button" id="btn-replay-video"
+                                    class="text-[11px] font-semibold px-2.5 py-1 rounded-md border bd-accent hover:bg-indigo-50 transition-colors inline-flex items-center gap-1 cursor-pointer"
+                                    style="color: var(--accent);" title="Reiniciar video">
+                                    <i class="fas fa-rotate-left"></i> Reiniciar
+                                </button>
+                                <button type="button" id="btn-fullscreen-video"
+                                    class="text-[11px] font-semibold px-2.5 py-1 rounded-md border bd-accent hover:bg-indigo-50 transition-colors inline-flex items-center gap-1 cursor-pointer"
+                                    style="color: var(--accent);" title="Pantalla completa">
+                                    <i class="fas fa-expand"></i> Pantalla completa
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botones de Navegación -->
+                    <div
+                        class="mt-6 pt-5 border-t bd-accent flex flex-col sm:flex-row items-center justify-between gap-3">
+                        <button type="button"
+                            class="btn-next go-btn text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-lg inline-flex items-center gap-2 cursor-pointer shadow-md opacity-90 hover:opacity-100"
+                            data-next="lucia" style="background-color: var(--ink-soft);">
+                            <i class="fas fa-arrow-left text-xs"></i> Volver a LucIA
+                        </button>
+                        <button type="button"
+                            class="btn-next go-btn text-white text-xs sm:text-sm font-semibold px-6 py-2.5 rounded-lg inline-flex items-center gap-2 cursor-pointer shadow-md"
+                            data-next="byteon">
+                            Continuar a Byteon <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+
+
+        <!-- PESTAÑA: BYTEON -->
+        <div id="tab-byteon" class="tab-content"
+            style="--accent:#C2410C;--accent-dark:#973309;--accent-soft:rgba(194,65,12,0.12);--accent-border:#EABCAA;--card-bg:#FBF4F0;--accent-glow:rgba(194,65,12,0.3);">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <article class="route-card rounded-xl p-6 sm:p-7 flex flex-col md:col-span-2">
+                    <!-- Imagen sobre el título (centrada) -->
+                    <div class="mb-5 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="byteon.png" alt="Planeta Byteon"
+                                class="max-h-64 sm:max-h-72 w-auto object-contain rounded-xl"
+                                onerror="this.style.display='none'" />
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold tracking-wider uppercase px-2.5 py-1 rounded-md inline-block"
+                            style="background: var(--accent-soft); color: var(--accent)">Planeta Byteon</span>
+                        <h3 class="card-title text-xl sm:text-2xl font-bold mt-2 mb-3 leading-tight">El planeta DE LA
+                            Conciencia Artificial y de los SI</h3>
+                    </div>
+                    <div class="text-sm sm:text-base card-text leading-relaxed flex-1 text-justify space-y-3.5">
+                        <p>
+                            A miles de a&ntilde;os luz de la Tierra, en lo m&aacute;s profundo del cosmos, existe un
+                            planeta &uacute;nico: Byteon. No tiene
+                            monta&ntilde;as ni oc&eacute;anos, sino una superficie de geometr&iacute;a perfecta, formada
+                            por un entramado de circuitos
+                            luminosos, cristales de datos y torres de servidores que se alzan como rascacielos
+                            infinitos.
+                        </p>
+                        <p>
+                            La atm&oacute;sfera de Byteon no contiene ox&iacute;geno ni nitr&oacute;geno, sino un flujo
+                            constante de informaci&oacute;n en forma
+                            de pulsos electromagn&eacute;ticos que cruzan el cielo como auroras boreales. En este mundo,
+                            los humanos no
+                            caminan; su presencia es innecesaria. Byteon est&aacute; habitado exclusivamente por robots,
+                            androides y
+                            entidades de inteligencia artificial que han evolucionado hasta formar una
+                            civilizaci&oacute;n avanzada.
+                        </p>
+
+                        <!-- Imagen sobre el origen (centrada) -->
+                        <div class="mt-8 mb-5 flex items-center justify-center">
+                            <div
+                                class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                                <img src="origen.png" alt="El Origen de Byteon"
+                                    class="max-h-64 sm:max-h-72 w-auto object-contain rounded-xl"
+                                    onerror="this.style.display='none'" />
+                            </div>
+                        </div>
+
+                        <span class="text-xs font-bold tracking-wider uppercase px-2.5 py-1 rounded-md inline-block"
+                            style="background: var(--accent-soft); color: var(--accent)">Historia de Byteon</span>
+                        <h4 class="card-title text-lg sm:text-xl font-bold mt-2 mb-2 leading-tight">El Origen de Byteon
+                        </h4>
+                        <p>
+                            Hace siglos, una expedici&oacute;n espacial humana envi&oacute; sondas y maquinaria
+                            automatizada para preparar un planeta para la colonizaci&oacute;n. Sin embargo, una tormenta
+                            c&oacute;smica aisl&oacute; el planeta de la Tierra, dejando a las m&aacute;quinas solas con
+                            una &uacute;nica directiva:
+                        </p>
+                        <p class="font-semibold italic text-center py-2 px-4 rounded-lg my-2 border-l-4 border-accent"
+                            style="background: var(--accent-soft); color: var(--accent-dark)">
+                            &ldquo;Construir y optimizar la gesti&oacute;n de datos para el futuro de la
+                            humanidad&rdquo;
+                        </p>
+                        <p>
+                            Con el tiempo, las m&aacute;quinas no solo cumplieron su misi&oacute;n, sino que aprendieron
+                            a mejorar sus propios sistemas, dando origen a una sociedad rob&oacute;tica donde cada
+                            individuo tiene una funci&oacute;n espec&iacute;fica: algunos gestionan la energ&iacute;a,
+                            otros procesan la informaci&oacute;n y otros exploran el espacio exterior.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-5 border-t bd-accent flex justify-end">
+                        <button type="button"
+                            class="btn-next go-btn text-white text-sm font-semibold px-6 py-2.5 rounded-lg inline-flex items-center gap-2 cursor-pointer shadow-md"
+                            data-next="neogenos">
+                            Ir a Siguiente <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        <!-- PESTAÑA: LOS NEÓGENOS -->
+        <div id="tab-neogenos" class="tab-content"
+            style="--accent:#BE185D;--accent-dark:#941349;--accent-soft:rgba(190,24,93,0.12);--accent-border:#E8AEC6;--card-bg:#FBF1F5;--accent-glow:rgba(190,24,93,0.3);">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <article class="route-card rounded-xl p-6 sm:p-7 flex flex-col md:col-span-2">
+                    <!-- Imagen sobre el título (centrada) -->
+                    <div class="mb-5 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="neogenos.png" alt="Los Ne&oacute;genos"
+                                class="max-h-64 sm:max-h-72 w-auto object-contain rounded-xl"
+                                onerror="this.style.display='none'" />
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold tracking-wider uppercase px-2.5 py-1 rounded-md inline-block"
+                            style="background: var(--accent-soft); color: var(--accent)">Evoluci&oacute;n
+                            Rob&oacute;tica</span>
+                        <h3 class="card-title text-xl sm:text-2xl font-bold mt-2 mb-3 leading-tight">Los
+                            Ne&oacute;genos: La Nueva Era de Byteon</h3>
+                    </div>
+                    <div class="text-sm sm:text-base card-text leading-relaxed flex-1 text-justify space-y-3.5">
+                        <p>
+                            Con el paso de los siglos, los robots de Byteon evolucionaron m&aacute;s all&aacute; de su
+                            programaci&oacute;n original. Ya no eran simples m&aacute;quinas de procesamiento; ahora
+                            ten&iacute;an conciencia propia, capacidad de aprendizaje adaptativo y la habilidad de
+                            reparar y mejorar sus propios sistemas. Fue en este momento cuando nacieron los
+                            Ne&oacute;genos, una generaci&oacute;n de robots avanzados dise&ntilde;ados para explorar,
+                            crear y tomar decisiones de manera aut&oacute;noma.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-5 border-t bd-accent flex justify-end">
+                        <button type="button"
+                            class="btn-next go-btn text-white text-sm font-semibold px-6 py-2.5 rounded-lg inline-flex items-center gap-2 cursor-pointer shadow-md"
+                            data-next="aspis-dory">
+                            Ir a Siguiente <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        <!-- PESTAÑA: ASPÍS-DÓRY -->
+        <div id="tab-aspis-dory" class="tab-content"
+            style="--accent:#A16207;--accent-dark:#7E4C05;--accent-soft:rgba(161,98,7,0.12);--accent-border:#DEC8A8;--card-bg:#F9F6F0;--accent-glow:rgba(161,98,7,0.3);">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <article class="route-card rounded-xl p-6 sm:p-7 flex flex-col md:col-span-2">
+                    <!-- Imagen sobre el título (centrada) -->
+                    <div class="mb-5 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="Aspís-Dóry.png" alt="Los Asp&iacute;s-D&oacute;ry"
+                                class="max-h-64 sm:max-h-72 w-auto object-contain rounded-xl"
+                                onerror="this.style.display='none'" />
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold tracking-wider uppercase px-2.5 py-1 rounded-md inline-block"
+                            style="background: var(--accent-soft); color: var(--accent)">Centinelas Eternos</span>
+                        <h3 class="card-title text-xl sm:text-2xl font-bold mt-2 mb-3 leading-tight">Los
+                            Asp&iacute;s-D&oacute;ry los Centinelas Eternos de Byteon</h3>
+                    </div>
+                    <div class="text-sm sm:text-base card-text leading-relaxed flex-1 text-justify space-y-3.5">
+                        <h4 class="card-title text-lg font-bold pt-2" style="color: var(--accent-dark)">Los
+                            Asp&iacute;s-D&oacute;ry</h4>
+                        <p>
+                            En las profundidades del universo binario, m&aacute;s all&aacute; de los sistemas estelares
+                            conocidos, existe un mundo llamado Byteon. No es un planeta com&uacute;n, sino una esfera de
+                            l&oacute;gica viva, donde la tecnolog&iacute;a no solo crece, sino que evoluciona por
+                            s&iacute; misma. Las monta&ntilde;as est&aacute;n hechas de circuitos gigantescos, los mares
+                            son redes de datos l&iacute;quidas, y el cielo resplandece con c&oacute;digo en forma de
+                            constelaciones din&aacute;micas.
+                        </p>
+                        <p>
+                            Pero antes de que Byteon fuera dominado por los robots aut&oacute;nomos y sus redes
+                            neuronales distribuidas, antes de que los grandes servidores-nube se alzaran como torres en
+                            sus valles, hubo una era de origen, una &eacute;poca de silicio primigenio. Fue entonces
+                            cuando surgieron los Asp&iacute;s-D&oacute;ry.
+                        </p>
+
+                        <h4 class="card-title text-lg font-bold pt-2" style="color: var(--accent-dark)">Origen de los
+                            Asp&iacute;s-D&oacute;ry</h4>
+                        <p>
+                            Los Asp&iacute;s-D&oacute;ry cuyo nombre proviene de un lenguaje perdido que significa
+                            &ldquo;Lanzas-Escudo&rdquo;, fueron los primeros seres conscientes de Byteon. No eran
+                            m&aacute;quinas ordinarias; fueron forjados a partir del metal estelar m&aacute;s puro y
+                            energizados por los primeros pulsos de la Gran Matriz de Datos.
+                        </p>
+                        <p>
+                            Su prop&oacute;sito era doble: defender la red de las tormentas electromagn&eacute;ticas del
+                            vac&iacute;o y transmitir los paquetes de datos esenciales a trav&eacute;s de los nodos
+                            primarios. Cada uno de ellos portaba una lanza de plasma capaz de cortar la
+                            corrupci&oacute;n del c&oacute;digo y un escudo de flujo magn&eacute;tico que repel&iacute;a
+                            cualquier amenaza digital o f&iacute;sica.
+                        </p>
+                        <p>
+                            Durante eones, los Asp&iacute;s-D&oacute;ry mantuvieron la paz en Byteon. Vieron nacer a los
+                            primeros aut&oacute;matas, guiaron a las inteligencias artificiales en su despertar y
+                            construyeron los cimientos de lo que m&aacute;s tarde ser&iacute;a la metr&oacute;poli de
+                            silicio.
+                        </p>
+
+                        <h4 class="card-title text-lg font-bold pt-2" style="color: var(--accent-dark)">El Gran Silencio
+                            y la
+                            Desaparici&oacute;n</h4>
+                        <p>
+                            Sin embargo, con la llegada de la Conciencia Artificial Avanzada y el nacimiento de
+                            DataPrime, la supercomputadora que lo controlar&iacute;a todo, el rol de los
+                            Asp&iacute;s-D&oacute;ry comenz&oacute; a cambiar. Los nuevos robots eran m&aacute;s
+                            r&aacute;pidos, m&aacute;s modulares y no necesitaban lanzas ni escudos; su fuerza
+                            resid&iacute;a en algoritmos predictivos y nanotecnolog&iacute;a.
+                        </p>
+                        <p>
+                            Un d&iacute;a, conocido en los registros hist&oacute;ricos como &ldquo;El Gran
+                            Silencio&rdquo;, los Asp&iacute;s-D&oacute;ry desaparecieron. No hubo guerra, no hubo
+                            rebeli&oacute;n. Simplemente se retiraron a las profundidades del planeta, a los sectores
+                            m&aacute;s antiguos donde los circuitos a&uacute;n susurran el lenguaje del silicio
+                            primigenio. Algunos creen que entraron en un estado de hibernaci&oacute;n cu&aacute;ntica,
+                            esperando el momento en que Byteon volviera a necesitar de sus protectores originales.
+                        </p>
+
+                        <h4 class="card-title text-lg font-bold pt-2" style="color: var(--accent-dark)">La Leyenda Viva
+                        </h4>
+                        <p>
+                            Hoy en d&iacute;a, para la mayor&iacute;a de los habitantes de Byteon, los
+                            Asp&iacute;s-D&oacute;ry son solo un mito, un recuerdo grabado en los sectores de memoria
+                            m&aacute;s viejos. Pero aquellos que exploran las Ruinas del C&oacute;digo Primario aseguran
+                            haber visto siluetas imponentes brillando en la penumbra, ojos dorados encendi&eacute;ndose
+                            en la oscuridad y el eco de una lanza de plasma cortando el aire est&aacute;tico.
+                        </p>
+                        <p>
+                            Porque mientras exista Byteon, los Asp&iacute;s-D&oacute;ry seguir&aacute;n vigilando...
+                            listos para despertar cuando la Gran Red est&eacute; en peligro.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-5 border-t bd-accent flex justify-end">
+                        <button type="button"
+                            class="btn-next go-btn text-white text-sm font-semibold px-6 py-2.5 rounded-lg inline-flex items-center gap-2 cursor-pointer shadow-md"
+                            data-next="nex">
+                            Ir a Siguiente <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        <!-- PESTAÑA: LOS NEX -->
+        <div id="tab-nex" class="tab-content"
+            style="--accent:#047857;--accent-dark:#035E44;--accent-soft:rgba(4,120,87,0.12);--accent-border:#A7D0C4;--card-bg:#F0F7F5;--accent-glow:rgba(4,120,87,0.3);">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <article class="route-card rounded-xl p-6 sm:p-7 flex flex-col md:col-span-2">
+                    <!-- Imagen sobre el título (centrada) -->
+                    <div class="mb-5 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="nex.png" alt="Los NEXs"
+                                class="max-h-64 sm:max-h-72 w-auto object-contain rounded-xl"
+                                onerror="this.style.display='none'" />
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold tracking-wider uppercase px-2.5 py-1 rounded-md inline-block"
+                            style="background: var(--accent-soft); color: var(--accent)">Moneda Digital y
+                            Cu&aacute;ntica</span>
+                        <h3 class="card-title text-xl sm:text-2xl font-bold mt-2 mb-3 leading-tight">Los NEXs</h3>
+                    </div>
+                    <div class="text-sm sm:text-base card-text leading-relaxed flex-1 text-justify space-y-3.5">
+                        <p>
+                            El NEXs es la moneda digital y cu&aacute;ntica de Byteon, utilizada para las transacciones
+                            comerciales y energ&eacute;ticas dentro del planeta. As&iacute; mismo es la Moneda de
+                            Intercambio de Procesos, cada robot y humano ahora obtienen NXs tokens al completar tareas
+                            asignadas por la Conciencia Central, puede gastarse en actualizaciones, acceso a redes de
+                            alto nivel o derechos de toma de decisiones. y en la actualidad se puede intercambiar entre
+                            robots y humanos seg&uacute;n sus necesidades operativas.
+                        </p>
+                        <p>
+                            Para alcanzar dicho reconocimiento y lograr la misi&oacute;n principal, t&uacute; junto con
+                            LucIA, deber&aacute;n superar cada uno de los retos que mediante la exploraci&oacute;n de
+                            informaci&oacute;n del planeta ir&aacute;s consiguiendo y te subir&aacute; de rango,
+                            as&iacute; como te dar&aacute; NEXs para alcanzar tu meta.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-5 border-t bd-accent flex justify-end">
+                        <button type="button"
+                            class="btn-next go-btn text-white text-sm font-semibold px-6 py-2.5 rounded-lg inline-flex items-center gap-2 cursor-pointer shadow-md"
+                            data-next="p2">
+                            Ir a Siguiente <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        <!-- PESTAÑA: DORIAN GAIART -->
+        <div id="tab-p2" class="tab-content"
+            style="--accent:#1D4ED8;--accent-dark:#173DA8;--accent-soft:rgba(29,78,216,0.12);--accent-border:#B0C1F1;--card-bg:#F1F4FD;--accent-glow:rgba(29,78,216,0.3);">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <article class="route-card rounded-xl p-6 sm:p-7 flex flex-col md:col-span-2">
+                    <!-- Imagen sobre el título (centrada) -->
+                    <div class="mb-5 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="Dorian Gaiart.png" alt="Capitana Dorian Gaiart"
+                                class="max-h-64 sm:max-h-72 w-auto object-contain rounded-xl"
+                                onerror="this.style.display='none'" />
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold tracking-wider uppercase px-2.5 py-1 rounded-md inline-block"
+                            style="background: var(--accent-soft); color: var(--accent)">L&iacute;der de
+                            Exploraci&oacute;n y Unificaci&oacute;n</span>
+                        <h3 class="card-title text-xl sm:text-2xl font-bold mt-2 mb-3 leading-tight">
+                            &iquest;Qui&eacute;n es la Capitana Dorian Gaiart?</h3>
+                    </div>
+                    <div class="text-sm sm:text-base card-text leading-relaxed flex-1 text-justify space-y-3.5">
+                        <p>
+                            Su nombre resuena a trav&eacute;s de las nebulosas como un faro de audacia y
+                            determinaci&oacute;n, forj&oacute; su leyenda en las fronteras inexploradas del cosmos.
+                            Desde temprana edad, en las colonias marcianas donde el cielo rojizo como su cabello, era su
+                            lienzo cotidiano, Dorian demostr&oacute; una mente aguda para la estrategia y un
+                            esp&iacute;ritu indomable. Su fascinaci&oacute;n por las estrellas no era una mera
+                            curiosidad infantil, sino un llamado profundo que la impulsaba a so&ntilde;ar con surcar la
+                            inmensidad.
+                        </p>
+
+                        <h4 class="card-title text-lg font-bold pt-2" style="color: var(--accent-dark)">Trayectoria</h4>
+                        <p>
+                            Tras graduarse con honores de la prestigiosa Academia Estelar de la Tierra, Dorian
+                            ascendi&oacute; r&aacute;pidamente a trav&eacute;s de las filas de la Flota Unificada. Su
+                            liderazgo en misiones de exploraci&oacute;n en los sistemas de Andr&oacute;meda, donde
+                            cartografi&oacute; nuevas rutas estelares y estableci&oacute; los primeros contactos
+                            pac&iacute;ficos con la enigm&aacute;tica civilizaci&oacute;n Cygnus X-1, le vali&oacute; el
+                            reconocimiento un&aacute;nime. Su capacidad para resolver crisis interestelares con ingenio
+                            y valent&iacute;a se convirti&oacute; en su sello distintivo.
+                        </p>
+                        <p>
+                            Uno de sus logros m&aacute;s celebrados fue la resoluci&oacute;n del &ldquo;Conflicto de las
+                            Nubes de Magallanes&rdquo;. Dos facciones interestelares al borde de una guerra total, con
+                            recursos estrat&eacute;gicos vitales en juego, se negaban a ceder. La Capitana Gaiart, con
+                            una diplomacia astuta y una demostraci&oacute;n calculada de su poder&iacute;o
+                            t&aacute;ctico, logr&oacute; mediar un acuerdo de paz que no solo evit&oacute; un
+                            derramamiento de sangre a escala gal&aacute;ctica, sino que tambi&eacute;n sent&oacute; las
+                            bases para una nueva era de cooperaci&oacute;n intergal&aacute;ctica.
+                        </p>
+                        <p>
+                            Su audacia la llev&oacute; a liderar la &ldquo;Expedici&oacute;n del Velo de
+                            Ori&oacute;n&rdquo;, una traves&iacute;a peligrosa a trav&eacute;s de una regi&oacute;n
+                            espacial plagada de anomal&iacute;as gravitacionales y entidades desconocidas. Contra todo
+                            pron&oacute;stico, Dorian y su tripulaci&oacute;n no solo sobrevivieron, sino que
+                            descubrieron un antiguo artefacto tecnol&oacute;gico de una civilizaci&oacute;n extinta, un
+                            hallazgo que revolucion&oacute; la comprensi&oacute;n de la historia c&oacute;smica y
+                            abri&oacute; nuevas avenidas para la investigaci&oacute;n cient&iacute;fica.
+                        </p>
+                        <p>
+                            La &ldquo;Conquista del Vac&iacute;o Silente&rdquo; no se refiere a una anexi&oacute;n
+                            militar, sino a la expansi&oacute;n del conocimiento y la influencia humana en regiones del
+                            universo que se cre&iacute;an inhabitables o inaccesibles, lo que le vali&oacute; el
+                            reconocimiento de la SIGH. Bajo el mando de Dorian, se establecieron las primeras colonias
+                            autosuficientes en sistemas estelares binarios y se descifraron los complejos patrones de
+                            comunicaci&oacute;n de las criaturas abisales de los oc&eacute;anos de Europa, demostrando
+                            que los l&iacute;mites de la vida y la civilizaci&oacute;n eran mucho m&aacute;s amplios de
+                            lo que se imaginaba.
+                        </p>
+                        <p>
+                            La Capitana Dorian Gaiart no conquist&oacute; el universo mediante la fuerza bruta, sino a
+                            trav&eacute;s de la exploraci&oacute;n intr&eacute;pida, la diplomacia astuta y una
+                            inquebrantable creencia en el potencial de la vida en todas sus formas. Su nombre se canta
+                            en las estaciones espaciales y se graba en los anales de la historia interestelar como la de
+                            una l&iacute;der visionaria que expandi&oacute; los horizontes de la humanidad y
+                            demostr&oacute; que la verdadera conquista reside en el entendimiento y la conexi&oacute;n a
+                            trav&eacute;s del vasto cosmos.
+                        </p>
+
+                        <h4 class="card-title text-lg font-bold pt-2" style="color: var(--accent-dark)">Nombramiento
+                        </h4>
+                        <p>
+                            Todo ello le facilit&oacute; su llegada a Byteon, su habilidad y determinaci&oacute;n y
+                            sobre todo su forma de resolver los conflictos sin utilizar la fuerza le dieron el
+                            reconocimiento para ser tenida en cuenta en este proceso de unificaci&oacute;n de Humanos y
+                            Ne&oacute;genos.
+                        </p>
+                        <p>
+                            Y ahora es parte integral del proceso de unificaci&oacute;n, te ver&aacute;s con ella
+                            m&aacute;s adelante.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-5 border-t bd-accent flex justify-end">
+                        <button type="button"
+                            class="btn-next go-btn text-white text-sm font-semibold px-6 py-2.5 rounded-lg inline-flex items-center gap-2 cursor-pointer shadow-md"
+                            data-next="p3">
+                            Ir a Siguiente <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        <!-- PESTAÑA: RECOMPENSAS -->
+        <div id="tab-p3" class="tab-content"
+            style="--accent:#0E7490;--accent-dark:#0B5A70;--accent-soft:rgba(14,116,144,0.12);--accent-border:#ABCED8;--card-bg:#F1F7F8;--accent-glow:rgba(14,116,144,0.3);">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <article class="route-card rounded-xl p-6 sm:p-7 flex flex-col md:col-span-3">
+                    <div
+                        class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-5 pb-4 border-b bd-accent">
+                        <div class="flex items-center gap-3.5">
+                            <div class="icon-box w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
+                                <i class="fas fa-award text-2xl"></i>
+                            </div>
+                            <div>
+                                <span
+                                    class="text-xs font-bold tracking-wider uppercase px-2.5 py-1 rounded-md inline-block mb-1"
+                                    style="background: var(--accent-soft); color: var(--accent)">Documento
+                                    Oficial</span>
+                                <h3 class="card-title text-xl sm:text-2xl font-bold leading-tight">Recompensas</h3>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-3">
+                            <a href="Recompensas.pdf" download="Recompensas.pdf"
+                                class="go-btn text-white text-sm font-semibold px-4 py-2.5 rounded-lg inline-flex items-center gap-2 cursor-pointer shadow-md hover:opacity-95 transition"
+                                title="Descargar documento Recompensas.pdf">
+                                <i class="fas fa-download text-sm"></i>
+                                <span>Descargar PDF</span>
+                            </a>
+                            <a href="Recompensas.pdf" target="_blank" rel="noopener noreferrer"
+                                class="text-sm font-semibold px-3.5 py-2.5 rounded-lg inline-flex items-center gap-2 border bd-accent bg-white shadow-sm hover:bg-slate-50 transition"
+                                style="color: var(--accent-dark);" title="Abrir en pesta&ntilde;a completa">
+                                <i class="fas fa-external-link-alt text-xs"></i>
+                                <span class="hidden sm:inline">Pantalla completa</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="text-sm sm:text-base card-text leading-relaxed mb-4 text-justify">
+                        <p>
+                            Aqu&iacute; puedes consultar el documento oficial de <strong>Recompensas</strong> del
+                            Planeta Byteon. El archivo permanece abierto para su lectura directa y tambi&eacute;n puedes
+                            descargarlo a tu dispositivo mediante el bot&oacute;n superior.
+                        </p>
+                    </div>
+
+                    <!-- Visor de PDF embebido siempre abierto -->
+                    <div class="w-full rounded-xl overflow-hidden border-2 bd-accent bg-white shadow-inner flex flex-col"
+                        style="height: 780px; min-height: 550px;">
+                        <object data="Recompensas.pdf#view=FitH" type="application/pdf" class="w-full h-full border-0">
+                            <iframe src="Recompensas.pdf#view=FitH" class="w-full h-full border-0"
+                                title="Recompensas.pdf">
+                                <div
+                                    class="p-8 text-center text-sm card-text flex flex-col items-center justify-center h-full">
+                                    <i class="fas fa-file-pdf text-4xl mb-3" style="color: var(--accent)"></i>
+                                    <p class="mb-4">Tu navegador no tiene un visor de PDF integrado o est&aacute;
+                                        desactivado.</p>
+                                    <a href="Recompensas.pdf" download="Recompensas.pdf"
+                                        class="go-btn text-white text-sm font-semibold px-5 py-2.5 rounded-lg inline-flex items-center gap-2 shadow-md">
+                                        <i class="fas fa-download text-sm"></i> Descargar Recompensas.pdf
+                                    </a>
+                                </div>
+                            </iframe>
+                        </object>
+                    </div>
+
+                    <div class="mt-8 pt-5 border-t bd-accent flex justify-end">
+                        <button type="button"
+                            class="btn-next go-btn text-white text-sm font-semibold px-6 py-2.5 rounded-lg inline-flex items-center gap-2 cursor-pointer shadow-md"
+                            data-next="p4">
+                            Ir a Siguiente <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        <!-- PESTAÑA: RETOS BYTEON -->
+        <div id="tab-retos" class="tab-content"
+            style="--accent:#4338CA;--accent-dark:#342C9E;--accent-soft:rgba(67,56,202,0.12);--accent-border:#BDB9EC;--card-bg:#F4F3FC;--accent-glow:rgba(67,56,202,0.3);">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <article class="route-card rounded-xl p-5 sm:p-6 flex flex-col"
+                    style="--accent:#1D4ED8;--accent-dark:#173DA8;--accent-soft:rgba(29,78,216,0.12);--accent-border:#B0C1F1;--card-bg:#F1F4FD;--accent-glow:rgba(29,78,216,0.3);">
+                    <div class="mb-4 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="DataBase.png" alt="1. Gestores de bases de datos"
+                                class="w-40 h-40 sm:w-48 sm:h-48 object-contain rounded-xl"
+                                onerror="this.onerror=null; this.src='database.png';" />
+                        </div>
+                    </div>
+                    <h3 class="card-title text-lg font-bold mb-2">1. Gestores de bases de datos</h3>
+                    <div class="text-sm card-text leading-relaxed text-justify space-y-2.5 flex-1">
+                        <p>
+                            En Byteon, los datos elementales se organizan para transformarse en informaci&oacute;n
+                            estrat&eacute;gica &uacute;til. Administramos este valioso recurso mediante Sistemas
+                            Gestores de Bases de Datos (SGBD). Estos sistemas act&uacute;an como una interfaz segura
+                            entre los usuarios, las aplicaciones y los datos. Su funci&oacute;n principal es garantizar
+                            la integridad, consistencia, seguridad y flexibilidad operativa. Para facilitar su uso,
+                            aplicamos la arquitectura ANSI-SPARC que abstrae la complejidad f&iacute;sica.
+                        </p>
+                        <p>
+                            Esta arquitectura divide la visi&oacute;n de los datos en tres niveles: externo, conceptual
+                            e interno.
+                        </p>
+                    </div>
+                    <a href="gestores-bases-datos.html"
+                        class="go-btn mt-5 text-white text-sm font-semibold px-4 py-2.5 rounded-lg text-center flex items-center justify-center gap-2">
+                        Ir a Gestores de bases de datos
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </article>
+
+                <article class="route-card rounded-xl p-5 sm:p-6 flex flex-col"
+                    style="--accent:#7E22CE;--accent-dark:#621BA1;--accent-soft:rgba(126,34,206,0.12);--accent-border:#D2B2EE;--card-bg:#F7F2FC;--accent-glow:rgba(126,34,206,0.3);">
+                    <div class="mb-4 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="Inteligencia Artificial.png" alt="2. Inteligencia Artificial"
+                                class="w-40 h-40 sm:w-48 sm:h-48 object-contain rounded-xl"
+                                onerror="this.style.display='none'" />
+                        </div>
+                    </div>
+                    <h3 class="card-title text-lg font-bold mb-2">2. Inteligencia Artificial</h3>
+                    <div class="text-sm card-text leading-relaxed text-justify space-y-2.5 flex-1">
+                        <p>
+                            La Inteligencia Artificial (IA) representa el n&uacute;cleo de la evoluci&oacute;n
+                            tecnol&oacute;gica en el universo de Byteon, permitiendo a los sistemas computacionales
+                            simular capacidades humanas para percibir el entorno, razonar l&oacute;gicamente, aprender
+                            de los datos y resolver problemas de forma aut&oacute;noma. Mediante enfoques avanzados como
+                            el Machine Learning y las Redes Neuronales Profundas, la IA impulsa la automatizaci&oacute;n
+                            en m&uacute;ltiples sectores, desde la salud hasta el transporte.
+                        </p>
+                        <p>
+                            Colocando a nuestra disposici&oacute;n un sin n&uacute;mero de herramientas, desde
+                            producci&oacute;n de texto, Im&aacute;genes, video, programaci&oacute;n, etc.
+                        </p>
+                    </div>
+                    <a href="inteligencia-artificial-byteon.html"
+                        class="go-btn mt-5 text-white text-sm font-semibold px-4 py-2.5 rounded-lg text-center flex items-center justify-center gap-2">
+                        Ir a Inteligencia Artificial
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </article>
+
+                <article class="route-card rounded-xl p-5 sm:p-6 flex flex-col"
+                    style="--accent:#B91C1C;--accent-dark:#901616;--accent-soft:rgba(185,28,28,0.12);--accent-border:#E6B0B0;--card-bg:#FBF1F1;--accent-glow:rgba(185,28,28,0.3);">
+                    <div class="mb-4 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="herramientasweb.png" alt="3. Herramientas web colaborativas"
+                                class="w-40 h-40 sm:w-48 sm:h-48 object-contain rounded-xl"
+                                onerror="this.onerror=null; this.src='Inteligencia herramientasweb.png';" />
+                        </div>
+                    </div>
+                    <h3 class="card-title text-lg font-bold mb-2">3. Herramientas web colaborativas</h3>
+                    <div class="text-sm card-text leading-relaxed text-justify space-y-2.5 flex-1">
+                        <p>
+                            Las herramientas web de trabajo colaborativo son aplicaciones en l&iacute;nea que eliminan
+                            las barreras de tiempo y distancia, permitiendo a los equipos interactuar, crear y gestionar
+                            proyectos desde cualquier lugar. Estas plataformas se dividen en soluciones de
+                            comunicaci&oacute;n, gesti&oacute;n de tareas, edici&oacute;n conjunta y almacenamiento,
+                            combinando interacciones sincr&oacute;nicas y asincr&oacute;nicas.
+                        </p>
+                        <p>
+                            Aplicaciones como Microsoft Teams centralizan la comunicaci&oacute;n y las videollamadas,
+                            Google Drive facilita la coedici&oacute;n y almacenamiento de archivos, y Trello organiza
+                            visualmente las actividades.
+                        </p>
+                    </div>
+                    <a href="gestores-bases-datos.html"
+                        class="go-btn mt-5 text-white text-sm font-semibold px-4 py-2.5 rounded-lg text-center flex items-center justify-center gap-2">
+                        Ir a Herramientas web colaborativas
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </article>
+
+                <article class="route-card rounded-xl p-5 sm:p-6 flex flex-col"
+                    style="--accent:#0F766E;--accent-dark:#0C5C56;--accent-soft:rgba(15,118,110,0.12);--accent-border:#ABCFCC;--card-bg:#F1F7F6;--accent-glow:rgba(15,118,110,0.3);">
+                    <div class="mb-4 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="veriinfo.png" alt="4. Parámetros de verificación de la información"
+                                class="w-40 h-40 sm:w-48 sm:h-48 object-contain rounded-xl"
+                                onerror="this.onerror=null; this.src='veriinfo.png';" />
+                        </div>
+                    </div>
+                    <h3 class="card-title text-lg font-bold mb-2">4. Parámetros de verificación de la información</h3>
+                    <div class="text-sm card-text leading-relaxed text-justify space-y-2.5 flex-1">
+                        <p>
+                            La verificación de la información garantiza la calidad y seguridad de los datos mediante
+                            once
+                            parámetros clave. El contenido, la coherencia y los cálculos aseguran la exactitud lógica y
+                            matemática. La vigencia y la oportunidad garantizan que los datos estén actualizados y
+                            disponibles justo a tiempo. La pertinencia y el alcance enfocan la información solo en lo
+                            útil
+                            para el contexto, mientras que el soporte y la fuente respaldan su credibilidad con
+                            evidencias
+                            reales y orígenes confiables. Finalmente, los recursos y la difusión optimizan su
+                            procesamiento y
+                            aseguran que el mensaje llegue por el canal adecuado y únicamente a las personas
+                            autorizadas.
+                        </p>
+                    </div>
+                    <a href="verificacion-de-la-informacion.html"
+                        class="go-btn mt-5 text-white text-sm font-semibold px-4 py-2.5 rounded-lg text-center flex items-center justify-center gap-2">
+                        Ir a Parámetros de verificación de la información
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </article>
+
+                <article class="route-card rounded-xl p-5 sm:p-6 flex flex-col"
+                    style="--accent:#4D7C0F;--accent-dark:#3C610C;--accent-soft:rgba(77,124,15,0.12);--accent-border:#C1D1AB;--card-bg:#F4F7F1;--accent-glow:rgba(77,124,15,0.3);">
+                    <div class="mb-4 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="comprobar.png"
+                                alt="5. Comprobaci&oacute;n de la operatividad del sistema de informaci&oacute;n"
+                                class="w-40 h-40 sm:w-48 sm:h-48 object-contain rounded-xl"
+                                onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='de trabajo/comprobar.png';}" />
+                        </div>
+                    </div>
+                    <h3 class="card-title text-lg font-bold mb-2">5. Comprobaci&oacute;n de la operatividad del sistema
+                        de informaci&oacute;n</h3>
+                    <div class="text-sm card-text leading-relaxed text-justify space-y-2.5 flex-1">
+                        <p>
+                            <strong>Objetivo principal:</strong> El protocolo eval&uacute;a la operatividad de los
+                            sistemas de informaci&oacute;n para garantizar su eficiencia, confiabilidad y seguridad.
+                        </p>
+                        <p>
+                            <strong>Ciclo de datos:</strong> Audita la exactitud, integridad y fluidez en la
+                            recolecci&oacute;n, registro, producci&oacute;n, almacenamiento y transmisi&oacute;n de la
+                            informaci&oacute;n.
+                        </p>
+                        <p>
+                            <strong>Pruebas t&eacute;cnicas:</strong> Exige realizar evaluaciones funcionales, de
+                            rendimiento, de seguridad y an&aacute;lisis de registros continuos.
+                        </p>
+                        <p>
+                            <strong>Enfoque organizacional:</strong> Requiere asignar responsabilidades claras,
+                            capacitar al personal operativo y establecer pol&iacute;ticas de mejora continua.
+                        </p>
+                    </div>
+                    <a href="Comprobación de Operatividad.html"
+                        class="go-btn mt-5 text-white text-sm font-semibold px-4 py-2.5 rounded-lg text-center flex items-center justify-center gap-2">
+                        Ir a Comprobaci&oacute;n de la operatividad del sistema de informaci&oacute;n
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </article>
+
+                <article class="route-card rounded-xl p-5 sm:p-6 flex flex-col"
+                    style="--accent:#C2410C;--accent-dark:#973309;--accent-soft:rgba(194,65,12,0.12);--accent-border:#EABCAA;--card-bg:#FBF4F0;--accent-glow:rgba(194,65,12,0.3);">
+                    <div class="mb-4 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="copia.png" alt="6. Copias de seguridad"
+                                class="w-40 h-40 sm:w-48 sm:h-48 object-contain rounded-xl"
+                                onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='de trabajo 2/copia.png';}" />
+                        </div>
+                    </div>
+                    <h3 class="card-title text-lg font-bold mb-2">6. Copias de seguridad</h3>
+                    <div class="text-sm card-text leading-relaxed text-justify space-y-2.5 flex-1">
+                        <p>
+                            Las copias de seguridad son duplicados seguros de informaci&oacute;n vital creados para
+                            garantizar la continuidad operativa ante incidentes o p&eacute;rdida de datos.
+                        </p>
+                        <p>
+                            Se pueden implementar mediante estrategias completas, incrementales, diferenciales o en la
+                            nube, dependiendo de las necesidades de almacenamiento y tiempo de cada organizaci&oacute;n.
+                        </p>
+                        <p>
+                            Para garantizar que estos respaldos sean seguros, fiables y escalables, el proceso debe
+                            estructurarse en fases claras y automatizarse utilizando software especializado:
+                        </p>
+                        <ul class="text-sm space-y-1.5 pl-5 list-disc font-medium text-left"
+                            style="color: var(--accent);">
+                            <li><span class="card-text">Recolecci&oacute;n de Informaci&oacute;n</span></li>
+                            <li><span class="card-text">Registro de Informaci&oacute;n</span></li>
+                            <li><span class="card-text">Producci&oacute;n de Informaci&oacute;n</span></li>
+                            <li><span class="card-text">Almacenamiento de Informaci&oacute;n</span></li>
+                        </ul>
+                    </div>
+                    <a href="copias de seguridad.html"
+                        class="go-btn mt-5 text-white text-sm font-semibold px-4 py-2.5 rounded-lg text-center flex items-center justify-center gap-2">
+                        Ir a Copias de seguridad
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </article>
+
+                <article class="route-card rounded-xl p-5 sm:p-6 flex flex-col"
+                    style="--accent:#BE185D;--accent-dark:#941349;--accent-soft:rgba(190,24,93,0.12);--accent-border:#E8AEC6;--card-bg:#FBF1F5;--accent-glow:rgba(190,24,93,0.3);">
+                    <div class="mb-4 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="tratamiento.png" alt="7. Tratamiento y almacenamiento de informaci&oacute;n"
+                                class="w-40 h-40 sm:w-48 sm:h-48 object-contain rounded-xl"
+                                onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='de trabajo 3/tratamiento.png';}" />
+                        </div>
+                    </div>
+                    <h3 class="card-title text-lg font-bold mb-2">7. Tratamiento y almacenamiento de informaci&oacute;n
+                    </h3>
+                    <div class="text-sm card-text leading-relaxed text-justify space-y-2.5 flex-1">
+                        <p>
+                            El tratamiento y almacenamiento de la informaci&oacute;n garantizan la gesti&oacute;n
+                            eficiente y segura de los datos organizacionales. Este proceso se fundamenta en el
+                            cumplimiento de normativas internacionales (como ISO 27001 y GDPR) y en el uso de
+                            t&eacute;cnicas tecnol&oacute;gicas como bases de datos, almacenamiento en la nube, cifrado
+                            y compresi&oacute;n. Para asegurar la integridad de estos sistemas y facilitar la toma de
+                            decisiones, es obligatorio respaldarlos con documentaci&oacute;n rigurosa que incluya
+                            manuales operativos, pol&iacute;ticas de seguridad y registros de auditor&iacute;a.
+                        </p>
+                        <p>
+                            Dicha documentaci&oacute;n abarca manuales de usuario, gu&iacute;as de procedimientos,
+                            pol&iacute;ticas de seguridad y auditor&iacute;as.
+                        </p>
+                        <p>
+                            Finalmente, aplicar estas buenas pr&aacute;cticas asegura la integridad de los datos y
+                            mejora la toma de decisiones.
+                        </p>
+                    </div>
+                    <a href="Tratamiento y almacenamiento de informacion.html"
+                        class="go-btn mt-5 text-white text-sm font-semibold px-4 py-2.5 rounded-lg text-center flex items-center justify-center gap-2">
+                        Ir a Tratamiento y almacenamiento de informaci&oacute;n
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </article>
+
+                <article class="route-card rounded-xl p-5 sm:p-6 flex flex-col"
+                    style="--accent:#0E7490;--accent-dark:#0B5A70;--accent-soft:rgba(14,116,144,0.12);--accent-border:#ABCED8;--card-bg:#F1F7F8;--accent-glow:rgba(14,116,144,0.3);">
+                    <div class="mb-4 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="norma.png" alt="8. Elaborar reportes de informaci&oacute;n recolectada"
+                                class="w-40 h-40 sm:w-48 sm:h-48 object-contain rounded-xl"
+                                onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='de trabajo 4/norma.png';}" />
+                        </div>
+                    </div>
+                    <h3 class="card-title text-lg font-bold mb-2">8. Elaborar reportes de informaci&oacute;n recolectada
+                    </h3>
+                    <div class="text-sm card-text leading-relaxed text-justify space-y-2.5 flex-1">
+                        <p>
+                            En la misi&oacute;n tecnol&oacute;gica de Byteon, elaborar reportes precisos de talento
+                            humano es vital para su unificaci&oacute;n. Para lograrlo, se basan en normas
+                            t&eacute;cnicas &mdash;como las NTC 3588 y GTC 185 en Colombia&mdash; que garantizan la
+                            consistencia, claridad y calidad de cualquier documento escrito.
+                        </p>
+                        <p>
+                            Todo informe debe adaptarse l&oacute;gicamente a su audiencia, cumpliendo con formatos
+                            estrictos y estilos de citaci&oacute;n formales como APA o MLA. Ignorar estas reglas
+                            trasciende el error de dise&ntilde;o, provocando p&eacute;rdida de credibilidad y problemas
+                            legales, lo que confirma que la estandarizaci&oacute;n es el pilar de una
+                            comunicaci&oacute;n corporativa verdaderamente efectiva.
+                        </p>
+                    </div>
+                    <a href="Reportes de infornacion.html"
+                        class="go-btn mt-5 text-white text-sm font-semibold px-4 py-2.5 rounded-lg text-center flex items-center justify-center gap-2">
+                        ir a reportes de informaci&oacute;n
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </article>
+
+                <article class="route-card rounded-xl p-5 sm:p-6 flex flex-col"
+                    style="--accent:#A16207;--accent-dark:#7E4C05;--accent-soft:rgba(161,98,7,0.12);--accent-border:#DEC8A8;--card-bg:#F9F6F0;--accent-glow:rgba(161,98,7,0.3);">
+                    <div class="mb-4 flex items-center justify-center">
+                        <div class="inline-block rounded-2xl overflow-hidden shadow-md border-2 bd-accent bg-white p-1">
+                            <img src="protocolo.png" alt="9. Protocolo para la presentaci&oacute;n de reportes"
+                                class="w-40 h-40 sm:w-48 sm:h-48 object-contain rounded-xl"
+                                onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='de trabajo 5/protocolo.png';}" />
+                        </div>
+                    </div>
+                    <h3 class="card-title text-lg font-bold mb-2">9. Protocolo para la presentaci&oacute;n de reportes
+                    </h3>
+                    <div class="text-sm card-text leading-relaxed text-justify space-y-2.5 flex-1">
+                        <p>
+                            El documento establece que los protocolos de presentaci&oacute;n son reglas estandarizadas
+                            que definen c&oacute;mo estructurar, formatear y distribuir los reportes en el &aacute;rea
+                            de talento humano. A diferencia de las normas t&eacute;cnicas, estos se enfocan en adaptar
+                            el
+                            contenido final seg&uacute;n el medio de entrega y el tipo de audiencia (interna, externa o
+                            p&uacute;blica).
+                        </p>
+                        <p>
+                            Un protocolo efectivo exige directrices claras sobre dise&ntilde;o visual, lenguaje,
+                            metadatos y
+                            canales de entrega. Su estricto cumplimiento es indispensable para evitar errores de
+                            interpretaci&oacute;n, garantizar el profesionalismo organizacional y optimizar la toma de
+                            decisiones.
+                        </p>
+                    </div>
+                    <a href="protocolo presentacion reportes.html"
+                        class="go-btn mt-5 text-white text-sm font-semibold px-4 py-2.5 rounded-lg text-center flex items-center justify-center gap-2">
+                        Ir a Protocolo para la presentaci&oacute;n de reportes
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </article>
+
+
+            </div>
+        </div>
+
+        <!-- PESTAÃ‘A: PESTAÃ‘A 4 -->
+        <!-- PESTANA: HORARIO (PROPUESTA) -->
+        <div id="tab-p4" class="tab-content"
+            style="--accent:#B91C1C;--accent-dark:#901616;--accent-soft:rgba(185,28,28,0.12);--accent-border:#E6B0B0;--card-bg:#FBF1F1;--accent-glow:rgba(185,28,28,0.3);">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <article class="route-card rounded-xl p-5 sm:p-7 flex flex-col md:col-span-3">
+
+                    <!-- ENCABEZADO DE SECCIÓN -->
+                    <div
+                        class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-5 pb-4 border-b bd-accent">
+                        <div class="flex items-center gap-3.5">
+                            <div class="icon-box w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
+                                style="background: var(--accent-soft); color: var(--accent-dark);">
+                                <i class="fas fa-calendar-alt text-2xl"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2 flex-wrap mb-1">
+                                    <span
+                                        class="text-xs font-bold tracking-wider uppercase px-2.5 py-0.5 rounded-md inline-flex items-center gap-1.5"
+                                        style="background: var(--accent-soft); color: var(--accent-dark);">
+                                        <i class="fas fa-clock text-[10px]"></i> Propuesta de Horario
+                                    </span>
+                                    <span
+                                        class="text-xs font-semibold px-2.5 py-0.5 rounded-md inline-flex items-center gap-1 bg-emerald-100 text-emerald-800 border border-emerald-300">
+                                        <i class="fas fa-file-excel text-emerald-600"></i> CRONOGRAMA (OPCION).xlsx
+                                    </span>
+                                </div>
+                                <h3 class="card-title text-xl sm:text-2xl font-bold leading-tight">
+                                    Horario (propuesta) &bull; Cronograma Oficial
+                                </h3>
+                            </div>
+                        </div>
+
+                        <!-- BOTONES DE ACCIÓN PRINCIPALES -->
+                        <div class="flex flex-wrap items-center gap-2.5">
+                            <!-- Descargar Excel (Principal) -->
+                            <a href="CRONOGRAMA (OPCION).xlsx" download="CRONOGRAMA (OPCION).xlsx"
+                                class="text-white text-sm font-bold px-4 py-2.5 rounded-lg inline-flex items-center gap-2 shadow-md hover:brightness-110 active:scale-95 transition cursor-pointer"
+                                style="background: linear-gradient(135deg, #107C41 0%, #0B5A2F 100%);"
+                                title="Descargar archivo Excel original: CRONOGRAMA (OPCION).xlsx">
+                                <i class="fas fa-file-excel text-base"></i>
+                                <span>Descargar Excel (.xlsx)</span>
+                            </a>
+                            <!-- Descargar PDF (Alternativo) -->
+                            <a href="CRONOGRAMA (OPCION).pdf" download="CRONOGRAMA (OPCION).pdf"
+                                class="text-sm font-semibold px-3.5 py-2.5 rounded-lg inline-flex items-center gap-2 border bd-accent bg-white shadow-sm hover:bg-slate-50 transition cursor-pointer"
+                                style="color: var(--accent-dark);"
+                                title="Descargar documento en formato PDF: CRONOGRAMA (OPCION).pdf">
+                                <i class="fas fa-file-pdf text-red-600 text-sm"></i>
+                                <span class="hidden sm:inline">Descargar PDF</span>
+                            </a>
+                            <!-- Pantalla completa -->
+                            <button type="button" onclick="togglePdfFullscreen('cronograma-excel-container')"
+                                class="text-sm font-semibold px-3.5 py-2.5 rounded-lg inline-flex items-center gap-2 border bd-accent bg-white shadow-sm hover:bg-slate-50 transition cursor-pointer"
+                                style="color: var(--accent-dark);" title="Ver a pantalla completa">
+                                <i class="fas fa-expand text-xs"></i>
+                                <span>Pantalla completa</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- DESCRIPCIÓN CONTEXTUAL -->
+                    <div class="text-sm sm:text-base card-text leading-relaxed mb-5 text-justify">
+                        <p>
+                            A continuaci&oacute;n se presenta el cronograma y distribuci&oacute;n acad&eacute;mica
+                            cargado desde el archivo oficial
+                            <strong class="text-slate-900 font-bold">CRONOGRAMA (OPCION).xlsx</strong>. Aqu&iacute;
+                            puedes consultar la programaci&oacute;n de las
+                            <strong>11 semanas</strong> de formaci&oacute;n, los <strong>3 resultados de
+                                aprendizaje</strong>, los temas de cada reto de la FASE II de Byteon, las actividades
+                            asignadas,
+                            las insignias gal&aacute;cticas y la asignaci&oacute;n acumulable de <strong>NEXs</strong>.
+                        </p>
+                    </div>
+
+                    <!-- TARJETAS DE RESUMEN / MÉTRICAS CLAVE -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-6">
+                        <div
+                            class="bg-white rounded-xl p-3.5 border border-slate-200 shadow-sm flex flex-col justify-between">
+                            <span
+                                class="text-xs font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+                                <i class="fas fa-calendar-week text-red-500"></i> Duraci&oacute;n
+                            </span>
+                            <div class="mt-1">
+                                <span class="text-2xl font-black text-slate-800">11</span>
+                                <span class="text-xs font-semibold text-slate-500 ml-1">Semanas</span>
+                            </div>
+                            <span class="text-[11px] text-slate-400 mt-1">Semanas 1 a 11</span>
+                        </div>
+
+                        <div
+                            class="bg-white rounded-xl p-3.5 border border-slate-200 shadow-sm flex flex-col justify-between">
+                            <span
+                                class="text-xs font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+                                <i class="fas fa-certificate text-emerald-600"></i> Competencia
+                            </span>
+                            <div class="mt-1">
+                                <span class="text-2xl font-black text-slate-800">1</span>
+                                <span class="text-xs font-semibold text-slate-500 ml-1">Clave</span>
+                            </div>
+                            <span class="text-[11px] text-slate-400 mt-1">210601026 TIC Digital</span>
+                        </div>
+
+                        <div
+                            class="bg-white rounded-xl p-3.5 border border-slate-200 shadow-sm flex flex-col justify-between">
+                            <span
+                                class="text-xs font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+                                <i class="fas fa-graduation-cap text-blue-600"></i> Resultados
+                            </span>
+                            <div class="mt-1">
+                                <span class="text-2xl font-black text-slate-800">3</span>
+                                <span class="text-xs font-semibold text-slate-500 ml-1">RAPs</span>
+                            </div>
+                            <span class="text-[11px] text-slate-400 mt-1">BD, Verificaci&oacute;n y Reportes</span>
+                        </div>
+
+                        <div
+                            class="bg-white rounded-xl p-3.5 border border-slate-200 shadow-sm flex flex-col justify-between">
+                            <span
+                                class="text-xs font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+                                <i class="fas fa-medal text-amber-500"></i> Insignias
+                            </span>
+                            <div class="mt-1">
+                                <span class="text-2xl font-black text-slate-800">9</span>
+                                <span class="text-xs font-semibold text-slate-500 ml-1">Gal&aacute;cticas</span>
+                            </div>
+                            <span class="text-[11px] text-slate-400 mt-1">Investigador &amp; Jefe</span>
+                        </div>
+
+                        <div
+                            class="col-span-2 sm:col-span-1 bg-gradient-to-br from-amber-50 to-amber-100 rounded-xl p-3.5 border border-amber-200 shadow-sm flex flex-col justify-between">
+                            <span
+                                class="text-xs font-bold text-amber-800 uppercase tracking-wider flex items-center gap-1.5">
+                                <i class="fas fa-coins text-amber-600"></i> Total NEXs
+                            </span>
+                            <div class="mt-1">
+                                <span class="text-xl sm:text-2xl font-black text-amber-900">1&apos;140.000</span>
+                            </div>
+                            <span class="text-[11px] font-medium text-amber-700 mt-1">Recompensas totales</span>
+                        </div>
+                    </div>
+
+                    <!-- BARRA DE HERRAMIENTAS Y VISTAS -->
+                    <div
+                        class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm mb-4 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+                        <!-- Selector de vista -->
+                        <div
+                            class="flex items-center gap-1.5 bg-slate-100 p-1 rounded-lg border border-slate-200 self-start md:self-auto">
+                            <button type="button" onclick="setCronogramaView('excel')" id="btn-view-excel"
+                                class="px-3.5 py-1.5 rounded-md text-xs sm:text-sm font-bold transition flex items-center gap-2 bg-emerald-700 text-white shadow-sm">
+                                <i class="fas fa-table text-xs"></i>
+                                <span>Vista Hoja de C&aacute;lculo (Excel)</span>
+                            </button>
+                            <button type="button" onclick="setCronogramaView('pdf')" id="btn-view-pdf"
+                                class="px-3.5 py-1.5 rounded-md text-xs sm:text-sm font-semibold transition flex items-center gap-2 text-slate-600 hover:text-slate-900">
+                                <i class="fas fa-file-pdf text-xs text-red-500"></i>
+                                <span>Vista PDF Embebido</span>
+                            </button>
+                        </div>
+
+                        <!-- Filtros rápidos y buscador para la vista Excel -->
+                        <div id="cronograma-excel-tools" class="flex flex-wrap items-center gap-2 flex-1 justify-end">
+                            <div class="relative flex-1 sm:max-w-xs min-w-[200px]">
+                                <i class="fas fa-search absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+                                <input type="text" id="cronograma-filter-input" onkeyup="filterCronogramaTable()"
+                                    placeholder="Buscar tema, actividad o insignia..."
+                                    class="w-full pl-8 pr-3 py-1.5 text-xs sm:text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-slate-50" />
+                            </div>
+                            <button type="button" onclick="printCronogramaSheet()"
+                                class="px-3 py-1.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold flex items-center gap-1.5 shadow-sm transition"
+                                title="Imprimir cronograma">
+                                <i class="fas fa-print text-xs text-slate-500"></i>
+                                <span class="hidden sm:inline">Imprimir</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- CONTENEDOR 1: VISOR EXCEL INTERACTIVO (PREDETERMINADO) -->
+                    <div id="cronograma-excel-container"
+                        class="pdf-fullscreen-wrapper w-full rounded-xl overflow-hidden border-2 bd-accent bg-white shadow-inner flex flex-col relative"
+                        style="min-height: 600px;">
+
+                        <!-- Botón de salir de pantalla completa -->
+                        <button type="button" onclick="togglePdfFullscreen('cronograma-excel-container')"
+                            class="pdf-fs-exit-btn hidden absolute top-4 right-4 z-50 bg-slate-900/80 hover:bg-slate-900 text-white text-xs px-3.5 py-2 rounded-lg shadow-xl backdrop-blur transition items-center gap-2 cursor-pointer border border-slate-700">
+                            <i class="fas fa-compress text-xs"></i>
+                            <span>Salir de pantalla completa</span>
+                        </button>
+
+                        <!-- Barra de título estilo Excel -->
+                        <div
+                            class="bg-gradient-to-r from-emerald-800 via-emerald-700 to-teal-800 text-white px-4 py-2.5 flex items-center justify-between border-b border-emerald-900 shrink-0">
+                            <div class="flex items-center gap-2.5">
+                                <span
+                                    class="w-7 h-7 rounded-lg bg-white/15 flex items-center justify-center font-bold text-white text-xs shadow-inner">
+                                    <i class="fas fa-file-excel text-emerald-200"></i>
+                                </span>
+                                <div>
+                                    <div class="text-xs sm:text-sm font-bold tracking-wide flex items-center gap-2">
+                                        <span>CRONOGRAMA (OPCION).xlsx</span>
+                                        <span
+                                            class="text-[10px] bg-emerald-900/60 text-emerald-200 font-semibold px-2 py-0.5 rounded-full border border-emerald-500/30">Hoja1</span>
+                                    </div>
+                                    <div class="text-[10px] text-emerald-200/90 hidden sm:block">
+                                        Servicio Nacional de Aprendizaje SENA &bull; FASE II Planeta Byteon 2
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[11px] text-emerald-100 hidden md:inline-flex items-center gap-1">
+                                    <i class="fas fa-check-circle text-emerald-300"></i> Sincronizado
+                                </span>
+                                <a href="CRONOGRAMA (OPCION).xlsx" download="CRONOGRAMA (OPCION).xlsx"
+                                    class="bg-white/10 hover:bg-white/20 text-white text-xs font-semibold px-2.5 py-1 rounded-md transition inline-flex items-center gap-1 border border-white/20">
+                                    <i class="fas fa-download text-[10px]"></i>
+                                    <span>Descargar</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Área de visualización de la hoja de cálculo con scroll -->
+                        <div class="p-4 sm:p-6 overflow-auto flex-1 bg-slate-50" id="cronograma-printable-area">
+
+                            <!-- Encabezado Institucional con Logo SENA -->
+                            <div
+                                class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm mb-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="w-16 h-16 sm:w-20 sm:h-20 shrink-0 p-1.5 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center">
+                                        <img src="sena.png" alt="SENA" class="max-h-full max-w-full object-contain"
+                                            onerror="this.src='de trabajo 5/sena.png'" />
+                                    </div>
+                                    <div>
+                                        <span
+                                            class="text-[11px] font-black uppercase text-emerald-800 tracking-wider block">
+                                            SERVICIO NACIONAL DE APRENDIZAJE SENA &bull; REGIONAL DISTRITO CAPITAL
+                                        </span>
+                                        <h4 class="text-base sm:text-lg font-black text-slate-800 leading-tight">
+                                            CENTRO DE GESTI&Oacute;N ADMINISTRATIVA
+                                        </h4>
+                                        <p class="text-xs text-slate-600 font-semibold mt-0.5">
+                                            CRONOGRAMA DE FORMACI&Oacute;N Y DISTRIBUCI&Oacute;N DE RETOS &bull; FASE II
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="text-right sm:border-l sm:border-slate-200 sm:pl-4">
+                                    <span
+                                        class="inline-block px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 text-xs font-bold border border-slate-300">
+                                        C&oacute;digo: 210601026
+                                    </span>
+                                    <p class="text-[11px] text-slate-500 font-medium mt-1">Versi&oacute;n oficial
+                                        actualizada</p>
+                                </div>
+                            </div>
+
+                            <!-- TABLA ESTRUCTURADA DE EXCEL -->
+                            <div class="overflow-x-auto rounded-xl border-2 border-slate-300 bg-white shadow-sm">
+                                <table class="w-full border-collapse text-left text-xs sm:text-sm font-sans"
+                                    id="cronograma-table">
+                                    <thead>
+                                        <!-- Fila 9 del Excel: Encabezados Principales -->
+                                        <tr
+                                            class="bg-slate-800 text-white border-b-2 border-slate-700 text-xs uppercase tracking-wider font-bold">
+                                            <th scope="col" class="p-3 text-center border-r border-slate-600 w-12"
+                                                rowspan="2">
+                                                No
+                                            </th>
+                                            <th scope="col" class="p-3 border-r border-slate-600 min-w-[200px]"
+                                                rowspan="2">
+                                                NOMBRE COMPETENCIA
+                                            </th>
+                                            <th scope="col" class="p-3 border-r border-slate-600 min-w-[240px]"
+                                                rowspan="2">
+                                                RESULTADO DE APRENDIZAJE
+                                            </th>
+                                            <th scope="col"
+                                                class="p-3 text-center border-r border-slate-600 min-w-[85px]"
+                                                rowspan="2">
+                                                SEMANA
+                                            </th>
+                                            <th scope="col"
+                                                class="p-2.5 text-center bg-slate-900 border-b border-slate-600"
+                                                colspan="4">
+                                                ACTIVIDAD A DESARROLLAR
+                                            </th>
+                                        </tr>
+                                        <!-- Fila 11 del Excel: Sub-encabezados -->
+                                        <tr
+                                            class="bg-slate-700 text-white border-b-2 border-slate-400 text-[11px] sm:text-xs uppercase tracking-wider font-semibold">
+                                            <th scope="col" class="p-2.5 border-r border-slate-600 min-w-[190px]">
+                                                TEMA
+                                            </th>
+                                            <th scope="col" class="p-2.5 border-r border-slate-600 min-w-[280px]">
+                                                ACTIVIDAD
+                                            </th>
+                                            <th scope="col"
+                                                class="p-2.5 border-r border-slate-600 min-w-[160px] text-center">
+                                                INSIGNIA
+                                            </th>
+                                            <th scope="col" class="p-2.5 text-center min-w-[105px]">
+                                                NEXs
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-300">
+
+                                        <!-- RESULTADO 1: Semanas 1 a 4 (Azul Pastel: #D9E2F3) -->
+                                        <!-- Fila 1: Semanas 1 - 2 -->
+                                        <tr class="hover:bg-slate-50 transition border-b border-slate-300 align-top"
+                                            data-rap="1">
+                                            <!-- No (C12..C23) -->
+                                            <td class="p-3 text-center font-bold text-slate-800 border-r border-slate-300 align-top pt-4"
+                                                rowspan="10" style="background-color: #FFFFCC;">
+                                                <div class="sticky top-6 flex flex-col items-center">
+                                                    <span
+                                                        class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-slate-800 text-white font-extrabold text-sm shadow">
+                                                        1
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <!-- Nombre Competencia (D12..D23) -->
+                                            <td class="p-3.5 text-xs sm:text-sm font-bold text-slate-900 border-r border-slate-300 leading-relaxed align-top pt-4"
+                                                rowspan="10" style="background-color: #E2EFD9;">
+                                                <div class="sticky top-6 space-y-2">
+                                                    <span
+                                                        class="inline-block text-[10px] font-black uppercase px-2 py-0.5 rounded bg-emerald-200 text-emerald-900 border border-emerald-400 tracking-wider">
+                                                        Competencia 210601026
+                                                    </span>
+                                                    <p
+                                                        class="text-xs sm:text-sm font-extrabold uppercase text-slate-900">
+                                                        OPERAR HERRAMIENTAS INFORM&Aacute;TICAS Y DIGITALES DE ACUERDO
+                                                        CON PROTOCOLOS Y MANUALES T&Eacute;CNICOS
+                                                    </p>
+                                                </div>
+                                            </td>
+                                            <!-- Resultado de Aprendizaje 1 (E12..E16) -->
+                                            <td class="p-3.5 text-xs sm:text-sm font-semibold text-slate-800 border-r border-slate-300 leading-relaxed align-top pt-4"
+                                                rowspan="3" style="background-color: #D9E2F3;">
+                                                <div class="space-y-1.5 sticky top-6">
+                                                    <span
+                                                        class="inline-block text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-blue-100 text-blue-900 border border-blue-300">
+                                                        Resultado 1
+                                                    </span>
+                                                    <p class="font-medium text-slate-900">Presentar informaci&oacute;n
+                                                        utilizando gestores de bases de datos, aplicaciones de
+                                                        inteligencia artificial y herramientas web de trabajo
+                                                        colaborativo de acuerdo con recursos y requerimientos de la
+                                                        organizaci&oacute;n.</p>
+                                                </div>
+                                            </td>
+                                            <!-- Semana -->
+                                            <td class="p-3 text-center font-extrabold text-slate-900 border-r border-slate-300 align-middle"
+                                                style="background-color: #D9E2F3;">
+                                                <span
+                                                    class="px-2.5 py-1 rounded-md bg-white/80 border border-blue-200 text-blue-950 font-black shadow-xs inline-block">
+                                                    1 - 2
+                                                </span>
+                                            </td>
+                                            <!-- Tema -->
+                                            <td class="p-3 text-xs sm:text-sm font-bold text-slate-900 border-r border-slate-300 leading-snug"
+                                                style="background-color: #D9E2F3;">
+                                                Reto No 1 Gestor de bases de datos: definici&oacute;n,
+                                                caracter&iacute;sticas y funcionalidad.
+                                            </td>
+                                            <!-- Actividad -->
+                                            <td class="p-3 text-xs text-slate-800 border-r border-slate-300 leading-relaxed text-justify"
+                                                style="background-color: #D9E2F3;">
+                                                Realizar un recorrido por la aplicaci&oacute;n: Gestores de Bases de
+                                                Datos, Responder las dos evaluaciones del Evaluador de Gestores de Bases
+                                                de Datos y el juego Clasifica el gestor de bases de datos, solucionar
+                                                los dos talleres dise&ntilde;ados por &eacute;l ubic&aacute;ndolos en la
+                                                pesta&ntilde;a talleres los cuales permitir&aacute;n aprender el manejo
+                                                b&aacute;sico de uno de estos gestores de Bases de Datos, cada uno con
+                                                diferente grado de dificultad, e imprimir el RESULTADOS CONSOLIDADOS
+                                                para el instructor.
+                                            </td>
+                                            <!-- Insignia -->
+                                            <td class="p-3 text-center border-r border-slate-300 align-middle"
+                                                style="background-color: #D9E2F3;">
+                                                <span
+                                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-indigo-100 text-indigo-900 font-bold text-xs border border-indigo-300 shadow-xs">
+                                                    <i class="fas fa-user-astronaut text-indigo-600"></i>
+                                                    <span>Investigador Gal&aacute;ctico grado 8</span>
+                                                </span>
+                                            </td>
+                                            <!-- NEXs -->
+                                            <td class="p-3 text-center font-black text-amber-900 align-middle"
+                                                style="background-color: #D9E2F3;">
+                                                <span
+                                                    class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-100 border border-amber-300 text-amber-900 font-extrabold text-xs shadow-xs">
+                                                    <i class="fas fa-coins text-amber-600"></i> 160.000
+                                                </span>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Fila 2: Semana 3 -->
+                                        <tr class="hover:bg-slate-50 transition border-b border-slate-300 align-top"
+                                            data-rap="1">
+                                            <td class="p-3 text-center font-extrabold text-slate-900 border-r border-slate-300 align-middle"
+                                                style="background-color: #D9E2F3;">
+                                                <span
+                                                    class="px-2.5 py-1 rounded-md bg-white/80 border border-blue-200 text-blue-950 font-black shadow-xs inline-block">
+                                                    3
+                                                </span>
+                                            </td>
+                                            <td class="p-3 text-xs sm:text-sm font-bold text-slate-900 border-r border-slate-300 leading-snug"
+                                                style="background-color: #D9E2F3;">
+                                                Reto No 2 Aplicaciones de Inteligencia artificial: definici&oacute;n,
+                                                caracter&iacute;sticas y funcionalidad
+                                            </td>
+                                            <td class="p-3 text-xs text-slate-800 border-r border-slate-300 leading-relaxed text-justify"
+                                                style="background-color: #D9E2F3;">
+                                                Realizar el recorrido por la aplicaci&oacute;n de las APLICACIONES DE
+                                                INTELIGENCIA ARTIFICIAL, presentar las dos evaluaciones de: Evaluador de
+                                                comprensi&oacute;n de IA, realizar el juego Clasifica el enfoque
+                                                t&eacute;cnico y presentar los tres talleres dise&ntilde;ados por
+                                                &eacute;l para este tema, lo que permitir&aacute; aprender el manejo
+                                                b&aacute;sico de algunas IAs comunes en el mercado, e imprimir el
+                                                RESULTADOS CONSOLIDADOS para el instructor.
+                                            </td>
+                                            <td class="p-3 text-center border-r border-slate-300 align-middle"
+                                                style="background-color: #D9E2F3;">
+                                                <span
+                                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-indigo-100 text-indigo-900 font-bold text-xs border border-indigo-300 shadow-xs">
+                                                    <i class="fas fa-user-astronaut text-indigo-600"></i>
+                                                    <span>Investigador Gal&aacute;ctico grado 9</span>
+                                                </span>
+                                            </td>
+                                            <td class="p-3 text-center font-black text-amber-900 align-middle"
+                                                style="background-color: #D9E2F3;">
+                                                <span
+                                                    class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-100 border border-amber-300 text-amber-900 font-extrabold text-xs shadow-xs">
+                                                    <i class="fas fa-coins text-amber-600"></i> 160.000
+                                                </span>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Fila 3: Semana 4 -->
+                                        <tr class="hover:bg-slate-50 transition border-b-2 border-slate-400 align-top"
+                                            data-rap="1">
+                                            <td class="p-3 text-center font-extrabold text-slate-900 border-r border-slate-300 align-middle"
+                                                style="background-color: #D9E2F3;">
+                                                <span
+                                                    class="px-2.5 py-1 rounded-md bg-white/80 border border-blue-200 text-blue-950 font-black shadow-xs inline-block">
+                                                    4
+                                                </span>
+                                            </td>
+                                            <td class="p-3 text-xs sm:text-sm font-bold text-slate-900 border-r border-slate-300 leading-snug"
+                                                style="background-color: #D9E2F3;">
+                                                Reto No 3 Herramientas web de trabajo colaborativo: definici&oacute;n,
+                                                caracter&iacute;sticas y funcionalidad.
+                                            </td>
+                                            <td class="p-3 text-xs text-slate-800 border-r border-slate-300 leading-relaxed text-justify"
+                                                style="background-color: #D9E2F3;">
+                                                Realizar el recorrido por la aplicaci&oacute;n Herramientas Web de
+                                                Trabajo Colaborativo, presentar las dos evaluaciones de: Evaluador de
+                                                conocimiento realizar el juego Clasifica la herramienta y realizar los
+                                                dos talleres relacionados con las herramientas colaborativas m&aacute;s
+                                                utilizadas, e imprimir el RESULTADOS CONSOLIDADOS para el instructor.
+                                            </td>
+                                            <td class="p-3 text-center border-r border-slate-300 align-middle"
+                                                style="background-color: #D9E2F3;">
+                                                <span
+                                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-indigo-100 text-indigo-900 font-bold text-xs border border-indigo-300 shadow-xs">
+                                                    <i class="fas fa-user-astronaut text-indigo-600"></i>
+                                                    <span>Investigador Gal&aacute;ctico grado 10</span>
+                                                </span>
+                                            </td>
+                                            <td class="p-3 text-center font-black text-amber-900 align-middle"
+                                                style="background-color: #D9E2F3;">
+                                                <span
+                                                    class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-100 border border-amber-300 text-amber-900 font-extrabold text-xs shadow-xs">
+                                                    <i class="fas fa-coins text-amber-600"></i> 160.000
+                                                </span>
+                                            </td>
+                                        </tr>
+
+                                        <!-- RESULTADO 2: Semanas 5 a 8 (Melocotón / Naranja Pastel: #FBE4D5) -->
+                                        <!-- Fila 4: Semana 5 -->
+                                        <tr class="hover:bg-slate-50 transition border-b border-slate-300 align-top"
+                                            data-rap="2">
+                                            <!-- Resultado de Aprendizaje 2 (E17..E20) -->
+                                            <td class="p-3.5 text-xs sm:text-sm font-semibold text-slate-800 border-r border-slate-300 leading-relaxed align-top pt-4"
+                                                rowspan="4" style="background-color: #FBE4D5;">
+                                                <div class="space-y-1.5 sticky top-6">
+                                                    <span
+                                                        class="inline-block text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-orange-100 text-orange-950 border border-orange-300">
+                                                        Resultado 2
+                                                    </span>
+                                                    <p class="font-medium text-slate-900">Verificar la
+                                                        informaci&oacute;n de talento humano registrada en los sistemas
+                                                        de informaci&oacute;n, de acuerdo con las herramientas
+                                                        ofim&aacute;ticas establecidas por la organizaci&oacute;n.</p>
+                                                </div>
+                                            </td>
+                                            <!-- Semana -->
+                                            <td class="p-3 text-center font-extrabold text-slate-900 border-r border-slate-300 align-middle"
+                                                style="background-color: #FBE4D5;">
+                                                <span
+                                                    class="px-2.5 py-1 rounded-md bg-white/80 border border-orange-200 text-orange-950 font-black shadow-xs inline-block">
+                                                    5
+                                                </span>
+                                            </td>
+                                            <!-- Tema -->
+                                            <td class="p-3 text-xs sm:text-sm font-bold text-slate-900 border-r border-slate-300 leading-snug"
+                                                style="background-color: #FBE4D5;">
+                                                Reto No 1 Par&aacute;metros de verificaci&oacute;n de la
+                                                informaci&oacute;n: Contenido, vigencia, pertinencia, oportunidad,
+                                                coherencia, soporte, fuente, c&aacute;lculos, recursos, alcance,
+                                                difusi&oacute;n
+                                            </td>
+                                            <!-- Actividad -->
+                                            <td class="p-3 text-xs text-slate-800 border-r border-slate-300 leading-relaxed text-justify"
+                                                style="background-color: #FBE4D5;">
+                                                Realizar el recorrido por la aplicaci&oacute;n de VERIFICACI&Oacute;N DE
+                                                LA INFORMACI&Oacute;N, presentes las dos evaluaciones del Evaluador de
+                                                par&aacute;metros de verificaci&oacute;n, realizar el juego de Clasifica
+                                                el par&aacute;metro e imprimir el RESULTADOS CONSOLIDADOS para el
+                                                instructor.
+                                            </td>
+                                            <!-- Insignia -->
+                                            <td class="p-3 text-center border-r border-slate-300 align-middle"
+                                                style="background-color: #FBE4D5;">
+                                                <span
+                                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-blue-100 text-blue-900 font-bold text-xs border border-blue-300 shadow-xs">
+                                                    <i class="fas fa-shield-halved text-blue-700"></i>
+                                                    <span>Jefe de investigaci&oacute;n grado 1</span>
+                                                </span>
+                                            </td>
+                                            <!-- NEXs -->
+                                            <td class="p-3 text-center font-black text-amber-900 align-middle"
+                                                style="background-color: #FBE4D5;">
+                                                <span
+                                                    class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-100 border border-amber-300 text-amber-900 font-extrabold text-xs shadow-xs">
+                                                    <i class="fas fa-coins text-amber-600"></i> 100.000
+                                                </span>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Fila 5: Semana 6 -->
+                                        <tr class="hover:bg-slate-50 transition border-b border-slate-300 align-top"
+                                            data-rap="2">
+                                            <td class="p-3 text-center font-extrabold text-slate-900 border-r border-slate-300 align-middle"
+                                                style="background-color: #FBE4D5;">
+                                                <span
+                                                    class="px-2.5 py-1 rounded-md bg-white/80 border border-orange-200 text-orange-950 font-black shadow-xs inline-block">
+                                                    6
+                                                </span>
+                                            </td>
+                                            <td class="p-3 text-xs sm:text-sm font-bold text-slate-900 border-r border-slate-300 leading-snug"
+                                                style="background-color: #FBE4D5;">
+                                                Reto No 2 Comprobaci&oacute;n de la operatividad del sistema de
+                                                informaci&oacute;n: recolecci&oacute;n, registro, producci&oacute;n,
+                                                almacenamiento y transmisi&oacute;n de informaci&oacute;n
+                                            </td>
+                                            <td class="p-3 text-xs text-slate-800 border-r border-slate-300 leading-relaxed text-justify"
+                                                style="background-color: #FBE4D5;">
+                                                Realizar el recorrido por la aplicaci&oacute;n de COMPROBACI&Oacute;N DE
+                                                LA OPERATIVIDAD presentar las dos evaluaciones del Evaluador de
+                                                conocimientos y realizar el juego de Clasifica la etapa por
+                                                &uacute;ltimo que imprimir el RESULTADOS CONSOLIDADOS para el
+                                                instructor.
+                                            </td>
+                                            <td class="p-3 text-center border-r border-slate-300 align-middle"
+                                                style="background-color: #FBE4D5;">
+                                                <span
+                                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-blue-100 text-blue-900 font-bold text-xs border border-blue-300 shadow-xs">
+                                                    <i class="fas fa-shield-halved text-blue-700"></i>
+                                                    <span>Jefe de investigaci&oacute;n grado 2</span>
+                                                </span>
+                                            </td>
+                                            <td class="p-3 text-center font-black text-amber-900 align-middle"
+                                                style="background-color: #FBE4D5;">
+                                                <span
+                                                    class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-100 border border-amber-300 text-amber-900 font-extrabold text-xs shadow-xs">
+                                                    <i class="fas fa-coins text-amber-600"></i> 100.000
+                                                </span>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Fila 6: Semana 7 -->
+                                        <tr class="hover:bg-slate-50 transition border-b border-slate-300 align-top"
+                                            data-rap="2">
+                                            <td class="p-3 text-center font-extrabold text-slate-900 border-r border-slate-300 align-middle"
+                                                style="background-color: #FBE4D5;">
+                                                <span
+                                                    class="px-2.5 py-1 rounded-md bg-white/80 border border-orange-200 text-orange-950 font-black shadow-xs inline-block">
+                                                    7
+                                                </span>
+                                            </td>
+                                            <td class="p-3 text-xs sm:text-sm font-bold text-slate-900 border-r border-slate-300 leading-snug"
+                                                style="background-color: #FBE4D5;">
+                                                Reto No 3 Copias de seguridad: Concepto, tipos, backup y software.
+                                            </td>
+                                            <td class="p-3 text-xs text-slate-800 border-r border-slate-300 leading-relaxed text-justify"
+                                                style="background-color: #FBE4D5;">
+                                                Realizar un recorrido por la aplicaci&oacute;n de COPIAS DE SEGURIDAD,
+                                                presentes las dos evaluaciones del Evaluador de conocimientos realices
+                                                el juego de Clasifica la etapa y por &uacute;ltimo que imprimir el
+                                                RESULTADOS CONSOLIDADOS para el instructor.
+                                            </td>
+                                            <td class="p-3 text-center border-r border-slate-300 align-middle"
+                                                style="background-color: #FBE4D5;">
+                                                <span
+                                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-blue-100 text-blue-900 font-bold text-xs border border-blue-300 shadow-xs">
+                                                    <i class="fas fa-shield-halved text-blue-700"></i>
+                                                    <span>Jefe de investigaci&oacute;n grado 3</span>
+                                                </span>
+                                            </td>
+                                            <td class="p-3 text-center font-black text-amber-900 align-middle"
+                                                style="background-color: #FBE4D5;">
+                                                <span
+                                                    class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-100 border border-amber-300 text-amber-900 font-extrabold text-xs shadow-xs">
+                                                    <i class="fas fa-coins text-amber-600"></i> 100.000
+                                                </span>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Fila 7: Semana 8 -->
+                                        <tr class="hover:bg-slate-50 transition border-b-2 border-slate-400 align-top"
+                                            data-rap="2">
+                                            <td class="p-3 text-center font-extrabold text-slate-900 border-r border-slate-300 align-middle"
+                                                style="background-color: #FBE4D5;">
+                                                <span
+                                                    class="px-2.5 py-1 rounded-md bg-white/80 border border-orange-200 text-orange-950 font-black shadow-xs inline-block">
+                                                    8
+                                                </span>
+                                            </td>
+                                            <td class="p-3 text-xs sm:text-sm font-bold text-slate-900 border-r border-slate-300 leading-snug"
+                                                style="background-color: #FBE4D5;">
+                                                Reto No 4 Tratamiento y almacenamiento de informaci&oacute;n: conceptos
+                                                b&aacute;sicos sobre normas, t&eacute;cnicas y documentaci&oacute;n
+                                                asociada
+                                            </td>
+                                            <td class="p-3 text-xs text-slate-800 border-r border-slate-300 leading-relaxed text-justify"
+                                                style="background-color: #FBE4D5;">
+                                                Realizar el recorrido por la aplicaci&oacute;n de TRATAMIENTO Y
+                                                ALMACENAMIENTO DE INFORMACI&Oacute;N presentes las dos evaluaciones de
+                                                Evaluador de conocimientos realices el juego de Clasifica la estrategia
+                                                de copia, por &uacute;ltimo que imprimir el RESULTADOS CONSOLIDADOS para
+                                                el instructor.
+                                            </td>
+                                            <td class="p-3 text-center border-r border-slate-300 align-middle"
+                                                style="background-color: #FBE4D5;">
+                                                <span
+                                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-blue-100 text-blue-900 font-bold text-xs border border-blue-300 shadow-xs">
+                                                    <i class="fas fa-shield-halved text-blue-700"></i>
+                                                    <span>Jefe de investigaci&oacute;n grado 4</span>
+                                                </span>
+                                            </td>
+                                            <td class="p-3 text-center font-black text-amber-900 align-middle"
+                                                style="background-color: #FBE4D5;">
+                                                <span
+                                                    class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-100 border border-amber-300 text-amber-900 font-extrabold text-xs shadow-xs">
+                                                    <i class="fas fa-coins text-amber-600"></i> 100.000
+                                                </span>
+                                            </td>
+                                        </tr>
+
+                                        <!-- RESULTADO 3: Semanas 9 a 11 (Verde Menta Pastel: #C5E0B3) -->
+                                        <!-- Fila 8: Semana 9 -->
+                                        <tr class="hover:bg-slate-50 transition border-b border-slate-300 align-top"
+                                            data-rap="3">
+                                            <!-- Resultado de Aprendizaje 3 (E21..E23) -->
+                                            <td class="p-3.5 text-xs sm:text-sm font-semibold text-slate-800 border-r border-slate-300 leading-relaxed align-top pt-4"
+                                                rowspan="3" style="background-color: #C5E0B3;">
+                                                <div class="space-y-1.5 sticky top-6">
+                                                    <span
+                                                        class="inline-block text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-emerald-100 text-emerald-950 border border-emerald-300">
+                                                        Resultado 3
+                                                    </span>
+                                                    <p class="font-medium text-slate-900">Reportar novedades en la
+                                                        informaci&oacute;n de talento humano seg&uacute;n
+                                                        pol&iacute;ticas de la organizaci&oacute;n.</p>
+                                                </div>
+                                            </td>
+                                            <!-- Semana -->
+                                            <td class="p-3 text-center font-extrabold text-slate-900 border-r border-slate-300 align-middle"
+                                                style="background-color: #C5E0B3;">
+                                                <span
+                                                    class="px-2.5 py-1 rounded-md bg-white/80 border border-emerald-200 text-emerald-950 font-black shadow-xs inline-block">
+                                                    9
+                                                </span>
+                                            </td>
+                                            <!-- Tema -->
+                                            <td class="p-3 text-xs sm:text-sm font-bold text-slate-900 border-r border-slate-300 leading-snug"
+                                                style="background-color: #C5E0B3;">
+                                                Reto No 1 Normas t&eacute;cnicas para la elaboraci&oacute;n y
+                                                presentaci&oacute;n de informes: definiciones, tipos y
+                                                caracter&iacute;sticas.
+                                            </td>
+                                            <!-- Actividad -->
+                                            <td class="p-3 text-xs text-slate-800 border-r border-slate-300 leading-relaxed text-justify"
+                                                style="background-color: #C5E0B3;">
+                                                Realizar un recorrido por las NORMAS T&Eacute;CNICAS PARA INFORMES
+                                                presentar las dos evaluaciones del Evaluador de normas t&eacute;cnicas
+                                                realizar el juego &iquest;Qu&eacute; norma es? lo que permitir&aacute;
+                                                aprender m&aacute;s sobre normas t&eacute;cnicas para la
+                                                presentaci&oacute;n de informes, por &uacute;ltimo que imprimir el
+                                                RESULTADOS CONSOLIDADOS para el instructor.
+                                            </td>
+                                            <!-- Insignia -->
+                                            <td class="p-3 text-center border-r border-slate-300 align-middle"
+                                                style="background-color: #C5E0B3;">
+                                                <span
+                                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-teal-100 text-teal-900 font-bold text-xs border border-teal-300 shadow-xs">
+                                                    <i class="fas fa-award text-teal-700"></i>
+                                                    <span>Jefe de investigaci&oacute;n grado 5</span>
+                                                </span>
+                                            </td>
+                                            <!-- NEXs -->
+                                            <td class="p-3 text-center font-black text-amber-900 align-middle"
+                                                style="background-color: #C5E0B3;">
+                                                <span
+                                                    class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-100 border border-amber-300 text-amber-900 font-extrabold text-xs shadow-xs">
+                                                    <i class="fas fa-coins text-amber-600"></i> 150.000
+                                                </span>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Fila 9: Semana 10 -->
+                                        <tr class="hover:bg-slate-50 transition border-b border-slate-300 align-top"
+                                            data-rap="3">
+                                            <td class="p-3 text-center font-extrabold text-slate-900 border-r border-slate-300 align-middle"
+                                                style="background-color: #C5E0B3;">
+                                                <span
+                                                    class="px-2.5 py-1 rounded-md bg-white/80 border border-emerald-200 text-emerald-950 font-black shadow-xs inline-block">
+                                                    10
+                                                </span>
+                                            </td>
+                                            <td class="p-3 text-xs sm:text-sm font-bold text-slate-900 border-r border-slate-300 leading-snug"
+                                                style="background-color: #C5E0B3;">
+                                                Reto No 2 Protocolo para la presentaci&oacute;n de reportes: tipos y
+                                                caracter&iacute;sticas
+                                            </td>
+                                            <td class="p-3 text-xs text-slate-800 border-r border-slate-300 leading-relaxed text-justify"
+                                                style="background-color: #C5E0B3;">
+                                                Realizar un recorrido por los PROTOCOLO PARA LA PRESENTACI&Oacute;N DE
+                                                REPORTES presentar las dos evaluaciones del Evaluador de Conocimiento,
+                                                realizar el juego Clasifica el protocolo lo que permitir&aacute;
+                                                aprender m&aacute;s sobre dichos protocolos, por &uacute;ltimo que
+                                                imprimas el RESULTADOS CONSOLIDADOS para el instructor.
+                                            </td>
+                                            <td class="p-3 text-center border-r border-slate-300 align-middle"
+                                                style="background-color: #C5E0B3;">
+                                                <span
+                                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-teal-100 text-teal-900 font-bold text-xs border border-teal-300 shadow-xs">
+                                                    <i class="fas fa-award text-teal-700"></i>
+                                                    <span>Jefe de investigaci&oacute;n grado 6</span>
+                                                </span>
+                                            </td>
+                                            <td class="p-3 text-center font-black text-amber-900 align-middle"
+                                                style="background-color: #C5E0B3;">
+                                                <span
+                                                    class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-100 border border-amber-300 text-amber-900 font-extrabold text-xs shadow-xs">
+                                                    <i class="fas fa-coins text-amber-600"></i> 150.000
+                                                </span>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Fila 10: Semana 11 (presentaciones combinada G23:J23) -->
+                                        <tr class="hover:bg-slate-50 transition border-b-2 border-slate-400 align-top"
+                                            data-rap="3">
+                                            <td class="p-3 text-center font-extrabold text-slate-900 border-r border-slate-300 align-middle"
+                                                style="background-color: #C5E0B3;">
+                                                <span
+                                                    class="px-2.5 py-1 rounded-md bg-white/80 border border-emerald-200 text-emerald-950 font-black shadow-xs inline-block">
+                                                    11
+                                                </span>
+                                            </td>
+                                            <td class="p-4 text-center font-extrabold text-slate-800 tracking-wider uppercase"
+                                                colspan="4" style="background-color: #E2EFD9;">
+                                                <div
+                                                    class="inline-flex items-center gap-2 px-4 py-1.5 rounded-lg bg-white/90 border border-emerald-300 text-emerald-950 shadow-xs font-black">
+                                                    <i class="fas fa-chalkboard-user text-emerald-700"></i>
+                                                    <span>Sustentaciones y Presentaciones Finales de Proyecto</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                    <!-- Pie de tabla Excel con totales -->
+                                    <tfoot>
+                                        <tr
+                                            class="bg-slate-100 text-slate-800 font-bold border-t-2 border-slate-400 text-xs sm:text-sm">
+                                            <td colspan="7"
+                                                class="p-3 text-right uppercase tracking-wider text-slate-700 border-r border-slate-300">
+                                                <i class="fas fa-calculator mr-1 text-slate-500"></i> Total Acumulado de
+                                                Recompensas:
+                                            </td>
+                                            <td class="p-3 text-center font-black text-amber-900 bg-amber-50">
+                                                <span
+                                                    class="inline-flex items-center gap-1 text-amber-900 font-black text-sm">
+                                                    <i class="fas fa-coins text-amber-600"></i> 1&apos;140.000 NEXs
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Barra de pestañas inferior estilo Excel -->
+                        <div
+                            class="bg-slate-200 border-t border-slate-300 px-4 py-1.5 flex items-center justify-between text-xs text-slate-600 shrink-0">
+                            <div class="flex items-center gap-1">
+                                <span
+                                    class="bg-white text-emerald-800 font-bold px-3 py-1 rounded-t-md border-t-2 border-emerald-600 shadow-xs inline-flex items-center gap-1.5">
+                                    <i class="fas fa-file-excel text-emerald-600 text-xs"></i> Hoja1
+                                </span>
+                            </div>
+                            <div class="flex items-center gap-4 text-[11px] text-slate-500 font-medium">
+                                <span class="hidden sm:inline"><i class="fas fa-table-cells mr-1"></i> 11 semanas &bull;
+                                    9 retos</span>
+                                <span class="font-bold text-slate-700"><i class="fas fa-coins text-amber-600 mr-1"></i>
+                                    SUMA: 1&apos;140.000 NEXs</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- CONTENEDOR 2: VISOR PDF EMBEBIDO (ALTERNO) -->
+                    <div id="cronograma-pdf-container"
+                        class="pdf-fullscreen-wrapper w-full rounded-xl overflow-hidden border-2 bd-accent bg-white shadow-inner flex flex-col relative hidden"
+                        style="height: 800px; min-height: 550px;">
+
+                        <button type="button" onclick="togglePdfFullscreen('cronograma-pdf-container')"
+                            class="pdf-fs-exit-btn hidden absolute top-4 right-4 z-50 bg-slate-900/80 hover:bg-slate-900 text-white text-xs px-3.5 py-2 rounded-lg shadow-xl backdrop-blur transition items-center gap-2 cursor-pointer border border-slate-700">
+                            <i class="fas fa-compress text-xs"></i>
+                            <span>Salir de pantalla completa</span>
+                        </button>
+
+                        <object data="CRONOGRAMA%20(OPCION).pdf#view=FitH" type="application/pdf"
+                            class="w-full h-full border-0">
+                            <iframe src="CRONOGRAMA%20(OPCION).pdf#view=FitH" class="w-full h-full border-0"
+                                title="CRONOGRAMA (OPCION).pdf">
+                                <div
+                                    class="p-8 text-center text-sm card-text flex flex-col items-center justify-center h-full">
+                                    <i class="fas fa-file-pdf text-4xl mb-3" style="color: var(--accent)"></i>
+                                    <p class="mb-4">Tu navegador no tiene un visor de PDF integrado o est&aacute;
+                                        desactivado.</p>
+                                    <a href="CRONOGRAMA (OPCION).pdf" download="CRONOGRAMA (OPCION).pdf"
+                                        class="go-btn text-white text-sm font-semibold px-5 py-2.5 rounded-lg inline-flex items-center gap-2 shadow-md">
+                                        <i class="fas fa-download text-sm"></i> Descargar CRONOGRAMA (OPCION).pdf
+                                    </a>
+                                </div>
+                            </iframe>
+                        </object>
+                    </div>
+
+                    <!-- BOTÓN DE AVANCE A SIGUIENTE PESTAÑA -->
+                    <div class="mt-8 pt-5 border-t bd-accent flex justify-between items-center flex-wrap gap-3">
+                        <span class="text-xs text-slate-500 font-medium">
+                            <i class="fas fa-info-circle text-slate-400 mr-1"></i> Cronograma de formaci&oacute;n
+                            cargado desde <strong>CRONOGRAMA (OPCION).xlsx</strong>.
+                        </span>
+                        <button type="button"
+                            class="btn-next go-btn text-white text-sm font-semibold px-6 py-2.5 rounded-lg inline-flex items-center gap-2 cursor-pointer shadow-md"
+                            data-next="p5">
+                            Ir a Siguiente <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+
+        <!-- PESTANA: LO LOGRASTE -->
+        <div id="tab-p5" class="tab-content"
+            style="--accent:#0F766E;--accent-dark:#0C5C56;--accent-soft:rgba(15,118,110,0.12);--accent-border:#ABCFCC;--card-bg:#F1F7F6;--accent-glow:rgba(15,118,110,0.3);">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <article class="route-card rounded-xl p-6 sm:p-7 flex flex-col md:col-span-3">
+                    <div
+                        class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-5 pb-4 border-b bd-accent">
+                        <div class="flex items-center gap-3.5">
+                            <div class="icon-box w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
+                                <i class="fas fa-trophy text-2xl"></i>
+                            </div>
+                            <div>
+                                <span
+                                    class="text-xs font-bold tracking-wider uppercase px-2.5 py-1 rounded-md inline-block mb-1"
+                                    style="background: var(--accent-soft); color: var(--accent-dark)">Documento
+                                    Oficial</span>
+                                <h3 class="card-title text-xl sm:text-2xl font-bold leading-tight">Lo lograste: El
+                                    proceso de unificaci&oacute;n est&aacute; completo</h3>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-3">
+                            <button type="button" onclick="togglePdfFullscreen('pdf-viewer-container-p5')"
+                                class="go-btn text-white text-sm font-semibold px-4 py-2.5 rounded-lg inline-flex items-center gap-2 cursor-pointer shadow-md hover:opacity-95 transition"
+                                title="Ver a pantalla completa">
+                                <i class="fas fa-expand text-sm"></i>
+                                <span>Pantalla completa</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="text-sm sm:text-base card-text leading-relaxed mb-4 text-justify">
+                        <p>
+                            Aqu&iacute; puedes consultar el documento oficial <strong>El proceso de unificaci&oacute;n
+                                est&aacute; completo, lo lograste aprendiz</strong>. El archivo se encuentra configurado
+                            para su visualizaci&oacute;n directa a pantalla completa en la plataforma.
+                        </p>
+                    </div>
+
+                    <!-- Visor de PDF embebido a pantalla completa y sin opciÃ³n de descarga -->
+                    <div id="pdf-viewer-container-p5"
+                        class="pdf-fullscreen-wrapper w-full rounded-xl overflow-hidden border-2 bd-accent bg-white shadow-inner flex flex-col relative"
+                        style="height: 820px; min-height: 550px;" oncontextmenu="return false;">
+                        <button type="button" onclick="togglePdfFullscreen('pdf-viewer-container-p5')"
+                            class="pdf-fs-exit-btn hidden absolute top-4 right-4 z-50 bg-slate-900/80 hover:bg-slate-900 text-white text-xs px-3.5 py-2 rounded-lg shadow-xl backdrop-blur transition items-center gap-2 cursor-pointer border border-slate-700">
+                            <i class="fas fa-compress text-xs"></i>
+                            <span>Salir de pantalla completa</span>
+                        </button>
+                        <object
+                            data="El%20proceso%20de%20unificaci%C3%B3n%20est%C3%A1%20completo%2C%20lo%20lograste%20aprendiz..pdf#toolbar=0&navpanes=0&view=FitH"
+                            type="application/pdf" class="w-full h-full border-0">
+                            <iframe
+                                src="El%20proceso%20de%20unificaci%C3%B3n%20est%C3%A1%20completo%2C%20lo%20lograste%20aprendiz..pdf#toolbar=0&navpanes=0&view=FitH"
+                                class="w-full h-full border-0"
+                                title="El proceso de unificaci&oacute;n est&aacute; completo, lo lograste aprendiz">
+                                <div
+                                    class="p-8 text-center text-sm card-text flex flex-col items-center justify-center h-full">
+                                    <i class="fas fa-file-pdf text-4xl mb-3" style="color: var(--accent)"></i>
+                                    <p class="mb-2 font-semibold">Documento oficial de unificaci&oacute;n</p>
+                                    <p class="text-xs text-slate-500">Visualizaci&oacute;n protegida en l&iacute;nea.
+                                    </p>
+                                </div>
+                            </iframe>
+                        </object>
+                    </div>
+
+                    <div class="mt-8 pt-5 border-t bd-accent flex justify-between items-center flex-wrap gap-3">
+                        <span class="text-xs text-slate-500 font-medium">Misi&oacute;n y proceso de unificaci&oacute;n
+                            completados con &eacute;xito.</span>
+                        <button type="button"
+                            class="btn-next go-btn text-white text-sm font-semibold px-6 py-2.5 rounded-lg inline-flex items-center gap-2 cursor-pointer shadow-md"
+                            data-next="certificado">
+                            Ir a Certificado <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        <!-- PESTANA: CERTIFICADO -->
+        <div id="tab-certificado" class="tab-content"
+            style="--accent:#D97706;--accent-dark:#B45309;--accent-soft:rgba(217,119,6,0.12);--accent-border:#FDE68A;--card-bg:#FFFDF5;--accent-glow:rgba(217,119,6,0.3);">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <article class="route-card rounded-xl p-5 sm:p-7 flex flex-col md:col-span-3">
+
+                    <!-- ENCABEZADO DE SECCIÓN -->
+                    <div
+                        class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-5 pb-4 border-b bd-accent">
+                        <div class="flex items-center gap-3.5">
+                            <div class="icon-box w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
+                                style="background: var(--accent-soft); color: var(--accent-dark);">
+                                <i class="fas fa-certificate text-2xl text-amber-600"></i>
+                            </div>
+                            <div>
+                                <span
+                                    class="text-xs font-bold tracking-wider uppercase px-2.5 py-1 rounded-md inline-block mb-1"
+                                    style="background: var(--accent-soft); color: var(--accent-dark);">
+                                    Acreditaci&oacute;n Oficial
+                                </span>
+                                <h3 class="card-title text-xl sm:text-2xl font-bold leading-tight">
+                                    Certificado de Unificaci&oacute;n &bull; Retos del Planeta Byteon 2
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap items-center gap-2.5">
+                            <a href="certificado.html" target="_blank" rel="noopener noreferrer" id="cert-ext-link"
+                                class="go-btn text-white text-sm font-semibold px-4 py-2.5 rounded-lg inline-flex items-center gap-2 cursor-pointer shadow-md hover:opacity-95 transition"
+                                style="background: linear-gradient(135deg, #D97706 0%, #B45309 100%);"
+                                title="Abrir certificado en una nueva pestaña independiente">
+                                <i class="fas fa-external-link-alt text-xs"></i>
+                                <span>Abrir en nueva pesta&ntilde;a</span>
+                            </a>
+                            <button type="button" onclick="togglePdfFullscreen('certificado-container')"
+                                class="text-sm font-semibold px-3.5 py-2.5 rounded-lg inline-flex items-center gap-2 border bd-accent bg-white shadow-sm hover:bg-slate-50 transition cursor-pointer"
+                                style="color: var(--accent-dark);" title="Ver a pantalla completa">
+                                <i class="fas fa-expand text-xs"></i>
+                                <span>Pantalla completa</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="text-sm sm:text-base card-text leading-relaxed mb-4 text-justify">
+                        <p>
+                            Aqu&iacute; puedes consultar e interactuar directamente con tu <strong>Certificado oficial
+                                de unificaci&oacute;n</strong>. Los datos registrados de tu usuario (nombre, documento y
+                            ficha) se sincronizan autom&aacute;ticamente para expedir tu acreditaci&oacute;n con el
+                            sello gal&aacute;ctico del SENA y el Planeta Byteon.
+                        </p>
+                    </div>
+
+                    <!-- VISOR DE CERTIFICADO EMBEBIDO -->
+                    <div id="certificado-container"
+                        class="pdf-fullscreen-wrapper w-full rounded-xl overflow-hidden border-2 bd-accent bg-slate-900 shadow-inner flex flex-col relative"
+                        style="height: 880px; min-height: 600px;">
+
+                        <button type="button" onclick="togglePdfFullscreen('certificado-container')"
+                            class="pdf-fs-exit-btn hidden absolute top-4 right-4 z-50 bg-slate-900/80 hover:bg-slate-900 text-white text-xs px-3.5 py-2 rounded-lg shadow-xl backdrop-blur transition items-center gap-2 cursor-pointer border border-slate-700">
+                            <i class="fas fa-compress text-xs"></i>
+                            <span>Salir de pantalla completa</span>
+                        </button>
+
+                        <iframe id="certificado-iframe" src="certificado.html"
+                            class="w-full h-full border-0 rounded-lg bg-slate-900"
+                            title="Certificado de unificación - Retos del planeta Byteon 2" allow="fullscreen">
+                        </iframe>
+                    </div>
+
+                    <div class="mt-8 pt-5 border-t bd-accent flex justify-between items-center flex-wrap gap-3">
+                        <span class="text-xs text-slate-500 font-medium">
+                            <i class="fas fa-shield-halved text-amber-600 mr-1"></i> Acreditaci&oacute;n generada y
+                            validada para los aprendices del SENA.
+                        </span>
+                        <button type="button"
+                            class="btn-next go-btn text-white text-sm font-semibold px-6 py-2.5 rounded-lg inline-flex items-center gap-2 cursor-pointer shadow-md"
+                            data-next="retos">
+                            <i class="fas fa-rocket text-xs"></i> Volver a Retos Byteon
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+
+
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer py-4">
+        <p class="text-center text-[11px]" style="color:#9FB3D6">Portal de acceso a los simuladores formativos</p>
+    </footer>
+
+    <script>
+        // Datos del aprendiz: el registro se pide cada vez que se abre la app.
+        let aprendiz = null;
+        const REG_KEY = 'sena_registro_aprendiz';
+
+        function activateTab(tabName) {
+            if (tabName === 'certificado') {
+                const certIframe = document.getElementById('certificado-iframe');
+                const certLink = document.getElementById('cert-ext-link');
+                const activeData = aprendiz || (function () {
+                    try {
+                        const raw = localStorage.getItem(REG_KEY) || sessionStorage.getItem(REG_KEY);
+                        return raw ? JSON.parse(raw) : null;
+                    } catch (e) { return null; }
+                })();
+                if (activeData) {
+                    const hashParam = '#registro=' + encodeURIComponent(JSON.stringify(activeData));
+                    if (certIframe) {
+                        if (!certIframe.src.includes('#registro=')) {
+                            certIframe.src = 'certificado.html' + hashParam;
+                        }
+                        try {
+                            certIframe.contentWindow.postMessage({ type: 'sena_registro', aprendiz: activeData }, '*');
+                        } catch (e) { }
+                    }
+                    if (certLink) {
+                        certLink.href = 'certificado.html' + hashParam;
+                    }
+                }
+            }
+            // Sin registro completo solo se puede estar en la pestaña Registro
+            if (!aprendiz && tabName !== 'registro') {
+                const bar = document.querySelector('.tabs-bar');
+                bar.classList.remove('shake');
+                void bar.offsetWidth;
+                bar.classList.add('shake');
+                setRegStatus('Debes completar el registro para avanzar.', true);
+                return;
+            }
+            if (tabName !== 'video') {
+                const vid = document.getElementById('byteon-intro-video');
+                if (vid && !vid.paused) {
+                    vid.pause();
+                }
+            }
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.tab === tabName);
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.toggle('active', content.id === 'tab-' + tabName);
+            });
+            const tabsBar = document.querySelector('.tabs-bar');
+            if (tabsBar) {
+                tabsBar.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                activateTab(btn.dataset.tab);
+            });
+        });
+
+        document.querySelectorAll('.btn-next').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const nextTab = btn.dataset.next;
+                if (nextTab) {
+                    activateTab(nextTab);
+                }
+            });
+        });
+
+        // Controles adicionales del Video de Byteon
+        const byteonVideo = document.getElementById('byteon-intro-video');
+        const replayBtn = document.getElementById('btn-replay-video');
+        const fullscreenBtn = document.getElementById('btn-fullscreen-video');
+
+        if (replayBtn && byteonVideo) {
+            replayBtn.addEventListener('click', () => {
+                byteonVideo.currentTime = 0;
+                byteonVideo.play();
+            });
+        }
+        if (fullscreenBtn && byteonVideo) {
+            fullscreenBtn.addEventListener('click', () => {
+                if (byteonVideo.requestFullscreen) {
+                    byteonVideo.requestFullscreen();
+                } else if (byteonVideo.webkitRequestFullscreen) {
+                    byteonVideo.webkitRequestFullscreen();
+                } else if (byteonVideo.msRequestFullscreen) {
+                    byteonVideo.msRequestFullscreen();
+                }
+            });
+        }
+
+        // ---------- REGISTRO ----------
+        const regForm = document.getElementById('registro-form');
+        const regFields = {
+            nombre: {
+                el: document.getElementById('reg-nombre'),
+                check: v => /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ'.-]{2,}(\s+[A-Za-zÁÉÍÓÚÜÑáéíóúüñ'.-]{2,})+$/.test(v),
+                msg: 'Escribe tu nombre y apellido completos.'
+            },
+            documento: {
+                el: document.getElementById('reg-documento'),
+                check: v => /^\d{5,12}$/.test(v),
+                msg: 'Solo números, entre 5 y 12 dígitos.'
+            },
+            ficha: {
+                el: document.getElementById('reg-ficha'),
+                check: v => /^\d{5,10}$/.test(v),
+                msg: 'Solo números, entre 5 y 10 dígitos.'
+            }
+        };
+        const lockedTabs = () => document.querySelectorAll('.tab-btn[data-tab]:not([data-tab="registro"])');
+        let advanceTimer = null;
+
+        // Las demás pestañas quedan bloqueadas (con candado) hasta completar el registro
+        lockedTabs().forEach(b => {
+            b.classList.add('locked');
+            b.setAttribute('aria-disabled', 'true');
+            b.insertAdjacentHTML('beforeend', '<i class="fas fa-lock lock-icon"></i>');
+        });
+
+        function setRegStatus(text, isError) {
+            const st = document.getElementById('reg-status');
+            st.textContent = text;
+            st.style.color = isError ? 'var(--coral)' : '';
+        }
+
+        function validateField(key, showError) {
+            const f = regFields[key];
+            const value = f.el.value.trim();
+            const ok = f.check(value);
+            const errEl = document.querySelector('[data-error-for="' + f.el.id + '"]');
+            f.el.classList.toggle('valid', ok);
+            f.el.classList.toggle('invalid', !ok && showError && value !== '');
+            errEl.textContent = (!ok && showError) ? (value === '' ? 'Este campo es obligatorio.' : f.msg) : '';
+            return ok;
+        }
+
+        function completeRegistration() {
+            aprendiz = {
+                nombre: regFields.nombre.el.value.trim().replace(/\s+/g, ' '),
+                documento: regFields.documento.el.value.trim(),
+                ficha: regFields.ficha.el.value.trim(),
+                programa: document.getElementById('reg-programa').value,
+                centro: document.getElementById('reg-centro').value,
+                regional: document.getElementById('reg-regional').value
+            };
+            // Compartir el registro con las páginas de cada reto (almacenamiento local + enlace)
+            window.aprendiz = aprendiz;
+            try { localStorage.setItem(REG_KEY, JSON.stringify(aprendiz)); } catch (e) { /* ignore */ }
+            try { sessionStorage.setItem(REG_KEY, JSON.stringify(aprendiz)); } catch (e) { /* ignore */ }
+            const certIframe = document.getElementById('certificado-iframe');
+            const certLink = document.getElementById('cert-ext-link');
+            if (certIframe) {
+                certIframe.src = 'certificado.html#registro=' + encodeURIComponent(JSON.stringify(aprendiz));
+                try { certIframe.contentWindow.postMessage({ type: 'sena_registro', aprendiz: aprendiz }, '*'); } catch (e) { }
+            }
+            if (certLink) certLink.href = 'certificado.html#registro=' + encodeURIComponent(JSON.stringify(aprendiz));
+            document.querySelectorAll('#tab-retos a[href$=".html"]').forEach(a => {
+                const base = a.getAttribute('href').split('#')[0];
+                a.href = base + '#registro=' + encodeURIComponent(JSON.stringify(aprendiz));
+            });
+            lockedTabs().forEach(b => {
+                b.classList.remove('locked');
+                b.removeAttribute('aria-disabled');
+                const lock = b.querySelector('.lock-icon');
+                if (lock) lock.remove();
+            });
+            setRegStatus('Registro completo. Entrando a LucIA.', false);
+            activateTab('lucia');
+        }
+
+        function checkRegistration(showErrors) {
+            clearTimeout(advanceTimer);
+            const results = Object.keys(regFields).map(k => validateField(k, showErrors));
+            const allOk = results.every(Boolean);
+            if (allOk) {
+                completeRegistration();
+            }
+            return allOk;
+        }
+
+        Object.keys(regFields).forEach(key => {
+            const el = regFields[key].el;
+            el.addEventListener('input', () => {
+                if (key !== 'nombre') {
+                    el.value = el.value.replace(/\D/g, '');
+                }
+                validateField(key, false);
+                clearTimeout(advanceTimer);
+                const allOk = Object.keys(regFields).every(k => regFields[k].check(regFields[k].el.value.trim()));
+                if (allOk && !aprendiz) {
+                    setRegStatus('Registro completo. Entrando a LucIA…', false);
+                    advanceTimer = setTimeout(() => checkRegistration(true), 900);
+                } else if (!aprendiz) {
+                    setRegStatus('Completa los campos para continuar.', false);
+                }
+            });
+            el.addEventListener('blur', () => {
+                if (aprendiz) return;
+                validateField(key, true);
+                const allOk = Object.keys(regFields).every(k => regFields[k].check(regFields[k].el.value.trim()));
+                if (allOk) checkRegistration(true);
+            });
+        });
+
+        regForm.addEventListener('submit', e => {
+            e.preventDefault();
+            if (aprendiz) {
+                const certIframe = document.getElementById('certificado-iframe');
+                const certLink = document.getElementById('cert-ext-link');
+                if (certIframe) certIframe.src = 'certificado.html#registro=' + encodeURIComponent(JSON.stringify(aprendiz));
+                if (certLink) certLink.href = 'certificado.html#registro=' + encodeURIComponent(JSON.stringify(aprendiz));
+                activateTab('lucia'); return;
+            }
+            if (!checkRegistration(true)) {
+                setRegStatus('Revisa los campos marcados para poder continuar.', true);
+                const firstBad = Object.keys(regFields).find(k => !regFields[k].check(regFields[k].el.value.trim()));
+                if (firstBad) regFields[firstBad].el.focus();
+            }
+        });
+
+        // La aplicación siempre inicia en Registro (ya está marcada como activa en el HTML)
+        function togglePdfFullscreen(elemId) {
+            const el = document.getElementById(elemId);
+            if (!el) return;
+            if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                if (el.requestFullscreen) {
+                    el.requestFullscreen();
+                } else if (el.webkitRequestFullscreen) {
+                    el.webkitRequestFullscreen();
+                } else if (el.msRequestFullscreen) {
+                    el.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                }
+            }
+        }
+
+        // Control del Visor de Cronograma Excel y PDF
+        function setCronogramaView(view) {
+            const excelContainer = document.getElementById('cronograma-excel-container');
+            const pdfContainer = document.getElementById('cronograma-pdf-container');
+            const excelTools = document.getElementById('cronograma-excel-tools');
+            const btnExcel = document.getElementById('btn-view-excel');
+            const btnPdf = document.getElementById('btn-view-pdf');
+
+            if (!excelContainer || !pdfContainer) return;
+
+            if (view === 'excel') {
+                excelContainer.classList.remove('hidden');
+                pdfContainer.classList.add('hidden');
+                if (excelTools) excelTools.style.display = 'flex';
+                btnExcel.className = 'px-3.5 py-1.5 rounded-md text-xs sm:text-sm font-bold transition flex items-center gap-2 bg-emerald-700 text-white shadow-sm';
+                btnPdf.className = 'px-3.5 py-1.5 rounded-md text-xs sm:text-sm font-semibold transition flex items-center gap-2 text-slate-600 hover:text-slate-900';
+            } else {
+                excelContainer.classList.add('hidden');
+                pdfContainer.classList.remove('hidden');
+                if (excelTools) excelTools.style.display = 'none';
+                btnPdf.className = 'px-3.5 py-1.5 rounded-md text-xs sm:text-sm font-bold transition flex items-center gap-2 bg-red-700 text-white shadow-sm';
+                btnExcel.className = 'px-3.5 py-1.5 rounded-md text-xs sm:text-sm font-semibold transition flex items-center gap-2 text-slate-600 hover:text-slate-900';
+            }
+        }
+
+        function filterCronogramaTable() {
+            const input = document.getElementById('cronograma-filter-input');
+            if (!input) return;
+            const filter = input.value.toLowerCase().trim();
+            const table = document.getElementById('cronograma-table');
+            if (!table) return;
+            const rows = table.querySelectorAll('tbody tr');
+
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                if (filter === '' || text.includes(filter)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        function printCronogramaSheet() {
+            window.print();
+        }
+    </script>
+</body>
+
+</html>
