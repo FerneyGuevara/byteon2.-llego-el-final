@@ -2792,6 +2792,546 @@
             window.print();
         }
     </script>
-</body>
 
-</html>
+    <!-- ========================================== -->
+    <!-- WIDGET DEL CHATBOT LUCIA                   -->
+    <!-- ========================================== -->
+    <div id="lucia-chatbot-container" class="fixed bottom-5 right-5 z-50 font-sans">
+      <!-- Ventana del Chat -->
+      <div id="chat-window" class="hidden flex-col w-80 h-96 bg-white shadow-2xl rounded-2xl border border-gray-200 overflow-hidden transition-all duration-300">
+        <div class="bg-blue-600 text-white p-4 flex justify-between items-center">
+          <div class="flex items-center gap-2">
+            <img src="lucIA.png" alt="LucIA" class="w-9 h-9 rounded-full object-cover bg-white p-0.5 border border-blue-300 shadow-sm">
+            <span class="font-semibold text-lg">LucIA - Asistente</span>
+          </div>
+          <button id="close-chat" class="text-white hover:text-gray-200 focus:outline-none">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+        </div>
+        <div id="chat-messages" class="flex-1 p-4 overflow-y-auto bg-gray-50 flex flex-col gap-3"></div>
+        <div id="chat-options" class="p-2 border-t border-gray-200 bg-white flex flex-wrap gap-2"></div>
+      </div>
+      <!-- Botón Flotante -->
+      <button id="open-chat" class="mt-4 float-right bg-blue-600 hover:bg-blue-700 text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-transform hover:scale-105">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+      </button>
+    </div>
+
+    <!-- CEREBRO DE LUCIA DEFINITIVO: RETOS 1 AL 9 (CON DEFINICIONES) -->
+    <script>
+      const luciaBrain = {
+        // ==========================================
+        // 1. MENÚ PRINCIPAL
+        // ==========================================
+        "inicio": {
+          texto: "¡Hola Aprendiz! Soy LucIA. Selecciona el reto de la Fase II que deseas repasar:",
+          opciones: [
+            { texto: "1. Bases de Datos", clave: "reto1" },
+            { texto: "2. Intelig. Artificial", clave: "reto2" },
+            { texto: "3. Herramientas Web", clave: "reto3" },
+            { texto: "4. Verific. de Info.", clave: "reto4" },
+            { texto: "5. Comprobación Op.", clave: "reto5" },
+            { texto: "6. Copias Seguridad", clave: "reto6" },
+            { texto: "7. Tratamiento Info.", clave: "reto7" },
+            { texto: "8. Normas Técnicas", clave: "reto8" },
+            { texto: "9. Protocolos Reportes", clave: "reto9" }
+          ]
+        },
+
+        // ==========================================
+        // RETO 1 (Bases de Datos)
+        // ==========================================
+        "reto1": {
+          texto: "Has seleccionado Gestores de Bases de Datos (SGBD). ¿Qué tema específico quieres estudiar?",
+          opciones: [
+            { texto: "Conceptos y Componentes", clave: "r1_conceptos" },
+            { texto: "Principios A.C.I.D.", clave: "r1_acid" },
+            { texto: "Arquitectura ANSI-SPARC", clave: "r1_arquitectura" },
+            { texto: "Modelos y Aplicación", clave: "r1_modelos" },
+            { texto: "Buenas Prácticas RR.HH.", clave: "r1_practicas" },
+            { texto: "⬅️ Volver al inicio", clave: "inicio" }
+          ]
+        },
+        "r1_conceptos": { 
+          texto: `🎯 CONCEPTOS Y COMPONENTES DEL SGBD\n• Diccionario de datos\n• Lenguaje de Definición (DDL)\n• Lenguaje de Manipulación (DML)\n• Seguridad y Recuperación`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r1_conceptos_full" }, { texto: "⬅️ Volver", clave: "reto1" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r1_conceptos_full": {
+          texto: `📖 DETALLE: CONCEPTOS Y COMPONENTES\nUn Sistema Gestor de Bases de Datos (SGBD / DBMS) es un conjunto de programas que actúan como interfaz.\n\n• DICCIONARIO DE DATOS: Contiene metadatos que describen el significado, relaciones y permisos.\n• DDL: Permite estructurar el esquema conceptual (crear, alterar tablas).\n• DML: Habilita la interacción diaria (operaciones CRUD, SQL).\n• SEGURIDAD Y RECUPERACIÓN: Controles de autenticación y mecanismos de respaldo.`,
+          opciones: [ { texto: "⬅️ Volver a Conceptos", clave: "r1_conceptos" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r1_acid": { 
+          texto: `🎯 PROPIEDADES A.C.I.D.\n• Atomicidad\n• Consistencia\n• Aislamiento\n• Durabilidad`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r1_acid_full" }, { texto: "⬅️ Volver", clave: "reto1" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r1_acid_full": {
+          texto: `📖 DETALLE: PROPIEDADES A.C.I.D.\n• ATOMICIDAD: Principio de "todo o nada". Todas las instrucciones se ejecutan o se revierte todo.\n• CONSISTENCIA: Solo se permiten transacciones que pasen de un estado válido a otro válido.\n• AISLAMIENTO: Operaciones simultáneas no interfieren entre sí.\n• DURABILIDAD: Los cambios persisten de manera permanente, resistiendo fallos.`,
+          opciones: [ { texto: "⬅️ Volver a A.C.I.D.", clave: "r1_acid" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r1_arquitectura": { 
+          texto: `🎯 ARQUITECTURA EN TRES NIVELES\n1. Nivel Externo\n2. Nivel Conceptual\n3. Nivel Interno`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r1_arquitectura_full" }, { texto: "⬅️ Volver", clave: "reto1" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r1_arquitectura_full": {
+          texto: `📖 DETALLE: ARQUITECTURA (ANSI-SPARC)\n• NIVEL EXTERNO (Vistas): Visión personalizada de cada perfil. Oculta datos irrelevantes.\n• NIVEL CONCEPTUAL (Global): Representación lógica de toda la base de datos independiente del almacenamiento físico.\n• NIVEL INTERNO (Físico): Estructura técnica de almacenamiento en discos, índices y compresión.`,
+          opciones: [ { texto: "⬅️ Volver a Arquitectura", clave: "r1_arquitectura" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r1_modelos": { 
+          texto: `🎯 MODELOS DE BASES DE DATOS\n• Relacionales (SQL)\n• Documentales (NoSQL)\n• Nube / Tiempo Real\n• Herramienta Fase II: Microsoft Access`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r1_modelos_full" }, { texto: "⬅️ Volver", clave: "reto1" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r1_modelos_full": {
+          texto: `📖 DETALLE: MODELOS Y ACCESS\n• RELACIONALES (SQL): Estructura en tablas relacionadas (Ej. Oracle, MySQL. Uso: Nómina).\n• DOCUMENTALES (NoSQL): Esquemas flexibles basados en documentos (Ej. MongoDB. Uso: Hojas de vida).\n• NUBE / TIEMPO REAL: Sincronización instantánea (Ej. Firebase).\n\nMICROSOFT ACCESS: SGBD de escritorio para administrar bases de datos de forma visual orientada a medianos volúmenes.`,
+          opciones: [ { texto: "⬅️ Volver a Modelos", clave: "r1_modelos" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r1_practicas": { 
+          texto: `🎯 BUENAS PRÁCTICAS\n• Control de Acceso Basado en Roles (RBAC)\n• Protección y Cumplimiento\n• Políticas de Respaldo`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r1_practicas_full" }, { texto: "⬅️ Volver", clave: "reto1" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r1_practicas_full": {
+          texto: `📖 DETALLE: BUENAS PRÁCTICAS\n• RBAC: Limitar privilegios según la responsabilidad del analista.\n• PROTECCIÓN: Aplicar anonimización y cifrado en datos sensibles conforme a normativas.\n• RESPALDO: Definir ventanas de backup y verificar restauraciones periódicas.`,
+          opciones: [ { texto: "⬅️ Volver a Prácticas", clave: "r1_practicas" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+
+        // ==========================================
+        // RETO 2 (Inteligencia Artificial)
+        // ==========================================
+        "reto2": {
+          texto: "Has seleccionado Inteligencia Artificial (IA). ¿Qué tema deseas explorar?",
+          opciones: [
+            { texto: "Conceptos", clave: "r2_conceptos" },
+            { texto: "Tipos de IA", clave: "r2_tipos" },
+            { texto: "Enfoques Técnicos", clave: "r2_enfoques" },
+            { texto: "Aplicaciones y Desafíos", clave: "r2_aplicaciones" },
+            { texto: "⬅️ Volver al inicio", clave: "inicio" }
+          ]
+        },
+        "r2_conceptos": { 
+          texto: `🎯 CONCEPTOS Y CARACTERÍSTICAS\n• Aprendizaje Automático (ML)\n• Procesamiento de Lenguaje\n• Redes Neuronales (DL)\n• Autonomía y Razonamiento`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r2_conceptos_full" }, { texto: "⬅️ Volver", clave: "reto2" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r2_conceptos_full": {
+          texto: `📖 DETALLE: CONCEPTOS DE IA\n• APRENDIZAJE AUTOMÁTICO (ML): Permite a las máquinas aprender y mejorar a partir de datos, sin ser programadas paso a paso.\n• PROCESAMIENTO DE LENGUAJE: Capacidad de comprender, interpretar y generar lenguaje natural (chatbots, traducción).\n• REDES NEURONALES (DL): Modelos inspirados en el cerebro humano con múltiples capas para procesar tareas complejas.\n• AUTONOMÍA: Capacidad de percibir el entorno, tomar decisiones lógicas y actuar de forma independiente.`,
+          opciones: [ { texto: "⬅️ Volver a Conceptos", clave: "r2_conceptos" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r2_tipos": { 
+          texto: `🎯 TIPOS DE IA\n• IA Débil (Estrecha)\n• IA Fuerte (General)`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r2_tipos_full" }, { texto: "⬅️ Volver", clave: "reto2" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r2_tipos_full": {
+          texto: `📖 DETALLE: TIPOS DE IA\n• IA DÉBIL (ESTRECHA): Diseñada para tareas específicas (ej. asistentes virtuales, predicción de datos). Es la IA predominante y real que usamos diariamente.\n• IA FUERTE (GENERAL): Concepto hipotético de un sistema capaz de comprender y transferir conocimientos en cualquier dominio con flexibilidad humana.`,
+          opciones: [ { texto: "⬅️ Volver a Tipos", clave: "r2_tipos" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r2_enfoques": { 
+          texto: `🎯 ENFOQUES TÉCNICOS\n• Sistemas Basados en Reglas\n• Machine Learning\n• Deep Learning`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r2_enfoques_full" }, { texto: "⬅️ Volver", clave: "reto2" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r2_enfoques_full": {
+          texto: `📖 DETALLE: NIVELES DE APRENDIZAJE\n• SISTEMAS BASADOS EN REGLAS (Simbólicos): Aplican instrucciones explícitas. Fáciles de auditar pero fallan ante situaciones nuevas.\n• MACHINE LEARNING: Aprende relaciones desde datos (supervisado con etiquetas o no supervisado buscando patrones ocultos).\n• DEEP LEARNING: Usa redes neuronales artificiales multicapa. Efectivo para imágenes y lenguaje (funciona como "caja negra").`,
+          opciones: [ { texto: "⬅️ Volver a Enfoques", clave: "r2_enfoques" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r2_aplicaciones": { 
+          texto: `🎯 APLICACIONES Y BUENAS PRÁCTICAS\n• Transparencia y Explicabilidad\n• Supervisión Humana\n• Mitigación de Sesgos\n\nAplicaciones: Selección ágil, Chatbots, Predicción de rotación.`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r2_aplicaciones_full" }, { texto: "⬅️ Volver", clave: "reto2" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r2_aplicaciones_full": {
+          texto: `📖 DETALLE: APLICACIONES EN RR.HH.\n• BUENAS PRÁCTICAS: Garantizar transparencia algorítmica, mantener supervisión humana (nunca automatizar despidos o contrataciones) y auditar sesgos en los datos de entrenamiento.\n• APLICACIONES: Selección ágil extrayendo hojas de vida; Asistentes virtuales (chatbots) para dudas de nómina; y Predicción de rotación de personal (con riesgo de vulnerar privacidad si no se anonimiza).`,
+          opciones: [ { texto: "⬅️ Volver a Aplicaciones", clave: "r2_aplicaciones" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+
+        // ==========================================
+        // RETO 3 (Herramientas Web)
+        // ==========================================
+        "reto3": {
+          texto: "Has seleccionado Herramientas Web Colaborativas. ¿Qué tema deseas explorar?",
+          opciones: [
+            { texto: "Características", clave: "r3_caract" },
+            { texto: "Clasificación", clave: "r3_clasif" },
+            { texto: "Funcionalidades", clave: "r3_func" },
+            { texto: "Aplicaciones", clave: "r3_app" },
+            { texto: "⬅️ Volver al inicio", clave: "inicio" }
+          ]
+        },
+        "r3_caract": { 
+          texto: `🎯 CARACTERÍSTICAS PRINCIPALES\n• Accesibilidad\n• Interactividad\n• Flexibilidad y Escalabilidad\n• Seguridad y Trazabilidad`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r3_caract_full" }, { texto: "⬅️ Volver", clave: "reto3" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r3_caract_full": {
+          texto: `📖 DETALLE: CARACTERÍSTICAS\n• ACCESIBILIDAD: Eliminan barreras geográficas; permiten acceso desde cualquier lugar con conexión.\n• INTERACTIVIDAD: Facilitan chats en vivo, menciones y edición conjunta promoviendo construcción colectiva.\n• FLEXIBILIDAD Y ESCALABILIDAD: Adaptables a modalidades presenciales, remotas o híbridas.\n• SEGURIDAD Y TRAZABILIDAD: Conservan historial de cambios para auditar quién hizo qué, cuidando datos sensibles.`,
+          opciones: [ { texto: "⬅️ Volver a Características", clave: "r3_caract" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r3_clasif": { 
+          texto: `🎯 CLASIFICACIÓN DE LA INTERACCIÓN\n• Herramientas Sincrónicas (Tiempo Real)\n• Herramientas Asincrónicas (Tiempo Diferido)`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r3_clasif_full" }, { texto: "⬅️ Volver", clave: "reto3" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r3_clasif_full": {
+          texto: `📖 DETALLE: CLASIFICACIÓN\n• SINCRÓNICAS (Tiempo Real): Permiten colaboración simultánea. Ideales para asuntos urgentes o entrevistas (Ej. Videoconferencias, Chats en vivo).\n• ASINCRÓNICAS (Tiempo Diferido): Colaboración sin estar conectados al mismo tiempo. Útiles para horarios distribuidos (Ej. Correos, Foros, Trello).`,
+          opciones: [ { texto: "⬅️ Volver a Clasificación", clave: "r3_clasif" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r3_func": { 
+          texto: `🎯 FUNCIONALIDADES PRINCIPALES\n• Comunicación y Reuniones\n• Gestión de Proyectos y Tareas\n• Almacenamiento y Edición Compartida`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r3_func_full" }, { texto: "⬅️ Volver", clave: "reto3" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r3_func_full": {
+          texto: `📖 DETALLE: FUNCIONALIDADES\n• COMUNICACIÓN Y REUNIONES: Separan charlas informales de comunicados oficiales mediante canales (Ej. Teams, Slack).\n• GESTIÓN DE PROYECTOS: Organizan responsables y fechas visualizando el flujo en tableros para evitar duplicidad (Ej. Trello, Planner).\n• ALMACENAMIENTO Y EDICIÓN: Edición simultánea de documentos controlando permisos oficiales (Ej. Google Drive, OneDrive).`,
+          opciones: [ { texto: "⬅️ Volver a Funcionalidades", clave: "r3_func" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r3_app": { 
+          texto: `🎯 APLICACIONES EN RR.HH.\n• Reclutamiento y Selección\n• Capacitación e Inducción\n• Gestión del Desempeño\n(Requieren reglas claras y seguridad de datos).`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r3_app_full" }, { texto: "⬅️ Volver", clave: "reto3" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r3_app_full": {
+          texto: `📖 DETALLE: APLICACIONES EN RR.HH.\n• RECLUTAMIENTO Y SELECCIÓN: Control en tableros sobre vacantes y entrevistas (Riesgo: Exposición de datos sensibles si es público).\n• CAPACITACIÓN E INDUCCIÓN: Centralizar videos y manuales en la nube para aprendizaje asincrónico (Riesgo: Curva de aprendizaje compleja para nuevos).\n• GESTIÓN DEL DESEMPEÑO: Coordinar metas mediante documentos vivos con historial (Riesgo: Pérdida por sobreescritura accidental).`,
+          opciones: [ { texto: "⬅️ Volver a Aplicaciones", clave: "r3_app" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+
+        // ==========================================
+        // RETO 4 (Verificación de Información)
+        // ==========================================
+        "reto4": {
+          texto: "Has seleccionado Verificación de Información. ¿Qué tema deseas explorar?",
+          opciones: [
+            { texto: "Fundamentos", clave: "r4_fundamentos" },
+            { texto: "Integridad y Confiabilidad", clave: "r4_integridad" },
+            { texto: "Enfoques Técnicos", clave: "r4_enfoques" },
+            { texto: "Aplicaciones", clave: "r4_aplicaciones" },
+            { texto: "⬅️ Volver al inicio", clave: "inicio" }
+          ]
+        },
+        "r4_fundamentos": { 
+          texto: `🎯 FUNDAMENTOS DE VERIFICACIÓN\n• Contenido\n• Vigencia\n• Pertinencia\n• Oportunidad`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r4_fundamentos_full" }, { texto: "⬅️ Volver", clave: "reto4" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r4_fundamentos_full": {
+          texto: `📖 DETALLE: FUNDAMENTOS\n• CONTENIDO: Evalúa la exactitud, integridad y profundidad. Asegura que la información sea verdadera y libre de errores factuales.\n• VIGENCIA: Mide la actualidad del dato, asegurando que sea lo suficientemente reciente para ser útil.\n• PERTINENCIA: Filtra el ruido. Evalúa si la información responde directamente a una necesidad o propósito específico.\n• OPORTUNIDAD: Garantiza la disponibilidad a tiempo para actuar (un dato perfecto no sirve si llega tarde).`,
+          opciones: [ { texto: "⬅️ Volver a Fundamentos", clave: "r4_fundamentos" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r4_integridad": { 
+          texto: `🎯 PARÁMETROS DE INTEGRIDAD\n• Coherencia\n• Soporte\n• Fuente`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r4_integridad_full" }, { texto: "⬅️ Volver", clave: "reto4" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r4_integridad_full": {
+          texto: `📖 DETALLE: INTEGRIDAD Y CONFIABILIDAD\n• COHERENCIA: Consistencia interna. Verifica que las partes de la información no se contradigan entre sí a través de todos los sistemas.\n• SOPORTE: Evidencia factual o infraestructura que sostiene la información (documentación, logs de auditoría).\n• FUENTE: Autoridad y credibilidad. Confirma si el origen tiene la competencia necesaria para ser aceptado como válido.`,
+          opciones: [ { texto: "⬅️ Volver a Integridad", clave: "r4_integridad" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r4_enfoques": { 
+          texto: `🎯 ENFOQUES TÉCNICOS Y ESTRUCTURALES\n• Cálculos (Lógica de Negocio)\n• Recursos (Eficiencia)\n• Alcance (Delimitación)`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r4_enfoques_full" }, { texto: "⬅️ Volver", clave: "reto4" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r4_enfoques_full": {
+          texto: `📖 DETALLE: ENFOQUES TÉCNICOS\n• CÁLCULOS: Audita la exactitud matemática. Valida que las fórmulas y algoritmos que transforman datos brutos estén libres de errores.\n• RECURSOS: Identifica los medios (hardware, software, tiempo) utilizados para generar la información de manera óptima.\n• ALCANCE: Define los límites del reporte. Aclara a qué población aplica y el período de tiempo para evitar falsas conclusiones.`,
+          opciones: [ { texto: "⬅️ Volver a Enfoques", clave: "r4_enfoques" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r4_aplicaciones": { 
+          texto: `🎯 APLICACIONES EN RR.HH.\n• Selección Ágil\n• Nómina y Desempeño\n• Manejo de Bases de Datos\n\nEl último eslabón es la correcta Difusión.`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r4_aplicaciones_full" }, { texto: "⬅️ Volver", clave: "reto4" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r4_aplicaciones_full": {
+          texto: `📖 DETALLE: APLICACIONES EN RR.HH.\n• SELECCIÓN ÁGIL: Revisión cruzando Contenido, Fuente y Soporte. (Riesgo: No comprobar la Vigencia lleva a contratar perfiles obsoletos).\n• NÓMINA Y DESEMPEÑO: Auditoría estricta de Cálculos y Coherencia. (Riesgo: Datos sin Oportunidad generan pagos injustos).\n• BASES DE DATOS Y DIFUSIÓN: Establecer alcance y canales seguros de entrega. (Riesgo: Difusión sin control expone información confidencial a no autorizados).`,
+          opciones: [ { texto: "⬅️ Volver a Aplicaciones", clave: "r4_aplicaciones" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+
+        // ==========================================
+        // RETO 5 (Comprobación de Operatividad)
+        // ==========================================
+        "reto5": {
+          texto: "Has seleccionado Comprobación de la Operatividad. ¿Qué tema deseas explorar?",
+          opciones: [
+            { texto: "Fases del Ciclo", clave: "r5_fases" },
+            { texto: "Marcos de Gobernanza", clave: "r5_marcos" },
+            { texto: "Métodos de Pruebas", clave: "r5_metodos" },
+            { texto: "Aplicaciones", clave: "r5_app" },
+            { texto: "⬅️ Volver al inicio", clave: "inicio" }
+          ]
+        },
+        "r5_fases": { 
+          texto: `🎯 FASES DEL CICLO DE VIDA\n• Recolección\n• Registro\n• Producción\n• Almacenamiento y Transmisión`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r5_fases_full" }, { texto: "⬅️ Volver", clave: "reto5" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r5_fases_full": {
+          texto: `📖 DETALLE: FASES DEL CICLO\n• RECOLECCIÓN: Captura inicial de datos brutos. Comprueba exactitud evitando basura inicial (GIGO).\n• REGISTRO: Almacenamiento estructurado validando la integridad referencial y niveles de auditoría (logs).\n• PRODUCCIÓN: Transformación de datos en inteligencia procesable. Audita exactitud de algoritmos y cálculos.\n• ALMACENAMIENTO Y TRANSMISIÓN: Salvaguarda de datos comprobando copias de seguridad (3-2-1) y protocolos de encriptación.`,
+          opciones: [ { texto: "⬅️ Volver a Fases", clave: "r5_fases" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r5_marcos": { 
+          texto: `🎯 MARCOS TEÓRICOS DE GOBERNANZA\n• TGS (Teoría General de Sistemas)\n• Gobernanza TI (COBIT/ITIL)\n• Six Sigma y Calidad Total (TQM)`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r5_marcos_full" }, { texto: "⬅️ Volver", clave: "reto5" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r5_marcos_full": {
+          texto: `📖 DETALLE: MARCOS DE GOBERNANZA\n• TEORÍA GENERAL DE SISTEMAS (TGS): Entiende el sistema como componentes interdependientes (si falla el biométrico, falla la nómina).\n• GOBERNANZA TI (COBIT/ITIL): Directrices para gestión de servicios que aseguran confidencialidad y disponibilidad de datos sensibles.\n• SIX SIGMA (TQM): Enfoques de mejora continua para reducir la tasa de defectos en el procesamiento de información.`,
+          opciones: [ { texto: "⬅️ Volver a Marcos", clave: "r5_marcos" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r5_metodos": { 
+          texto: `🎯 MÉTODOS DE COMPROBACIÓN\n• Pruebas de Caja Negra\n• Pruebas de Rendimiento y Estrés\n• Pruebas de Penetración (Seguridad)`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r5_metodos_full" }, { texto: "⬅️ Volver", clave: "reto5" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r5_metodos_full": {
+          texto: `📖 DETALLE: MÉTODOS DE PRUEBAS\n• PRUEBAS DE CAJA NEGRA (Black Box): Simula ser usuario final ingresando datos erróneos para verificar si el sistema lanza bloqueos y alertas adecuadas.\n• PRUEBAS DE RENDIMIENTO Y ESTRÉS: Simula miles de usuarios simultáneos (ej. descargando nómina) para evaluar latencia y estabilidad al punto de quiebre.\n• PRUEBAS DE PENETRACIÓN (Hacking Ético): Simulaciones de ciberataques para detectar vulnerabilidades y evitar extracción de bases de datos confidenciales.`,
+          opciones: [ { texto: "⬅️ Volver a Métodos", clave: "r5_metodos" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r5_app": { 
+          texto: `🎯 APLICACIONES EN RR.HH.\n• Recolección (ATS de Selección)\n• Producción de Reportes (BI)\n• Almacenamiento y Transmisión seguras`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r5_app_full" }, { texto: "⬅️ Volver", clave: "reto5" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r5_app_full": {
+          texto: `📖 DETALLE: APLICACIONES EN RR.HH.\n• RECOLECCIÓN (ATS): Validar formularios web impidiendo formatos inválidos. (Riesgo: El principio GIGO corrompe bases de candidatos).\n• PRODUCCIÓN DE REPORTES (BI): Auditoría manual de algoritmos de rotación. (Riesgo: Transformación defectuosa que lleve a malas decisiones gerenciales).\n• ALMACENAMIENTO Y TRANSMISIÓN: Implementar túneles encriptados y simulacros de desastres. (Riesgo: Pérdida definitiva de información crítica).`,
+          opciones: [ { texto: "⬅️ Volver a Aplicaciones", clave: "r5_app" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+
+        // ==========================================
+        // RETO 6 (Copias de Seguridad)
+        // ==========================================
+        "reto6": {
+          texto: "Has seleccionado Copias de Seguridad (Backup). ¿Qué tema deseas explorar?",
+          opciones: [
+            { texto: "Fases del Respaldo", clave: "r6_fases" },
+            { texto: "Tipología", clave: "r6_tipos" },
+            { texto: "Reglas Técnicas", clave: "r6_reglas" },
+            { texto: "Aplicaciones", clave: "r6_app" },
+            { texto: "⬅️ Volver al inicio", clave: "inicio" }
+          ]
+        },
+        "r6_fases": { 
+          texto: `🎯 FASES DEL PROCESO\n• Recolección y Registro\n• Producción (Compresión/Cifrado)\n• Almacenamiento\n• Restauración (Disaster Recovery)`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r6_fases_full" }, { texto: "⬅️ Volver", clave: "reto6" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r6_fases_full": {
+          texto: `📖 DETALLE: FASES DEL RESPALDO\n• RECOLECCIÓN Y REGISTRO: Identificación de datos críticos (nómina, hojas de vida) y políticas de retención.\n• PRODUCCIÓN: Procesamiento mediante software especializado donde se comprime y se encripta para optimizar espacio y garantizar seguridad.\n• ALMACENAMIENTO: Transferencia de los paquetes cifrados a medios aislados (Cintas LTO, servidores NAS o nube).\n• RESTAURACIÓN: Capacidad de extraer, descifrar y devolver los datos a su estado original (Disaster Recovery) si el sistema falla.`,
+          opciones: [ { texto: "⬅️ Volver a Fases", clave: "r6_fases" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r6_tipos": { 
+          texto: `🎯 TIPOLOGÍA ESTRATÉGICA\n• Completa (Full)\n• Incremental\n• Diferencial`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r6_tipos_full" }, { texto: "⬅️ Volver", clave: "reto6" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r6_tipos_full": {
+          texto: `📖 DETALLE: TIPOLOGÍA ESTRATÉGICA\n• COMPLETA (Full): Duplica el 100% de los datos. Restauración directísima y rápida, pero consume mucho tiempo y gran espacio de almacenamiento.\n• INCREMENTAL: Respalda solo los archivos modificados desde la última copia. Ahorra muchísimo espacio, pero su restauración requiere la cadena completa.\n• DIFERENCIAL: Guarda todos los cambios realizados desde la última copia Completa. Restauración más rápida y segura que la incremental, aunque ocupa más espacio progresivamente.`,
+          opciones: [ { texto: "⬅️ Volver a Tipología", clave: "r6_tipos" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r6_reglas": { 
+          texto: `🎯 REGLAS Y CARACTERÍSTICAS TÉCNICAS\n• Regla 3-2-1\n• Seguridad y Encriptación\n• Fiabilidad (Pruebas de Restore)`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r6_reglas_full" }, { texto: "⬅️ Volver", clave: "reto6" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r6_reglas_full": {
+          texto: `📖 DETALLE: REGLAS TÉCNICAS\n• REGLA 3-2-1: Mantener 3 copias de los datos, almacenadas en 2 soportes o medios diferentes, asegurando que 1 copia se encuentre fuera de las instalaciones (nube/sitio remoto).\n• SEGURIDAD Y ENCRIPTACIÓN: Uso de encriptación fuerte (AES-256) en reposo y en tránsito para proteger contra ciberataques.\n• FIABILIDAD (Pruebas de Restore): Exige realizar simulacros de restauración periódicos para comprobar que los archivos no estén corruptos.`,
+          opciones: [ { texto: "⬅️ Volver a Reglas", clave: "r6_reglas" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r6_app": { 
+          texto: `🎯 APLICACIONES EN RR.HH.\n• Expedientes y Contratos en la Nube\n• Bases de Datos de Nómina (Respaldos Completos e Incrementales)`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r6_app_full" }, { texto: "⬅️ Volver", clave: "reto6" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r6_app_full": {
+          texto: `📖 DETALLE: APLICACIONES EN RR.HH.\n• EXPEDIENTES Y CONTRATOS: Mantener copia en la nube (OneDrive) sincronizada a 93 días. Garantiza inmunidad ante desastres físicos locales (incendios) preservando auditorías.\n• BASES DE DATOS DE NÓMINA: Ejecutar respaldos Completos semanales e Incrementales diarios. Garantiza que ante una caída del servidor el sistema de pagos se levante a tiempo evitando parálisis financiera.`,
+          opciones: [ { texto: "⬅️ Volver a Aplicaciones", clave: "r6_app" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+
+        // ==========================================
+        // RETO 7 (Tratamiento de Información)
+        // ==========================================
+        "reto7": {
+          texto: "Has seleccionado Tratamiento y Almacenamiento. ¿Qué tema deseas explorar?",
+          opciones: [
+            { texto: "Marcos Normativos", clave: "r7_normas" },
+            { texto: "Técnicas de Almacenamiento", clave: "r7_tecnicas" },
+            { texto: "Documentación", clave: "r7_docs" },
+            { texto: "Buenas Prácticas", clave: "r7_practicas" },
+            { texto: "⬅️ Volver al inicio", clave: "inicio" }
+          ]
+        },
+        "r7_normas": { 
+          texto: `🎯 MARCOS NORMATIVOS\n• ISO 27001 (Seguridad)\n• GDPR/Habeas Data\n• ISO 9001 (Calidad)\n• Ética Neógena`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r7_normas_full" }, { texto: "⬅️ Volver", clave: "reto7" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r7_normas_full": {
+          texto: `📖 DETALLE: MARCOS NORMATIVOS\n• ISO 27001 (Seguridad): Garantiza la tríada CID: Confidencialidad, Integridad y Disponibilidad de los datos.\n• GDPR / HABEAS DATA: Obligan a tratar la información con consentimiento (ej. autorizaciones firmadas).\n• ISO 9001 (Calidad): Exige el control de la "información documentada" garantizando trazabilidad y versiones recientes de formatos.\n• ÉTICA NEÓGENA: Asegura que los datos no sean usados para discriminación algorítmica respetando la soberanía individual.`,
+          opciones: [ { texto: "⬅️ Volver a Normas", clave: "r7_normas" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r7_tecnicas": { 
+          texto: `🎯 TÉCNICAS AVANZADAS\n• Bases de Datos Relacionales\n• Almacenamiento en la Nube\n• Cifrado (Encriptación)\n• Indexación y Compresión`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r7_tecnicas_full" }, { texto: "⬅️ Volver", clave: "reto7" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r7_tecnicas_full": {
+          texto: `📖 DETALLE: TÉCNICAS DE ALMACENAMIENTO\n• BASES DE DATOS RELACIONALES: Organizan información en tablas conectadas para cálculos automáticos.\n• ALMACENAMIENTO EN LA NUBE: Servidores remotos que facilitan evaluación de perfiles en tiempo real desde distintas sedes.\n• CIFRADO (Encriptación): Convierte información en código secreto (vital para envío de exámenes médicos).\n• INDEXACIÓN Y COMPRESIÓN: Crea mapas para acelerar consultas y reduce el peso de archivos históricos ahorrando costos.`,
+          opciones: [ { texto: "⬅️ Volver a Técnicas", clave: "r7_tecnicas" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r7_docs": { 
+          texto: `🎯 DOCUMENTACIÓN ASOCIADA\n• PSI (Políticas de Seguridad)\n• LOG (Registros de Auditoría)\n• SOP (Manuales de Procedimiento)`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r7_docs_full" }, { texto: "⬅️ Volver", clave: "reto7" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r7_docs_full": {
+          texto: `📖 DETALLE: DOCUMENTACIÓN ASOCIADA\n• PSI (Políticas de Seguridad): Establece reglas como "Escritorios limpios" para evitar exposición de documentos.\n• LOG (Registros de Auditoría): "Cajas negras" que muestran Usuario, Fecha, Hora y Acción como prueba irrefutable ante filtraciones.\n• SOP (Manuales de Procedimiento): Documentan el "paso a paso" exacto para acciones críticas (como desactivar accesos tras un despido).`,
+          opciones: [ { texto: "⬅️ Volver a Documentación", clave: "r7_docs" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r7_practicas": { 
+          texto: `🎯 IMPACTO Y BUENAS PRÁCTICAS\n• Clasificar la información por criticidad.\n• Aplicar el principio de "Privilegio Mínimo".\n• Utilizar canales oficiales y cifrados.`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r7_practicas_full" }, { texto: "⬅️ Volver", clave: "reto7" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r7_practicas_full": {
+          texto: `📖 DETALLE: APLICACIÓN DE BUENAS PRÁCTICAS\n• Clasificar siempre la información según su criticidad (Pública, Interna, Confidencial o Restringida).\n• Aplicar el principio de "Privilegio Mínimo": otorgar a los usuarios solo el acceso estrictamente necesario para cumplir sus funciones.\n• Utilizar canales oficiales y cifrados para la transmisión de novedades de nómina y expedientes disciplinarios.`,
+          opciones: [ { texto: "⬅️ Volver a Prácticas", clave: "r7_practicas" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+
+        // ==========================================
+        // RETO 8 (Normas Técnicas para Informes)
+        // ==========================================
+        "reto8": {
+          texto: "Has seleccionado Normas Técnicas para Informes. ¿Qué tema deseas explorar?",
+          opciones: [
+            { texto: "Fundamentos", clave: "r8_fundamentos" },
+            { texto: "Estructura Esencial", clave: "r8_estructura" },
+            { texto: "Lenguaje y Visualización", clave: "r8_lenguaje" },
+            { texto: "Aplicaciones", clave: "r8_app" },
+            { texto: "⬅️ Volver al inicio", clave: "inicio" }
+          ]
+        },
+        "r8_fundamentos": { 
+          texto: `🎯 FUNDAMENTOS DE LA NORMALIZACIÓN\n• NTC 3588 (Estructura)\n• GTC 185 (Organización)\n• Normas APA (Citación)\n• El Riesgo Legal`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r8_fundamentos_full" }, { texto: "⬅️ Volver", clave: "reto8" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r8_fundamentos_full": {
+          texto: `📖 DETALLE: FUNDAMENTOS\n• NTC 3588 (ESTRUCTURA): Define la arquitectura de los informes (preliminares, desarrollo, material complementario).\n• GTC 185 (ORGANIZACIÓN): Regula márgenes y estructura de cartas, memorandos, circulares y actas.\n• NORMAS APA (CITACIÓN): Estándar para reconocer propiedad intelectual y evitar plagio dotando de rigor.\n• EL RIESGO LEGAL: Evita no conformidades; un acta sin estándares técnicos puede ser desestimada en auditorías.`,
+          opciones: [ { texto: "⬅️ Volver a Fundamentos", clave: "r8_fundamentos" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r8_estructura": { 
+          texto: `🎯 ESTRUCTURA Y ELEMENTOS ESENCIALES\n• Resumen Ejecutivo y Objetivos\n• Introducción y Metodología\n• Desarrollo y Conclusiones`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r8_estructura_full" }, { texto: "⬅️ Volver", clave: "reto8" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r8_estructura_full": {
+          texto: `📖 DETALLE: ESTRUCTURA ESENCIAL\n• RESUMEN EJECUTIVO Y OBJETIVOS: Síntesis breve que permite a gerencia entender hallazgos en lectura rápida.\n• INTRODUCCIÓN Y METODOLOGÍA: Plantea el alcance y explica el rigor con el que se recolectaron los datos para asegurar verificabilidad.\n• DESARROLLO Y CONCLUSIONES: Núcleo del informe. Presenta los hechos de forma objetiva, formula juicios y propone planes de acción.`,
+          opciones: [ { texto: "⬅️ Volver a Estructura", clave: "r8_estructura" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r8_lenguaje": { 
+          texto: `🎯 CARACTERÍSTICAS DEL LENGUAJE\n• Claridad y Precisión\n• Concisión y Coherencia\n• Visualización de Datos (Gráficos/Tablas)`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r8_lenguaje_full" }, { texto: "⬅️ Volver", clave: "reto8" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r8_lenguaje_full": {
+          texto: `📖 DETALLE: LENGUAJE Y VISUALIZACIÓN\n• CLARIDAD Y PRECISIÓN: Lenguaje directo evitando la jerga innecesaria o ambigüedades.\n• CONCISIÓN Y COHERENCIA: Eliminar palabras redundantes manteniendo un orden lógico que facilite el seguimiento de ideas.\n• VISUALIZACIÓN DE DATOS: Uso estratégico de gráficos (Pareto o barras) y tablas para representar información compleja acelerando el procesamiento visual.`,
+          opciones: [ { texto: "⬅️ Volver a Lenguaje", clave: "r8_lenguaje" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r8_app": { 
+          texto: `🎯 APLICACIONES EN RR.HH.\n• Informes de Clima y Diagnóstico\n• Actas, Memorandos y Circulares (GTC 185)\n• Reportes Dinámicos (Dashboards BI)`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r8_app_full" }, { texto: "⬅️ Volver", clave: "reto8" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r8_app_full": {
+          texto: `📖 DETALLE: APLICACIONES EN RR.HH.\n• INFORMES DE CLIMA: Adapta lenguaje técnico para que directiva convierta datos en estrategias claras con bases sólidas (APA).\n• ACTAS Y CIRCULARES: Aplicación estricta de la GTC 185 garantizando validez legal ante el Ministerio de Trabajo y proyectando profesionalismo.\n• REPORTES DINÁMICOS (BI): Trasladar claridad y orden a los Dashboards (ATS y ERP) para mantener coherencia visual sin abrumar a tomadores de decisiones.`,
+          opciones: [ { texto: "⬅️ Volver a Aplicaciones", clave: "r8_app" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+
+        // ==========================================
+        // RETO 9 (Protocolo de Reportes)
+        // ==========================================
+        "reto9": {
+          texto: "Has seleccionado Protocolos de Reportes. ¿Qué tema deseas explorar?",
+          opciones: [
+            { texto: "Fundamentos", clave: "r9_fundamentos" },
+            { texto: "Tipología", clave: "r9_tipos" },
+            { texto: "Elementos Clave", clave: "r9_elementos" },
+            { texto: "Aplicaciones", clave: "r9_app" },
+            { texto: "⬅️ Volver al inicio", clave: "inicio" }
+          ]
+        },
+        "r9_fundamentos": { 
+          texto: `🎯 FUNDAMENTOS DE LA GESTIÓN\n• Interoperabilidad\n• Reducción de Errores\n• Profesionalismo\n• Uso y Presentación`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r9_fundamentos_full" }, { texto: "⬅️ Volver", clave: "reto9" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r9_fundamentos_full": {
+          texto: `📖 DETALLE: FUNDAMENTOS DEL PROTOCOLO\n• INTEROPERABILIDAD: Asegura que el reporte de RR.HH. sea leído sin problemas por otras áreas (Contabilidad).\n• REDUCCIÓN DE ERRORES: Usar plantillas predefinidas minimiza errores humanos de cálculo o digitación.\n• PROFESIONALISMO: Proyecta imagen de control, consistencia y rigor ante auditores internos y externos.\n• USO Y PRESENTACIÓN: Transforma datos creados en formatos visuales comprensibles y accionables.`,
+          opciones: [ { texto: "⬅️ Volver a Fundamentos", clave: "r9_fundamentos" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r9_tipos": { 
+          texto: `🎯 TIPOLOGÍA DE PROTOCOLOS\n• Según el Formato (Impreso, Digital, Oral)\n• Según el Contenido (Ejecutivo, Analítico, Financiero)\n• Según la Audiencia (Interno, Externo, Público)`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r9_tipos_full" }, { texto: "⬅️ Volver", clave: "reto9" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r9_tipos_full": {
+          texto: `📖 DETALLE: TIPOLOGÍA DE PROTOCOLOS\n• SEGÚN FORMATO: Impresos, Digitales (PDF encriptado, Dashboards) o Presentaciones orales (Ej. Evaluación desempeño = PDF; Clima Laboral = Dashboard).\n• SEGÚN CONTENIDO: Ejecutivos (resumidos), Analíticos (detallados) o Financieros (Ej. reportes de capacitación exigen incluir ROI).\n• SEGÚN AUDIENCIA: Internos (operativos), Externos (ministerios, auditores) o Públicos. Un reporte al Ministerio obedece a un protocolo legal estricto.`,
+          opciones: [ { texto: "⬅️ Volver a Tipología", clave: "r9_tipos" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r9_elementos": { 
+          texto: `🎯 ELEMENTOS CLAVE DEL PROTOCOLO\n• Directrices de Formato y Estructura (FRM)\n• Pautas de Lenguaje y Tono (LNG)\n• Accesibilidad y Metadatos (ACC)`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r9_elementos_full" }, { texto: "⬅️ Volver", clave: "reto9" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r9_elementos_full": {
+          texto: `📖 DETALLE: ELEMENTOS CLAVE\n• FORMATO Y ESTRUCTURA (FRM): Uso de tipografía institucional y estructura lógica: Resumen Ejecutivo, Objetivo, Metodología, Hallazgos y Recomendaciones.\n• LENGUAJE Y TONO (LNG): Redacción en tercera persona, voz activa y eliminación de adjetivos subjetivos (Ej. reemplazar "mucha rotación" por "incrementó 15%").\n• ACCESIBILIDAD Y METADATOS (ACC): Cumplir pautas de contrastes e incluir siempre metadatos de trazabilidad: Autor, fecha, sistema y nivel de confidencialidad.`,
+          opciones: [ { texto: "⬅️ Volver a Elementos", clave: "r9_elementos" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        },
+        "r9_app": { 
+          texto: `🎯 APLICACIONES Y DESAFÍOS\nEvitar la informalidad. Se requiere constante capacitación y disciplina para estandarizar los reportes.`, 
+          opciones: [ { texto: "📖 Leer definiciones completas", clave: "r9_app_full" }, { texto: "⬅️ Volver", clave: "reto9" }, { texto: "🏠 Menú", clave: "inicio" } ] 
+        },
+        "r9_app_full": {
+          texto: `📖 DETALLE: APLICACIÓN DE BUENAS PRÁCTICAS\nEvitar mensajes informales desestructurados ("Tuvimos mucha rotación... adjunto Excel" que carecen de contexto y seguridad).\n\nEn su lugar, establecer Reportes Estandarizados que incluyan Resumen Ejecutivo, gráficos con colores corporativos obligatorios, citación rigurosa de fuentes y archivos protegidos por contraseña.`,
+          opciones: [ { texto: "⬅️ Volver a Aplicaciones", clave: "r9_app" }, { texto: "🏠 Menú", clave: "inicio" } ]
+        }
+      };
+
+      // ==========================================
+      // LÓGICA DE FUNCIONAMIENTO (No tocar)
+      // ==========================================
+      const chatWindow = document.getElementById('chat-window');
+      const openBtn = document.getElementById('open-chat');
+      const closeBtn = document.getElementById('close-chat');
+      const messagesContainer = document.getElementById('chat-messages');
+      const optionsContainer = document.getElementById('chat-options');
+
+      function cargarMenu(clave) {
+        const nodo = luciaBrain[clave];
+        if (!nodo) return;
+        
+        addMessage(nodo.texto, 'lucia');
+        optionsContainer.innerHTML = '';
+        
+        if (nodo.opciones) {
+          nodo.opciones.forEach(opcion => {
+            const btn = document.createElement('button');
+            btn.textContent = opcion.texto;
+            
+            // Color rojo si es para volver
+            if (opcion.texto.includes("Volver") || opcion.texto.includes("Menú")) {
+                btn.classList.add('bg-red-600', 'text-white', 'px-3', 'py-1', 'rounded-full', 'text-xs', 'font-bold', 'hover:bg-red-700', 'transition-colors', 'text-left', 'shadow-sm');
+            } else {
+                btn.classList.add('bg-blue-100', 'text-blue-700', 'px-3', 'py-1', 'rounded-full', 'text-xs', 'font-medium', 'hover:bg-blue-200', 'transition-colors', 'text-left');
+            }
+            
+            btn.addEventListener('click', () => {
+              addMessage(opcion.texto, 'user');
+              optionsContainer.innerHTML = ''; 
+              
+              setTimeout(() => {
+                cargarMenu(opcion.clave); 
+              }, 600);
+            });
+            
+            optionsContainer.appendChild(btn);
+          });
+        }
+      }
+
+      openBtn.addEventListener('click', () => {
+        chatWindow.classList.remove('hidden');
+        chatWindow.classList.add('flex');
+        openBtn.classList.add('hidden');
+        
+        if(messagesContainer.children.length === 0) {
+           cargarMenu('inicio'); 
+        }
+      });
+
+      closeBtn.addEventListener('click', () => {
+        chatWindow.classList.add('hidden');
+        chatWindow.classList.remove('flex');
+        openBtn.classList.remove('hidden');
+      });
+
+      function addMessage(text, sender) {
+        const msgDiv = document.createElement('div');
+        msgDiv.classList.add('max-w-[85%]', 'p-3', 'rounded-xl', 'text-sm', 'whitespace-pre-wrap');
+        
+        if (sender === 'lucia') {
+          msgDiv.classList.add('bg-gray-200', 'text-gray-800', 'self-start', 'rounded-tl-none');
+        } else {
+          msgDiv.classList.add('bg-blue-600', 'text-white', 'self-end', 'rounded-tr-none');
+        }
+        
+        msgDiv.textContent = text;
+        messagesContainer.appendChild(msgDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      }
+    </script>
