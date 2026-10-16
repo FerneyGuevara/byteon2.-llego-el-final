@@ -402,6 +402,34 @@
       color: #FFFFFF;
     }
 
+    .talleres-title-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .talleres-exercise-card {
+      flex: 0 0 auto;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+    }
+
+    .talleres-exercise-card .material-icon {
+      font-size: 1.5rem;
+    }
+
+    .talleres-exercise-card .material-body h3 {
+      margin: 0 0 5px;
+      font-size: 1rem;
+    }
+
+    .talleres-exercise-card .material-btn {
+      padding: 5px 10px;
+      font-size: 0.78rem;
+    }
+
     main {
       max-width: 1080px;
       margin: 0 auto;
@@ -2487,7 +2515,19 @@
       <div class="pdf-viewer-header">
         <div>
           <span class="tag">ACTIVIDAD Y RETOS &bull; TALLERES</span>
-          <h2 style="font-size:1.5rem;margin:4px 0 6px;">Talleres &mdash; Herramientas Colaborativas</h2>
+          <div class="talleres-title-row">
+            <h2 style="font-size:1.5rem;margin:4px 0 6px;">Talleres &mdash; Herramientas Colaborativas</h2>
+            <a href="Manual de Creación Masiva de Portafolios en Drive.pdf"
+              download="Manual de Creación Masiva de Portafolios en Drive.pdf"
+              class="material-card talleres-exercise-card"
+              aria-label="Descargar Manual de Creación Masiva de Portafolios en Drive">
+              <span class="material-icon">&#128196;</span>
+              <div class="material-body">
+                <h3>Ejercicio</h3>
+                <span class="material-btn">Descargar &#x2193;</span>
+              </div>
+            </a>
+          </div>
           <p style="color:var(--ink-soft);margin-bottom:0;">Gu&iacute;a de talleres pr&aacute;cticos y retos
             colaborativos. Documento siempre visible para su lectura y disponible para descarga.</p>
         </div>
