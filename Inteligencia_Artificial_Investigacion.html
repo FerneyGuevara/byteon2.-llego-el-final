@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inteligencia artificial: investigación</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070b1f;--ink:#1b2340;--cy:#0e93b8;--vi:#6d28d9;--lt:#e9f6fb}
+*{box-sizing:border-box}
+body{margin:0;background:#dfe5f2;font:16px/1.6 'Source Sans 3',Segoe UI,Arial,sans-serif;color:var(--ink)}
+h1,h2,h3,.o{font-family:Orbitron,'Segoe UI',Arial,sans-serif}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);color:#fff;padding:10px 20px;display:flex;justify-content:space-between;align-items:center}
+button{background:linear-gradient(90deg,var(--cy),var(--vi));color:#fff;border:0;border-radius:6px;padding:9px 18px;font:600 15px inherit;cursor:pointer}
+.pg{max-width:850px;margin:18px auto;background:#fff;padding:44px 56px;box-shadow:0 2px 14px #0003}
+.cover{background:radial-gradient(2px 2px at 14% 22%,#fff,transparent),radial-gradient(1.5px 1.5px at 72% 10%,#9be7ff,transparent),radial-gradient(2px 2px at 86% 52%,#fff,transparent),radial-gradient(1.5px 1.5px at 28% 78%,#c4b5fd,transparent),radial-gradient(1px 1px at 55% 38%,#fff,transparent),radial-gradient(circle at 82% 86%,#6d28d9 0,#2a1a6e 18%,transparent 40%),var(--bg);color:#fff;min-height:1050px;display:flex;flex-direction:column;justify-content:center;border-bottom:8px solid var(--cy)}
+.cover small{color:#67e8f9;letter-spacing:.12em}
+.cover h1{font-size:2.5rem;line-height:1.15;margin:.4em 0}
+.cover p{color:#c7d2fe;max-width:560px}
+.brain{width:130px;height:130px;margin-bottom:26px;border:3px solid var(--cy);border-radius:50%;box-shadow:0 0 0 12px #0e93b822,inset 0 0 25px #6d28d9;background:radial-gradient(circle at 30% 35%,#22d3ee 4px,transparent 5px),radial-gradient(circle at 68% 30%,#22d3ee 4px,transparent 5px),radial-gradient(circle at 50% 65%,#a78bfa 5px,transparent 6px),radial-gradient(circle at 28% 70%,#a78bfa 4px,transparent 5px),radial-gradient(circle at 74% 72%,#22d3ee 4px,transparent 5px)}
+h2{color:var(--cy);font-size:1.35rem;border-bottom:3px solid var(--vi);padding-bottom:6px;margin-top:0}
+h3{color:var(--vi);font-size:1rem;margin:1.3em 0 .3em}
+table{border-collapse:collapse;width:100%;font-size:.9rem;margin:10px 0;break-inside:avoid}
+th{background:var(--vi);color:#fff;text-align:left;padding:7px 9px}
+td{border:1px solid #cfd6ee;padding:6px 9px;vertical-align:top}
+tr:nth-child(even) td{background:var(--lt)}
+.box{background:var(--lt);border-left:5px solid var(--cy);padding:10px 16px;margin:12px 0;break-inside:avoid}
+.toc a{display:block;color:var(--ink);text-decoration:none;padding:5px 0;border-bottom:1px dotted #aab}
+.toc a:hover{color:var(--vi)}
+ul{padding-left:22px}
+.ref{font-size:.9rem;padding-left:24px;text-indent:-24px;margin:6px 0}
+@media(max-width:700px){.pg{padding:24px 18px}.cover h1{font-size:1.7rem}}
+@page{size:A4;margin:14mm 12mm;@bottom-center{content:"Página " counter(page);font-size:9pt;color:#5b6482}}
+@media print{*{-webkit-print-color-adjust:exact;print-color-adjust:exact}body{background:#fff}.bar{display:none}.pg{box-shadow:none;margin:0;max-width:none;padding:0 4mm;break-after:page}.cover{min-height:255mm;padding:0 14mm}h2,h3{break-after:avoid}.box,tr{break-inside:avoid}}
+</style></head><body>
+<div class="bar"><span class="o">MISIÓN BYTEON · INVESTIGACIÓN</span><button onclick="window.print()">Imprimir documento</button></div>
+
+<section class="pg cover">
+<div class="brain"></div>
+<small class="o">TÉCNICO EN TALENTO HUMANO · SENA</small>
+<h1>Inteligencia artificial: definición, características y funcionalidad</h1>
+<p>Informe de investigación para la competencia «Operación de herramientas informáticas y digitales para talento humano». Retos del planeta Byteon · Misión principal No 3, Reto 2.</p>
+<p>Octubre de 2026</p>
+</section>
+
+<section class="pg toc">
+<h2>Tabla de contenido</h2>
+<a href="#s1">1. Resumen</a><a href="#s2">2. Introducción y objetivos</a><a href="#s3">3. Metodología</a><a href="#s4">4. Marco teórico: definición y origen</a><a href="#s5">5. Tipos, enfoques y técnicas</a><a href="#s6">6. Características y funcionalidades</a><a href="#s7">7. Aplicaciones por sector</a><a href="#s8">8. La IA en la gestión del talento humano</a><a href="#s9">9. Riesgos, ética y marco normativo</a><a href="#s10">10. Precisiones al material base</a><a href="#s11">11. Conclusiones</a><a href="#s12">12. Glosario</a><a href="#s13">13. Referencias</a>
+</section>
+
+<section class="pg">
+<div id="s1"><h2>1. Resumen</h2>
+<p>La inteligencia artificial (IA) es el campo que desarrolla sistemas capaces de realizar tareas asociadas a la inteligencia humana, como percibir, aprender, razonar, predecir y generar contenido. Este informe define la IA, resume su historia, distingue sus tipos y técnicas (reglas, aprendizaje automático, aprendizaje profundo e IA generativa), describe sus funcionalidades y aplicaciones, y analiza su uso, sus riesgos y su regulación en la gestión del talento humano, con referencia a Colombia. Se concluye que la IA es una herramienta de apoyo a la decisión: sus resultados deben verificarse y su uso con datos de personas exige autorización, transparencia y supervisión humana.</p>
+<p><b>Palabras clave:</b> inteligencia artificial, aprendizaje automático, IA generativa, talento humano, ética, protección de datos.</p></div>
+
+<div id="s2"><h2>2. Introducción y objetivos</h2>
+<p>Las áreas de talento humano ya usan IA, a veces sin notarlo: filtros de hojas de vida, chatbots de atención, recomendadores de capacitación y asistentes que redactan textos. Entender qué es y cómo funciona permite aprovecharla sin perder el criterio profesional.</p>
+<p><b>Pregunta de investigación:</b> ¿qué es la inteligencia artificial, cómo funciona y cómo usarla de forma responsable en un proceso de talento humano?</p>
+<h3>Objetivo general</h3><p>Explicar la inteligencia artificial y sus aplicaciones en la gestión del talento humano.</p>
+<h3>Objetivos específicos</h3><ul><li>Definir la IA y describir su evolución.</li><li>Diferenciar tipos y técnicas: reglas, aprendizaje automático, aprendizaje profundo e IA generativa.</li><li>Identificar usos, riesgos y normas aplicables en talento humano.</li><li>Proponer buenas prácticas para el uso responsable.</li></ul></div>
+
+<div id="s3"><h2>3. Metodología</h2>
+<p>Investigación documental descriptiva. Se consultaron textos de referencia (Russell y Norvig), definiciones de organismos (OCDE, ISO/IEC), marcos de gestión (NIST, UNESCO), normas (Reglamento (UE) 2024/1689, Ley 1581 de 2012) y la política colombiana CONPES 4144 de 2025, verificada en fuentes en línea. Las cifras y los calendarios normativos cambian con rapidez; verifíquelos en la fuente oficial antes de citarlos.</p></div>
+
+<div id="s4"><h2>4. Marco teórico: definición y origen</h2>
+<h3>4.1 Definición</h3>
+<p>No existe una definición única. Russell y Norvig (2021) la describen como el estudio de <b>agentes</b> que perciben su entorno y actúan para lograr objetivos. La OCDE define un sistema de IA como un sistema basado en máquinas que, a partir de la información que recibe, infiere cómo generar salidas (predicciones, contenidos, recomendaciones o decisiones) que pueden influir en entornos físicos o virtuales. El Reglamento europeo de IA adopta una definición muy cercana.</p>
+<h3>4.2 Línea de tiempo</h3>
+<table><tr><th>Año</th><th>Hito</th></tr>
+<tr><td>1950</td><td>Alan Turing propone la pregunta «¿pueden pensar las máquinas?» y el test que lleva su nombre.</td></tr>
+<tr><td>1956</td><td>Conferencia de Dartmouth, donde John McCarthy y otros acuñan el término «inteligencia artificial».</td></tr>
+<tr><td>1970s–90s</td><td>Sistemas expertos basados en reglas y periodos de menor financiación conocidos como «inviernos de la IA».</td></tr>
+<tr><td>1997</td><td>Deep Blue, de IBM, vence al campeón mundial de ajedrez Garri Kaspárov.</td></tr>
+<tr><td>2012</td><td>Las redes neuronales profundas (AlexNet) dominan el reconocimiento de imágenes y dan inicio al auge del aprendizaje profundo.</td></tr>
+<tr><td>2017</td><td>Se publica la arquitectura Transformer (Vaswani et al.), base de los modelos de lenguaje actuales.</td></tr>
+<tr><td>2022</td><td>Llega ChatGPT y la IA generativa se populariza.</td></tr>
+<tr><td>2024–2025</td><td>Entra en vigor el Reglamento (UE) 2024/1689 y Colombia aprueba el CONPES 4144, su Política Nacional de IA.</td></tr></table></div>
+
+<div id="s5"><h2>5. Tipos, enfoques y técnicas</h2>
+<h3>5.1 Por alcance</h3>
+<table><tr><th>Tipo</th><th>Descripción</th><th>Estado actual</th></tr>
+<tr><td>IA estrecha o «débil»</td><td>Realiza tareas específicas (traducir, recomendar, detectar fraude).</td><td>Todos los sistemas actuales, incluidos los asistentes de lenguaje.</td></tr>
+<tr><td>IA general o «fuerte» (AGI)</td><td>Realizaría cualquier tarea intelectual humana.</td><td>Aún no existe; es objeto de investigación y debate.</td></tr>
+<tr><td>Superinteligencia</td><td>Superaría a los humanos en casi todo.</td><td>Hipotética.</td></tr></table>
+<h3>5.2 Por enfoque</h3>
+<ul><li><b>Simbólica:</b> reglas y lógica escritas por personas (sistemas expertos).</li><li><b>Conexionista:</b> redes neuronales que aprenden de los datos.</li><li><b>Híbrida o neurosimbólica:</b> combina ambas.</li></ul>
+<h3>5.3 Por técnica: capas que se contienen</h3>
+<table><tr><th>Nivel</th><th>Qué es</th><th>Ejemplo en talento humano</th></tr>
+<tr><td>Inteligencia artificial</td><td>Campo general.</td><td>Asistente virtual de nómina.</td></tr>
+<tr><td>Aprendizaje automático (ML)</td><td>El sistema aprende patrones de datos; puede ser supervisado, no supervisado o por refuerzo.</td><td>Modelo que predice la rotación de personal.</td></tr>
+<tr><td>Aprendizaje profundo</td><td>ML con redes neuronales de muchas capas.</td><td>Transcripción de voz de una entrevista.</td></tr>
+<tr><td>IA generativa</td><td>Modelos que crean texto, imágenes, audio o código; los modelos de lenguaje grandes (LLM) se entrenan con enormes volúmenes de texto.</td><td>Redactar un perfil de cargo o resumir un acta.</td></tr></table>
+<p>Los sistemas basados en reglas no aprenden: aplican instrucciones fijas. Son IA clásica o simple automatización según el caso.</p></div>
+
+<div id="s6"><h2>6. Características y funcionalidades</h2>
+<table><tr><th>Característica</th><th>Significado</th></tr>
+<tr><td>Aprendizaje</td><td>Mejora su desempeño con datos o experiencia.</td></tr>
+<tr><td>Razonamiento e inferencia</td><td>Obtiene conclusiones o predicciones a partir de datos.</td></tr>
+<tr><td>Percepción</td><td>Interpreta imágenes, voz o texto.</td></tr>
+<tr><td>Autonomía variable</td><td>Opera con distintos grados de independencia; en decisiones sobre personas se exige supervisión humana.</td></tr>
+<tr><td>Adaptabilidad</td><td>Se ajusta a nuevos datos, aunque puede fallar fuera de lo que vio al entrenarse.</td></tr></table>
+<h3>Funcionalidades</h3>
+<ul><li><b>Reconocimiento de patrones y clasificación:</b> separar correos, detectar fraude.</li><li><b>Predicción:</b> estimar demanda, rotación o ausentismo.</li><li><b>Recomendación:</b> sugerir cursos o candidatos.</li><li><b>Procesamiento de lenguaje natural:</b> chatbots, traducción, resúmenes.</li><li><b>Visión por computador:</b> lectura de documentos, control de acceso.</li><li><b>Generación de contenido:</b> textos, imágenes, código.</li><li><b>Optimización:</b> rutas, turnos, asignación de recursos.</li></ul>
+<div class="box"><b>Cómo se pide a una IA generativa.</b> Un buen <i>prompt</i> incluye rol, contexto, tarea, formato y restricciones. Ejemplo: «Actúa como analista de selección. Contexto: empresa de logística con 28 empleados. Tarea: redacta el perfil de un auxiliar de reclutamiento. Formato: tabla de funciones y requisitos. Restricciones: sin criterios de edad, sexo ni estado civil».</div></div>
+
+<div id="s7"><h2>7. Aplicaciones por sector</h2>
+<table><tr><th>Sector</th><th>Aplicaciones</th></tr>
+<tr><td>Salud</td><td>Apoyo al diagnóstico por imágenes, descubrimiento de fármacos; siempre con validación profesional.</td></tr>
+<tr><td>Finanzas</td><td>Detección de fraude, análisis de riesgo crediticio.</td></tr>
+<tr><td>Educación</td><td>Tutorías adaptativas, apoyo a la evaluación.</td></tr>
+<tr><td>Transporte</td><td>Optimización de rutas, asistencia a la conducción y vehículos autónomos en pruebas o zonas limitadas.</td></tr>
+<tr><td>Industria</td><td>Control de calidad visual, mantenimiento predictivo.</td></tr>
+<tr><td>Comercio</td><td>Recomendación, atención al cliente con chatbots.</td></tr>
+<tr><td>Agricultura</td><td>Monitoreo de cultivos y agricultura de precisión.</td></tr></table></div>
+
+<div id="s8"><h2>8. La IA en la gestión del talento humano</h2>
+<table><tr><th>Proceso</th><th>Uso de IA</th><th>Precaución</th></tr>
+<tr><td>Atracción y selección</td><td>Redacción de ofertas, preselección de hojas de vida, chatbots para candidatos.</td><td>Sesgo en los datos de entrenamiento; Amazon abandonó en 2018 una herramienta interna de selección que penalizaba perfiles femeninos.</td></tr>
+<tr><td>Inducción y formación</td><td>Rutas de aprendizaje personalizadas, tutores virtuales.</td><td>Validar contenidos.</td></tr>
+<tr><td>Atención al empleado</td><td>Asistentes para dudas de nómina, permisos y políticas.</td><td>No exponer datos de otros empleados.</td></tr>
+<tr><td>Analítica de personas</td><td>Predicción de rotación o ausentismo.</td><td>No usar como único criterio para sancionar o despedir.</td></tr>
+<tr><td>Productividad</td><td>Resúmenes de reuniones, borradores de comunicaciones.</td><td>Revisar errores e «invenciones».</td></tr></table>
+<div class="box">La ciudad de Nueva York exige desde 2023 auditorías de sesgo para las herramientas automatizadas de decisión de empleo (Ley Local 144), y el Reglamento europeo clasifica como <b>de alto riesgo</b> los sistemas de IA usados en selección y gestión de trabajadores. Es una señal de hacia dónde se mueve la regulación.</div></div>
+
+<div id="s9"><h2>9. Riesgos, ética y marco normativo</h2>
+<h3>9.1 Riesgos principales</h3>
+<ul><li><b>Sesgo y discriminación:</b> el modelo reproduce los prejuicios de sus datos.</li><li><b>Alucinaciones:</b> los modelos generativos pueden producir información falsa con apariencia convincente, incluidas normas o citas inexistentes.</li><li><b>Privacidad y seguridad:</b> pegar datos personales en servicios externos puede violar la autorización del titular; también existen ataques como la inyección de instrucciones.</li><li><b>Opacidad:</b> dificultad para explicar por qué el sistema decidió algo.</li><li><b>Impacto laboral:</b> cambio de tareas y necesidad de reentrenamiento.</li></ul>
+<h3>9.2 Marcos de referencia</h3>
+<table><tr><th>Marco</th><th>Aporte</th></tr>
+<tr><td>UNESCO, Recomendación sobre la ética de la IA (2021)</td><td>Primer estándar mundial: derechos humanos, transparencia, supervisión humana, equidad.</td></tr>
+<tr><td>NIST AI Risk Management Framework 1.0 (2023)</td><td>Gestionar riesgos de IA: gobernar, mapear, medir y manejar.</td></tr>
+<tr><td>ISO/IEC 42001:2023</td><td>Sistema de gestión para organizaciones que desarrollan o usan IA.</td></tr>
+<tr><td>Reglamento (UE) 2024/1689</td><td>Regula la IA por niveles de riesgo; prohíbe ciertas prácticas; su aplicación es escalonada.</td></tr>
+<tr><td>Ley 1581 de 2012 (Colombia)</td><td>Datos personales: autorización, finalidad, seguridad; protege datos sensibles. Aplica cuando la IA trata datos de personas.</td></tr>
+<tr><td>CONPES 4144 de 2025 (Colombia)</td><td>Política Nacional de IA con seis ejes, entre ellos gobernanza y ética, mitigación de riesgos y uso en entidades públicas, empresas y territorios; hoja de ruta hasta 2030.</td></tr></table>
+<div class="box"><b>Buenas prácticas:</b> definir una finalidad clara; no ingresar datos personales ni confidenciales en herramientas públicas; verificar toda cifra, norma o cita; revisar sesgos; mantener a una persona responsable de la decisión final; registrar qué herramienta y qué instrucción se usó.</div></div>
+
+<div id="s10"><h2>10. Precisiones al material base</h2>
+<p>Al contrastar <i>2_Taller_Retos_IAs.pdf</i> con las fuentes se sugieren estos ajustes:</p>
+<table><tr><th>Afirmación del material</th><th>Precisión</th></tr>
+<tr><td>«La IA débil no tiene capacidad de aprender o adaptarse»</td><td>La diferencia débil/fuerte es de <i>alcance</i>, no de aprendizaje: muchos sistemas estrechos aprenden de datos (recomendadores, detectores de fraude).</td></tr>
+<tr><td>IA fuerte y superinteligente presentadas como tipos existentes</td><td>Son objetivos teóricos; hoy toda la IA en uso es estrecha.</td></tr>
+<tr><td>«Clases»: reglas, aprendizaje automático y redes neuronales como tres clases</td><td>Las redes neuronales son una técnica dentro del aprendizaje automático. Falta mencionar la IA generativa.</td></tr>
+<tr><td>Autonomía «sin intervención humana»</td><td>En decisiones que afectan personas se exige supervisión humana (UNESCO, Reglamento UE).</td></tr>
+<tr><td>Diagnóstico médico: sistemas que «diagnostican y recomiendan tratamientos»</td><td>Son herramientas de <i>apoyo</i> validadas y supervisadas por profesionales de la salud.</td></tr>
+<tr><td>Vehículos autónomos (Tesla)</td><td>Los sistemas comerciales actuales son de asistencia a la conducción y requieren supervisión; hay servicios plenamente autónomos solo en zonas limitadas.</td></tr></table></div>
+
+<div id="s11"><h2>11. Conclusiones</h2>
+<ul><li>La IA es un campo amplio; el aprendizaje automático y la IA generativa explican la mayoría de las aplicaciones actuales.</li><li>Toda la IA disponible hoy es estrecha: sirve para tareas concretas y puede equivocarse con seguridad aparente.</li><li>En talento humano aporta velocidad y apoyo en selección, formación, atención y analítica, pero no reemplaza el criterio ni la responsabilidad humana.</li><li>El uso con datos de personas exige cumplir la Ley 1581 de 2012; las decisiones de empleo requieren evitar el sesgo y poder explicarse.</li><li>Un técnico competente sabe formular instrucciones claras, verificar los resultados y proteger la información.</li></ul></div>
+
+<div id="s12"><h2>12. Glosario</h2>
+<table><tr><th>Término</th><th>Definición</th></tr>
+<tr><td>Algoritmo</td><td>Conjunto de pasos que resuelve un problema.</td></tr>
+<tr><td>Aprendizaje automático</td><td>Técnica en la que el sistema aprende patrones de los datos.</td></tr>
+<tr><td>LLM</td><td>Modelo de lenguaje grande, entrenado con grandes volúmenes de texto.</td></tr>
+<tr><td>Prompt</td><td>Instrucción que se da a una IA generativa.</td></tr>
+<tr><td>Alucinación</td><td>Respuesta falsa o inventada presentada como verdadera.</td></tr>
+<tr><td>Sesgo algorítmico</td><td>Resultado sistemáticamente injusto causado por datos o diseño.</td></tr></table></div>
+</section>
+
+<section class="pg"><div id="s13"><h2>13. Referencias</h2>
+<p class="ref">Congreso de la República de Colombia. (2012). <i>Ley Estatutaria 1581 de 2012</i>, por la cual se dictan disposiciones generales para la protección de datos personales.</p>
+<p class="ref">Consejo Nacional de Política Económica y Social. (2025). <i>Documento CONPES 4144: Política Nacional de Inteligencia Artificial</i>. Departamento Nacional de Planeación, Colombia.</p>
+<p class="ref">Dastin, J. (2018, 10 de octubre). Amazon scraps secret AI recruiting tool that showed bias against women. <i>Reuters</i>.</p>
+<p class="ref">International Organization for Standardization. (2023). <i>ISO/IEC 42001:2023, Artificial intelligence — Management system</i>.</p>
+<p class="ref">McCarthy, J., Minsky, M., Rochester, N. y Shannon, C. (1955). <i>A proposal for the Dartmouth Summer Research Project on Artificial Intelligence</i>.</p>
+<p class="ref">National Institute of Standards and Technology. (2023). <i>Artificial Intelligence Risk Management Framework (AI RMF 1.0)</i>. NIST AI 100-1.</p>
+<p class="ref">OCDE. (2019; actualizada en 2023). <i>Recommendation of the Council on Artificial Intelligence</i>.</p>
+<p class="ref">Parlamento Europeo y Consejo de la Unión Europea. (2024). <i>Reglamento (UE) 2024/1689</i> por el que se establecen normas armonizadas en materia de inteligencia artificial.</p>
+<p class="ref">Russell, S. y Norvig, P. (2021). <i>Artificial intelligence: A modern approach</i> (4.ª ed.). Pearson.</p>
+<p class="ref">Superintendencia de Industria y Comercio. (2024). <i>Circular Externa 002 de 2024</i>, lineamientos sobre el tratamiento de datos personales en sistemas de inteligencia artificial.</p>
+<p class="ref">Turing, A. M. (1950). Computing machinery and intelligence. <i>Mind, 59</i>(236), 433–460.</p>
+<p class="ref">UNESCO. (2021). <i>Recomendación sobre la ética de la inteligencia artificial</i>.</p>
+<p class="ref">Vaswani, A. et al. (2017). Attention is all you need. <i>Advances in Neural Information Processing Systems, 30</i>.</p>
+<p class="ref">Ciudad de Nueva York. (2021). <i>Local Law 144 of 2021</i>, sobre herramientas automatizadas de decisión de empleo.</p>
+</div></section>
+</body></html>
