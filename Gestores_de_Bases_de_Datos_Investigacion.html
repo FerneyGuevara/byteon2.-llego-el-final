@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gestores de bases de datos: investigación</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070b1f;--ink:#1b2340;--cy:#0e93b8;--vi:#6d28d9;--lt:#e9f6fb;--mu:#5b6482}
+*{box-sizing:border-box}
+body{margin:0;background:#dfe5f2;font:16px/1.6 'Source Sans 3',Segoe UI,Arial,sans-serif;color:var(--ink)}
+h1,h2,h3,.o{font-family:Orbitron,'Segoe UI',Arial,sans-serif}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);color:#fff;padding:10px 20px;display:flex;justify-content:space-between;align-items:center}
+button{background:linear-gradient(90deg,var(--cy),var(--vi));color:#fff;border:0;border-radius:6px;padding:9px 18px;font:600 15px inherit;cursor:pointer}
+button:focus-visible{outline:3px solid #fff}
+.pg{max-width:850px;margin:18px auto;background:#fff;padding:44px 56px;box-shadow:0 2px 14px #0003}
+.cover{background:radial-gradient(2px 2px at 12% 20%,#fff,transparent),radial-gradient(1.5px 1.5px at 70% 12%,#9be7ff,transparent),radial-gradient(2px 2px at 85% 55%,#fff,transparent),radial-gradient(1.5px 1.5px at 30% 75%,#c4b5fd,transparent),radial-gradient(1px 1px at 55% 40%,#fff,transparent),radial-gradient(circle at 80% 85%,#6d28d9 0,#2a1a6e 18%,transparent 40%),var(--bg);color:#fff;min-height:1050px;display:flex;flex-direction:column;justify-content:center;border-bottom:8px solid var(--cy)}
+.cover small{color:#67e8f9;letter-spacing:.12em}
+.cover h1{font-size:2.5rem;line-height:1.15;margin:.4em 0}
+.cover p{color:#c7d2fe;max-width:560px}
+.ring{width:120px;height:120px;border:3px solid var(--cy);border-radius:50%;box-shadow:0 0 0 12px #0e93b822,inset 0 0 25px #6d28d9;margin-bottom:30px}
+h2{color:var(--cy);font-size:1.35rem;border-bottom:3px solid var(--vi);padding-bottom:6px;margin-top:0}
+h3{color:var(--vi);font-size:1rem;margin:1.3em 0 .3em}
+.sec{break-inside:auto}
+table{border-collapse:collapse;width:100%;font-size:.9rem;margin:10px 0;break-inside:avoid}
+th{background:var(--vi);color:#fff;text-align:left;padding:7px 9px}
+td{border:1px solid #cfd6ee;padding:6px 9px;vertical-align:top}
+tr:nth-child(even) td{background:var(--lt)}
+.box{background:var(--lt);border-left:5px solid var(--cy);padding:10px 16px;margin:12px 0;break-inside:avoid}
+.toc a{display:flex;justify-content:space-between;color:var(--ink);text-decoration:none;padding:5px 0;border-bottom:1px dotted #aab}
+.toc a:hover{color:var(--vi)}
+ul{padding-left:22px}
+.ref{font-size:.9rem;padding-left:24px;text-indent:-24px;margin:6px 0}
+@media(max-width:700px){.pg{padding:24px 18px}.cover h1{font-size:1.7rem}}
+@page{size:A4;margin:14mm 12mm;@bottom-center{content:"Página " counter(page);font-size:9pt;color:#5b6482}}
+@media print{
+*{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{background:#fff}.bar{display:none}
+.pg{box-shadow:none;margin:0;max-width:none;padding:0 4mm;break-after:page}
+.cover{min-height:255mm;padding:0 14mm}
+h2,h3{break-after:avoid}.box,tr{break-inside:avoid}
+}
+</style></head><body>
+<div class="bar"><span class="o">MISIÓN BYTEON · INVESTIGACIÓN</span><button onclick="window.print()">Imprimir documento</button></div>
+
+<section class="pg cover">
+<div class="ring"></div>
+<small class="o">TÉCNICO EN TALENTO HUMANO · SENA</small>
+<h1>Gestores de bases de datos: definición, características y funcionalidad</h1>
+<p>Informe de investigación para la competencia «Operación de herramientas informáticas y digitales para talento humano». Misión principal No 3 · Retos del planeta Byteon.</p>
+<p>Octubre de 2026</p>
+</section>
+
+<section class="pg toc">
+<h2>Tabla de contenido</h2>
+<a href="#s1"><span>1. Resumen</span></a>
+<a href="#s2"><span>2. Introducción y objetivos</span></a>
+<a href="#s3"><span>3. Metodología</span></a>
+<a href="#s4"><span>4. Marco teórico</span></a>
+<a href="#s5"><span>5. Tipos de gestores y modelos de datos</span></a>
+<a href="#s6"><span>6. Gestores más usados y ejemplos</span></a>
+<a href="#s7"><span>7. Aplicación en talento humano</span></a>
+<a href="#s8"><span>8. Seguridad y marco legal en Colombia</span></a>
+<a href="#s9"><span>9. Tendencias: nube e inteligencia artificial</span></a>
+<a href="#s10"><span>10. Hallazgos y precisiones al material base</span></a>
+<a href="#s11"><span>11. Conclusiones</span></a>
+<a href="#s12"><span>12. Glosario</span></a>
+<a href="#s13"><span>13. Referencias</span></a>
+</section>
+
+<section class="pg">
+<div id="s1" class="sec"><h2>1. Resumen</h2>
+<p>Un sistema gestor de bases de datos (SGBD, o DBMS por sus siglas en inglés) es el software que permite crear, consultar, modificar y proteger los datos de una organización, y que actúa como intermediario entre la base de datos, las aplicaciones y los usuarios. Este informe define el concepto, describe su origen y sus funciones, compara los modelos relacional, no relacional, jerárquico, en red y orientado a objetos, presenta los gestores más utilizados, y analiza su uso en procesos de talento humano bajo la Ley 1581 de 2012. Se concluye que elegir un gestor es una decisión que depende del tipo de dato, el volumen, la seguridad requerida y los recursos de la organización.</p>
+<p><b>Palabras clave:</b> base de datos, SGBD, modelo relacional, SQL, NoSQL, protección de datos personales.</p></div>
+
+<div id="s2" class="sec"><h2>2. Introducción y objetivos</h2>
+<p>Toda área de talento humano maneja datos: hojas de vida, contratos, asistencia, nómina, evaluaciones. Cuando esos datos viven en archivos sueltos aparecen duplicados, errores y riesgos de seguridad. Los gestores de bases de datos resuelven ese problema al centralizar la información con reglas de integridad y control de acceso.</p>
+<p><b>Pregunta de investigación:</b> ¿qué es un gestor de bases de datos, qué tipos existen y cómo elegir y usar uno de forma segura en un proceso de talento humano?</p>
+<h3>Objetivo general</h3><p>Explicar qué son los gestores de bases de datos y cómo se aplican en la gestión del talento humano.</p>
+<h3>Objetivos específicos</h3>
+<ul><li>Definir base de datos y SGBD, y describir sus funciones.</li><li>Comparar los principales modelos y gestores.</li><li>Identificar requisitos de seguridad y legales para datos de personas.</li><li>Proponer criterios de selección para una organización.</li></ul></div>
+
+<div id="s3" class="sec"><h2>3. Metodología</h2>
+<p>Investigación documental de tipo descriptivo. Se revisaron obras académicas de referencia (Codd, Silberschatz, Elmasri y Navathe), normas (ISO/IEC 9075, Ley 1581 de 2012), documentación oficial de los fabricantes y clasificaciones del sector (DB-Engines, Stack Overflow Developer Survey). Los datos de popularidad cambian con frecuencia, por lo que deben verificarse en su fuente antes de citarlos como cifras actuales.</p></div>
+
+<div id="s4" class="sec"><h2>4. Marco teórico</h2>
+<h3>4.1 Conceptos base</h3>
+<p>Una <b>base de datos</b> es un conjunto organizado de datos relacionados entre sí. El <b>SGBD</b> es el programa que la administra. La combinación de base de datos, SGBD y aplicaciones se llama <b>sistema de base de datos</b> (Elmasri y Navathe, 2016).</p>
+<h3>4.2 Antecedentes</h3>
+<table><tr><th>Año</th><th>Hito</th></tr>
+<tr><td>1960s</td><td>Primeros gestores jerárquicos (IBM IMS) y en red (modelo CODASYL).</td></tr>
+<tr><td>1970</td><td>E. F. Codd publica el modelo relacional, que organiza los datos en tablas.</td></tr>
+<tr><td>1970s–80s</td><td>Nace SQL en IBM; llegan Oracle, DB2 y otros. SQL se normaliza como ISO/IEC 9075.</td></tr>
+<tr><td>2000s</td><td>Crecen los gestores NoSQL (MongoDB, Cassandra) por las necesidades de la web y el big data.</td></tr>
+<tr><td>2010s–hoy</td><td>Bases de datos en la nube, como servicio y con apoyo de aprendizaje automático.</td></tr></table>
+<h3>4.3 Funciones de un SGBD</h3>
+<ul><li><b>Definición:</b> crear estructuras (tablas, campos, tipos, relaciones).</li><li><b>Manipulación:</b> insertar, consultar, actualizar y eliminar datos, normalmente con SQL.</li><li><b>Control:</b> usuarios, roles y permisos.</li><li><b>Integridad:</b> reglas como llave primaria, llave foránea y campos obligatorios.</li><li><b>Concurrencia y recuperación:</b> varios usuarios a la vez y restauración ante fallas mediante copias de respaldo.</li></ul>
+<h3>4.4 Características</h3>
+<table><tr><th>Característica</th><th>Significado</th></tr>
+<tr><td>Control de redundancia</td><td>Reducir datos repetidos; se logra con la normalización.</td></tr>
+<tr><td>Consistencia e integridad</td><td>Los datos cumplen reglas definidas y no se contradicen.</td></tr>
+<tr><td>Seguridad</td><td>Autenticación, permisos, cifrado y auditoría.</td></tr>
+<tr><td>Independencia de datos</td><td>Cambiar el almacenamiento sin reescribir las aplicaciones.</td></tr>
+<tr><td>Flexibilidad</td><td>Consultar y combinar datos de formas no previstas al diseñar.</td></tr></table>
+<div class="box"><b>Propiedades ACID.</b> Los gestores transaccionales garantizan <b>A</b>tomicidad (todo o nada), <b>C</b>onsistencia, a<b>I</b>slamiento y <b>D</b>urabilidad (Haerder y Reuter, 1983). Muchos sistemas NoSQL distribuidos relajan algunas de ellas a cambio de escalabilidad, un compromiso descrito por el teorema CAP (Gilbert y Lynch, 2002).</div>
+<h3>4.5 Elementos del modelo relacional</h3>
+<p>Tabla (entidad), fila (registro), columna (campo), <b>llave primaria</b> (identifica cada fila de forma única), <b>llave foránea</b> (enlaza con otra tabla) y relaciones uno a uno, uno a muchos y muchos a muchos.</p></div>
+
+<div id="s5" class="sec"><h2>5. Tipos de gestores y modelos de datos</h2>
+<table><tr><th>Tipo</th><th>Cómo organiza los datos</th><th>Ejemplos</th><th>Uso típico</th></tr>
+<tr><td>Relacional</td><td>Tablas con filas y columnas; consultas en SQL</td><td>PostgreSQL, MySQL, Oracle, SQL Server, Access, SQLite</td><td>Nómina, asistencia, contratos</td></tr>
+<tr><td>Documentos (NoSQL)</td><td>Documentos tipo JSON</td><td>MongoDB, Firestore</td><td>Aplicaciones web y móviles</td></tr>
+<tr><td>Clave-valor</td><td>Pares clave y valor</td><td>Redis, DynamoDB</td><td>Cachés, sesiones</td></tr>
+<tr><td>Columnas anchas</td><td>Familias de columnas distribuidas</td><td>Cassandra</td><td>Grandes volúmenes distribuidos</td></tr>
+<tr><td>Grafos</td><td>Nodos y relaciones</td><td>Neo4j</td><td>Redes, organigramas, recomendaciones</td></tr>
+<tr><td>Jerárquico</td><td>Árbol; cada registro tiene un padre</td><td>IBM IMS</td><td>Sistemas heredados bancarios</td></tr>
+<tr><td>En red</td><td>Registros con varios padres</td><td>Modelo CODASYL, IDMS</td><td>Sistemas heredados</td></tr>
+<tr><td>Orientado a objetos</td><td>Objetos como en la programación</td><td>ObjectDB, db4o</td><td>Aplicaciones especializadas</td></tr></table>
+<p>Según su ubicación se habla de gestores de <b>escritorio</b> (Access, SQLite), de <b>servidor</b> (SQL Server, Oracle, PostgreSQL) y <b>en la nube</b>, ya sea como servicio gestionado (Amazon RDS, Azure SQL, Google Cloud SQL) o como base de datos en línea (Firebase).</p></div>
+
+<div id="s6" class="sec"><h2>6. Gestores más usados y ejemplos</h2>
+<table><tr><th>Gestor</th><th>Fabricante / licencia</th><th>Rasgos</th></tr>
+<tr><td>Microsoft Access</td><td>Microsoft; comercial (Microsoft 365)</td><td>Relacional de escritorio con formularios e informes; ideal para equipos pequeños.</td></tr>
+<tr><td>MySQL</td><td>Oracle; código abierto y comercial</td><td>Muy usado en aplicaciones web.</td></tr>
+<tr><td>PostgreSQL</td><td>Comunidad; código abierto</td><td>Relacional robusto, con tipos JSON; muy valorado por desarrolladores.</td></tr>
+<tr><td>Oracle Database</td><td>Oracle; comercial</td><td>Grandes empresas, alta disponibilidad.</td></tr>
+<tr><td>Microsoft SQL Server</td><td>Microsoft; comercial</td><td>Usa el lenguaje T-SQL; se integra con el ecosistema Microsoft.</td></tr>
+<tr><td>MongoDB</td><td>MongoDB Inc.; licencia SSPL</td><td>Orientado a documentos, escala horizontalmente.</td></tr>
+<tr><td>Firebase / Firestore</td><td>Google; servicio en la nube</td><td>Sincronización en tiempo real para apps móviles y web.</td></tr></table>
+<p>Las clasificaciones de DB-Engines han mantenido a Oracle, MySQL, Microsoft SQL Server y PostgreSQL entre los primeros lugares durante años, y las encuestas de Stack Overflow ubican a PostgreSQL como el gestor más usado por los desarrolladores encuestados en sus ediciones recientes. Consulte las páginas oficiales para la posición actual.</p></div>
+
+<div id="s7" class="sec"><h2>7. Aplicación en talento humano</h2>
+<table><tr><th>Proceso</th><th>Datos que se almacenan</th><th>Consulta útil</th></tr>
+<tr><td>Selección</td><td>Candidatos, vacantes, entrevistas</td><td>Candidatos por vacante y etapa</td></tr>
+<tr><td>Contratación</td><td>Contratos, cargos, salarios</td><td>Contratos próximos a vencer</td></tr>
+<tr><td>Asistencia</td><td>Marcaciones, horas, ausencias</td><td>Ausentismo por área: horas de ausencia ÷ horas programadas × 100</td></tr>
+<tr><td>Capacitación</td><td>Cursos, asistentes, evaluaciones</td><td>Horas de formación por empleado</td></tr>
+<tr><td>Desempeño</td><td>Evaluaciones, metas</td><td>Promedio por equipo</td></tr></table>
+<p>Un diseño básico usa tablas separadas (Área, Empleado, Ausencia) enlazadas por llaves foráneas, de modo que el nombre de un área se escribe una sola vez. Los resultados se presentan con consultas, informes, tableros (Power BI, Excel) y herramientas colaborativas en la web, con permisos diferenciados.</p></div>
+
+<div id="s8" class="sec"><h2>8. Seguridad y marco legal en Colombia</h2>
+<p>La <b>Ley 1581 de 2012</b> regula el tratamiento de datos personales; su reglamentación se compiló en el Decreto 1074 de 2015 (antes Decreto 1377 de 2013). La autoridad de control es la Superintendencia de Industria y Comercio (SIC).</p>
+<ul><li><b>Datos sensibles</b> (salud, origen étnico, orientación sexual, datos biométricos, afiliación sindical): su tratamiento está restringido y exige autorización expresa y finalidad clara.</li><li><b>Principios:</b> finalidad, libertad, veracidad, transparencia, acceso restringido, seguridad y confidencialidad.</li><li><b>Deberes del responsable:</b> pedir autorización, informar la finalidad y atender consultas y reclamos de los titulares. Ciertas organizaciones deben inscribir sus bases en el Registro Nacional de Bases de Datos (RNBD).</li></ul>
+<div class="box"><b>Buenas prácticas técnicas:</b> contraseñas fuertes y roles por perfil, copias de respaldo periódicas, cifrado de datos sensibles, registro de accesos y mínimo privilegio (cada persona ve solo lo que necesita). La calidad del dato también se evalúa con la norma ISO/IEC 25012.</div></div>
+
+<div id="s9" class="sec"><h2>9. Tendencias: nube e inteligencia artificial</h2>
+<ul><li><b>Nube y bases como servicio:</b> la organización delega respaldo, actualización y escalado al proveedor.</li><li><b>Persistencia políglota:</b> combinar varios tipos de gestores según el problema.</li><li><b>IA en los gestores:</b> asistentes que generan consultas SQL desde lenguaje natural, ajuste automático del rendimiento y búsqueda vectorial (por ejemplo, la extensión pgvector de PostgreSQL). Estas respuestas deben validarse siempre: la IA puede producir consultas incorrectas, y enviar datos personales a servicios externos de IA exige autorización y control.</li></ul></div>
+
+<div id="s10" class="sec"><h2>10. Hallazgos y precisiones al material base</h2>
+<p>Al contrastar el documento <i>Bases_de_Datos.pdf</i> con las fuentes se sugieren estos ajustes:</p>
+<table><tr><th>Afirmación del material</th><th>Precisión</th></tr>
+<tr><td>«LaTeX Beamer» como gestor de bases de datos especializado</td><td>No es un gestor: es una clase de LaTeX para crear presentaciones. Ejemplos de gestores especializados: Neo4j (grafos), InfluxDB (series de tiempo) o SQLite (embebido).</td></tr>
+<tr><td>«Redundancia» como característica</td><td>Lo deseable es el <i>control</i> o minimización de la redundancia.</td></tr>
+<tr><td>Cassandra como NoSQL «de grandes volúmenes»</td><td>Correcto; más específico: es de columnas anchas y distribuida.</td></tr>
+<tr><td>Firebase como gestor «en línea»</td><td>Correcto: Firestore y Realtime Database son bases NoSQL en la nube.</td></tr></table></div>
+
+<div id="s11" class="sec"><h2>11. Conclusiones</h2>
+<ul><li>El SGBD centraliza los datos y garantiza integridad, seguridad y acceso concurrente, lo que no ofrecen los archivos dispersos.</li><li>El modelo relacional con SQL sigue siendo la base de la información de talento humano, mientras que NoSQL aporta flexibilidad y escala para casos específicos.</li><li>Access sirve para equipos pequeños; PostgreSQL, SQL Server, MySQL u Oracle para sistemas con muchos usuarios.</li><li>Los datos de empleados exigen cumplir la Ley 1581 de 2012; los datos de salud son sensibles.</li><li>Un indicador agregado puede ocultar problemas por área: la base de datos permite desagregar y decidir con evidencia.</li></ul></div>
+
+<div id="s12" class="sec"><h2>12. Glosario</h2>
+<table><tr><th>Término</th><th>Definición</th></tr>
+<tr><td>SQL</td><td>Lenguaje estándar para definir y consultar bases de datos relacionales.</td></tr>
+<tr><td>Llave primaria</td><td>Campo que identifica de forma única cada registro.</td></tr>
+<tr><td>Llave foránea</td><td>Campo que referencia la llave primaria de otra tabla.</td></tr>
+<tr><td>Normalización</td><td>Proceso de diseño que reduce la redundancia.</td></tr>
+<tr><td>Transacción</td><td>Conjunto de operaciones que se ejecutan como una unidad.</td></tr>
+<tr><td>Dato sensible</td><td>Dato que afecta la intimidad del titular o cuyo uso indebido puede discriminarlo.</td></tr></table></div>
+</section>
+
+<section class="pg">
+<div id="s13" class="sec"><h2>13. Referencias</h2>
+<p class="ref">Codd, E. F. (1970). A relational model of data for large shared data banks. <i>Communications of the ACM, 13</i>(6), 377–387.</p>
+<p class="ref">Congreso de la República de Colombia. (2012). <i>Ley Estatutaria 1581 de 2012</i>, por la cual se dictan disposiciones generales para la protección de datos personales.</p>
+<p class="ref">DB-Engines. (s. f.). <i>DB-Engines ranking of database management systems</i>. https://db-engines.com/en/ranking</p>
+<p class="ref">Elmasri, R. y Navathe, S. B. (2016). <i>Fundamentals of database systems</i> (7.ª ed.). Pearson.</p>
+<p class="ref">Gilbert, S. y Lynch, N. (2002). Brewer's conjecture and the feasibility of consistent, available, partition-tolerant web services. <i>ACM SIGACT News, 33</i>(2), 51–59.</p>
+<p class="ref">Haerder, T. y Reuter, A. (1983). Principles of transaction-oriented database recovery. <i>ACM Computing Surveys, 15</i>(4), 287–317.</p>
+<p class="ref">International Organization for Standardization. (2023). <i>ISO/IEC 9075: Information technology — Database languages — SQL</i>.</p>
+<p class="ref">International Organization for Standardization. (2008). <i>ISO/IEC 25012: Data quality model</i>.</p>
+<p class="ref">Ministerio de Comercio, Industria y Turismo. (2015). <i>Decreto 1074 de 2015</i> (Decreto Único Reglamentario del sector comercio), capítulo 25.</p>
+<p class="ref">Silberschatz, A., Korth, H. F. y Sudarshan, S. (2019). <i>Database system concepts</i> (7.ª ed.). McGraw-Hill.</p>
+<p class="ref">Stack Overflow. (s. f.). <i>Developer Survey</i>, sección Databases. https://survey.stackoverflow.co</p>
+<p class="ref">Superintendencia de Industria y Comercio. (s. f.). <i>Protección de datos personales y Registro Nacional de Bases de Datos</i>. https://www.sic.gov.co</p>
+<p class="ref">Documentación oficial: Microsoft Access y SQL Server (learn.microsoft.com), Oracle Database (docs.oracle.com), MySQL (dev.mysql.com/doc), PostgreSQL (postgresql.org/docs), MongoDB (mongodb.com/docs), Firebase (firebase.google.com/docs).</p>
+</div></section>
+</body></html>
