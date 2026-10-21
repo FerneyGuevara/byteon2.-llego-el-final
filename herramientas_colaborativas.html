@@ -261,6 +261,22 @@
       display: block;
     }
 
+    /* ---------- Aduana Frame Wrapper ---------- */
+    .aduana-wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .aduana-frame {
+      width: 100%;
+      min-height: 860px;
+      border: none;
+      background: transparent;
+      display: block;
+      transition: height 0.25s ease;
+    }
+
     /* ---------- LucIA Presentación ---------- */
     .lucia-presentation-card {
       background: var(--paper);
@@ -400,6 +416,62 @@
     .material-card:hover .material-btn {
       background: var(--teal);
       color: #FFFFFF;
+    }
+
+    /* ---------- Document Grid & Preview Cards (Introducción) ---------- */
+    .document-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .document-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .document-card {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      cursor: default;
+    }
+
+    .document-card:hover {
+      transform: none;
+      box-shadow: 0 10px 28px rgba(20, 33, 61, 0.12);
+    }
+
+    .document-header-row {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .document-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 12px 0 14px;
+    }
+
+    .document-actions .pdf-btn-open,
+    .document-actions .pdf-btn-dl {
+      font-size: 0.84rem;
+      padding: 8px 14px;
+      cursor: pointer;
+    }
+
+    .document-preview {
+      width: 100%;
+      height: 480px;
+      border: 1px solid var(--border-cool);
+      border-radius: 8px;
+      background: #FFFFFF;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.05);
+      display: block;
     }
 
     .talleres-title-row {
@@ -2323,6 +2395,7 @@
         <button data-section="dashboard">Dashboard</button>
         <button data-section="fisica">Actividad presencial</button>
         <button data-section="mapamental">Mapa Mental</button>
+        <button data-section="aduana">Aduana</button>
       </nav>
     </div>
   </div>
@@ -2365,8 +2438,57 @@
             <button data-goto="dashboard">📊 Dashboard — resultados, gráficos y análisis</button>
             <button data-goto="fisica">✋ Actividad presencial — arma el flujo colaborativo</button>
             <button data-goto="mapamental">🗺️ Mapa Mental — esquema conceptual completo</button>
+            <button data-goto="aduana">🚀 Aduana — entrega de evidencias y acumulación de NEXs</button>
           </div>
         </div>
+      </div>
+
+      <div class="document-grid">
+        <article class="material-card document-card">
+          <div class="document-header-row">
+            <div class="material-icon" aria-hidden="true">&#128196;</div>
+            <div class="material-body">
+              <span class="tag">DOCUMENTO DE INVESTIGACIÓN</span>
+              <h3>Herramientas Web Colaborativas — Investigación</h3>
+              <p>Consulta el documento de investigación completo sobre herramientas web de trabajo colaborativo. Puedes
+                previsualizarlo, abrirlo en ventana nueva, descargarlo o imprimirlo.</p>
+              <div class="pdf-actions document-actions">
+                <a href="Herramientas_Web_Colaborativas_Investigacion.html" target="_blank" rel="noopener"
+                  class="pdf-btn-open">Abrir documento &#x2197;</a>
+                <a href="Herramientas_Web_Colaborativas_Investigacion.html"
+                  download="Herramientas_Web_Colaborativas_Investigacion.html" class="pdf-btn-dl">Descargar &#x2193;</a>
+                <button type="button" class="pdf-btn-dl document-print-btn"
+                  data-print-frame="investigacionPreview">Imprimir &#128424;&#xFE0F;</button>
+              </div>
+            </div>
+          </div>
+          <iframe id="investigacionPreview" class="document-preview"
+            src="Herramientas_Web_Colaborativas_Investigacion.html"
+            title="Previsualización: Herramientas Web Colaborativas — Investigación"></iframe>
+        </article>
+
+        <article class="material-card document-card">
+          <div class="document-header-row">
+            <div class="material-icon" aria-hidden="true">&#128196;</div>
+            <div class="material-body">
+              <span class="tag">PRESENTACIÓN DIGITAL</span>
+              <h3>Herramientas Colaborativas Digitales</h3>
+              <p>Presentación oficial en diapositivas PDF sobre herramientas colaborativas digitales en talento humano,
+                disponible para consultar, abrir, descargar e imprimir.</p>
+              <div class="pdf-actions document-actions">
+                <a href="Herramientas_Colaborativas_Digitales.pdf" target="_blank" rel="noopener"
+                  class="pdf-btn-open">Abrir PDF &#x2197;</a>
+                <a href="Herramientas_Colaborativas_Digitales.pdf" download="Herramientas_Colaborativas_Digitales.pdf"
+                  class="pdf-btn-dl">Descargar PDF &#x2193;</a>
+                <button type="button" class="pdf-btn-dl document-print-btn"
+                  data-print-frame="presentacionPreview">Imprimir &#128424;&#xFE0F;</button>
+              </div>
+            </div>
+          </div>
+          <iframe id="presentacionPreview" class="document-preview"
+            src="Herramientas_Colaborativas_Digitales.pdf#toolbar=1&navpanes=0"
+            title="Previsualización: Herramientas Colaborativas Digitales PDF"></iframe>
+        </article>
       </div>
     </section>
 
@@ -3029,6 +3151,28 @@
         <button class="ghost print-btn" id="printBtn">🖨️ Imprimir tarjetas de pasos, herramientas y hoja de
           respuestas</button>
       </div>
+
+      <div style="margin-top:24px;">
+        <article class="material-card">
+          <div class="material-icon" aria-hidden="true">&#128196;</div>
+          <div class="material-body">
+            <span class="tag">GUÍA DE ACTIVIDAD PRESENCIAL</span>
+            <h3>Actividad: Herramientas Web Colaborativas en Talento Humano</h3>
+            <p>Guía pedagógica y técnica en formato PDF con las directrices, roles, dinámicas de equipo y criterios de
+              evaluación para la actividad presencial del flujo colaborativo.</p>
+            <div class="pdf-actions document-actions">
+              <a href="Actividad_Herramientas_Web_Colaborativas_Talento_Humano.pdf" target="_blank" rel="noopener"
+                class="pdf-btn-open">Abrir documento PDF &#x2197;</a>
+              <a href="Actividad_Herramientas_Web_Colaborativas_Talento_Humano.pdf"
+                download="Actividad_Herramientas_Web_Colaborativas_Talento_Humano.pdf" class="pdf-btn-dl">Descargar PDF
+                &#x2193;</a>
+              <button type="button" class="pdf-btn-dl document-print-btn"
+                data-print-url="Actividad_Herramientas_Web_Colaborativas_Talento_Humano.pdf">Imprimir
+                &#128424;&#xFE0F;</button>
+            </div>
+          </div>
+        </article>
+      </div>
     </section>
 
     <!-- MAPA MENTAL -->
@@ -3107,6 +3251,14 @@
         </div>
       </div>
     </section>
+
+    <!-- ADUANA -->
+    <section data-section="aduana">
+      <div class="aduana-wrapper">
+        <iframe id="aduanaFrame" src="aduana.html" class="aduana-frame"
+          title="Aduana de Evidencias y Acumulador de NEXs"></iframe>
+      </div>
+    </section>
   </main>
 
   <!-- Printable content, only visible via window.print() -->
@@ -3157,12 +3309,11 @@
       </div>
 
       <div class="report-project-card">
-        <div class="report-project-title">RETOS DEL PLANETA BYTEON &mdash; REPORTE DE EVALUACI&Oacute;N Y
-          DESEMPE&Ntilde;O</div>
+        <div class="report-project-title">Reto 3. Herramientas Web de Trabajo Colaborativo</div>
         <div class="report-project-sub">
           <strong>FASES DEL PROYECTO:</strong> AN&Aacute;LISIS Y APLICACI&Oacute;N &bull;
           <strong>PROGRAMA:</strong> T&Eacute;CNICO EN TALENTO HUMANO &bull;
-          <strong>RETO:</strong> 2. HERRAMIENTAS WEB DE TRABAJO COLABORATIVO
+          <strong>RETO:</strong> 3. HERRAMIENTAS WEB DE TRABAJO COLABORATIVO
         </div>
         <div class="report-ra">
           <strong>RESULTADOS DE APRENDIZAJE:</strong>
@@ -3407,13 +3558,43 @@
     const tabButtons = document.querySelectorAll('#tabs button[data-section]');
     const sections = document.querySelectorAll('main > section');
     function goTo(name) {
-      tabButtons.forEach(b => b.classList.toggle('active', b.dataset.section === name));
-      sections.forEach(s => s.classList.toggle('active', s.dataset.section === name));
+      let target = name;
+      if (target === 'aduanas') target = 'aduana';
+      tabButtons.forEach(b => b.classList.toggle('active', b.dataset.section === target));
+      sections.forEach(s => s.classList.toggle('active', s.dataset.section === target));
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      if (name === 'dashboard') renderDashboard();
+      if (target === 'dashboard') renderDashboard();
+      if (target === 'aduana') {
+        const frame = document.getElementById('aduanaFrame');
+        if (frame && (!frame.getAttribute('src') || frame.getAttribute('src') !== 'aduana.html')) {
+          frame.src = 'aduana.html';
+        }
+      }
     }
+
+    // Navegación directa por hash (ej: #aduana)
+    function handleHashNav() {
+      let hash = (location.hash || '').replace('#', '').trim();
+      if (hash === 'aduanas') hash = 'aduana';
+      if (hash && document.querySelector('main > section[data-section="' + hash + '"]')) {
+        goTo(hash);
+      }
+    }
+    window.addEventListener('hashchange', handleHashNav);
+    handleHashNav();
+
     tabButtons.forEach(b => b.addEventListener('click', () => goTo(b.dataset.section)));
     document.querySelectorAll('[data-goto]').forEach(b => b.addEventListener('click', () => goTo(b.dataset.goto)));
+
+    // Ajuste dinámico de altura para el iframe de Aduana
+    window.addEventListener('message', (event) => {
+      if (event.data && event.data.type === 'aduana-resize') {
+        const frame = document.getElementById('aduanaFrame');
+        if (frame && event.data.height) {
+          frame.style.height = (event.data.height + 25) + 'px';
+        }
+      }
+    });
 
     // ---------- Evaluador sub-nav ----------
     const evalSubButtons = document.querySelectorAll('#evalSubnav button');
@@ -3889,13 +4070,53 @@
       answerToolsBody.appendChild(tr);
     });
 
+    const REPORT_PRINT_TITLE = 'Reto 3. Herramientas Web de Trabajo Colaborativo';
+    const ORIGINAL_DOCUMENT_TITLE = document.title;
+    function applyReportPrintTitle() {
+      document.title = REPORT_PRINT_TITLE;
+    }
+    function restoreReportPrintTitle() {
+      document.title = ORIGINAL_DOCUMENT_TITLE;
+    }
+
     document.getElementById('printBtn').addEventListener('click', () => {
       document.body.classList.add('printing-cards');
       window.print();
     });
+
+    // Controladores de impresión para documentos (Investigación, Presentación y Actividad)
+    document.querySelectorAll('.document-print-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const frameId = btn.dataset.printFrame;
+        const printUrl = btn.dataset.printUrl;
+        if (frameId) {
+          const frame = document.getElementById(frameId);
+          if (frame && frame.contentWindow) {
+            try {
+              frame.contentWindow.focus();
+              frame.contentWindow.print();
+              return;
+            } catch (err) {
+              window.open(frame.src, '_blank');
+              return;
+            }
+          }
+        }
+        if (printUrl) {
+          const w = window.open(printUrl, '_blank');
+          if (w) w.focus();
+        }
+      });
+    });
     window.addEventListener('afterprint', () => {
       document.body.classList.remove('printing-cards');
       document.body.classList.remove('printing-report');
+      restoreReportPrintTitle();
+    });
+    window.addEventListener('beforeprint', () => {
+      if (document.body.classList.contains('printing-report')) {
+        applyReportPrintTitle();
+      }
     });
 
     // ================= DASHBOARD =================
@@ -4144,6 +4365,7 @@
       printReportBtn.addEventListener('click', () => {
         populatePrintReport();
         document.body.classList.add('printing-report');
+        applyReportPrintTitle();
         window.print();
       });
     }

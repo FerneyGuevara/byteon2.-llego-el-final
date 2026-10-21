@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Herramientas web de trabajo colaborativo: investigación</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070b1f;--ink:#1b2340;--cy:#0e93b8;--vi:#6d28d9;--lt:#e9f6fb}
+*{box-sizing:border-box}
+body{margin:0;background:#dfe5f2;font:16px/1.6 'Source Sans 3',Segoe UI,Arial,sans-serif;color:var(--ink)}
+h1,h2,h3,.o{font-family:Orbitron,'Segoe UI',Arial,sans-serif}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);color:#fff;padding:10px 20px;display:flex;justify-content:space-between;align-items:center}
+button{background:linear-gradient(90deg,var(--cy),var(--vi));color:#fff;border:0;border-radius:6px;padding:9px 18px;font:600 15px inherit;cursor:pointer}
+.pg{max-width:850px;margin:18px auto;background:#fff;padding:44px 56px;box-shadow:0 2px 14px #0003}
+.cover{background:radial-gradient(2px 2px at 14% 22%,#fff,transparent),radial-gradient(1.5px 1.5px at 72% 10%,#9be7ff,transparent),radial-gradient(2px 2px at 86% 52%,#fff,transparent),radial-gradient(1.5px 1.5px at 28% 78%,#c4b5fd,transparent),radial-gradient(1px 1px at 55% 38%,#fff,transparent),radial-gradient(circle at 82% 86%,#6d28d9 0,#2a1a6e 18%,transparent 40%),var(--bg);color:#fff;min-height:1050px;display:flex;flex-direction:column;justify-content:center;border-bottom:8px solid var(--cy)}
+.cover small{color:#67e8f9;letter-spacing:.12em}
+.cover h1{font-size:2.4rem;line-height:1.15;margin:.4em 0}
+.cover p{color:#c7d2fe;max-width:560px}
+.net{width:140px;height:110px;margin-bottom:26px;position:relative}
+.net i{position:absolute;width:22px;height:22px;border-radius:50%;background:var(--cy);box-shadow:0 0 14px var(--cy)}
+.net i:nth-child(1){left:0;top:44px}.net i:nth-child(2){left:58px;top:0;background:#a78bfa;box-shadow:0 0 14px #a78bfa}.net i:nth-child(3){left:116px;top:44px}.net i:nth-child(4){left:58px;top:88px;background:#a78bfa;box-shadow:0 0 14px #a78bfa}
+.net:before{content:"";position:absolute;inset:11px;border:2px solid #22d3ee88;transform:rotate(45deg) scale(.72)}
+h2{color:var(--cy);font-size:1.35rem;border-bottom:3px solid var(--vi);padding-bottom:6px;margin-top:0}
+h3{color:var(--vi);font-size:1rem;margin:1.3em 0 .3em}
+table{border-collapse:collapse;width:100%;font-size:.9rem;margin:10px 0;break-inside:avoid}
+th{background:var(--vi);color:#fff;text-align:left;padding:7px 9px}
+td{border:1px solid #cfd6ee;padding:6px 9px;vertical-align:top}
+tr:nth-child(even) td{background:var(--lt)}
+.box{background:var(--lt);border-left:5px solid var(--cy);padding:10px 16px;margin:12px 0;break-inside:avoid}
+.toc a{display:block;color:var(--ink);text-decoration:none;padding:5px 0;border-bottom:1px dotted #aab}
+.toc a:hover{color:var(--vi)}
+ul{padding-left:22px}
+.ref{font-size:.9rem;padding-left:24px;text-indent:-24px;margin:6px 0}
+@media(max-width:700px){.pg{padding:24px 18px}.cover h1{font-size:1.6rem}}
+@page{size:A4;margin:14mm 12mm;@bottom-center{content:"Página " counter(page);font-size:9pt;color:#5b6482}}
+@media print{*{-webkit-print-color-adjust:exact;print-color-adjust:exact}body{background:#fff}.bar{display:none}.pg{box-shadow:none;margin:0;max-width:none;padding:0 4mm;break-after:page}.cover{min-height:255mm;padding:0 14mm}h2,h3{break-after:avoid}.box,tr{break-inside:avoid}}
+</style></head><body>
+<div class="bar"><span class="o">MISIÓN BYTEON · INVESTIGACIÓN</span><button onclick="window.print()">Imprimir documento</button></div>
+
+<section class="pg cover">
+<div class="net"><i></i><i></i><i></i><i></i></div>
+<small class="o">TÉCNICO EN TALENTO HUMANO · SENA</small>
+<h1>Herramientas web de trabajo colaborativo: definición, características y funcionalidad</h1>
+<p>Informe de investigación para la competencia «Operación de herramientas informáticas y digitales para talento humano». Retos del planeta Byteon · Misión principal No 3, Reto 3.</p>
+<p>Octubre de 2026</p>
+</section>
+
+<section class="pg toc">
+<h2>Tabla de contenido</h2>
+<a href="#s1">1. Resumen</a><a href="#s2">2. Introducción y objetivos</a><a href="#s3">3. Metodología</a><a href="#s4">4. Marco teórico: definición y evolución</a><a href="#s5">5. Tipos y clasificación</a><a href="#s6">6. Características y funcionalidades</a><a href="#s7">7. Principales plataformas</a><a href="#s8">8. Aplicación en talento humano</a><a href="#s9">9. Seguridad, privacidad y marco legal en Colombia</a><a href="#s10">10. Criterios de selección y buenas prácticas</a><a href="#s11">11. Precisiones al material base</a><a href="#s12">12. Conclusiones</a><a href="#s13">13. Glosario</a><a href="#s14">14. Referencias</a>
+</section>
+
+<section class="pg">
+<div id="s1"><h2>1. Resumen</h2>
+<p>Las herramientas web de trabajo colaborativo son aplicaciones en línea que permiten a varias personas comunicarse, crear documentos, compartir archivos y coordinar tareas sin coincidir en un mismo lugar. Este informe define el concepto, repasa su evolución, clasifica las herramientas por función y por tiempo y espacio, describe sus características y funcionalidades, presenta las plataformas más usadas y analiza su aplicación en talento humano, incluyendo los riesgos de privacidad y el marco legal colombiano (Ley 1581 de 2012, leyes de trabajo remoto y de desconexión laboral). Se concluye que estas herramientas aumentan la productividad solo si se acompañan de reglas claras de uso, permisos bien configurados y protección de los datos personales.</p>
+<p><b>Palabras clave:</b> trabajo colaborativo, groupware, nube, coedición, comunicación sincrónica y asincrónica, protección de datos.</p></div>
+
+<div id="s2"><h2>2. Introducción y objetivos</h2>
+<p>El teletrabajo, el trabajo híbrido y los equipos distribuidos hicieron que correos, chats, documentos compartidos y reuniones virtuales sean parte de la rutina de cualquier oficina. Para un técnico en talento humano, estas herramientas son medios para comunicar, documentar procesos y gestionar personas, y a la vez un riesgo si se manejan datos personales sin control.</p>
+<p><b>Pregunta de investigación:</b> ¿qué son las herramientas web de trabajo colaborativo, cómo se clasifican y cómo usarlas de forma eficaz y segura en un proceso de talento humano?</p>
+<h3>Objetivo general</h3><p>Explicar qué son las herramientas web de trabajo colaborativo y cómo se aplican en la gestión del talento humano.</p>
+<h3>Objetivos específicos</h3><ul><li>Definir el trabajo colaborativo y describir su evolución.</li><li>Clasificar las herramientas por función y por modo de interacción.</li><li>Identificar plataformas, funcionalidades y criterios de selección.</li><li>Reconocer los riesgos y las normas aplicables a los datos de las personas.</li></ul></div>
+
+<div id="s3"><h2>3. Metodología</h2>
+<p>Investigación documental descriptiva. Se revisó literatura sobre trabajo cooperativo asistido por computador (Ellis, Gibbs y Rein; Grudin; Johansen), documentación oficial de Microsoft, Google, Atlassian y Slack, normas colombianas y noticias del sector sobre el estado de algunas herramientas, consultadas en línea. Los planes, nombres y precios de los productos cambian con frecuencia; verifíquelos en el sitio del fabricante antes de decidir.</p></div>
+
+<div id="s4"><h2>4. Marco teórico: definición y evolución</h2>
+<h3>4.1 Conceptos base</h3>
+<p>El <b>trabajo colaborativo</b> es aquel en que varias personas aportan a un objetivo común y comparten la responsabilidad del resultado. Se distingue del trabajo <i>cooperativo</i>, donde las tareas se reparten y se integran al final. Al software que lo apoya se le llama <b>groupware</b>, y al campo que lo estudia, <b>CSCW</b> (trabajo cooperativo asistido por computador), término acuñado en 1984 por Irene Greif y Paul Cashman.</p>
+<h3>4.2 Línea de tiempo</h3>
+<table><tr><th>Año</th><th>Hito</th></tr>
+<tr><td>1968</td><td>Douglas Engelbart presenta en vivo un sistema con edición compartida y videoconferencia («la madre de todas las demos»).</td></tr>
+<tr><td>1971</td><td>Primer correo electrónico entre computadores en red (Ray Tomlinson).</td></tr>
+<tr><td>1989</td><td>Lotus Notes populariza el groupware empresarial.</td></tr>
+<tr><td>1995–2001</td><td>Aparecen los wikis (Ward Cunningham) y Wikipedia, ejemplo de colaboración masiva.</td></tr>
+<tr><td>2006–2010</td><td>Google Docs y Sheets permiten editar un mismo archivo en la web; la edición simultánea se consolida.</td></tr>
+<tr><td>2013–2017</td><td>Slack populariza los canales de chat; Microsoft lanza Teams (2017). Figma (2016) lleva el diseño colaborativo al navegador.</td></tr>
+<tr><td>2020</td><td>La pandemia dispara el uso de videollamadas y plataformas en la nube. Office 365 pasa a llamarse Microsoft 365 y G Suite, Google Workspace.</td></tr>
+<tr><td>2021</td><td>Salesforce completa la compra de Slack.</td></tr>
+<tr><td>2023–hoy</td><td>Las plataformas integran asistentes de IA (Copilot, Gemini) para resumir reuniones y redactar documentos.</td></tr></table></div>
+
+<div id="s5"><h2>5. Tipos y clasificación</h2>
+<h3>5.1 Por función</h3>
+<table><tr><th>Tipo</th><th>Para qué sirve</th><th>Ejemplos</th></tr>
+<tr><td>Comunicación y reuniones</td><td>Chat, canales, voz y video</td><td>Microsoft Teams, Slack, Zoom, Google Meet</td></tr>
+<tr><td>Documentos y hojas compartidas</td><td>Coedición de textos, hojas de cálculo y presentaciones</td><td>Google Docs, Word y Excel en línea (Microsoft 365)</td></tr>
+<tr><td>Almacenamiento y archivos</td><td>Guardar, versionar y compartir archivos</td><td>OneDrive, SharePoint, Google Drive, Dropbox</td></tr>
+<tr><td>Gestión de tareas y proyectos</td><td>Tableros, asignación y seguimiento</td><td>Trello, Asana, Microsoft Planner, Jira</td></tr>
+<tr><td>Conocimiento y notas</td><td>Wikis y bases de conocimiento</td><td>Notion, Confluence, OneNote</td></tr>
+<tr><td>Pizarras y diseño</td><td>Lluvia de ideas y prototipos</td><td>Miro, Figma, Microsoft Whiteboard</td></tr>
+<tr><td>Formularios y encuestas</td><td>Recoger datos de varias personas</td><td>Microsoft Forms, Google Forms</td></tr></table>
+<h3>5.2 Por tiempo y espacio (matriz de Johansen)</h3>
+<table><tr><th></th><th>Mismo lugar</th><th>Distinto lugar</th></tr>
+<tr><td><b>Mismo tiempo (sincrónico)</b></td><td>Pantalla compartida en una sala.</td><td>Videollamada, chat en vivo, coedición simultánea.</td></tr>
+<tr><td><b>Distinto tiempo (asincrónico)</b></td><td>Tablero de tareas en la oficina.</td><td>Correo, foros, comentarios en un documento, canal de equipo.</td></tr></table>
+<p>Una misma plataforma puede ser ambas cosas: un chat de Teams o Slack se usa en vivo o se responde horas después.</p></div>
+
+<div id="s6"><h2>6. Características y funcionalidades</h2>
+<table><tr><th>Característica o función</th><th>Qué significa</th></tr>
+<tr><td>Accesibilidad</td><td>Se usa desde el navegador o una aplicación móvil, con conexión a internet.</td></tr>
+<tr><td>Coedición en tiempo real</td><td>Varias personas editan el mismo archivo y ven los cambios al instante.</td></tr>
+<tr><td>Historial y control de versiones</td><td>Permite ver quién cambió qué y restaurar una versión anterior.</td></tr>
+<tr><td>Comentarios y menciones</td><td>Se asigna una tarea o pregunta a una persona con @nombre.</td></tr>
+<tr><td>Permisos por rol</td><td>Ver, comentar o editar; acceso por usuario, grupo o enlace.</td></tr>
+<tr><td>Notificaciones</td><td>Avisos de cambios y menciones; mal configuradas generan sobrecarga.</td></tr>
+<tr><td>Integraciones y automatización</td><td>Conexión con otras aplicaciones mediante conectores o API.</td></tr>
+<tr><td>Almacenamiento en la nube y respaldo</td><td>Archivos disponibles desde cualquier dispositivo.</td></tr>
+<tr><td>Escalabilidad</td><td>Planes que crecen con el número de usuarios.</td></tr>
+<tr><td>Seguridad</td><td>Cifrado, autenticación multifactor y registros de auditoría. Su efectividad depende de cómo la organización las configure.</td></tr></table></div>
+
+<div id="s7"><h2>7. Principales plataformas</h2>
+<table><tr><th>Plataforma</th><th>Fabricante</th><th>Componentes y rasgos</th></tr>
+<tr><td>Microsoft 365</td><td>Microsoft</td><td>Word, Excel, PowerPoint en línea, Teams, OneDrive, SharePoint, Planner, Forms y Loop. Integra el asistente Copilot.</td></tr>
+<tr><td>Google Workspace</td><td>Google</td><td>Docs, Sheets, Slides, Drive, Meet, Chat, Forms y Calendar; destaca la coedición en el navegador.</td></tr>
+<tr><td>Slack</td><td>Salesforce</td><td>Mensajería por canales, muchas integraciones.</td></tr>
+<tr><td>Trello</td><td>Atlassian</td><td>Tableros kanban con tarjetas y listas.</td></tr>
+<tr><td>Asana</td><td>Asana Inc.</td><td>Gestión de proyectos con tareas, plazos y flujos de trabajo.</td></tr>
+<tr><td>Notion / Miro</td><td>Notion Labs / Miro</td><td>Notas, wikis y bases de datos / pizarra visual colaborativa.</td></tr>
+<tr><td>Figma</td><td>Figma Inc.</td><td>Diseño de interfaces y prototipos en el navegador.</td></tr>
+<tr><td>Dropbox</td><td>Dropbox Inc.</td><td>Almacenamiento y sincronización de archivos.</td></tr></table>
+<div class="box"><b>Dato verificado.</b> Adobe XD, citado a menudo como herramienta de prototipado colaborativo, está en «modo de mantenimiento» desde 2024: Adobe solo corrige errores y problemas de seguridad, no desarrolla nuevas funciones y no lo vende como aplicación independiente. Figma es hoy la alternativa más usada.</div></div>
+
+<div id="s8"><h2>8. Aplicación en talento humano</h2>
+<table><tr><th>Proceso</th><th>Herramienta y uso</th><th>Precaución</th></tr>
+<tr><td>Selección</td><td>Tablero kanban (Trello, Planner) con columnas: postulado, entrevista, prueba, oferta.</td><td>No dejar hojas de vida en enlaces públicos.</td></tr>
+<tr><td>Inducción</td><td>Lista de tareas compartida, carpeta de bienvenida, videollamada de inducción.</td><td>Dar acceso solo a lo necesario.</td></tr>
+<tr><td>Comunicación interna</td><td>Canales por área, anuncios, encuestas rápidas.</td><td>Respetar horarios de desconexión.</td></tr>
+<tr><td>Clima y satisfacción</td><td>Formularios (Forms) y análisis de resultados en una hoja de cálculo.</td><td>Garantizar anonimato cuando se ofrezca.</td></tr>
+<tr><td>Documentación de procesos</td><td>Manuales, políticas y formatos en un espacio compartido con control de versiones.</td><td>Un solo documento oficial vigente.</td></tr>
+<tr><td>Capacitación</td><td>Sesiones virtuales, carpetas de material, evaluaciones en línea.</td><td>Registrar asistencia y evidencias.</td></tr>
+<tr><td>Comités y reuniones</td><td>Videollamadas con acta compartida y tareas asignadas.</td><td>Informar si se graba la reunión.</td></tr></table></div>
+
+<div id="s9"><h2>9. Seguridad, privacidad y marco legal en Colombia</h2>
+<h3>9.1 Riesgos frecuentes</h3>
+<ul><li><b>Exposición por enlaces abiertos:</b> compartir con «cualquier persona con el enlace» deja datos accesibles.</li><li><b>Herramientas no autorizadas (<i>shadow IT</i>):</b> empleados usan aplicaciones personales con datos de la empresa.</li><li><b>Transferencia de datos al exterior:</b> muchas plataformas almacenan datos fuera del país; la Ley 1581 regula esa transferencia.</li><li><b>Sobrecarga y desconexión:</b> mensajes fuera de horario afectan el descanso.</li><li><b>Brecha digital y dependencia del proveedor.</b></li></ul>
+<h3>9.2 Normas colombianas relevantes</h3>
+<table><tr><th>Norma</th><th>Relación con las herramientas colaborativas</th></tr>
+<tr><td>Ley 1581 de 2012</td><td>Protección de datos personales: autorización, finalidad, seguridad, acceso restringido; datos sensibles (como los de salud) con protección reforzada; reglas para la transferencia internacional.</td></tr>
+<tr><td>Ley 1221 de 2008</td><td>Regula el teletrabajo.</td></tr>
+<tr><td>Ley 2088 de 2021</td><td>Regula el trabajo en casa como habilitación excepcional.</td></tr>
+<tr><td>Ley 2121 de 2021</td><td>Regula el trabajo remoto.</td></tr>
+<tr><td>Ley 2191 de 2022</td><td>Regula la desconexión laboral: derecho a no atender comunicaciones laborales fuera de la jornada.</td></tr></table>
+<div class="box"><b>Buenas prácticas de seguridad:</b> autenticación multifactor, permisos de mínimo privilegio, revisar periódicamente quién tiene acceso, evitar enlaces públicos para datos de personas, no compartir datos sensibles por chat, usar solo herramientas autorizadas por la organización, y seguir un estándar de gestión como ISO/IEC 27001.</div></div>
+
+<div id="s10"><h2>10. Criterios de selección y buenas prácticas</h2>
+<h3>Criterios para elegir una herramienta</h3>
+<ul><li><b>Necesidad:</b> qué problema resuelve (comunicar, documentar, coordinar).</li><li><b>Costo y licencias</b>, y si ya existe una suite contratada.</li><li><b>Seguridad y cumplimiento</b>: ubicación de los datos, cifrado, auditoría.</li><li><b>Integración</b> con las herramientas existentes.</li><li><b>Facilidad de uso y capacitación</b> necesaria.</li><li><b>Accesibilidad</b> en móviles y con conectividad limitada.</li></ul>
+<h3>Netiqueta y acuerdos de equipo</h3>
+<ul><li>Definir qué se comunica por cada canal (chat para lo breve, correo para lo formal, tablero para tareas).</li><li>Nombrar los archivos con un estándar y mantener una sola versión oficial.</li><li>Fijar horarios de respuesta y respetar la desconexión.</li><li>Asignar responsable y fecha a cada tarea.</li></ul></div>
+
+<div id="s11"><h2>11. Precisiones al material base</h2>
+<p>Al contrastar <i>herramientas_web.pdf</i> con las fuentes se sugieren estos ajustes:</p>
+<table><tr><th>Afirmación del material</th><th>Precisión</th></tr>
+<tr><td>«Adobe XD4» como herramienta de prototipado</td><td>El nombre correcto es Adobe XD, y desde 2024 está en modo de mantenimiento, sin nuevas funciones; Figma es la alternativa dominante.</td></tr>
+<tr><td>«Microsoft Office 365»</td><td>Se renombró Microsoft 365 en 2020; Office 365 es hoy un nombre histórico.</td></tr>
+<tr><td>Slack y Teams solo como «comunicación en tiempo real»</td><td>También sirven para comunicación asincrónica (canales, hilos, mensajes diferidos).</td></tr>
+<tr><td>Sincrónicas: videoconferencias y chats; asincrónicas: correo y foros</td><td>Correcto como criterio; conviene añadir la matriz de tiempo y espacio y los ejemplos de Zoom, Meet y Teams.</td></tr>
+<tr><td>«Seguridad: protegen la información»</td><td>La protección es compartida: el proveedor ofrece controles, pero la organización debe configurarlos (permisos, MFA, enlaces).</td></tr>
+<tr><td>«Eliminan las barreras de distancia y tiempo»</td><td>Las reducen, pero persisten los husos horarios, la brecha digital y la necesidad de acuerdos de desconexión.</td></tr></table></div>
+
+<div id="s12"><h2>12. Conclusiones</h2>
+<ul><li>Las herramientas colaborativas se clasifican por función y por el modo en que coordinan tiempo y espacio; las suites actuales reúnen varias funciones en una sola plataforma.</li><li>Sus principales aportes son la coedición, el control de versiones, los permisos por rol y las integraciones.</li><li>En talento humano facilitan la selección, la inducción, la comunicación interna y la documentación, pero manejan datos de personas que exigen cumplir la Ley 1581 de 2012.</li><li>La seguridad depende de la configuración y de los hábitos de uso, no solo del proveedor.</li><li>El derecho a la desconexión laboral (Ley 2191 de 2022) obliga a definir reglas de comunicación en el equipo.</li></ul></div>
+
+<div id="s13"><h2>13. Glosario</h2>
+<table><tr><th>Término</th><th>Definición</th></tr>
+<tr><td>Groupware</td><td>Software diseñado para apoyar el trabajo en grupo.</td></tr>
+<tr><td>Coedición</td><td>Edición simultánea de un mismo archivo por varias personas.</td></tr>
+<tr><td>Sincrónico / asincrónico</td><td>Interacción al mismo tiempo / en tiempos distintos.</td></tr>
+<tr><td>Kanban</td><td>Tablero visual con columnas que representan el estado de las tareas.</td></tr>
+<tr><td>MFA</td><td>Autenticación multifactor: exige más de una prueba de identidad.</td></tr>
+<tr><td>Shadow IT</td><td>Uso de herramientas no autorizadas por la organización.</td></tr>
+<tr><td>Desconexión laboral</td><td>Derecho del trabajador a no atender asuntos laborales fuera de su jornada.</td></tr></table></div>
+</section>
+
+<section class="pg"><div id="s14"><h2>14. Referencias</h2>
+<p class="ref">Congreso de la República de Colombia. (2008). <i>Ley 1221 de 2008</i>, por la cual se establecen normas para promover y regular el teletrabajo.</p>
+<p class="ref">Congreso de la República de Colombia. (2012). <i>Ley Estatutaria 1581 de 2012</i>, por la cual se dictan disposiciones generales para la protección de datos personales.</p>
+<p class="ref">Congreso de la República de Colombia. (2021). <i>Ley 2088 de 2021</i>, por la cual se regula la habilitación de trabajo en casa; y <i>Ley 2121 de 2021</i>, por medio de la cual se crea el régimen de trabajo remoto.</p>
+<p class="ref">Congreso de la República de Colombia. (2022). <i>Ley 2191 de 2022</i>, por medio de la cual se regula la desconexión laboral.</p>
+<p class="ref">Creative Bloq. (2024). <i>It seems Adobe's given up on UI design (for now)</i>. https://www.creativebloq.com/news/future-of-adobe-xd</p>
+<p class="ref">Ellis, C. A., Gibbs, S. J. y Rein, G. L. (1991). Groupware: Some issues and experiences. <i>Communications of the ACM, 34</i>(1), 39–58.</p>
+<p class="ref">Google. (s. f.). <i>Documentación de Google Workspace</i>. https://workspace.google.com</p>
+<p class="ref">Grudin, J. (1994). Computer-supported cooperative work: History and focus. <i>Computer, 27</i>(5), 37–45.</p>
+<p class="ref">International Organization for Standardization. (2022). <i>ISO/IEC 27001:2022, Information security management systems — Requirements</i>.</p>
+<p class="ref">Johansen, R. (1988). <i>Groupware: Computer support for business teams</i>. The Free Press.</p>
+<p class="ref">Microsoft. (s. f.). <i>Documentación de Microsoft 365 y Microsoft Teams</i>. https://learn.microsoft.com</p>
+<p class="ref">Atlassian. (s. f.). <i>Trello: guía y documentación</i>. https://trello.com/guide</p>
+<p class="ref">Slack Technologies. (s. f.). <i>Centro de ayuda de Slack</i>. https://slack.com/help</p>
+<p class="ref">Superintendencia de Industria y Comercio. (s. f.). <i>Protección de datos personales</i>. https://www.sic.gov.co</p>
+</div></section>
+</body></html>
