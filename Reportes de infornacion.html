@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Normas técnicas para informes — analiza, aplica y evalúa</title>
+  <title>Reto 8. Normas técnicas para informes</title>
   <style>
     :root {
       --navy: #14213D;
@@ -400,6 +400,160 @@
     .material-card:hover .material-btn {
       background: var(--teal);
       color: #FFFFFF;
+    }
+
+    /* ---------- Cuadros de Documentos con Previsualización (Introducción) ---------- */
+    .intro-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .intro-preview-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .doc-preview-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 12px;
+      padding: 22px 24px;
+      display: flex;
+      flex-direction: column;
+      border-left: 6px solid var(--teal);
+      box-shadow: 0 4px 16px rgba(20, 33, 61, 0.06);
+      transition: all 0.2s ease;
+    }
+
+    .doc-preview-card:hover {
+      box-shadow: 0 8px 24px rgba(20, 33, 61, 0.12);
+      border-color: var(--teal);
+    }
+
+    .doc-preview-card .card-header-row {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .doc-preview-card .card-icon {
+      font-size: 2.2rem;
+      line-height: 1;
+      flex: 0 0 auto;
+    }
+
+    .doc-preview-card .card-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .doc-preview-card .card-info h3 {
+      font-size: 1.15rem;
+      margin: 4px 0 6px;
+      color: var(--navy);
+    }
+
+    .doc-preview-card .card-info p {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      margin-bottom: 0;
+      line-height: 1.45;
+    }
+
+    .doc-actions-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 14px 0 16px;
+    }
+
+    .doc-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .doc-btn-primary {
+      background: var(--teal);
+      color: #FFFFFF;
+    }
+
+    .doc-btn-primary:hover {
+      background: var(--teal-dark);
+      color: #FFFFFF;
+    }
+
+    .doc-btn-secondary {
+      background: rgba(31, 122, 108, 0.1);
+      color: var(--teal);
+      border-color: rgba(31, 122, 108, 0.2);
+    }
+
+    .doc-btn-secondary:hover {
+      background: rgba(31, 122, 108, 0.18);
+      color: var(--teal-dark);
+    }
+
+    .doc-btn-print {
+      background: rgba(20, 33, 61, 0.08);
+      color: var(--navy);
+      border-color: rgba(20, 33, 61, 0.15);
+    }
+
+    .doc-btn-print:hover {
+      background: var(--navy);
+      color: #FFFFFF;
+    }
+
+    .doc-preview-container {
+      background: #F8FAFC;
+      border: 1px solid var(--border-cool);
+      border-radius: 8px;
+      overflow: hidden;
+      height: 480px;
+      box-shadow: inset 0 2px 6px rgba(20, 33, 61, 0.05);
+      flex: 1 1 auto;
+    }
+
+    .doc-preview-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* Tarjeta de documento en actividad presencial */
+    .presencial-material-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 12px;
+      padding: 22px 24px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      border-left: 6px solid var(--teal);
+      margin-top: 24px;
+      box-shadow: 0 4px 16px rgba(20, 33, 61, 0.06);
+      transition: all 0.2s ease;
+    }
+
+    .presencial-material-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(20, 33, 61, 0.12);
+      border-color: var(--teal);
     }
 
     main {
@@ -1205,6 +1359,11 @@
         display: none !important;
       }
 
+      .aduana-wrapper,
+      #aduanaFrame {
+        display: none !important;
+      }
+
       body.printing-report {
         background: #ffffff !important;
         color: #111827 !important;
@@ -1866,6 +2025,21 @@
       font-size: 0.8rem;
       color: var(--ink-soft);
       font-family: ui-monospace, "SF Mono", Consolas, monospace;
+    }
+
+    /* ---------- Aduana Frame ---------- */
+    .aduana-wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .aduana-frame {
+      width: 100%;
+      min-height: 860px;
+      border: none;
+      background: transparent;
+      display: block;
     }
 
     /* Modal Lightbox */
@@ -2582,6 +2756,7 @@
         <button data-section="dashboard">Dashboard</button>
         <button data-section="fisica">Actividad presencial</button>
         <button data-section="mapamental">Mapa Mental</button>
+        <button data-section="aduana">Aduana</button>
       </nav>
     </div>
   </div>
@@ -2622,6 +2797,64 @@
             <button data-goto="dashboard">📊 Dashboard — resultados, gráficos y análisis</button>
             <button data-goto="fisica">✋ Actividad presencial — la comisión auditora de informes</button>
             <button data-goto="mapamental">🗺️ Mapa Mental — esquema conceptual de las normas</button>
+            <button data-goto="aduana">🛃 Aduana — Sistema central de entrega y acumulación de NEXs</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cuadros con previsualización, descarga, apertura e impresión de documentos -->
+      <div class="intro-preview-grid">
+        <!-- Cuadro Izquierdo: Normas técnicas para informes_ informe de investigación.html -->
+        <div class="doc-preview-card">
+          <div class="card-header-row">
+            <div class="card-icon">📑</div>
+            <div class="card-info">
+              <span class="tag">DOCUMENTO TÉCNICO DE INVESTIGACIÓN</span>
+              <h3>Normas técnicas para informes: informe de investigación</h3>
+              <p>Estructura, tipos, características, normas ICONTEC (NTC 1486, NTC 3588, GTC 185), citación APA y
+                aplicación en novedades de talento humano.</p>
+            </div>
+          </div>
+          <div class="doc-actions-bar">
+            <a href="Normas%20t%C3%A9cnicas%20para%20informes_%20informe%20de%20investigaci%C3%B3n.html" target="_blank"
+              class="doc-btn doc-btn-primary">Abrir documento ↗</a>
+            <a href="Normas%20t%C3%A9cnicas%20para%20informes_%20informe%20de%20investigaci%C3%B3n.html"
+              download="Normas técnicas para informes_ informe de investigación.html"
+              class="doc-btn doc-btn-secondary">Descargar ⬇</a>
+            <button type="button"
+              onclick="printExternalDoc('Normas%20t%C3%A9cnicas%20para%20informes_%20informe%20de%20investigaci%C3%B3n.html', 'frameIntroHtml')"
+              class="doc-btn doc-btn-print">Imprimir 🖨️</button>
+          </div>
+          <div class="doc-preview-container">
+            <iframe id="frameIntroHtml"
+              src="Normas%20t%C3%A9cnicas%20para%20informes_%20informe%20de%20investigaci%C3%B3n.html"
+              class="doc-preview-frame"
+              title="Previsualización: Normas técnicas para informes - informe de investigación"></iframe>
+          </div>
+        </div>
+
+        <!-- Cuadro Derecho: Byteon_HR_Standardization_Protocol.pdf -->
+        <div class="doc-preview-card">
+          <div class="card-header-row">
+            <div class="card-icon">📊</div>
+            <div class="card-info">
+              <span class="tag">PRESENTACIÓN INSTITUCIONAL PDF</span>
+              <h3>Byteon HR Standardization Protocol</h3>
+              <p>Presentación técnica institucional sobre directrices, estructura y protocolos de estandarización
+                documental en el planeta Byteon.</p>
+            </div>
+          </div>
+          <div class="doc-actions-bar">
+            <a href="Byteon_HR_Standardization_Protocol.pdf" target="_blank" class="doc-btn doc-btn-primary">Abrir
+              presentación ↗</a>
+            <a href="Byteon_HR_Standardization_Protocol.pdf" download="Byteon_HR_Standardization_Protocol.pdf"
+              class="doc-btn doc-btn-secondary">Descargar PDF ⬇</a>
+            <button type="button" onclick="printExternalDoc('Byteon_HR_Standardization_Protocol.pdf', 'frameIntroPdf')"
+              class="doc-btn doc-btn-print">Imprimir 🖨️</button>
+          </div>
+          <div class="doc-preview-container">
+            <iframe id="frameIntroPdf" src="Byteon_HR_Standardization_Protocol.pdf#toolbar=1&navpanes=0"
+              class="doc-preview-frame" title="Previsualización: Byteon HR Standardization Protocol"></iframe>
           </div>
         </div>
       </div>
@@ -3325,6 +3558,30 @@
         <button type="button" class="ghost print-btn" id="printBtn">🖨️ Imprimir roles, informe de muestra, hoja de
           hallazgos y respuestas</button>
       </div>
+
+      <!-- Cuadro de Material de Apoyo para Actividad Presencial (Sin previsualización) -->
+      <div class="presencial-material-card">
+        <div class="material-icon">📄</div>
+        <div class="material-body">
+          <span class="tag">GUÍA Y DOCUMENTO OFICIAL</span>
+          <h3 style="font-size: 1.15rem; margin: 4px 0 6px; color: var(--navy);">Actividad: Normas Técnicas para
+            Informes - Talento Humano</h3>
+          <p style="font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 14px; line-height: 1.45;">
+            Guía oficial de actividad en formato PDF para los equipos de auditoría de informes: contiene las tarjetas de
+            rol, el informe de muestra para auditar, la hoja de hallazgos y la hoja de respuestas para la sesión
+            presencial.
+          </p>
+          <div class="doc-actions-bar" style="margin-bottom: 0;">
+            <a href="Actividad_Normas_Tecnicas_Informes_Talento_Humano.pdf" target="_blank"
+              class="doc-btn doc-btn-primary">Abrir documento PDF ↗</a>
+            <a href="Actividad_Normas_Tecnicas_Informes_Talento_Humano.pdf"
+              download="Actividad_Normas_Tecnicas_Informes_Talento_Humano.pdf"
+              class="doc-btn doc-btn-secondary">Descargar PDF ⬇</a>
+            <button type="button" onclick="printExternalDoc('Actividad_Normas_Tecnicas_Informes_Talento_Humano.pdf')"
+              class="doc-btn doc-btn-print">Imprimir PDF 🖨️</button>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- MAPA MENTAL -->
@@ -3382,6 +3639,14 @@
           </div>
           <span class="mapa-note">Mapa generado con los contenidos de la misión</span>
         </div>
+      </div>
+    </section>
+
+    <!-- ADUANA DE EVIDENCIAS BYTEON -->
+    <section data-section="aduana">
+      <div class="aduana-wrapper">
+        <iframe id="aduanaFrame" src="aduana.html" class="aduana-frame"
+          title="Aduana de Evidencias y Acumulador de NEXs"></iframe>
       </div>
     </section>
   </main>
@@ -3500,7 +3765,7 @@
         <div class="report-project-sub">
           <strong>FASES DEL PROYECTO:</strong> AN&Aacute;LISIS Y PLANEACI&Oacute;N &bull;
           <strong>PROGRAMA:</strong> T&Eacute;CNICO EN TALENTO HUMANO &bull;
-          <strong>RETO:</strong> 1. NORMAS T&Eacute;CNICAS PARA LA ELABORACI&Oacute;N Y PRESENTACI&Oacute;N DE INFORMES
+          <strong>RETO:</strong> Reto 8. Normas técnicas para informes
         </div>
         <div class="report-ra">
           <strong>RESULTADOS DE APRENDIZAJE:</strong>
@@ -3917,9 +4182,27 @@
       sections.forEach(s => s.classList.toggle('active', s.dataset.section === name));
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (name === 'dashboard') renderDashboard();
+      if (name === 'aduana') {
+        const frame = document.getElementById('aduanaFrame');
+        if (frame && frame.contentWindow) {
+          try {
+            frame.contentWindow.postMessage({ type: 'aduana-check-height' }, '*');
+          } catch (e) { }
+        }
+      }
     }
     tabButtons.forEach(b => b.addEventListener('click', () => goTo(b.dataset.section)));
     document.querySelectorAll('[data-goto]').forEach(b => b.addEventListener('click', () => goTo(b.dataset.goto)));
+
+    // Ajuste dinámico de altura para el iframe de Aduana
+    window.addEventListener('message', function (event) {
+      if (event.data && event.data.type === 'aduana-resize') {
+        const frame = document.getElementById('aduanaFrame');
+        if (frame && event.data.height) {
+          frame.style.height = (event.data.height + 20) + 'px';
+        }
+      }
+    });
 
     // ---------- Sub-navegación del Evaluador ----------
     const evalSubButtons = document.querySelectorAll('#evalSubnav button');
@@ -4620,7 +4903,9 @@
       }
     }
     document.getElementById('printReportBtn').addEventListener('click', () => {
+      document.title = 'Reto 8. Normas técnicas para informes';
       populatePrintReport();
+      document.body.classList.remove('printing-cards');
       document.body.classList.add('printing-report');
       window.print();
     });
@@ -4628,6 +4913,31 @@
       document.body.classList.remove('printing-cards');
       document.body.classList.remove('printing-report');
     });
+
+    // Función auxiliar para imprimir documentos externos (HTML o PDF)
+    function printExternalDoc(url, iframeId) {
+      if (iframeId) {
+        const frame = document.getElementById(iframeId);
+        if (frame && frame.contentWindow) {
+          try {
+            frame.contentWindow.focus();
+            frame.contentWindow.print();
+            return;
+          } catch (e) {
+            console.warn('Iframe print intercepted:', e);
+          }
+        }
+      }
+      const printWin = window.open(url, '_blank');
+      if (printWin) {
+        printWin.focus();
+        printWin.addEventListener('load', () => {
+          setTimeout(() => {
+            try { printWin.print(); } catch (_) { }
+          }, 350);
+        });
+      }
+    }
 
     // =====================================================================
     //  MAPA MENTAL (SVG generado)
