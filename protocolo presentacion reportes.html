@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Protocolo para la Presentación de Reportes — analiza, aplica y evalúa</title>
+  <title>Reto 9. Protocolo para la Presentación de Reportes</title>
   <style>
     :root {
       --navy: #14213D;
@@ -400,6 +400,160 @@
     .material-card:hover .material-btn {
       background: var(--teal);
       color: #FFFFFF;
+    }
+
+    /* ---------- Cuadros de Documentos con Previsualización (Introducción) ---------- */
+    .intro-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .intro-preview-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .doc-preview-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 12px;
+      padding: 22px 24px;
+      display: flex;
+      flex-direction: column;
+      border-left: 6px solid var(--teal);
+      box-shadow: 0 4px 16px rgba(20, 33, 61, 0.06);
+      transition: all 0.2s ease;
+    }
+
+    .doc-preview-card:hover {
+      box-shadow: 0 8px 24px rgba(20, 33, 61, 0.12);
+      border-color: var(--teal);
+    }
+
+    .doc-preview-card .card-header-row {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .doc-preview-card .card-icon {
+      font-size: 2.2rem;
+      line-height: 1;
+      flex: 0 0 auto;
+    }
+
+    .doc-preview-card .card-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .doc-preview-card .card-info h3 {
+      font-size: 1.15rem;
+      margin: 4px 0 6px;
+      color: var(--navy);
+    }
+
+    .doc-preview-card .card-info p {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      margin-bottom: 0;
+      line-height: 1.45;
+    }
+
+    .doc-actions-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 14px 0 16px;
+    }
+
+    .doc-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .doc-btn-primary {
+      background: var(--teal);
+      color: #FFFFFF;
+    }
+
+    .doc-btn-primary:hover {
+      background: var(--teal-dark);
+      color: #FFFFFF;
+    }
+
+    .doc-btn-secondary {
+      background: rgba(31, 122, 108, 0.1);
+      color: var(--teal);
+      border-color: rgba(31, 122, 108, 0.2);
+    }
+
+    .doc-btn-secondary:hover {
+      background: rgba(31, 122, 108, 0.18);
+      color: var(--teal-dark);
+    }
+
+    .doc-btn-print {
+      background: rgba(20, 33, 61, 0.08);
+      color: var(--navy);
+      border-color: rgba(20, 33, 61, 0.15);
+    }
+
+    .doc-btn-print:hover {
+      background: var(--navy);
+      color: #FFFFFF;
+    }
+
+    .doc-preview-container {
+      background: #F8FAFC;
+      border: 1px solid var(--border-cool);
+      border-radius: 8px;
+      overflow: hidden;
+      height: 480px;
+      box-shadow: inset 0 2px 6px rgba(20, 33, 61, 0.05);
+      flex: 1 1 auto;
+    }
+
+    .doc-preview-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* Tarjeta de documento en actividad presencial */
+    .presencial-material-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 12px;
+      padding: 22px 24px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      border-left: 6px solid var(--teal);
+      margin-top: 24px;
+      box-shadow: 0 4px 16px rgba(20, 33, 61, 0.06);
+      transition: all 0.2s ease;
+    }
+
+    .presencial-material-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(20, 33, 61, 0.12);
+      border-color: var(--teal);
     }
 
     main {
@@ -1207,6 +1361,11 @@
         display: none !important;
       }
 
+      .aduana-wrapper,
+      #aduanaFrame {
+        display: none !important;
+      }
+
       body.printing-report {
         background: #ffffff !important;
         color: #111827 !important;
@@ -1997,6 +2156,21 @@
       border-radius: 6px;
     }
 
+    /* ---------- Aduana Frame ---------- */
+    .aduana-wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .aduana-frame {
+      width: 100%;
+      min-height: 860px;
+      border: none;
+      background: transparent;
+      display: block;
+    }
+
     .type-card.cuarta {
       border-left-color: var(--navy);
     }
@@ -2222,6 +2396,7 @@
         <button data-section="dashboard">Dashboard</button>
         <button data-section="fisica">Actividad presencial</button>
         <button data-section="mapamental">Mapa Mental</button>
+        <button data-section="aduana">Aduana</button>
       </nav>
     </div>
   </div>
@@ -2263,6 +2438,64 @@
             <button data-goto="dashboard">📊 Dashboard — resultados, gráficos y análisis</button>
             <button data-goto="fisica">✋ Actividad presencial — la auditoría de reportes</button>
             <button data-goto="mapamental">🗺️ Mapa Mental — esquema conceptual del protocolo de reportes</button>
+            <button data-goto="aduana">🛃 Aduana — Sistema central de entrega y acumulación de NEXs</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cuadros de Documentos con Previsualización -->
+      <div class="intro-preview-grid">
+        <!-- Cuadro Izquierdo: Protocolo para la presentación de reportes_ informe de investigación.html -->
+        <div class="doc-preview-card">
+          <div class="card-header-row">
+            <div class="card-icon">📑</div>
+            <div class="card-info">
+              <span class="tag">DOCUMENTO TÉCNICO DE INVESTIGACIÓN</span>
+              <h3>Protocolo para la presentación de reportes: informe de investigación</h3>
+              <p>Estructura, tipos, características, normas técnicas y directrices para la presentación estandarizada de
+                reportes en la gestión de talento humano.</p>
+            </div>
+          </div>
+          <div class="doc-actions-bar">
+            <a href="Protocolo%20para%20la%20presentaci%C3%B3n%20de%20reportes_%20informe%20de%20investigaci%C3%B3n.html"
+              target="_blank" class="doc-btn doc-btn-primary">Abrir documento ↗</a>
+            <a href="Protocolo%20para%20la%20presentaci%C3%B3n%20de%20reportes_%20informe%20de%20investigaci%C3%B3n.html"
+              download="Protocolo para la presentación de reportes_ informe de investigación.html"
+              class="doc-btn doc-btn-secondary">Descargar ⬇</a>
+            <button type="button"
+              onclick="printExternalDoc('Protocolo%20para%20la%20presentaci%C3%B3n%20de%20reportes_%20informe%20de%20investigaci%C3%B3n.html', 'frameIntroHtml')"
+              class="doc-btn doc-btn-print">Imprimir 🖨️</button>
+          </div>
+          <div class="doc-preview-container">
+            <iframe id="frameIntroHtml"
+              src="Protocolo%20para%20la%20presentaci%C3%B3n%20de%20reportes_%20informe%20de%20investigaci%C3%B3n.html"
+              class="doc-preview-frame"
+              title="Previsualización: Protocolo para la presentación de reportes - informe de investigación"></iframe>
+          </div>
+        </div>
+
+        <!-- Cuadro Derecho: Protocolos_de_Datos_Byteon.pdf -->
+        <div class="doc-preview-card">
+          <div class="card-header-row">
+            <div class="card-icon">📊</div>
+            <div class="card-info">
+              <span class="tag">PRESENTACIÓN INSTITUCIONAL PDF</span>
+              <h3>Protocolos de Datos Byteon</h3>
+              <p>Presentación técnica institucional sobre directrices, estructura y protocolos para la presentación de
+                reportes en el planeta Byteon.</p>
+            </div>
+          </div>
+          <div class="doc-actions-bar">
+            <a href="Protocolos_de_Datos_Byteon.pdf" target="_blank" class="doc-btn doc-btn-primary">Abrir presentación
+              ↗</a>
+            <a href="Protocolos_de_Datos_Byteon.pdf" download="Protocolos_de_Datos_Byteon.pdf"
+              class="doc-btn doc-btn-secondary">Descargar PDF ⬇</a>
+            <button type="button" onclick="printExternalDoc('Protocolos_de_Datos_Byteon.pdf', 'frameIntroPdf')"
+              class="doc-btn doc-btn-print">Imprimir 🖨️</button>
+          </div>
+          <div class="doc-preview-container">
+            <iframe id="frameIntroPdf" src="Protocolos_de_Datos_Byteon.pdf#toolbar=1&navpanes=0"
+              class="doc-preview-frame" title="Previsualización: Protocolos de Datos Byteon"></iframe>
           </div>
         </div>
       </div>
@@ -2780,6 +3013,30 @@
         </ol>
         <button class="ghost print-btn" id="printBtn">🖨️ Imprimir tarjetas y hoja de respuestas</button>
       </div>
+
+      <!-- Documento oficial de la actividad presencial (sin previsualización) -->
+      <div class="presencial-material-card">
+        <div class="material-icon">📄</div>
+        <div class="material-body">
+          <span class="tag">GUÍA Y DOCUMENTO OFICIAL</span>
+          <h3 style="font-size: 1.15rem; margin: 4px 0 6px; color: var(--navy);">Actividad: Protocolo para la
+            Presentación de Reportes - Talento Humano</h3>
+          <p style="font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 14px; line-height: 1.45;">
+            Guía oficial de actividad en formato PDF para la sesión presencial: contiene las instrucciones, directrices
+            para la auditoría de reportes y la hoja de trabajo para los equipos.
+          </p>
+          <div class="doc-actions-bar" style="margin-bottom: 0;">
+            <a href="Actividad_Protocolo_Presentacion_Reportes_Talento_Humano.pdf" target="_blank"
+              class="doc-btn doc-btn-primary">Abrir documento PDF ↗</a>
+            <a href="Actividad_Protocolo_Presentacion_Reportes_Talento_Humano.pdf"
+              download="Actividad_Protocolo_Presentacion_Reportes_Talento_Humano.pdf"
+              class="doc-btn doc-btn-secondary">Descargar PDF ⬇</a>
+            <button type="button"
+              onclick="printExternalDoc('Actividad_Protocolo_Presentacion_Reportes_Talento_Humano.pdf')"
+              class="doc-btn doc-btn-print">Imprimir PDF 🖨️</button>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- MAPA MENTAL -->
@@ -2841,6 +3098,14 @@
           de errores · profesionalismo y transparencia</div>
       </div>
     </section>
+
+    <!-- ADUANA DE EVIDENCIAS BYTEON -->
+    <section data-section="aduana">
+      <div class="aduana-wrapper">
+        <iframe id="aduanaFrame" src="aduana.html" class="aduana-frame"
+          title="Aduana de Evidencias y Acumulador de NEXs"></iframe>
+      </div>
+    </section>
   </main>
 
   <!-- Printable content, only visible via window.print() -->
@@ -2884,7 +3149,7 @@
         <div class="report-project-sub">
           <strong>FASES DEL PROYECTO:</strong> AN&Aacute;LISIS Y PLANEACI&Oacute;N &bull;
           <strong>PROGRAMA:</strong> T&Eacute;CNICO EN TALENTO HUMANO &bull;
-          <strong>RETO:</strong> 2. PROTOCOLO PARA LA PRESENTACI&Oacute;N DE REPORTES
+          <strong>RETO:</strong> Reto 9. Protocolo para la Presentaci&oacute;n de Reportes
         </div>
         <div class="report-ra">
           <strong>RESULTADOS DE APRENDIZAJE:</strong>
@@ -3065,11 +3330,29 @@
     // ---------- Navigation ----------
     const tabButtons = document.querySelectorAll('#tabs button[data-section]');
     const sections = document.querySelectorAll('main > section');
+
+    window.addEventListener('message', function (event) {
+      if (event.data && event.data.type === 'aduana-resize') {
+        const frame = document.getElementById('aduanaFrame');
+        if (frame && event.data.height) {
+          frame.style.height = (event.data.height + 20) + 'px';
+        }
+      }
+    });
+
     function goTo(name) {
       tabButtons.forEach(b => b.classList.toggle('active', b.dataset.section === name));
       sections.forEach(s => s.classList.toggle('active', s.dataset.section === name));
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (name === 'dashboard') renderDashboard();
+      if (name === 'aduana') {
+        const frame = document.getElementById('aduanaFrame');
+        if (frame && frame.contentWindow) {
+          try {
+            frame.contentWindow.postMessage({ type: 'aduana-check-height' }, '*');
+          } catch (e) { }
+        }
+      }
     }
     tabButtons.forEach(b => b.addEventListener('click', () => goTo(b.dataset.section)));
     document.querySelectorAll('[data-goto]').forEach(b => {
@@ -3412,6 +3695,31 @@
     window.addEventListener('afterprint', () => {
       document.body.classList.remove('printing-cards');
     });
+
+    // Función para imprimir documentos externos (HTML o PDF)
+    function printExternalDoc(url, iframeId) {
+      if (iframeId) {
+        const frame = document.getElementById(iframeId);
+        if (frame && frame.contentWindow) {
+          try {
+            frame.contentWindow.focus();
+            frame.contentWindow.print();
+            return;
+          } catch (e) {
+            console.warn('Iframe print intercepted:', e);
+          }
+        }
+      }
+      const printWin = window.open(url, '_blank');
+      if (printWin) {
+        printWin.focus();
+        printWin.addEventListener('load', () => {
+          setTimeout(() => {
+            try { printWin.print(); } catch (_) { }
+          }, 350);
+        });
+      }
+    }
 
     // ================= DASHBOARD =================
 
@@ -3911,7 +4219,9 @@
     const printReportBtn = document.getElementById('printReportBtn');
     if (printReportBtn) {
       printReportBtn.addEventListener('click', () => {
+        document.title = 'Reto 9. Protocolo para la Presentación de Reportes';
         populatePrintReport();
+        document.body.classList.remove('printing-cards');
         document.body.classList.add('printing-report');
         window.print();
       });
