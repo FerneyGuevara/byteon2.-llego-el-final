@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Copias de seguridad: informe de investigación</title>
+<style>
+:root{--ink:#1b2440;--mut:#55607f;--cy:#0891b2;--vi:#6d28d9;--go:#b45309;--ln:#cbd5f0;--soft:#f1f4ff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:#e9edf8;color:var(--ink);font:16px/1.65 "Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:900px;margin:auto;padding:20px 16px 50px}
+h1,h2,h3,h4{font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.cover{min-height:92vh;display:flex;flex-direction:column;justify-content:center;border-radius:18px;padding:56px 44px;color:#e6ebff;background:radial-gradient(circle,#ffffff40 1px,transparent 1.6px) 0 0/34px 34px,radial-gradient(ellipse at 85% 8%,#4c1d95aa,transparent 55%),radial-gradient(ellipse at 8% 95%,#0e7490cc,transparent 55%),linear-gradient(165deg,#04060f,#10124a)}
+.eyebrow{color:#22d3ee;font-size:.8rem;font-weight:700;letter-spacing:.45em;text-transform:uppercase}
+.cover h1{font-size:2.3rem;line-height:1.2;margin:16px 0;background:linear-gradient(90deg,#22d3ee,#a78bfa 55%,#f472b6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cover .sub{color:#c7d2fe;font-size:1.1rem;max-width:760px}
+.flow{color:#22d3ee;font:700 .85rem "Courier New",monospace;letter-spacing:.18em;margin:18px 0 30px}
+.meta{border-left:5px solid #22d3ee;padding:4px 0 4px 20px}.meta p{margin:6px 0;color:#e6ebff}
+.btn{position:fixed;right:16px;top:calc(12px + env(safe-area-inset-top,0px));z-index:5;background:linear-gradient(90deg,#0891b2,#6d28d9);color:#fff;font-weight:700;border:0;border-radius:30px;padding:10px 20px;cursor:pointer;box-shadow:0 4px 14px #0003}
+.page{background:#fff;border-radius:18px;padding:34px 40px;margin-top:18px;box-shadow:0 2px 14px #1b244018}
+section{margin-top:30px}
+h2{font-size:1.5rem;color:var(--cy);border-bottom:3px solid var(--vi);padding-bottom:6px;margin:0 0 14px}
+h2 span{color:var(--vi);margin-right:6px}
+h3.sub{color:var(--vi);font-size:1.15rem;margin:24px 0 6px}h4{color:var(--go);font-size:1rem;margin:16px 0 4px}h3{color:var(--vi)}
+.toc h2{margin-top:0}.toc ol{list-style:none;margin:0;padding:0;columns:2;column-gap:36px}.toc li{margin:7px 0;break-inside:avoid}.toc b{color:var(--vi);margin-right:6px}
+a{color:#0e7490;text-decoration:none}a:hover{text-decoration:underline}
+.box{background:var(--soft);border-left:5px solid var(--vi);border-radius:8px;padding:12px 16px;margin:14px 0}
+.box.warn{border-color:#d97706;background:#fff7e6}.box b.t{color:var(--vi)}.box.warn b.t{color:var(--go)}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.92rem}
+th{background:linear-gradient(90deg,#0e7490,#6d28d9);color:#fff;text-align:left}
+th,td{padding:8px 10px;border:1px solid var(--ln);vertical-align:top}tr:nth-child(even) td{background:var(--soft)}
+.scroll{overflow-x:auto}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.k{background:var(--soft);border:1px solid var(--ln);border-top:4px solid var(--cy);border-radius:10px;padding:12px;text-align:center}.k big{display:block;font-size:2rem;color:var(--vi);font-weight:800}
+.ref li{margin:7px 0;font-size:.92rem}
+footer{text-align:center;color:var(--mut);margin-top:24px;font-size:.85rem}
+@media (max-width:640px){.toc ol{columns:1}.grid{grid-template-columns:1fr}.cover{padding:36px 22px}.cover h1{font-size:1.6rem}.page{padding:22px 18px}}
+@page{size:A4;margin:12mm}
+@media print{
+*{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{background:#fff;font-size:11pt;color:#1b2440}.btn{display:none}.wrap{max-width:none;padding:0}
+.cover{min-height:270mm;border-radius:0;page-break-after:always;break-after:page}
+.page{box-shadow:none;border-radius:0;padding:0;margin:0}.toc{page-break-after:always;break-after:page}
+section{margin-top:16px}h2,h3,h4{break-after:avoid;page-break-after:avoid}
+table,.box,.k,tr{break-inside:avoid;page-break-inside:avoid}}
+</style></head><body>
+<button class="btn" onclick="window.print()">🖨 Imprimir / Guardar PDF</button>
+<div class="wrap"><header class="cover"><div class="eyebrow">Técnico en Talento Humano</div>
+<h1>Copias de seguridad: concepto, tipos, software y gestión aplicados a la información del talento humano</h1>
+<p class="sub">Cómo proteger y recuperar los datos de las personas ante pérdidas, fallas y ataques, con aplicación al planeta Byteon</p>
+<div class="flow">DATO → COPIA → VERIFICACIÓN → RESTAURACIÓN → CONTINUIDAD</div>
+<div class="meta"><p><b>Competencia:</b> Operación de herramientas informáticas y digitales para talento humano</p><p><b>Misión Byteon · Reto N.º 3:</b> Copias de seguridad: concepto, tipos, backup y software</p><p><b>Autor(a):</b> [Nombre completo del aprendiz]</p><p><b>Instructor(a):</b> [Nombre del instructor]</p><p><b>Ficha / Centro:</b> [Número de ficha] – [Centro de formación]</p><p><b>Bogotá D.C., octubre de 2026</b></p></div></header>
+<nav class="page toc" id="toc"><h2>Tabla de contenido</h2><ol><li><a href="#s1"><b>01</b> Resumen y palabras clave</a></li><li><a href="#s2"><b>02</b> Introducción y planteamiento</a></li><li><a href="#s3"><b>03</b> Objetivos y justificación</a></li><li><a href="#s4"><b>04</b> Metodología</a></li><li><a href="#s5"><b>05</b> Marco teórico</a></li><li><a href="#s6"><b>06</b> Aplicación en talento humano</a></li><li><a href="#s7"><b>07</b> Marco normativo y estándares</a></li><li><a href="#s8"><b>08</b> Aplicación al caso Byteon</a></li><li><a href="#s9"><b>09</b> Tendencias y retos</a></li><li><a href="#s10"><b>10</b> Análisis y observaciones</a></li><li><a href="#s11"><b>11</b> Conclusiones</a></li><li><a href="#s12"><b>12</b> Recomendaciones</a></li><li><a href="#s13"><b>13</b> Glosario</a></li><li><a href="#s14"><b>14</b> Referencias</a></li><li><a href="#s15"><b>15</b> Anexo: ejercicios de cálculo</a></li></ol></nav>
+<main class="page"><section id="s1"><h2><span>01</span> Resumen y palabras clave</h2><p>Una copia de seguridad (backup) es un duplicado de datos almacenado de forma independiente para poder recuperarlos tras una pérdida, daño, borrado accidental, falla técnica o ataque informático. Este informe describe el concepto, los tres tipos principales de respaldo (completo, incremental y diferencial), la modalidad en la nube, la regla 3-2-1, los indicadores RPO y RTO, el software disponible, el marco normativo aplicable en Colombia y su uso concreto en las áreas de Talento Humano, donde se manejan datos personales y sensibles de los trabajadores.</p>
+<p><b>Palabras clave:</b> copia de seguridad, backup, recuperación ante desastres, RPO, RTO, protección de datos, talento humano.</p></section>
+<section id="s2"><h2><span>02</span> Introducción y planteamiento</h2><p>Las organizaciones dependen de información digital para operar: nómina, contratos, historias laborales, afiliaciones, evaluaciones y registros de asistencia. Perderla detiene procesos, genera sanciones y daña la confianza de los empleados. Las causas son variadas: error humano, falla de hardware, software malicioso (ransomware), robo, incendio o inundación.</p>
+<div class="box"><b class="t">Problema:</b> ¿cómo puede un técnico en talento humano asegurar que la información de los trabajadores pueda recuperarse de forma completa, oportuna y confidencial ante un incidente?</div></section>
+<section id="s3"><h2><span>03</span> Objetivos y justificación</h2><h3>Objetivo general</h3><p>Analizar el concepto, los tipos, el software y las buenas prácticas de las copias de seguridad aplicadas a la gestión de información de talento humano.</p>
+<h3>Objetivos específicos</h3>
+<ul><li>Definir copia de seguridad y distinguirla de la sincronización y el archivo.</li><li>Comparar copias completas, incrementales, diferenciales y en la nube.</li><li>Explicar la regla 3-2-1 y los indicadores RPO y RTO.</li><li>Identificar software de respaldo y criterios de selección.</li><li>Relacionar el backup con la normativa colombiana de protección de datos.</li></ul>
+<h3>Justificación</h3><p>El técnico en talento humano custodia datos personales, y de salud en ausencias e incapacidades. Respaldarlos bien es una obligación de seguridad, no solo una tarea informática.</p></section>
+<section id="s4"><h2><span>04</span> Metodología</h2><p>Investigación documental descriptiva: se revisó la guía «Copias de seguridad: concepto, tipos, backup y software» (Reto No. 3 del planeta Byteon), normas y guías técnicas de organismos reconocidos y documentación de fabricantes de software. Los datos se contrastaron y se organizaron en comparativos y recomendaciones aplicadas al contexto de talento humano.</p></section>
+<section id="s5"><h2><span>05</span> Marco teórico</h2><h3 class="sub">5.1 Marco conceptual</h3><p>Una <b>copia de seguridad</b> es una copia de datos o sistemas guardada en otro lugar o medio distinto del original, para restaurarlos si el original se pierde o se corrompe. Tres conceptos suelen confundirse:</p>
+<div class="scroll"><table><tr><th>Concepto</th><th>Qué hace</th><th>Limitación</th></tr>
+<tr><td>Backup</td><td>Guarda puntos de recuperación históricos</td><td>Requiere pruebas de restauración</td></tr>
+<tr><td>Sincronización</td><td>Mantiene dos ubicaciones iguales (p. ej., carpetas sincronizadas en la nube)</td><td>Un borrado o cifrado malicioso se replica; no equivale a backup</td></tr>
+<tr><td>Archivo</td><td>Conserva información histórica por retención</td><td>No está pensado para recuperación rápida</td></tr></table></div>
+<div class="grid"><div class="k"><big>RPO</big>Pérdida máxima de datos tolerable, medida en tiempo</div><div class="k"><big>RTO</big>Tiempo máximo aceptable para volver a operar</div><div class="k"><big>Retención</big>Cuánto tiempo se conserva cada copia</div></div><h3 class="sub">5.2 Tipos de copias de seguridad</h3><div class="scroll"><table><tr><th>Tipo</th><th>Qué copia</th><th>Ventajas</th><th>Desventajas</th><th>Para restaurar necesita</th></tr>
+<tr><td><b>Completa</b></td><td>Todos los datos seleccionados</td><td>Restauración simple y rápida</td><td>Mucho tiempo y espacio</td><td>Solo esa copia</td></tr>
+<tr><td><b>Incremental</b></td><td>Cambios desde la última copia (completa o incremental)</td><td>Rápida y ocupa poco espacio</td><td>Restauración más lenta; si falla un eslabón de la cadena, se compromete la recuperación</td><td>Completa + todos los incrementales</td></tr>
+<tr><td><b>Diferencial</b></td><td>Cambios desde la última completa</td><td>Restauración más sencilla que la incremental</td><td>Crece cada día; más espacio</td><td>Completa + último diferencial</td></tr>
+<tr><td><b>En la nube</b></td><td>Datos enviados a servidores remotos</td><td>Protege ante desastres locales; acceso remoto</td><td>Depende de internet, costos recurrentes, requiere revisar contrato y ubicación de datos</td><td>Acceso y credenciales</td></tr></table></div>
+<p><b>Ejemplo de esquema semanal:</b> completa el domingo, incrementales de lunes a sábado. Una alternativa: completa el domingo y diferenciales diarios. El esquema se elige según el RPO, el RTO y el espacio disponible.</p><h3 class="sub">5.3 Estrategias: regla 3-2-1, RPO y RTO</h3><div class="grid"><div class="k"><big>3</big>copias de los datos (original + 2 respaldos)</div><div class="k"><big>2</big>tipos de medio distintos (disco, cinta, nube)</div><div class="k"><big>1</big>copia fuera del sitio</div></div>
+<p>La regla 3-2-1, popularizada por el fotógrafo Peter Krogh, es una referencia ampliamente recomendada. Hoy se habla de la variante <b>3-2-1-1-0</b>: una copia adicional inmutable o desconectada (offline) y cero errores tras verificar la restauración. Las copias inmutables o aisladas son clave frente al ransomware, que suele intentar cifrar también los respaldos accesibles en la red.</p>
+<div class="box"><b class="t">Ejemplo en talento humano:</b> si la nómina se actualiza una vez al día, un RPO de 24 horas puede ser aceptable; si el pago es mañana, el RTO debe medirse en horas, no en días.</div><h3 class="sub">5.4 Software y medios de respaldo</h3><div class="scroll"><table><tr><th>Herramienta</th><th>Uso típico</th><th>Nota</th></tr>
+<tr><td>Windows: Historial de archivos / Copia de seguridad</td><td>Equipos individuales</td><td>Incluido en el sistema; funcionalidad básica</td></tr>
+<tr><td>EaseUS Todo Backup</td><td>Archivos, discos, clonación</td><td>Versión gratuita limitada; funciones avanzadas de pago</td></tr>
+<tr><td>Acronis Cyber Protect (antes True Image)</td><td>Imágenes de disco, nube y protección</td><td>Comercial</td></tr>
+<tr><td>Veeam Backup</td><td>Servidores y entornos virtuales</td><td>Comercial; edición comunitaria con límites</td></tr>
+<tr><td>NinjaOne Backup</td><td>Gestión de equipos y copias cifradas</td><td>Orientado a empresas y proveedores de TI</td></tr>
+<tr><td>Duplicati, Restic, Bacula</td><td>Respaldo de código abierto</td><td>Requiere mayor conocimiento técnico</td></tr>
+<tr><td>Google Drive, OneDrive, Dropbox</td><td>Almacenamiento y sincronización</td><td>Sirven como destino, pero la sincronización por sí sola no es backup</td></tr></table></div>
+<h4>Criterios de selección</h4>
+<p>Cifrado de extremo a extremo, programación automática, verificación de integridad, versionado, pruebas de restauración, escalabilidad, costo y soporte. Los medios más usados son discos externos, NAS, cinta y almacenamiento en nube.</p><h3 class="sub">5.5 Fases del proceso de backup</h3><ol><li><b>Identificar:</b> qué datos son críticos (nómina, contratos, historias laborales).</li><li><b>Definir:</b> RPO, RTO, retención, responsables y tipo de copia.</li><li><b>Ejecutar:</b> respaldo automático y programado, con cifrado.</li><li><b>Almacenar:</b> en medios y ubicaciones distintas (regla 3-2-1).</li><li><b>Verificar:</b> revisar registros y comprobar integridad.</li><li><b>Probar la restauración:</b> periódicamente, con evidencia documentada.</li><li><b>Mejorar:</b> actualizar el plan según incidentes y cambios.</li></ol>
+<p>Un respaldo que nunca se ha restaurado no está comprobado.</p></section>
+<section id="s6"><h2><span>06</span> Aplicación en talento humano</h2><div class="scroll"><table><tr><th>Información</th><th>Criticidad</th><th>Frecuencia sugerida</th><th>Cuidado especial</th></tr>
+<tr><td>Nómina y novedades</td><td>Alta</td><td>Diaria (y antes de cada cierre)</td><td>Cifrado y acceso limitado</td></tr>
+<tr><td>Historias laborales y contratos</td><td>Alta</td><td>Diaria o semanal</td><td>Retención legal</td></tr>
+<tr><td>Incapacidades y diagnósticos</td><td>Alta (dato sensible)</td><td>Diaria</td><td>Autorización y acceso restringido</td></tr>
+<tr><td>Registro de asistencia</td><td>Media</td><td>Diaria</td><td>Integridad de marcaciones</td></tr>
+<tr><td>Capacitaciones y evaluaciones</td><td>Media</td><td>Semanal</td><td>Versionado</td></tr></table></div>
+<p><b>Buenas prácticas:</b> asignar un responsable, automatizar, cifrar, separar credenciales del respaldo, probar la restauración cada trimestre, documentar el procedimiento y capacitar al personal en reconocimiento de correos fraudulentos.</p></section>
+<section id="s7"><h2><span>07</span> Marco normativo y estándares</h2><div class="scroll"><table><tr><th>Referencia</th><th>Aporte al respaldo de información</th></tr>
+<tr><td>Ley 1581 de 2012 (Colombia)</td><td>Régimen general de protección de datos personales. Exige medidas de seguridad para evitar pérdida, acceso no autorizado o adulteración; los datos de salud son sensibles.</td></tr>
+<tr><td>Ley 1273 de 2009 (Colombia)</td><td>Tipifica delitos contra la confidencialidad, integridad y disponibilidad de datos y sistemas.</td></tr>
+<tr><td>ISO/IEC 27001:2022, control 8.13</td><td>Información de respaldo: mantener y probar copias conforme a una política definida.</td></tr>
+<tr><td>NIST SP 800-34 Rev. 1</td><td>Guía de planes de contingencia para sistemas de información.</td></tr>
+<tr><td>NIST SP 800-184</td><td>Guía de recuperación tras eventos de ciberseguridad.</td></tr>
+<tr><td>CISA (EE. UU.)</td><td>Recomienda copias fuera de línea, cifradas y probadas como defensa ante ransomware.</td></tr></table></div>
+<div class="box warn"><b class="t">Importante:</b> las copias también contienen datos personales; deben tener acceso restringido, cifrado y una política de retención y eliminación. Verifique siempre la versión vigente de las normas antes de citarlas en un trabajo formal.</div></section>
+<section id="s8"><h2><span>08</span> Aplicación al caso Byteon</h2><div class="scroll"><table><tr><th>En la guía de Byteon</th><th>Equivalente real</th></tr>
+<tr><td>LucIA, guía del proceso</td><td>Automatizaciones: respaldos programados, alertas y reportes</td></tr>
+<tr><td>Capitana Dorian Gaiart, supervisa</td><td>Auditor o responsable de seguridad: revisa las pruebas de restauración</td></tr>
+<tr><td>Data Prime, líder de la civilización Neógena</td><td>Dueño del dato: define RPO, RTO, retención y accesos</td></tr>
+<tr><td>Quantumflux, asistencia eficiente</td><td>Software de backup y administrador de TI que ejecuta y vigila las copias</td></tr>
+<tr><td>Amenazas: fallos sistémicos, intrusiones, anomalías energéticas</td><td>Falla de hardware o software, ransomware y accesos indebidos, cortes de energía</td></tr>
+<tr><td>Neógenos</td><td>Usuarios cuyos datos deben protegerse</td></tr></table></div>
+<div class="box"><b class="t">Propuesta:</b> clasificar los datos de Byteon por criticidad, definir RPO y RTO con Data Prime, aplicar 3-2-1-1-0 con una copia cifrada fuera del sitio, programar los respaldos con LucIA, probar la restauración cada trimestre y entregar un informe a la Capitana Dorian Gaiart.</div></section>
+<section id="s9"><h2><span>09</span> Tendencias y retos</h2><ul><li><b>Copias inmutables y aisladas</b> como defensa frente al ransomware.</li><li><b>Backup como servicio (BaaS) y recuperación como servicio (DRaaS)</b> ofrecidos por proveedores de nube.</li><li><b>Detección de anomalías</b> con apoyo de inteligencia artificial, siempre con revisión humana.</li><li><b>Nube híbrida:</b> combinar disco local y nube para equilibrar velocidad y protección.</li><li><b>Privacidad:</b> respaldar sin ampliar el acceso a datos personales y sensibles.</li><li><b>Automatización de pruebas de restauración</b> para dejar evidencia periódica.</li></ul></section>
+<section id="s10"><h2><span>10</span> Análisis y observaciones</h2><ul><li>La guía base repite el texto en «Definición» y «Concepto»; basta una definición.</li><li>Las «fases» de la guía (recolección, registro, producción, almacenamiento y transmisión) describen el ciclo de vida de la información, no el proceso de backup; por eso se incluyen en la sección 5.5 las fases propias del respaldo.</li><li>Una herramienta como Google Drive es un destino útil, pero sincronizar no sustituye un backup versionado.</li><li>«Gratuito» en el software conlleva límites; conviene revisar licencias vigentes.</li></ul></section>
+<section id="s11"><h2><span>11</span> Conclusiones</h2><ul><li>El backup protege la continuidad del negocio y el cumplimiento legal, no solo los archivos.</li><li>Ningún tipo de copia es el mejor en todos los casos: se combinan según RPO, RTO y recursos.</li><li>La regla 3-2-1 (y su variante 3-2-1-1-0) reduce el riesgo de pérdida total.</li><li>Las pruebas de restauración son lo que demuestra que el respaldo funciona.</li><li>En talento humano, el respaldo debe proteger la confidencialidad de datos personales y sensibles.</li></ul></section>
+<section id="s12"><h2><span>12</span> Recomendaciones</h2><ol><li>Elaborar una política de copias de seguridad aprobada por la dirección.</li><li>Aplicar 3-2-1 con una copia aislada o inmutable.</li><li>Cifrar copias y controlar el acceso por roles.</li><li>Probar la restauración al menos cada trimestre y registrar el resultado.</li><li>Definir tiempos de retención y eliminación segura.</li><li>Capacitar al equipo de talento humano en seguridad de la información.</li></ol></section>
+<section id="s13"><h2><span>13</span> Glosario</h2><p><b>Ransomware:</b> software que cifra datos y exige un pago. <b>Inmutable:</b> copia que no puede modificarse ni borrarse durante un periodo. <b>NAS:</b> almacenamiento conectado a la red. <b>Imagen de disco:</b> copia exacta de un disco o sistema. <b>Restauración:</b> recuperación de datos desde una copia.</p></section>
+<section id="s14"><h2><span>14</span> Referencias</h2><ol class="ref">
+<li>Congreso de la República de Colombia. (2012). <i>Ley Estatutaria 1581 de 2012</i>, por la cual se dictan disposiciones generales para la protección de datos personales.</li>
+<li>Congreso de la República de Colombia. (2009). <i>Ley 1273 de 2009</i>, protección de la información y de los datos.</li>
+<li>ISO/IEC. (2022). <i>ISO/IEC 27001:2022. Information security management systems. Requirements</i> (Anexo A, control 8.13).</li>
+<li>Swanson, M., Bowen, P., Phillips, A. W., Gallup, D., &amp; Lynes, D. (2010). <i>Contingency Planning Guide for Federal Information Systems</i> (NIST SP 800-34 Rev. 1). NIST.</li>
+<li>Bartock, M., Cichonski, J., Souppaya, M., et al. (2016). <i>Guide for Cybersecurity Event Recovery</i> (NIST SP 800-184). NIST.</li>
+<li>CISA. <i>#StopRansomware Guide</i>. Cybersecurity and Infrastructure Security Agency.</li>
+<li>Krogh, P. (2009). <i>The DAM Book: Digital Asset Management for Photographers</i>. O’Reilly Media.</li>
+<li>SENA. (2025). <i>Retos del planeta Byteon 2: Reto No. 3, Copias de seguridad</i>. Técnico en Talento Humano.</li>
+</ol>
+<p style="color:var(--mut);font-size:.85rem">Nota: las fuentes se citan a partir de normas y guías técnicas conocidas; confirme edición, año y enlace vigente antes de entregar el trabajo.</p></section>
+<section id="s15"><h2><span>15</span> Anexo: ejercicios de cálculo</h2><div class="scroll"><table><tr><th>N.º</th><th>Enunciado</th><th>Respuesta</th></tr>
+<tr><td>1</td><td>Servidor de 200 GB con completa el domingo e incrementales de 10, 6, 8, 4 y 12 GB. ¿Espacio semanal?</td><td>200 + 40 = 240 GB</td></tr>
+<tr><td>2</td><td>Mismo caso con diferenciales acumulados (10, 16, 24, 28 y 40 GB).</td><td>200 + 118 = 318 GB</td></tr>
+<tr><td>3</td><td>Falla el viernes: ¿cuántas copias se restauran con incremental y con diferencial?</td><td>6 y 2</td></tr>
+<tr><td>4</td><td>RTO: restaurar 240 GB a 100 GB por hora.</td><td>240 ÷ 100 = 2,4 horas</td></tr>
+<tr><td>5</td><td>RPO: copia a las 11 p. m., falla a las 3 p. m. del día siguiente.</td><td>16 horas de datos en riesgo</td></tr>
+<tr><td>6</td><td>Pruebas de restauración: 11 exitosas de 12.</td><td>11 ÷ 12 = 91,7 %</td></tr></table></div></section>
+</main>
+<footer>Misión Byteon · Técnico en Talento Humano · Informe de investigación 2026</footer>
+</div></body></html>
