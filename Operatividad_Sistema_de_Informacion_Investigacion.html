@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Comprobación de la operatividad del sistema de información</title>
+<style>
+:root{--bg:#070b1a;--card:#0f1630;--ink:#e6ecff;--mut:#9aa7cf;--c1:#22d3ee;--c2:#8b5cf6;--c3:#f472b6;--ln:#26325f}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "Segoe UI",system-ui,Arial,sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.wrap{max-width:900px;margin:auto;padding:0 20px}
+.btn{position:fixed;right:18px;top:18px;z-index:9;background:linear-gradient(90deg,var(--c1),var(--c2));color:#fff;border:0;border-radius:30px;padding:11px 22px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px #8b5cf688}
+.cover{--bg:#070b1a;--card:#0f1630;--ink:#e6ecff;--mut:#9aa7cf;--c1:#22d3ee;--c2:#8b5cf6;--c3:#f472b6;--ln:#26325f;color:#e6ecff;min-height:100vh;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:60px 24px;background:radial-gradient(circle at 78% 18%,#8b5cf655 0,transparent 22%),radial-gradient(circle at 15% 80%,#22d3ee33 0,transparent 30%),radial-gradient(1px 1px at 20% 30%,#fff,transparent),radial-gradient(1.5px 1.5px at 70% 60%,#fff,transparent),radial-gradient(1px 1px at 40% 85%,#fff,transparent),radial-gradient(1px 1px at 90% 40%,#fff,transparent),var(--bg);border-bottom:4px solid var(--c1)}
+.tag{color:var(--c1);letter-spacing:.3em;font-size:.8rem;font-weight:700}
+.cover h1{font-size:2.5rem;line-height:1.15;margin:.5em 0;background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.cover p{color:var(--mut);max-width:620px;margin:.4em auto}
+.orb{width:120px;height:120px;border-radius:50%;margin:0 auto 28px;background:radial-gradient(circle at 35% 30%,#a78bfa,#4c1d95 60%,#0b1020);box-shadow:0 0 50px #8b5cf6aa;position:relative}
+.orb:after{content:"";position:absolute;left:-30px;right:-30px;top:50%;height:22px;border:2px solid var(--c1);border-radius:50%;transform:rotate(-18deg)}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:560px;margin:28px auto 0;text-align:left;font-size:.9rem}
+.meta div{border:1px solid var(--ln);background:var(--card);border-radius:8px;padding:8px 12px}.meta b{color:var(--c1)}
+section{padding:34px 0;border-bottom:1px solid var(--ln)}
+h2{font-size:1.6rem;margin:0 0 14px;color:var(--c1);border-left:6px solid var(--c2);padding-left:12px}
+h3{color:var(--c3);margin:20px 0 6px;font-size:1.15rem}
+h4{color:var(--c2);margin:14px 0 4px}
+.toc ol{columns:2;gap:30px;padding-left:20px}.toc a{color:var(--ink);text-decoration:none}.toc a:hover{color:var(--c1)}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.9rem}
+th{background:linear-gradient(90deg,#155e75,#5b21b6);color:#fff;text-align:left;padding:8px}
+td{border:1px solid var(--ln);padding:7px 8px;vertical-align:top;background:var(--card)}
+.box{background:var(--card);border:1px solid var(--ln);border-left:5px solid var(--c1);border-radius:8px;padding:12px 16px;margin:12px 0}
+.flow{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0}.flow span{color:#fff;flex:1;min-width:110px;text-align:center;padding:10px 4px;border-radius:8px;background:linear-gradient(135deg,#155e75,#5b21b6);font-weight:700;font-size:.85rem}
+.refs li{margin-bottom:8px;padding-left:1.6em;text-indent:-1.6em;list-style:none}
+footer{text-align:center;color:var(--mut);font-size:.8rem;padding:24px}
+@page{size:Letter;margin:14mm}
+@media print{:root{--bg:#fff;--card:#f5f7ff;--ink:#14132b;--mut:#374151;--c1:#0e7490;--c2:#5b21b6;--c3:#be185d;--ln:#b8c2ee}body{background:#fff;color:#14132b;font-size:15px}.btn{display:none}td,li,p{color:#14132b}h2{border-left-color:#5b21b6}.toc a{color:#14132b}footer{color:#374151}.cover{min-height:240mm;page-break-after:always}section{page-break-before:always;border:0}section.nb{page-break-before:auto}table,.box,tr,h2,h3{break-inside:avoid}h2,h3{break-after:avoid}.toc{page-break-after:always}}
+@media(max-width:600px){.toc ol{columns:1}.meta{grid-template-columns:1fr}.cover h1{font-size:1.8rem}}
+</style></head><body>
+<button class="btn" onclick="window.print()">🖨 Imprimir</button>
+
+<header class="cover">
+<div class="orb"></div>
+<div class="tag">MISIÓN BYTEON · RETO 2 · TÉCNICO EN TALENTO HUMANO</div>
+<h1>Comprobación de la operatividad del sistema de información</h1>
+<p>Recolección, registro, producción, almacenamiento y transmisión de la información: fundamentos, normas y método de verificación aplicados a la gestión del talento humano</p>
+<div class="meta">
+<div><b>Programa:</b> Técnico en Talento Humano</div><div><b>Competencia:</b> Operación de herramientas informáticas y digitales</div>
+<div><b>Tipo:</b> Documento de investigación</div><div><b>Fecha:</b> Octubre de 2026</div></div>
+</header>
+
+<div class="wrap">
+<section class="toc nb"><h2>Tabla de contenido</h2><ol>
+<li><a href="#s1">Resumen y palabras clave</a></li><li><a href="#s2">Introducción</a></li><li><a href="#s3">Planteamiento y objetivos</a></li><li><a href="#s4">Justificación</a></li><li><a href="#s5">Metodología</a></li><li><a href="#s6">Marco conceptual</a></li><li><a href="#s7">Marco teórico</a></li><li><a href="#s8">Marco normativo y estándares</a></li><li><a href="#s9">Etapas y comprobaciones</a></li><li><a href="#s10">Métodos de comprobación</a></li><li><a href="#s11">Caso aplicado: ausentismo</a></li><li><a href="#s12">Análisis y discusión</a></li><li><a href="#s13">Conclusiones</a></li><li><a href="#s14">Recomendaciones</a></li><li><a href="#s15">Glosario</a></li><li><a href="#s16">Referencias (APA 7)</a></li></ol></section>
+
+<section id="s1"><h2>1. Resumen y palabras clave</h2>
+<p>Un sistema de información solo sirve si opera: si captura datos correctos, los guarda sin alterarlos, los transforma en información útil, los conserva y los entrega a quien corresponde, en el momento oportuno y de forma segura. Este documento explica cómo se comprueba esa operatividad en cada etapa del ciclo de vida de la información, con apoyo en la Teoría General de Sistemas, la teoría de la información, el modelo de calidad de datos ISO/IEC 25012, los controles de seguridad de ISO/IEC 27002:2022 y la normatividad colombiana de protección de datos. Se cierra con un caso aplicado de ausentismo laboral y recomendaciones para el técnico en talento humano.</p>
+<p><b>Palabras clave:</b> sistema de información, operatividad, calidad de datos, seguridad de la información, protección de datos personales, talento humano.</p></section>
+
+<section id="s2"><h2>2. Introducción</h2>
+<p>Las áreas de talento humano manejan datos de alto valor y alta sensibilidad: identificación, contratos, asistencia, nómina, evaluaciones y, en ocasiones, datos de salud. Un error en la marcación de asistencia, una nómina calculada con datos incompletos o una hoja de cálculo enviada a la persona equivocada generan costos económicos, jurídicos y de confianza.</p>
+<p>La comprobación de la operatividad es la revisión planificada y repetible de que cada etapa del sistema cumple su función. Se apoya en cinco etapas: <b>recolección, registro, producción, almacenamiento y transmisión</b>. El documento desarrolla cada una con criterios verificables y ejemplos del trabajo cotidiano del técnico en talento humano.</p></section>
+
+<section id="s3"><h2>3. Planteamiento y objetivos</h2>
+<h3>3.1 Problema</h3>
+<p>Muchas organizaciones asumen que su sistema de información «funciona» mientras no se presentan fallas visibles; sin embargo, los errores silenciosos (datos duplicados, copias de respaldo sin probar, permisos excesivos) solo se detectan cuando ya causaron daño.</p>
+<p><b>Pregunta de investigación:</b> ¿qué aspectos deben comprobarse en cada etapa del ciclo de vida de la información para asegurar que un sistema de información de talento humano opera de manera exacta, segura y disponible?</p>
+<h3>3.2 Objetivos</h3>
+<div class="box"><b>General:</b> describir un procedimiento de comprobación de la operatividad de un sistema de información, basado en fuentes técnicas y normativas verificables, aplicable al proceso de talento humano.</div>
+<ul><li>Definir las cinco etapas del ciclo de vida de la información y sus criterios de comprobación.</li><li>Relacionar cada criterio con un estándar o norma reconocida.</li><li>Identificar métodos y técnicas de prueba aplicables en una organización pequeña o mediana.</li><li>Aplicar el procedimiento a un caso de cálculo de ausentismo.</li></ul></section>
+
+<section id="s4"><h2>4. Justificación</h2>
+<p>La Ley 1581 de 2012 obliga a quienes tratan datos personales a garantizar su seguridad, veracidad y circulación restringida; la Superintendencia de Industria y Comercio (SIC) vigila su cumplimiento y administra el Registro Nacional de Bases de Datos. Para el técnico en talento humano, saber comprobar la operatividad es una competencia laboral: permite detectar fallas antes de una auditoría, proteger a los trabajadores y producir indicadores confiables para decidir.</p></section>
+
+<section id="s5"><h2>5. Metodología</h2>
+<p>Investigación documental de tipo descriptivo. Se revisaron: (a) normas colombianas vigentes sobre datos personales, mensajes de datos y archivos; (b) estándares internacionales de calidad de datos y seguridad (ISO/IEC 25012, 25024, 27001 y 27002); (c) literatura académica sobre sistemas de información y calidad de datos; y (d) la guía «Retos del planeta Byteon – Reto 2». La información se organizó por etapa del ciclo de vida y se aplicó a un caso ilustrativo con datos ficticios.</p></section>
+
+<section id="s6"><h2>6. Marco conceptual</h2>
+<table><tr><th>Concepto</th><th>Definición</th><th>Ejemplo en talento humano</th></tr>
+<tr><td>Dato</td><td>Registro sin contexto.</td><td>«07:58 a. m.» en una marcación.</td></tr>
+<tr><td>Información</td><td>Datos organizados que responden una pregunta.</td><td>Ausentismo de Logística: 6 %.</td></tr>
+<tr><td>Conocimiento</td><td>Información interpretada que orienta una acción (Ackoff, 1989).</td><td>«Los turnos nocturnos elevan el ausentismo; revisar rotación».</td></tr>
+<tr><td>Sistema de información</td><td>Conjunto de personas, procesos, datos, software, hardware y redes que recolectan, procesan, almacenan y distribuyen información (Laudon &amp; Laudon, 2016).</td><td>Software de asistencia y nómina.</td></tr>
+<tr><td>Operatividad</td><td>Capacidad del sistema de cumplir su función de forma correcta, continua y segura.</td><td>El reporte mensual sale completo y a tiempo.</td></tr></table>
+<div class="flow"><span>CAPTURA</span><span>REGISTRO</span><span>PRODUCCIÓN</span><span>ALMACENAMIENTO</span><span>TRANSMISIÓN</span></div>
+<p>Los cinco componentes clásicos son hardware, software, datos, redes y personas; los procesos son lo que los articula.</p></section>
+
+<section id="s7"><h2>7. Marco teórico</h2>
+<h3>7.1 Teoría General de Sistemas</h3><p>Propuesta por von Bertalanffy (1968): un sistema es un conjunto de elementos interrelacionados que persiguen un fin. Aplicada aquí, la comprobación no revisa piezas aisladas sino también las interfaces entre ellas (por ejemplo, el paso de datos del lector biométrico a la base de datos).</p>
+<h3>7.2 Teoría de la información</h3><p>Shannon (1948) formalizó la comunicación como transmisión de mensajes por un canal con posible ruido. De ahí provienen las técnicas de detección de errores (sumas de verificación, CRC) que protegen la exactitud de la transmisión.</p>
+<h3>7.3 Calidad de los datos</h3><p>Wang y Strong (1996) demostraron que los usuarios entienden la calidad más allá de la exactitud: incluye relevancia, oportunidad y accesibilidad. ISO/IEC 25012:2008 la formaliza en 15 características, agrupadas en inherentes, dependientes del sistema o ambas (ISO, 2008).</p>
+<h3>7.4 Mejora continua</h3><p>El ciclo Planificar–Hacer–Verificar–Actuar (PHVA/PDCA) de Deming sustenta la idea de que la comprobación no es un evento único sino una rutina que retroalimenta el sistema.</p>
+<h3>7.5 Gobierno y gestión de TI</h3><p>COBIT 2019 (ISACA, 2018) y ITIL 4 (AXELOS, 2019) ofrecen prácticas para alinear los servicios de TI con los objetivos de la organización, gestionar riesgos y asegurar el desempeño de los servicios; DAMA-DMBOK2 (DAMA International, 2017) aporta el marco de gestión de datos.</p></section>
+
+<section id="s8"><h2>8. Marco normativo y estándares</h2>
+<table><tr><th>Norma o estándar</th><th>Aporte a la operatividad</th></tr>
+<tr><td>Ley 1581 de 2012 (Colombia)</td><td>Régimen general de protección de datos personales: principios (legalidad, finalidad, libertad, veracidad, transparencia, acceso restringido, seguridad y confidencialidad), datos sensibles y deberes de responsables y encargados. La SIC ejerce vigilancia y administra el RNBD.</td></tr>
+<tr><td>Decreto 1377 de 2013 (compilado en el Decreto 1074 de 2015)</td><td>Reglamenta parcialmente la Ley 1581: autorización, política de tratamiento y responsabilidad demostrada.</td></tr>
+<tr><td>Ley 527 de 1999</td><td>Reconoce validez jurídica a los mensajes de datos, firmas digitales y comercio electrónico: respalda los registros electrónicos como prueba.</td></tr>
+<tr><td>Ley 594 de 2000</td><td>Ley General de Archivos: organización, conservación y retención documental, incluida la de talento humano.</td></tr>
+<tr><td>ISO/IEC 25012:2008</td><td>Modelo de 15 características de calidad de datos: exactitud, completitud, consistencia, credibilidad, actualidad, accesibilidad, conformidad, confidencialidad, eficiencia, precisión, trazabilidad, comprensibilidad, disponibilidad, portabilidad y recuperabilidad.</td></tr>
+<tr><td>ISO/IEC 25024</td><td>Complementa la 25012 con medidas cuantitativas de calidad de datos.</td></tr>
+<tr><td>ISO/IEC 27001:2022 y 27002:2022</td><td>Sistema de gestión de seguridad de la información; 93 controles en cuatro temas (37 organizacionales, 8 de personas, 14 físicos y 34 tecnológicos) para proteger confidencialidad, integridad y disponibilidad.</td></tr></table>
+<p class="box">Los principios de la Ley 1581 y las características de ISO/IEC 25012 se complementan: la ley fija <i>qué</i> debe protegerse y <i>por qué</i>; los estándares indican <i>cómo</i> medirlo y controlarlo.</p></section>
+
+<section id="s9"><h2>9. Etapas del ciclo de vida y qué comprobar</h2>
+<h3>9.1 Recolección</h3><p>Captura de datos brutos desde personas, formularios, sensores o sistemas.</p>
+<table><tr><th>Criterio</th><th>Pregunta de control</th><th>Evidencia / prueba</th><th>Ejemplo TH</th></tr>
+<tr><td>Exactitud</td><td>¿El dato capturado es el real?</td><td>Muestreo contra fuente</td><td>Cédula digitada vs. documento</td></tr>
+<tr><td>Completitud</td><td>¿Están los campos obligatorios?</td><td>Validación de campos</td><td>Formulario de vinculación sin vacíos</td></tr>
+<tr><td>Conformidad legal</td><td>¿Hay autorización y finalidad?</td><td>Registro de consentimiento</td><td>Autorización de tratamiento firmada</td></tr></table>
+<h3>9.2 Registro</h3><p>Almacenamiento estructurado de lo recolectado en una base de datos o archivo.</p>
+<table><tr><th>Criterio</th><th>Pregunta de control</th><th>Evidencia / prueba</th><th>Ejemplo TH</th></tr>
+<tr><td>Validación</td><td>¿Se rechazan formatos inválidos?</td><td>Reglas, listas desplegables</td><td>Fecha de ingreso con formato dd/mm/aaaa</td></tr>
+<tr><td>Integridad</td><td>¿Se evitan duplicados y registros huérfanos?</td><td>Claves únicas, consultas de control</td><td>Un solo registro por empleado</td></tr>
+<tr><td>Trazabilidad</td><td>¿Se sabe quién cambió qué y cuándo?</td><td>Bitácoras (logs)</td><td>Historial de cambios de salario</td></tr></table>
+<h3>9.3 Producción</h3><p>Transformación de datos en información: cálculos, consultas, indicadores, informes.</p>
+<table><tr><th>Criterio</th><th>Pregunta de control</th><th>Evidencia / prueba</th><th>Ejemplo TH</th></tr>
+<tr><td>Exactitud del cálculo</td><td>¿La fórmula es correcta?</td><td>Recálculo manual de una muestra</td><td>Ausentismo = horas ausencia ÷ horas programadas × 100</td></tr>
+<tr><td>Integridad</td><td>¿Se usaron todos los datos?</td><td>Conciliar totales</td><td>Suma por áreas = total general</td></tr>
+<tr><td>Relevancia</td><td>¿Sirve para decidir?</td><td>Retroalimentación del usuario</td><td>Informe comparado con la meta</td></tr></table>
+<h3>9.4 Almacenamiento</h3><p>Conservación segura y accesible de la información para su uso futuro.</p>
+<table><tr><th>Criterio</th><th>Pregunta de control</th><th>Evidencia / prueba</th><th>Ejemplo TH</th></tr>
+<tr><td>Disponibilidad y recuperabilidad</td><td>¿Se puede restaurar una copia?</td><td>Prueba de restauración periódica</td><td>Restaurar la nómina del mes anterior</td></tr>
+<tr><td>Seguridad</td><td>¿Solo accede quien debe?</td><td>Revisión de roles y permisos</td><td>Historias laborales con acceso restringido</td></tr>
+<tr><td>Retención</td><td>¿Se conserva y elimina según la norma?</td><td>Tabla de retención documental</td><td>Eliminación de hojas de vida no seleccionadas</td></tr></table>
+<p>Buena práctica de respaldo: la regla 3-2-1 (tres copias, en dos tipos de medio, una fuera de sitio), difundida por Krogh (2009).</p>
+<h3>9.5 Transmisión</h3><p>Movimiento de información entre personas, sistemas o redes.</p>
+<table><tr><th>Criterio</th><th>Pregunta de control</th><th>Evidencia / prueba</th><th>Ejemplo TH</th></tr>
+<tr><td>Exactitud</td><td>¿Llegó sin alteraciones?</td><td>Sumas de verificación, conteo de registros</td><td>Archivo de nómina al banco coincide en totales</td></tr>
+<tr><td>Confidencialidad</td><td>¿Viaja cifrada?</td><td>HTTPS/TLS, contraseñas en adjuntos</td><td>Certificados laborales por canal seguro</td></tr>
+<tr><td>Oportunidad y fiabilidad</td><td>¿Llega a tiempo y sin caídas?</td><td>Medición de latencia y disponibilidad</td><td>Reporte de asistencia diario</td></tr></table></section>
+
+<section id="s10"><h2>10. Métodos y técnicas de comprobación</h2>
+<table><tr><th>Método</th><th>Qué verifica</th><th>Frecuencia sugerida</th></tr>
+<tr><td>Pruebas funcionales</td><td>Que cada función cumpla el requisito.</td><td>Al implementar o modificar</td></tr>
+<tr><td>Pruebas de rendimiento</td><td>Velocidad y estabilidad bajo carga.</td><td>Semestral o en picos (nómina)</td></tr>
+<tr><td>Pruebas de seguridad</td><td>Vulnerabilidades, permisos, cifrado.</td><td>Anual y tras cambios</td></tr>
+<tr><td>Auditoría de datos</td><td>Exactitud, integridad y consistencia por muestreo.</td><td>Mensual o trimestral</td></tr>
+<tr><td>Análisis de logs y monitoreo</td><td>Errores, accesos anómalos, disponibilidad.</td><td>Continuo</td></tr>
+<tr><td>Encuestas a usuarios</td><td>Usabilidad y utilidad percibida.</td><td>Semestral</td></tr>
+<tr><td>Prueba de restauración</td><td>Que las copias sirvan.</td><td>Trimestral</td></tr></table>
+<h3>Consideraciones organizacionales</h3><p>Definir responsables, políticas y procedimientos, capacitar al personal, fomentar la comunicación entre áreas y usar los hallazgos para mejorar. Sin roles claros, la comprobación se vuelve una tarea que nadie ejecuta.</p></section>
+
+<section id="s11"><h2>11. Caso aplicado: ausentismo en Byteon (datos ficticios)</h2>
+<p>Meta interna: ausentismo ≤ 5 %. Fórmula: horas de ausencia ÷ horas programadas × 100.</p>
+<table><tr><th>Área</th><th>Horas programadas</th><th>Horas de ausencia</th><th>Ausentismo</th><th>¿Cumple?</th></tr>
+<tr><td>Logística</td><td>1.600</td><td>96</td><td>6,0 %</td><td>No</td></tr>
+<tr><td>Mantenimiento</td><td>1.280</td><td>32</td><td>2,5 %</td><td>Sí</td></tr>
+<tr><td>Núcleo de datos</td><td>960</td><td>72</td><td>7,5 %</td><td>No</td></tr>
+<tr><td>Reclutamiento</td><td>640</td><td>16</td><td>2,5 %</td><td>Sí</td></tr>
+<tr><td><b>Total</b></td><td>4.480</td><td>216</td><td><b>4,8 %</b></td><td>Sí</td></tr></table>
+<p><b>Comprobación aplicada:</b> producción (conciliación 96 + 32 + 72 + 16 = 216 h y 1.600 + 1.280 + 960 + 640 = 4.480 h: coinciden); recolección (¿las marcaciones de Logística están completas?); almacenamiento (¿hay copia de la base de asistencia?); transmisión (¿el reporte llega solo a jefes autorizados?).</p></section>
+
+<section id="s12"><h2>12. Análisis y discusión</h2>
+<p>El total (4,8 %) cumple la meta, pero oculta que dos áreas la superan. Un promedio correcto puede ser engañoso: la operatividad no solo exige cálculos exactos, sino información <i>relevante</i> para decidir. Además, un indicador es tan confiable como los datos que lo originan: si la marcación falla, el cálculo exacto no corrige el error de origen. Si el informe se acompañara de diagnósticos médicos, sería un dato sensible (Ley 1581, art. 5) y su circulación debería restringirse al mínimo necesario.</p>
+<p>Los estándares coinciden en un punto: la calidad se gestiona, se mide y se documenta; no se supone.</p></section>
+
+<section id="s13"><h2>13. Conclusiones</h2>
+<ul><li>La operatividad se comprueba etapa por etapa, con criterios, pruebas y evidencias.</li><li>Exactitud, completitud, seguridad y disponibilidad son transversales a las cinco etapas.</li><li>La normatividad colombiana y los estándares ISO se complementan: obligación legal y método técnico.</li><li>Los resultados agregados pueden ocultar problemas; hay que analizar por segmento.</li><li>La comprobación es continua (PHVA) y requiere responsables definidos.</li></ul></section>
+
+<section id="s14"><h2>14. Recomendaciones</h2>
+<ul><li>Elaborar una lista de chequeo mensual con los criterios de la sección 9.</li><li>Probar la restauración de copias de seguridad al menos cada trimestre.</li><li>Revisar permisos de acceso a historias laborales y reportes con datos sensibles.</li><li>Registrar las bases de datos con datos personales ante el RNBD cuando la norma lo exija y mantener la política de tratamiento actualizada.</li><li>Reportar indicadores por área, no solo el total.</li></ul></section>
+
+<section id="s15"><h2>15. Glosario</h2>
+<table><tr><th>Término</th><th>Significado</th></tr>
+<tr><td>Bitácora (log)</td><td>Registro cronológico de eventos del sistema.</td></tr>
+<tr><td>CIA</td><td>Confidencialidad, integridad y disponibilidad.</td></tr>
+<tr><td>Dato sensible</td><td>Dato que afecta la intimidad del titular o cuyo uso indebido puede generar discriminación (salud, afiliación sindical, biométricos, etc.).</td></tr>
+<tr><td>RNBD</td><td>Registro Nacional de Bases de Datos, administrado por la SIC.</td></tr>
+<tr><td>Suma de verificación</td><td>Valor calculado para detectar alteraciones en datos transmitidos o almacenados.</td></tr>
+<tr><td>TLS/HTTPS</td><td>Protocolo que cifra la comunicación entre cliente y servidor.</td></tr></table></section>
+
+<section id="s16"><h2>16. Referencias (APA 7)</h2><ol class="refs" style="padding:0">
+<li>Ackoff, R. L. (1989). From data to wisdom. <i>Journal of Applied Systems Analysis, 16</i>, 3–9.</li>
+<li>AXELOS. (2019). <i>ITIL Foundation: ITIL 4 edition</i>. TSO.</li>
+<li>Congreso de la República de Colombia. (1999). <i>Ley 527 de 1999</i>. Diario Oficial.</li>
+<li>Congreso de la República de Colombia. (2000). <i>Ley 594 de 2000, Ley General de Archivos</i>. Diario Oficial.</li>
+<li>Congreso de la República de Colombia. (2012). <i>Ley Estatutaria 1581 de 2012, por la cual se dictan disposiciones generales para la protección de datos personales</i>. Diario Oficial 48.587.</li>
+<li>DAMA International. (2017). <i>DAMA-DMBOK: Data management body of knowledge</i> (2.ª ed.). Technics Publications.</li>
+<li>ISACA. (2018). <i>COBIT 2019 framework: Introduction and methodology</i>. ISACA.</li>
+<li>ISO/IEC. (2008). <i>ISO/IEC 25012:2008 Software engineering — Software product Quality Requirements and Evaluation (SQuaRE) — Data quality model</i>.</li>
+<li>ISO/IEC. (2022). <i>ISO/IEC 27002:2022 Information security, cybersecurity and privacy protection — Information security controls</i>.</li>
+<li>Krogh, P. (2009). <i>The DAM book: Digital asset management for photographers</i>. O’Reilly.</li>
+<li>Laudon, K. C., &amp; Laudon, J. P. (2016). <i>Management information systems: Managing the digital firm</i> (14.ª ed.). Pearson.</li>
+<li>Shannon, C. E. (1948). A mathematical theory of communication. <i>Bell System Technical Journal, 27</i>(3), 379–423.</li>
+<li>Superintendencia de Industria y Comercio. (s. f.). <i>Protección de datos personales y Registro Nacional de Bases de Datos</i>. https://www.sic.gov.co</li>
+<li>von Bertalanffy, L. (1968). <i>General system theory: Foundations, development, applications</i>. George Braziller.</li>
+<li>Wang, R. Y., &amp; Strong, D. M. (1996). Beyond accuracy: What data quality means to data consumers. <i>Journal of Management Information Systems, 12</i>(4), 5–33.</li></ol>
+<p style="color:var(--mut);font-size:.85rem">Nota: el caso de la sección 11 es un escenario ficticio de Byteon con fines didácticos. Verifique la vigencia de las normas antes de aplicarlas.</p></section>
+</div>
+<footer>Misión Byteon · Técnico en Talento Humano · Documento de investigación</footer>
+</body></html>

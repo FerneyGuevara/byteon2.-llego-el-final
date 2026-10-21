@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Verificación de la Información — analiza, explica y evalúa</title>
+  <title>Reto 4. Verificación de la Información</title>
   <style>
     :root {
       --navy: #14213D;
@@ -400,6 +400,175 @@
     .material-card:hover .material-btn {
       background: var(--teal);
       color: #FFFFFF;
+    }
+
+    /* ---------- Cuadros de Documentos con Previsualización (Introducción) ---------- */
+    .intro-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .intro-preview-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .doc-preview-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 12px;
+      padding: 22px 24px;
+      display: flex;
+      flex-direction: column;
+      border-left: 6px solid var(--teal);
+      box-shadow: 0 4px 16px rgba(20, 33, 61, 0.06);
+      transition: all 0.2s ease;
+    }
+
+    .doc-preview-card:hover {
+      box-shadow: 0 8px 24px rgba(20, 33, 61, 0.12);
+      border-color: var(--teal);
+    }
+
+    .doc-preview-card .card-header-row {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .doc-preview-card .card-icon {
+      font-size: 2.2rem;
+      line-height: 1;
+      flex: 0 0 auto;
+    }
+
+    .doc-preview-card .card-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .doc-preview-card .card-info h3 {
+      font-size: 1.15rem;
+      margin: 4px 0 6px;
+      color: var(--navy);
+    }
+
+    .doc-preview-card .card-info p {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      margin-bottom: 0;
+      line-height: 1.45;
+    }
+
+    .doc-actions-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 14px 0 16px;
+    }
+
+    .doc-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .doc-btn-primary {
+      background: var(--teal);
+      color: #FFFFFF;
+    }
+
+    .doc-btn-primary:hover {
+      background: var(--teal-dark);
+      color: #FFFFFF;
+    }
+
+    .doc-btn-secondary {
+      background: rgba(31, 122, 108, 0.1);
+      color: var(--teal);
+      border-color: rgba(31, 122, 108, 0.2);
+    }
+
+    .doc-btn-secondary:hover {
+      background: rgba(31, 122, 108, 0.18);
+      color: var(--teal-dark);
+    }
+
+    .doc-btn-print {
+      background: rgba(20, 33, 61, 0.08);
+      color: var(--navy);
+      border-color: rgba(20, 33, 61, 0.15);
+    }
+
+    .doc-btn-print:hover {
+      background: var(--navy);
+      color: #FFFFFF;
+    }
+
+    .doc-preview-container {
+      background: #F8FAFC;
+      border: 1px solid var(--border-cool);
+      border-radius: 8px;
+      overflow: hidden;
+      height: 480px;
+      box-shadow: inset 0 2px 6px rgba(20, 33, 61, 0.05);
+      flex: 1 1 auto;
+    }
+
+    .doc-preview-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* Tarjeta de documento en actividad presencial */
+    .presencial-material-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 12px;
+      padding: 22px 24px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      border-left: 6px solid var(--teal);
+      margin-top: 24px;
+      box-shadow: 0 4px 16px rgba(20, 33, 61, 0.06);
+      transition: all 0.2s ease;
+    }
+
+    .presencial-material-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(20, 33, 61, 0.12);
+      border-color: var(--teal);
+    }
+
+    /* ---------- Aduana Frame ---------- */
+    .aduana-wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .aduana-frame {
+      width: 100%;
+      min-height: 860px;
+      border: none;
+      background: transparent;
+      display: block;
     }
 
     main {
@@ -2220,7 +2389,7 @@
           parámetros</button><button data-section="informatica">Parámetros en los SI</button><button
           data-section="evaluador">Evaluador</button><button data-section="juego">Juego: clasifica</button><button
           data-section="dashboard">Dashboard</button><button data-section="fisica">Actividad presencial</button><button
-          data-section="mapamental">Mapa Mental</button>
+          data-section="mapamental">Mapa Mental</button><button data-section="aduana">Aduana</button>
       </nav>
     </div>
   </div>
@@ -2243,6 +2412,64 @@
         <div>
           <h3 style="font-size:1rem;margin-bottom:4px;">Ir directo a:</h3>
           <div class="quick-links" id="ql"></div>
+        </div>
+      </div>
+
+      <!-- Cuadros con previsualización, descarga, apertura e impresión de documentos -->
+      <div class="intro-preview-grid">
+        <!-- Cuadro Izquierdo: Verificacion_de_la_informacion_talento_humano.html -->
+        <div class="doc-preview-card">
+          <div class="card-header-row">
+            <div class="card-icon">🌐</div>
+            <div class="card-info">
+              <span class="tag">DOCUMENTO TÉCNICO COMPLEMENTARIO</span>
+              <h3>Verificación de la Información — Talento Humano</h3>
+              <p>Parámetros de calidad, modelos Wang &amp; Strong e ISO 25012, normativa colombiana (Ley 1581 de 2012) y
+                herramientas ofimáticas aplicadas.</p>
+            </div>
+          </div>
+          <div class="doc-actions-bar">
+            <a href="Verificacion_de_la_informacion_talento_humano.html" target="_blank"
+              class="doc-btn doc-btn-primary">Abrir documento ↗</a>
+            <a href="Verificacion_de_la_informacion_talento_humano.html"
+              download="Verificacion_de_la_informacion_talento_humano.html" class="doc-btn doc-btn-secondary">Descargar
+              ⬇</a>
+            <button type="button"
+              onclick="printExternalDoc('Verificacion_de_la_informacion_talento_humano.html', 'frameIntroHtml')"
+              class="doc-btn doc-btn-print">Imprimir 🖨️</button>
+          </div>
+          <div class="doc-preview-container">
+            <iframe id="frameIntroHtml" src="Verificacion_de_la_informacion_talento_humano.html"
+              class="doc-preview-frame"
+              title="Previsualización: Verificación de la Información en Talento Humano"></iframe>
+          </div>
+        </div>
+
+        <!-- Cuadro Derecho: Protocolo_Byteon_de_Verificación_de_Datos.pdf -->
+        <div class="doc-preview-card">
+          <div class="card-header-row">
+            <div class="card-icon">📊</div>
+            <div class="card-info">
+              <span class="tag">PRESENTACIÓN INSTITUCIONAL PDF</span>
+              <h3>Protocolo Byteon de Verificación de Datos</h3>
+              <p>Presentación técnica institucional sobre directrices, protocolos y estándares de validación de datos en
+                el planeta Byteon.</p>
+            </div>
+          </div>
+          <div class="doc-actions-bar">
+            <a href="Protocolo_Byteon_de_Verificaci%C3%B3n_de_Datos.pdf" target="_blank"
+              class="doc-btn doc-btn-primary">Abrir presentación ↗</a>
+            <a href="Protocolo_Byteon_de_Verificaci%C3%B3n_de_Datos.pdf"
+              download="Protocolo_Byteon_de_Verificación_de_Datos.pdf" class="doc-btn doc-btn-secondary">Descargar PDF
+              ⬇</a>
+            <button type="button"
+              onclick="printExternalDoc('Protocolo_Byteon_de_Verificaci%C3%B3n_de_Datos.pdf', 'frameIntroPdf')"
+              class="doc-btn doc-btn-print">Imprimir 🖨️</button>
+          </div>
+          <div class="doc-preview-container">
+            <iframe id="frameIntroPdf" src="Protocolo_Byteon_de_Verificaci%C3%B3n_de_Datos.pdf#toolbar=1&navpanes=0"
+              class="doc-preview-frame" title="Previsualización: Protocolo Byteon de Verificación de Datos"></iframe>
+          </div>
         </div>
       </div>
     </section>
@@ -2575,6 +2802,30 @@
         </ol>
         <button class="ghost print-btn" id="printBtn">🖨️ Imprimir caso, lista de chequeo y respuestas</button>
       </div>
+
+      <!-- Cuadro de Material de Apoyo para Actividad Presencial (Sin previsualización) -->
+      <div class="presencial-material-card">
+        <div class="material-icon">📑</div>
+        <div class="material-body">
+          <span class="tag">GUÍA Y DOCUMENTO OFICIAL</span>
+          <h3 style="font-size: 1.15rem; margin: 4px 0 6px; color: var(--navy);">Actividad: Auditores de datos —
+            Verificación de la información</h3>
+          <p style="font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 14px; line-height: 1.45;">
+            Guía oficial de actividad en formato PDF para los equipos de auditoría: contiene las bases de datos de
+            Nébula S.A.S., la lista de chequeo de los 11 parámetros y la hoja de respuestas para la sesión presencial.
+          </p>
+          <div class="doc-actions-bar" style="margin-bottom: 0;">
+            <a href="Actividad_Auditores_de_datos_Verificacion_de_la_informacion.pdf" target="_blank"
+              class="doc-btn doc-btn-primary">Abrir documento PDF ↗</a>
+            <a href="Actividad_Auditores_de_datos_Verificacion_de_la_informacion.pdf"
+              download="Actividad_Auditores_de_datos_Verificacion_de_la_informacion.pdf"
+              class="doc-btn doc-btn-secondary">Descargar PDF ⬇</a>
+            <button type="button"
+              onclick="printExternalDoc('Actividad_Auditores_de_datos_Verificacion_de_la_informacion.pdf')"
+              class="doc-btn doc-btn-print">Imprimir PDF 🖨️</button>
+          </div>
+        </div>
+      </div>
     </section>
     <section data-section="mapamental">
       <div class="mapamental-header">
@@ -2590,6 +2841,14 @@
           <div id="mapaBox"></div>
           <div class="mapa-zoom-overlay"><span>Clic para ampliar</span></div>
         </div>
+      </div>
+    </section>
+
+    <!-- ADUANA DE EVIDENCIAS BYTEON -->
+    <section data-section="aduana">
+      <div class="aduana-wrapper">
+        <iframe id="aduanaFrame" src="aduana.html" class="aduana-frame"
+          title="Aduana de Evidencias y Acumulador de NEXs"></iframe>
       </div>
     </section>
   </main>
@@ -2617,7 +2876,7 @@
         <div class="report-project-sub">
           <strong>FASES DEL PROYECTO:</strong> AN&Aacute;LISIS Y PLANEACI&Oacute;N &bull;
           <strong>PROGRAMA:</strong> T&Eacute;CNICO EN TALENTO HUMANO &bull;
-          <strong>RETO:</strong> 2. VERIFICACI&Oacute;N DE LA INFORMACI&Oacute;N
+          <strong>RETO:</strong> 4. VERIFICACI&Oacute;N DE LA INFORMACI&Oacute;N
         </div>
         <div class="report-ra">
           <strong>RESULTADOS DE APRENDIZAJE:</strong>
@@ -2740,7 +2999,7 @@
     PARAMS.forEach((p, i) => { document.getElementById('chips' + PG[i]).insertAdjacentHTML('beforeend', '<div class="ex-chip"><b>' + p[0] + ':</b> ' + p[1] + '</div>'); });
     const SI = [['Contenido', 'Modelo de datos y completitud de registros', 'Matriz de trazabilidad contra los requerimientos'], ['Vigencia', 'Marcas de tiempo, sincronización, retención', 'Probar fechas pasadas; evitar parámetros «quemados»'], ['Pertinencia', 'Consultas y filtros por rol', 'Pruebas de usuario (UAT)'], ['Oportunidad', 'Latencia y disponibilidad', 'Medir tiempos en DevTools › Network'], ['Coherencia', 'Integridad referencial', 'Cambiar un estado y revisarlo en todos los módulos'], ['Soporte', 'Logs, versiones y respaldos', 'Auditar quién, cuándo y por qué cambió'], ['Fuente', 'Entrada manual, sistemas heredados y APIs', 'Verificar endpoints oficiales (HTTPS) y validar entradas'], ['Cálculos', 'Algoritmos y reglas de negocio', 'Pruebas unitarias con casos extremos'], ['Recursos', 'Memoria, red y hosting', 'Pruebas de estrés y peso del código'], ['Alcance', 'Roles, permisos y escalabilidad', 'Intentar entrar con un rol inferior'], ['Difusión', 'Interfaces, reportes y APIs de salida', 'Probar diseño responsivo y exportaciones']];
     document.getElementById('siBody').innerHTML = SI.map(r => '<tr><td><b>' + r[0] + '</b></td><td>' + r[1] + '</td><td>' + r[2] + '</td></tr>').join('');
-    const QL = [['lucia', '🤖 LucIA — guía de inteligencia artificial'], ['principal', '📖 Material Principal — documento base (PDF)'], ['material', '📂 Material de apoyo — 5 documentos PDF'], ['tipos', '📚 Los 11 parámetros — tres grupos'], ['informatica', '💻 Parámetros en los SI — cómo validarlos'], ['evaluador', '🧭 Evaluador — 12 preguntas interactivas'], ['juego', '🎮 Juego — clasifica 12 casos'], ['dashboard', '📊 Dashboard — resultados y NEXs'], ['fisica', '✋ Actividad presencial — Auditores de Byteon'], ['mapamental', '🗺️ Mapa Mental — esquema de parámetros']];
+    const QL = [['lucia', '🤖 LucIA — guía de inteligencia artificial'], ['principal', '📖 Material Principal — documento base (PDF)'], ['material', '📂 Material de apoyo — 5 documentos PDF'], ['tipos', '📚 Los 11 parámetros — tres grupos'], ['informatica', '💻 Parámetros en los SI — cómo validarlos'], ['evaluador', '🧭 Evaluador — 12 preguntas interactivas'], ['juego', '🎮 Juego — clasifica 12 casos'], ['dashboard', '📊 Dashboard — resultados y NEXs'], ['fisica', '✋ Actividad presencial — Auditores de Byteon'], ['mapamental', '🗺️ Mapa Mental — esquema de parámetros'], ['aduana', '🚀 Aduana — entrega de evidencias y acumulación de NEXs']];
     document.getElementById('ql').innerHTML = QL.map(q => '<button data-goto="' + q[0] + '">' + q[1] + '</button>').join('');
 
     const ITEMS = [
@@ -2838,6 +3097,12 @@
       sections.forEach(s => s.classList.toggle('active', s.dataset.section === name));
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (name === 'dashboard') renderDashboard();
+      if (name === 'aduana') {
+        const frame = document.getElementById('aduanaFrame');
+        if (frame && (!frame.getAttribute('src') || frame.getAttribute('src') !== 'aduana.html')) {
+          frame.src = 'aduana.html';
+        }
+      }
     }
     tabButtons.forEach(b => b.addEventListener('click', () => goTo(b.dataset.section)));
     document.querySelectorAll('[data-goto]').forEach(b => {
@@ -3620,6 +3885,31 @@
       document.body.classList.remove('printing-cards');
       document.body.classList.remove('printing-report');
     });
+
+    // Función auxiliar para imprimir documentos externos (HTML o PDF)
+    function printExternalDoc(url, iframeId) {
+      if (iframeId) {
+        const frame = document.getElementById(iframeId);
+        if (frame && frame.contentWindow) {
+          try {
+            frame.contentWindow.focus();
+            frame.contentWindow.print();
+            return;
+          } catch (e) {
+            console.warn('Iframe print intercepted:', e);
+          }
+        }
+      }
+      const printWin = window.open(url, '_blank');
+      if (printWin) {
+        printWin.focus();
+        printWin.addEventListener('load', () => {
+          setTimeout(() => {
+            try { printWin.print(); } catch (_) { }
+          }, 350);
+        });
+      }
+    }
 
 
   </script>
