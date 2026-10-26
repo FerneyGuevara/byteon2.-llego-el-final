@@ -95,6 +95,72 @@
       </form>
 
       <div id="mensajeEnvioGen" style="margin-top:1.2rem; font-weight:bold;"></div>
+
+      <!-- ===================== MÓDULO NUEVO: ENTREGA DE TALLERES ===================== -->
+      <div id="bloqueTalleresByteon" style="margin-top:2rem; padding-top:1.6rem; border-top:2px dashed #C68A2E;">
+        <span style="font-family:monospace; font-size:0.75rem; color:#E9B949; letter-spacing:0.06em;">MÓDULO DE
+          TALLERES · BYTEON</span>
+        <h3 style="color:#FFFFFF; margin:6px 0 8px 0; font-size:1.2rem;">📝 Entrega de Talleres</h3>
+        <p style="font-size:0.9rem; color:#C9D3E6; margin-bottom:1.4rem;">
+          Algunos retos tienen 3 talleres (Básico, Intermedio y Avanzado). Cada taller que tu instructor apruebe suma
+          <strong><span id="txtBonoTaller">5.000</span> NEXs</strong> a tu acumulado.
+        </p>
+
+        <form id="formTallerByteon" onsubmit="enviarTaller(event)">
+          <label style="display:block; margin-bottom:0.4rem; font-weight:bold; color:#E9B949;">1. Selecciona tu
+            Nombre:</label>
+          <select id="selectAprendizTaller" onchange="mostrarEstadoTalleres()"
+            style="width:100%; padding:0.8rem; margin-bottom:0.8rem; border-radius:8px; background:#0A1628; color:#fff; border:1px solid #C68A2E;"
+            required>
+            <option value="">Cargando aprendices...</option>
+          </select>
+
+          <div id="panelEstadoTaller"
+            style="display:none; background:#1C2D52; border:1px solid #C68A2E; padding:1rem; border-radius:10px; margin-bottom:1.2rem; font-size:0.88rem; color:#C9D3E6; line-height:1.7;">
+          </div>
+
+          <label style="display:block; margin-bottom:0.4rem; font-weight:bold; color:#E9B949;">2. PIN Secreto (4
+            dígitos):</label>
+          <input type="password" id="inputPinTaller" placeholder="Ej: 1234"
+            style="width:100%; padding:0.8rem; margin-bottom:1.2rem; border-radius:8px; background:#0A1628; color:#fff; border:1px solid #C68A2E; box-sizing:border-box;"
+            required />
+
+          <label style="display:block; margin-bottom:0.4rem; font-weight:bold; color:#E9B949;">3. ¿De qué reto es el
+            taller?</label>
+          <select id="selectRetoTaller"
+            style="width:100%; padding:0.8rem; margin-bottom:0.8rem; border-radius:8px; background:#0A1628; color:#fff; border:1px solid #C68A2E;"
+            required>
+          </select>
+
+          <label style="display:block; margin-bottom:0.4rem; font-weight:bold; color:#E9B949;">4. Nivel del
+            taller:</label>
+          <select id="selectNivelTaller"
+            style="width:100%; padding:0.8rem; margin-bottom:0.8rem; border-radius:8px; background:#0A1628; color:#fff; border:1px solid #C68A2E;"
+            required>
+          </select>
+
+          <label style="display:block; margin-bottom:0.4rem; font-weight:bold; color:#E9B949;">5. Adjunta tu
+            taller:</label>
+          <input type="file" id="inputArchivoTaller"
+            accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.png,.jpg,.jpeg,.zip"
+            style="width:100%; padding:0.8rem; margin-bottom:0.4rem; border-radius:8px; background:#0A1628; color:#fff; border:1px solid #C68A2E; box-sizing:border-box;" />
+          <div style="font-size:0.78rem; color:#9FB3D6; margin-bottom:0.8rem;">PDF, Word, Excel, PowerPoint, imagen o
+            ZIP. Máximo <span id="txtMaxMbTaller">10</span> MB.</div>
+
+          <label style="display:block; margin-bottom:0.4rem; font-weight:bold; color:#E9B949;">6. ...o pega un enlace
+            (Google Docs, Canva, etc.):</label>
+          <input type="url" id="inputEnlaceTaller" placeholder="https://..."
+            style="width:100%; padding:0.8rem; margin-bottom:1.2rem; border-radius:8px; background:#0A1628; color:#fff; border:1px solid #C68A2E; box-sizing:border-box;" />
+
+          <button type="submit" id="btnEnviarTaller"
+            style="background:linear-gradient(135deg,#1F7A6C,#155A50); color:#fff; border:none; padding:0.95rem; border-radius:8px; width:100%; font-weight:bold; cursor:pointer; font-size:1rem; box-shadow:0 4px 12px rgba(31,122,108,0.35);">
+            Enviar Taller a mi Drive
+          </button>
+        </form>
+
+        <div id="mensajeEnvioTaller" style="margin-top:1.2rem; font-weight:bold;"></div>
+      </div>
+      <!-- =================== FIN MÓDULO NUEVO: ENTREGA DE TALLERES =================== -->
     </div>
 
     <script>
@@ -332,6 +398,191 @@
         new ResizeObserver(() => notificarAltura()).observe(document.body);
       }
     </script>
+
+    <!-- ===================== MÓDULO NUEVO: SCRIPT DE TALLERES ===================== -->
+    <script>
+      // Este bloque es independiente del flujo de reportes. Reutiliza URL_APLICACION_WEB del script de arriba.
+      // Retos que tienen talleres. El texto es opcional: el tema del reto (ej: "Procesador de texto").
+      const RETOS_CON_TALLER = { 1: "", 2: "", 3: "" };
+      const NIVELES_TALLER = ["Básico", "Intermedio", "Avanzado"];
+      const NEX_POR_TALLER = 5000;
+      const MAX_MB_TALLER = 10;
+
+      let listaAprendicesTaller = [];
+
+      function textoEstadoTaller(estado) {
+        if (estado === "Aprobado") return "✅ Aprobado";
+        if (estado === "Pendiente") return "⏳ En revisión";
+        if (estado === "Ajustar") return "🔁 Por ajustar";
+        return "▫️ Sin entregar";
+      }
+
+      function etiquetaRetoTaller(n) {
+        const tema = RETOS_CON_TALLER[n];
+        return "Reto " + n + (tema ? " — " + tema : "");
+      }
+
+      function iniciarModuloTaller() {
+        document.getElementById("txtBonoTaller").textContent = NEX_POR_TALLER.toLocaleString("es-CO");
+        document.getElementById("txtMaxMbTaller").textContent = MAX_MB_TALLER;
+
+        const selReto = document.getElementById("selectRetoTaller");
+        selReto.innerHTML = '<option value="">-- Selecciona el reto --</option>';
+        Object.keys(RETOS_CON_TALLER).forEach(n => {
+          const opt = document.createElement("option");
+          opt.value = n;
+          opt.textContent = etiquetaRetoTaller(n);
+          selReto.appendChild(opt);
+        });
+
+        const selNivel = document.getElementById("selectNivelTaller");
+        selNivel.innerHTML = '<option value="">-- Selecciona el nivel --</option>';
+        NIVELES_TALLER.forEach(nv => {
+          const opt = document.createElement("option");
+          opt.value = nv;
+          opt.textContent = "Taller " + nv;
+          selNivel.appendChild(opt);
+        });
+
+        cargarAprendicesTaller();
+      }
+
+      async function cargarAprendicesTaller() {
+        try {
+          const res = await fetch(URL_APLICACION_WEB);
+          listaAprendicesTaller = await res.json();
+          const select = document.getElementById("selectAprendizTaller");
+          if (!select) return;
+          select.innerHTML = '<option value="">-- Selecciona tu nombre --</option>';
+          listaAprendicesTaller.forEach(ap => {
+            const opt = document.createElement("option");
+            opt.value = ap.fila;
+            opt.textContent = ap.nombre;
+            select.appendChild(opt);
+          });
+        } catch (e) {
+          console.error("Error cargando lista de aprendices (talleres):", e);
+        }
+      }
+
+      function mostrarEstadoTalleres() {
+        const fila = document.getElementById("selectAprendizTaller").value;
+        const panel = document.getElementById("panelEstadoTaller");
+        const aprendiz = listaAprendicesTaller.find(a => String(a.fila) === String(fila));
+        if (!aprendiz) {
+          panel.style.display = "none";
+          return;
+        }
+        const talleres = aprendiz.talleres || {};
+        let html = "<strong style='color:#E9B949;'>📋 Estado de tus talleres</strong>";
+        Object.keys(RETOS_CON_TALLER).forEach(n => {
+          const delReto = talleres[n] || {};
+          const aprobados = NIVELES_TALLER.filter(nv => delReto[nv] === "Aprobado").length;
+          html += "<div style='margin-top:6px;'><strong>" + etiquetaRetoTaller(n) + "</strong>" +
+            (aprobados ? " <span style='color:#00D68F;'>" + (aprobados === NIVELES_TALLER.length ? "🏆 " : "") + "+" + (aprobados * NEX_POR_TALLER).toLocaleString("es-CO") + " NEXs</span>" : "") +
+            "<br>" +
+            NIVELES_TALLER.map(nv => nv + ": " + textoEstadoTaller(delReto[nv])).join(" &nbsp;·&nbsp; ") +
+            "</div>";
+        });
+        panel.innerHTML = html;
+        panel.style.display = "block";
+      }
+
+      function leerArchivoBase64Taller(archivo) {
+        return new Promise((resolve, reject) => {
+          const lector = new FileReader();
+          lector.onload = () => resolve(lector.result.split(",")[1]);
+          lector.onerror = () => reject(new Error("No se pudo leer el archivo"));
+          lector.readAsDataURL(archivo);
+        });
+      }
+
+      async function enviarTaller(e) {
+        e.preventDefault();
+        const fila = document.getElementById("selectAprendizTaller").value;
+        const pin = document.getElementById("inputPinTaller").value;
+        const numReto = document.getElementById("selectRetoTaller").value;
+        const nivel = document.getElementById("selectNivelTaller").value;
+        const archivo = document.getElementById("inputArchivoTaller").files[0];
+        const enlace = document.getElementById("inputEnlaceTaller").value.trim();
+        const btn = document.getElementById("btnEnviarTaller");
+        const msg = document.getElementById("mensajeEnvioTaller");
+
+        msg.style.color = "#ff6b6b";
+        msg.textContent = "";
+
+        if (!numReto || !nivel) {
+          msg.textContent = "❌ Selecciona el reto y el nivel del taller.";
+          return;
+        }
+        if (!archivo && !enlace) {
+          msg.textContent = "❌ Adjunta el archivo del taller o pega un enlace.";
+          return;
+        }
+        if (archivo && archivo.size > MAX_MB_TALLER * 1024 * 1024) {
+          msg.textContent = "❌ El archivo supera los " + MAX_MB_TALLER + " MB. Comprímelo o pega un enlace.";
+          return;
+        }
+        if (enlace && !/^https?:\/\//i.test(enlace)) {
+          msg.textContent = "❌ El enlace debe empezar por http:// o https://";
+          return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = "Subiendo taller a Drive...";
+
+        try {
+          const base64 = archivo ? await leerArchivoBase64Taller(archivo) : "";
+          const paquete = {
+            tipo: "taller",
+            fila: Number(fila),
+            pin: pin,
+            numReto: Number(numReto),
+            nivel: nivel,
+            nombreArchivo: archivo ? archivo.name : "",
+            tipoMime: archivo ? archivo.type : "",
+            archivoBase64: base64,
+            enlace: enlace
+          };
+
+          const respuesta = await fetch(URL_APLICACION_WEB, {
+            method: "POST",
+            body: JSON.stringify(paquete)
+          });
+          const resultado = await respuesta.json();
+
+          if (resultado.exito) {
+            msg.style.color = "#00D68F";
+            msg.innerHTML = `
+              <div style="background:#0A1628; border:1px solid #00D68F; padding:1rem; border-radius:10px;">
+                <div style="font-size:1.05rem; margin-bottom:0.5rem;">${resultado.mensaje}</div>
+                <div>📝 <strong>Taller:</strong> ${etiquetaRetoTaller(numReto)} · ${nivel}</div>
+                <div>⏳ <strong>Estado:</strong> En revisión por tu instructor</div>
+              </div>
+            `;
+            document.getElementById("formTallerByteon").reset();
+            await cargarAprendicesTaller();
+            document.getElementById("selectAprendizTaller").value = fila;
+            mostrarEstadoTalleres();
+          } else {
+            msg.textContent = resultado.mensaje;
+          }
+        } catch (err) {
+          console.error(err);
+          msg.textContent = "Error de conexión con el servidor.";
+        } finally {
+          btn.disabled = false;
+          btn.textContent = "Enviar Taller a mi Drive";
+        }
+      }
+
+      if (document.readyState === "loading") {
+        window.addEventListener("DOMContentLoaded", iniciarModuloTaller);
+      } else {
+        iniciarModuloTaller();
+      }
+    </script>
+    <!-- =================== FIN MÓDULO NUEVO: SCRIPT DE TALLERES =================== -->
   </section>
 </body>
 
