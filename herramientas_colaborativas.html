@@ -474,32 +474,40 @@
       display: block;
     }
 
-    .talleres-title-row {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
+    .material-card.nivel-intermedio {
+      border-left-color: var(--gold);
     }
 
-    .talleres-exercise-card {
-      flex: 0 0 auto;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 14px;
+    .material-card.nivel-intermedio:hover {
+      border-color: var(--gold);
     }
 
-    .talleres-exercise-card .material-icon {
-      font-size: 1.5rem;
+    .material-card.nivel-intermedio .material-btn {
+      color: var(--gold-dark);
+      background: rgba(198, 138, 46, 0.12);
     }
 
-    .talleres-exercise-card .material-body h3 {
-      margin: 0 0 5px;
-      font-size: 1rem;
+    .material-card.nivel-intermedio:hover .material-btn {
+      background: var(--gold);
+      color: #FFFFFF;
     }
 
-    .talleres-exercise-card .material-btn {
-      padding: 5px 10px;
-      font-size: 0.78rem;
+    .material-card.nivel-avanzado {
+      border-left-color: var(--coral);
+    }
+
+    .material-card.nivel-avanzado:hover {
+      border-color: var(--coral);
+    }
+
+    .material-card.nivel-avanzado .material-btn {
+      color: var(--coral-dark);
+      background: rgba(214, 91, 74, 0.12);
+    }
+
+    .material-card.nivel-avanzado:hover .material-btn {
+      background: var(--coral);
+      color: #FFFFFF;
     }
 
     main {
@@ -2430,7 +2438,8 @@
             <button data-goto="principal">📖 Material Principal — Herramientas web de trabajo colaborativo
               (PDF)</button>
             <button data-goto="material">📂 Material de apoyo — 4 documentos de referencia en PDF</button>
-            <button data-goto="talleres">&#128221; Talleres &mdash; Taller Herramientas Colaborativas (PDF)</button>
+            <button data-goto="talleres">&#128221; Talleres &mdash; 3 niveles de complejidad (B&aacute;sico, Intermedio,
+              Avanzado)</button>
             <button data-goto="tipos">📚 Tipos de herramientas — comunicación, gestión, almacenamiento</button>
             <button data-goto="informatica">💼 Aplicación en Talento Humano — funciones, seguridad y criterios</button>
             <button data-goto="evaluador">🧭 Evaluador — preguntas tomadas del material, con veredicto</button>
@@ -2634,38 +2643,54 @@
 
     <!-- TALLERES -->
     <section data-section="talleres">
-      <div class="pdf-viewer-header">
-        <div>
-          <span class="tag">ACTIVIDAD Y RETOS &bull; TALLERES</span>
-          <div class="talleres-title-row">
-            <h2 style="font-size:1.5rem;margin:4px 0 6px;">Talleres &mdash; Herramientas Colaborativas</h2>
-            <a href="Manual de Creación Masiva de Portafolios en Drive.pdf"
-              download="Manual de Creación Masiva de Portafolios en Drive.pdf"
-              class="material-card talleres-exercise-card"
-              aria-label="Descargar Manual de Creación Masiva de Portafolios en Drive">
-              <span class="material-icon">&#128196;</span>
-              <div class="material-body">
-                <h3>Ejercicio</h3>
-                <span class="material-btn">Descargar &#x2193;</span>
-              </div>
-            </a>
+      <span class="tag">ACTIVIDAD Y RETOS &bull; TALLERES</span>
+      <h2 style="font-size:1.5rem;margin:4px 0 6px;">Talleres &mdash; Herramientas Colaborativas</h2>
+      <p style="color:var(--ink-soft);margin-bottom:16px;">Selecciona el nivel de complejidad del taller que deseas
+        consultar o descargar. Tres niveles progresivos aplicados a la gesti&oacute;n del talento humano en Byteon.</p>
+
+      <div class="material-grid" style="margin-bottom: 28px;">
+        <!-- NIVEL 01: BÁSICO -->
+        <a href="Talleres herramientas colaborativas.pdf" download="Talleres herramientas colaborativas.pdf"
+          class="material-card" id="tallerCardBasico" title="Descargar documento Talleres herramientas colaborativas">
+          <div class="material-icon" aria-hidden="true">&#128196;</div>
+          <div class="material-body">
+            <span class="tag">NIVEL 01 &bull; B&Aacute;SICO</span>
+            <h3>Talleres herramientas colaborativas</h3>
+            <p>Gu&iacute;a de talleres pr&aacute;cticos con herramientas de Google (Drive, Docs, Sheets, Forms y Slides)
+              para optimizar y centralizar los procesos de talento humano.</p>
+            <span class="material-btn">Descargar PDF &#x2193;</span>
           </div>
-          <p style="color:var(--ink-soft);margin-bottom:0;">Gu&iacute;a de talleres pr&aacute;cticos y retos
-            colaborativos. Documento siempre visible para su lectura y disponible para descarga.</p>
-        </div>
-        <div class="pdf-actions">
-          <a href="Talleres herramientas colaborativas.pdf" target="_blank" class="pdf-btn-open">Abrir en ventana nueva
-            &#x2197;</a>
-          <a href="Talleres herramientas colaborativas.pdf" download="Talleres herramientas colaborativas.pdf"
-            class="pdf-btn-dl">Descargar PDF &#x2193;</a>
-        </div>
-      </div>
-      <div class="pdf-container">
-        <iframe src="Talleres herramientas colaborativas.pdf#toolbar=1&navpanes=0" class="pdf-frame"
-          title="Talleres herramientas colaborativas PDF">
-          <p>Tu navegador no permite previsualizar el PDF embebido. <a href="Talleres herramientas colaborativas.pdf"
-              target="_blank">Haz clic aqu&iacute; para abrirlo</a>.</p>
-        </iframe>
+        </a>
+
+        <!-- NIVEL 02: INTERMEDIO -->
+        <a href="Creacion_Masiva_de_Carpetas_Retos_Byteon.pdf" download="Creacion_Masiva_de_Carpetas_Retos_Byteon.pdf"
+          class="material-card nivel-intermedio" id="tallerCardIntermedio"
+          title="Descargar Taller Nivel Intermedio — Creación Masiva de Carpetas">
+          <div class="material-icon" aria-hidden="true">&#128196;</div>
+          <div class="material-body">
+            <span class="tag" style="background:rgba(198,138,46,0.15);color:var(--gold-dark);">NIVEL 02 &bull;
+              INTERMEDIO</span>
+            <h3>Taller Nivel Intermedio &mdash; Creaci&oacute;n Masiva de Carpetas</h3>
+            <p>Creaci&oacute;n masiva y automatizada de carpetas en la nube con Excel, Consola CMD, asistentes de IA y
+              Google Apps Script para aprendices.</p>
+            <span class="material-btn">Descargar PDF &#x2193;</span>
+          </div>
+        </a>
+
+        <!-- NIVEL 03: AVANZADO -->
+        <a href="Herramientas_Colaborativas_AVANZADO.pdf" download="Herramientas_Colaborativas_AVANZADO.pdf"
+          class="material-card nivel-avanzado" id="tallerCardAvanzado"
+          title="Descargar Taller Nivel Avanzado — Microsoft 365">
+          <div class="material-icon" aria-hidden="true">&#128196;</div>
+          <div class="material-body">
+            <span class="tag" style="background:rgba(214,91,74,0.15);color:var(--coral-dark);">NIVEL 03 &bull;
+              AVANZADO</span>
+            <h3>Taller Nivel Avanzado &mdash; Microsoft 365</h3>
+            <p>Ecosistema Microsoft 365: Teams, OneDrive, SharePoint, Calendario, Outlook, Forms y Planner aplicados a
+              la coordinaci&oacute;n y tareas de talento humano.</p>
+            <span class="material-btn">Descargar PDF &#x2193;</span>
+          </div>
+        </a>
       </div>
     </section>
 
